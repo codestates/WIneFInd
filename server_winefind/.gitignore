@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 /src/main/resources/https/localhost.p12
 /src/main/resources/application.properties
-
+.DS_Store
 ### STS ###
 .apt_generated
 .classpath
