@@ -5,7 +5,7 @@ localhost p12 파일을 https에 넣어주세요!
 server.address=localhost
 server.port=4000
 
-server.ssl.key-store=classpath:localhost.p12
+server.ssl.key-store=classpath:./https/localhost.p12
 server.ssl.key-store-type=PKCS12
 server.ssl.key-store-password=changeit
 
