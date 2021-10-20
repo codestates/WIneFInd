@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 1000px;
 }
 
 .main {
@@ -107,8 +108,8 @@
 }
 
 .logo {
-  height: 1em;
-  margin-left: 0.5rem;
+  width: 60px;
+  height: 60px;
 }
 
 @media (max-width: 600px) {
@@ -116,4 +117,8 @@
     width: 100%;
     flex-direction: column;
   }
+}
+
+.menubar {
+  background-color: #0070f3;
 }

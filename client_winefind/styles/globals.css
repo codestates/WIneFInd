@@ -13,4 +13,19 @@ a {
 
 * {
   box-sizing: border-box;
+  background-image: linear-gradient(
+    to right bottom,
+    #bb1c76,
+    #ab2c88,
+    #973997,
+    #7e45a3,
+    #604eaa,
+    #4a5cb4,
+    #2f69ba,
+    #0074bd,
+    #0088c3,
+    #0099bc,
+    #00a8ae,
+    #21b59b
+  );
 }
