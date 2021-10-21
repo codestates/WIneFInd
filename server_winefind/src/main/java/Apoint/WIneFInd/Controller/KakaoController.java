@@ -14,7 +14,7 @@ public class KakaoController {
 
     KakaoAPI kakaoApi = new KakaoAPI();
 
-    @RequestMapping(value="/login")
+    @RequestMapping(value="/loginaa")
     public ModelAndView login(@RequestParam("code") String code, HttpSession session) {
         ModelAndView mav = new ModelAndView();
         // 1번 인증코드 요청 전달
@@ -33,7 +33,7 @@ public class KakaoController {
         return mav;
     }
 
-    @RequestMapping(value="/logout")
+    @RequestMapping(value="/logoutaa")
     public ModelAndView logout(HttpSession session) {
         ModelAndView mav = new ModelAndView();
 
