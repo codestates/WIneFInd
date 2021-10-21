@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Top.module.css";
 import { useRouter } from "next/dist/client/router";
 import { Menu, Segment, Icon } from "semantic-ui-react";
 
@@ -12,7 +12,9 @@ function Top() {
     activeItem = "learning";
   } else if (router.pathname === "/test") {
     activeItem = "test";
-  } else if (router.pathname === "/index") {
+  } else if (router.pathname === "/board") {
+    activeItem = "logout";
+  } else if (router.pathname === "/logout") {
     activeItem = "logout";
   }
 
@@ -23,6 +25,8 @@ function Top() {
       router.push("/learning");
     } else if (data.name === "test") {
       router.push("/test");
+    } else if (data.name === "board") {
+      router.push("/board");
     } else if (data.name === "logout") {
       router.push("/index");
     }
@@ -33,7 +37,8 @@ function Top() {
       <div className={styles.top_container}>
         <div style={{ display: "flex", marginLeft: "60px", fontSize: "35px" }}>
           <img className={styles.logo} src="/images/logo.png" />
-          &nbsp;&nbsp;<h1>WIne FInd</h1>
+          &nbsp;&nbsp;
+          <h2 style={{ fontFamily: "Raleway" }}>WIne FInd</h2>
         </div>
         <Segment inverted style={{ backgroundColor: "transparent" }}>
           <Menu
@@ -66,6 +71,13 @@ function Top() {
               onClick={goLink}
             >
               <p style={{ fontWeight: "bold" }}>나만의 와인 셀러</p>
+            </Menu.Item>
+            <Menu.Item
+              name="board"
+              active={activeItem === "board"}
+              onClick={goLink}
+            >
+              <p style={{ fontWeight: "bold" }}>우리들의 와인 셀러</p>
             </Menu.Item>
             <Menu.Item
               name="logout"
