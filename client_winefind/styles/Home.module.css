@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
 
 .container {
   display: flex;
@@ -24,10 +24,11 @@
 
 .top_container {
   display: flex;
-  margin: 40px 20px;
-  font-family: "Raleway", sans-serif !important ;
+  padding: 40px 20px;
+  font-family: 'Raleway', sans-serif !important ;
   color: white;
   justify-content: space-between;
+  background-color: transparent;
 }
 .footer_container {
   width: 100%;
@@ -68,7 +69,7 @@
 
 .box {
   font-size: 15vh;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: white;
 }
 
