@@ -14,6 +14,18 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "https_cert.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "https_cert.js",
+    "components/Top.js",
+    "pages/user.js",
+    "pages/index.js",
+    "pages/learning.js",
+    "pages/test.js",
+    "components/Footer.js",
+    "pages/_app.js"
+  ],
   "exclude": ["node_modules"]
 }
