@@ -1,5 +1,5 @@
-import styles from '../styles/Home.module.css';
-import Login from '../components/Login';
+import styles from "../styles/Home.module.css";
+import Login from "../components/Login";
 const inquiry = () => {
   return (
     <>
