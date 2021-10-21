@@ -1,6 +1,8 @@
 import styles from '../styles/Home.module.css';
+import React, { useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 import { Menu, Segment, Icon } from 'semantic-ui-react';
+import Login from './Login';
 
 function Top() {
   const router = useRouter();
