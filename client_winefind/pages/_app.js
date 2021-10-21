@@ -6,7 +6,6 @@ import Top from "../components/Top";
 function MyApp({ Component, pageProps }) {
   return (
     <div>
-      <Top />
       <Component {...pageProps} />
       <Footer />
     </div>
