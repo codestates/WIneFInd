@@ -1,7 +1,12 @@
-import styles from '../styles/Home.module.css';
+import styles from "../styles/Home.module.css";
+import Sidebar from "../components/Sidebar";
 //마이페이지
 const user = () => {
-  return <></>;
+  return (
+    <>
+      <Sidebar />
+    </>
+  );
 };
 
 export default user;

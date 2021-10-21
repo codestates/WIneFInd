@@ -1,5 +1,7 @@
-import '../styles/globals.css';
-import 'semantic-ui-css/semantic.min.css';
+import "../styles/globals.css";
+import "semantic-ui-css/semantic.min.css";
+import Footer from "../components/Footer";
+import Home from "./index";
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -8,6 +10,5 @@ function MyApp({ Component, pageProps }) {
       <Footer />
     </div>
   );
-
 }
 export default MyApp;
