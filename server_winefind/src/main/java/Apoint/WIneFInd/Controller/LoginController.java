@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin("*")
 public class LoginController {
 
     private final LoginService loginService;
@@ -28,23 +28,24 @@ public class LoginController {
 
     //    회원가입 API
     @PostMapping(value = "/signup")
-    private ResponseEntity<?> UserSignUp(@RequestBody SignupDTO signupDTO, HttpServletResponse response) {
+    public ResponseEntity<?> UserSignUp(@RequestBody(required = true) SignupDTO signupDTO, HttpServletResponse response) {
 
         //        SignupDTO 에 맞는 형식으로 아이디 생성후 DB에 저장
-        Users users = loginService.CreateUser(signupDTO);
-        Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
+        Users user = loginService.CreateUser(signupDTO);
+        Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(user));
         response.addCookie(cookie);
 
-        return ResponseEntity.ok().body("회원가입이 성공적으로 완료되었습니다.");
+        return ResponseEntity.ok().body("회원가입이 완료되었습니다");
     }
 
+//    로그인 API
     @PostMapping(value = "/login")
     private ResponseEntity<?> UserLogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
         try {
 //        Users 에 같은 이메일로 가입되어 있는 이메일이 있는지 체크
             Users users = loginService.FindByEmail(loginDTO.getEmail());
 
-            Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
+                Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
             response.addCookie(cookie);
 
             return ResponseEntity.ok().body(new HashMap<>() {{
@@ -57,6 +58,17 @@ public class LoginController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
         }
+    }
+
+//    로그아웃 API
+    @PostMapping(value = "/logout")
+    public ResponseEntity<?> UserSignOut(HttpServletResponse response) {
+//        해당쿠키에서 "winefind" 키 값을 가진 쿠키를 찾고 제거
+
+        Cookie cookie = new Cookie("winefind", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        return ResponseEntity.ok().body("Logged out successfully");
     }
 
     //    현재 로그인 중인지를 판별!

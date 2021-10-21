@@ -15,7 +15,7 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+    private long id;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
@@ -24,11 +24,9 @@ public class Users {
     private String password;
     @Column(nullable = false)
     private String userImage;
-
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
-
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
