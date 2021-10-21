@@ -1,11 +1,12 @@
-import styles from "../styles/Home.module.css";
-import Head from "next/head";
-import classNames from "classnames";
-import Top from "../components/Top";
+import styles from '../styles/Home.module.css';
+import Head from 'next/head';
+import classNames from 'classnames';
+import Login from '../components/Login';
 
 const Home = () => {
   return (
     <div className={styles.container}>
+
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
@@ -49,6 +50,7 @@ const Home = () => {
               nd
             </div>
           </div>
+
         </div>
         <div className={styles.right_image}>
           <img height="50%" src="images/Background3.jpg"></img>

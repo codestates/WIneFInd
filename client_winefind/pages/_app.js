@@ -1,7 +1,7 @@
-import styles from "../styles/Home.module.css";
-import "semantic-ui-css/semantic.min.css";
-import Footer from "../components/Footer";
-import Top from "../components/Top";
+import styles from '../styles/Home.module.css';
+import 'semantic-ui-css/semantic.min.css';
+import Footer from '../components/Footer';
+import Top from '../components/Top';
 
 function MyApp({ Component, pageProps }) {
   return (

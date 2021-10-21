@@ -1,3 +1,4 @@
+
 @import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap");
 .mainpage_container {
@@ -12,6 +13,7 @@
     #fbeaff
   );
 }
+
 
 .container {
   display: flex;
@@ -33,7 +35,9 @@
 
 .intro_message {
   display: flex;
+
   border: 5px aqua solid;
+
   display: flex;
   width: 50%;
   flex-direction: column;
@@ -101,7 +105,7 @@
 
 .box {
   font-size: 15vh;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   color: white;
 }
 
@@ -254,4 +258,56 @@
   100% {
     opacity: 1;
   }
+}
+
+/*--------- model CSS --------*/
+body.active_modal {
+  overflow-y: hidden;
+}
+
+.btn_modal {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+  background-color: rgb(188, 131, 235);
+  border-color: lightgrey;
+  color: white;
+}
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-y: hidden;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modal_contents {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 300px;
+  align-content: center;
+}
+
+.close_modal {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  padding: 5px 7px;
+  cursor: pointer;
 }
