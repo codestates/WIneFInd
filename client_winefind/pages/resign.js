@@ -11,7 +11,6 @@ const resign = () => {
       <div className={styles.container} style={{ textAlign: "center" }}>
         이 페이지는 탈뢰 하는 곳
       </div>
-      <Footer />
     </>
   );
 };

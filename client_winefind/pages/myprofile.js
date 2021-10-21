@@ -11,7 +11,6 @@ const myprofile = () => {
       <div className={styles.container} style={{ textAlign: "center" }}>
         이 페이지는 내 정보 수정 하는 곳
       </div>
-      <Footer />
     </>
   );
 };
