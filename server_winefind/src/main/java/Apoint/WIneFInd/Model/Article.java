@@ -3,7 +3,6 @@ package Apoint.WIneFInd.Model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Getter
 @Setter
@@ -11,23 +10,22 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class Users {
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column(nullable = false)
-    private String email;
+    private String title;
     @Column(nullable = false)
-    private String nickname;
+    private String comment;
     @Column(nullable = false)
-    private String password;
+    private String image;
     @Column(nullable = false)
-    private String userImage;
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
-    @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date updatedAt;
+    private Boolean recommended;
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
+
 }
