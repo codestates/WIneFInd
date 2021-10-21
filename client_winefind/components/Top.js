@@ -31,38 +31,41 @@ function Top() {
   return (
     <>
       <div className={styles.top_container}>
-        <img className={styles.logo} src='/images/logo.png' />
-        &nbsp;&nbsp;<h1>WIne FInd</h1>
-        <Segment
-          inverted
-          style={{ marginLeft: '45rem', backgroundColor: 'transparent' }}
-        >
+        <div style={{ display: 'flex', marginLeft: '60px', fontSize: '35px' }}>
+          <img className={styles.logo} src='/images/logo.png' />
+          &nbsp;&nbsp;<h1>WIne FInd</h1>
+        </div>
+        <Segment inverted style={{ backgroundColor: 'transparent' }}>
           <Menu
-            inverted
             pointing
             secondary
-            style={{ borderColor: 'transparent' }}
+            inverted
+            style={{
+              borderColor: 'transparent',
+              marginRight: '60px',
+              fontSize: '18px',
+            }}
           >
             <Menu.Item
               name='learning'
               active={activeItem === 'learning'}
               onClick={goLink}
             >
-              와인 배우기
+              <p style={{ fontWeight: 'bold' }}>와인 배우기</p>
             </Menu.Item>
             <Menu.Item
               name='test'
               active={activeItem === 'test'}
               onClick={goLink}
             >
-              와인 취향 테스트
+              <p style={{ fontWeight: 'bold' }}>와인 취향 테스트</p>
             </Menu.Item>
             <Menu.Item
               name='user'
               active={activeItem === 'user'}
               onClick={goLink}
             >
-              나만의 와인 셀러
+              <p style={{ fontWeight: 'bold' }}>나만의 와인 셀러</p>
             </Menu.Item>
             <Menu.Item
               name='logout'
@@ -70,7 +73,7 @@ function Top() {
               onClick={goLink}
             >
               <Icon name='log out' />
-              Logout
+              <p style={{ fontWeight: 'bold' }}>Logout</p>
             </Menu.Item>
           </Menu>
         </Segment>
