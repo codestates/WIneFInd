@@ -1,14 +1,14 @@
-import Footer from '../components/Footer';
-import Top from '../components/Top';
 import styles from '../styles/Home.module.css';
+import Head from 'next/head';
 
 const Home = () => {
   return (
-    <>
-      <Top />
-      <div className={styles.container}>First Page</div>
-      <Footer />
-    </>
+    <div className={styles.container}>
+      <Head>
+        <title>Wine Find</title>
+      </Head>
+      First Page
+    </div>
   );
 };
 
