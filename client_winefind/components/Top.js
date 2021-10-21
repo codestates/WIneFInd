@@ -1,6 +1,8 @@
+
 import styles from '../styles/Home.module.css';
 import { useRouter } from 'next/dist/client/router';
 import { Menu, Segment, Icon } from 'semantic-ui-react';
+
 
 function Top() {
   const router = useRouter();
@@ -29,6 +31,7 @@ function Top() {
   }
 
   return (
+
     <Segment inverted style={{ backgroundColor: 'purple' }}>
       <Menu
         inverted
@@ -36,6 +39,10 @@ function Top() {
         secondary
         style={{ marginLeft: '70rem', borderColor: 'purple' }}
       >
+        <div className={styles.top_container}>
+      <img className={styles.logo} src="/images/logo.png" />
+      &nbsp;&nbsp;<h1>WIne FInd</h1>
+    </div>
         <Menu.Item
           name='learning'
           active={activeItem === 'learning'}
