@@ -49,11 +49,11 @@ public class LoginRepository {
     }
 
     //    유저 아이디 선택해서 찾기
-//    public List<Users> findById(long id) {
-//
-//        return entityManager.createQuery("SELECT u FROM Users u WHERE u.email '" + id + "'", Users.class).getResultList();
-//
-//    }
+    public List<Users> findById(long id) {
+
+        return entityManager.createQuery("SELECT u FROM Users u WHERE u.email '" + id + "'", Users.class).getResultList();
+
+    }
 
     public List<Users> findByEmail(String email) {
         // DB service_user 테이블에 매개변수 email과 일치하는 유저 정보를 리턴합니다.
@@ -61,28 +61,28 @@ public class LoginRepository {
     }
 
     //    유저 아이디를 이용하여 업데이트
-//    public Users Update(Users users) {
-//        Users updateUser = findById(users.getId()).get(0);
-//
-//        Date now = new Date();
-//        updateUser.setEmail(users.getEmail());
-//        updateUser.setNickname(users.getNickname());
-//        updateUser.setPassword(users.getPassword());
-//        updateUser.setUserImage(users.getUserImage());
-//        updateUser.setCreatedAt(now);
-//        updateUser.setCreatedAt(now);
-//
-//        entityManager.persist(updateUser);
-//        entityManager.flush();
-//        entityManager.close();
-//
-//        return updateUser;
-//    }
-//
-//    //    유저 아이디를 이용하여 삭제
-//    public void Delete(long id) {
-//        Users users = findById(id).get(0);
-//        entityManager.remove(users);
-//        entityManager.close();
-//    }
+    public Users Update(Users users) {
+        Users updateUser = findById(users.getId()).get(0);
+
+        Date now = new Date();
+        updateUser.setEmail(users.getEmail());
+        updateUser.setNickname(users.getNickname());
+        updateUser.setPassword(users.getPassword());
+        updateUser.setUserImage(users.getUserImage());
+        updateUser.setCreatedAt(now);
+        updateUser.setCreatedAt(now);
+
+        entityManager.persist(updateUser);
+        entityManager.flush();
+        entityManager.close();
+
+        return updateUser;
+    }
+
+    //    유저 아이디를 이용하여 삭제
+    public void Delete(long id) {
+        Users users = findById(id).get(0);
+        entityManager.remove(users);
+        entityManager.close();
+    }
 }

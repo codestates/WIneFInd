@@ -42,24 +42,24 @@ public class LoginService {
         return loginRepository.findAll();
     }
 
-//    //   id로 유저 아이디 찾기
-//    public Users FindById(long id) {
-//        return loginRepository.findById(id).get(0);
-//    }
+    //   id로 유저 아이디 찾기
+    public Users FindById(long id) {
+        return loginRepository.findById(id).get(0);
+    }
 
     public Users FindByEmail(String email) {
         return loginRepository.findByEmail(email).get(0);
     }
 
-//    //    id를 이용해 유저 업데이트 하기
-//    public Users UpdateUser(Users users) {
-//        return loginRepository.Update(users);
-//    }
-//
-//    //    id를 이용해 유저 삭제 하기
-//    public void DeleteUser(long id) {
-//        loginRepository.Delete(id);
-//    }
+    //    id를 이용해 유저 업데이트 하기
+    public Users UpdateUser(Users users) {
+        return loginRepository.Update(users);
+    }
+
+    //    id를 이용해 유저 삭제 하기
+    public void DeleteUser(long id) {
+        loginRepository.Delete(id);
+    }
 
     //    JWT 토큰 만들기
     public String CreateJWTToken(Users user) {
