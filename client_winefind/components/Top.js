@@ -1,8 +1,6 @@
-
 import styles from '../styles/Home.module.css';
 import { useRouter } from 'next/dist/client/router';
 import { Menu, Segment, Icon } from 'semantic-ui-react';
-
 
 function Top() {
   const router = useRouter();
@@ -31,41 +29,53 @@ function Top() {
   }
 
   return (
-
-    <Segment inverted style={{ backgroundColor: 'purple' }}>
-      <Menu
-        inverted
-        pointing
-        secondary
-        style={{ marginLeft: '70rem', borderColor: 'purple' }}
-      >
-        <div className={styles.top_container}>
-      <img className={styles.logo} src="/images/logo.png" />
-      &nbsp;&nbsp;<h1>WIne FInd</h1>
-    </div>
-        <Menu.Item
-          name='learning'
-          active={activeItem === 'learning'}
-          onClick={goLink}
+    <>
+      <div className={styles.top_container}>
+        <img className={styles.logo} src='/images/logo.png' />
+        &nbsp;&nbsp;<h1>WIne FInd</h1>
+        <Segment
+          inverted
+          style={{ marginLeft: '45rem', backgroundColor: 'transparent' }}
         >
-          와인 배우기
-        </Menu.Item>
-        <Menu.Item name='test' active={activeItem === 'test'} onClick={goLink}>
-          와인 취향 테스트
-        </Menu.Item>
-        <Menu.Item name='user' active={activeItem === 'user'} onClick={goLink}>
-          나만의 와인 셀러
-        </Menu.Item>
-        <Menu.Item
-          name='logout'
-          active={activeItem === 'logout'}
-          onClick={goLink}
-        >
-          <Icon name='log out' />
-          Logout
-        </Menu.Item>
-      </Menu>
-    </Segment>
+          <Menu
+            inverted
+            pointing
+            secondary
+            style={{ borderColor: 'transparent' }}
+          >
+            <Menu.Item
+              name='learning'
+              active={activeItem === 'learning'}
+              onClick={goLink}
+            >
+              와인 배우기
+            </Menu.Item>
+            <Menu.Item
+              name='test'
+              active={activeItem === 'test'}
+              onClick={goLink}
+            >
+              와인 취향 테스트
+            </Menu.Item>
+            <Menu.Item
+              name='user'
+              active={activeItem === 'user'}
+              onClick={goLink}
+            >
+              나만의 와인 셀러
+            </Menu.Item>
+            <Menu.Item
+              name='logout'
+              active={activeItem === 'logout'}
+              onClick={goLink}
+            >
+              <Icon name='log out' />
+              Logout
+            </Menu.Item>
+          </Menu>
+        </Segment>
+      </div>
+    </>
   );
 }
 
