@@ -14,7 +14,7 @@ import java.util.Date;
 public class Users {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
     private String email;
@@ -23,7 +23,7 @@ public class Users {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private String userImage;
+    private String image;
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

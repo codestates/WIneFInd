@@ -31,7 +31,7 @@ public class LoginRepository {
         user.setEmail(signupDTO.getEmail());
         user.setPassword(signupDTO.getPassword());
         user.setNickname(signupDTO.getNickname());
-        user.setUserImage("resources/default.jpeg");
+        user.setImage("resources/default.jpeg");
         user.setUpdatedAt(now);
         user.setCreatedAt(now);
 
@@ -49,11 +49,14 @@ public class LoginRepository {
     }
 
     //    유저 아이디 선택해서 찾기
-    public List<Users> findById(long id) {
-
-        return entityManager.createQuery("SELECT u FROM Users u WHERE u.email '" + id + "'", Users.class).getResultList();
-
+    public Users findById(long id) {
+        List<Users> list = entityManager
+                .createQuery("SELECT user FROM Users as user WHERE user.id='" + id + "'", Users.class)
+                .getResultList();
+        entityManager.close();
+        return list.get(0);
     }
+
 
     public List<Users> findByEmail(String email) {
         // DB service_user 테이블에 매개변수 email과 일치하는 유저 정보를 리턴합니다.
@@ -61,14 +64,15 @@ public class LoginRepository {
     }
 
     //    유저 아이디를 이용하여 업데이트
-    public Users Update(Users users) {
-        Users updateUser = findById(users.getId()).get(0);
+    public void Update(Users users) {
 
+        Users updateUser = findById(users.getId());
         Date now = new Date();
+
         updateUser.setEmail(users.getEmail());
         updateUser.setNickname(users.getNickname());
         updateUser.setPassword(users.getPassword());
-        updateUser.setUserImage(users.getUserImage());
+        updateUser.setImage(users.getImage());
         updateUser.setCreatedAt(now);
         updateUser.setCreatedAt(now);
 
@@ -76,12 +80,11 @@ public class LoginRepository {
         entityManager.flush();
         entityManager.close();
 
-        return updateUser;
     }
 
     //    유저 아이디를 이용하여 삭제
     public void Delete(long id) {
-        Users users = findById(id).get(0);
+        Users users = findById(id);
         entityManager.remove(users);
         entityManager.close();
     }
