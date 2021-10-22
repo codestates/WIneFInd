@@ -1,12 +1,11 @@
-import styles from '../styles/Home.module.css';
-import Head from 'next/head';
-import classNames from 'classnames';
-import Login from '../components/Login';
+import styles from "../styles/Home.module.css";
+import Head from "next/head";
+import classNames from "classnames";
+import Login from "../components/Login";
 
 const Home = () => {
   return (
     <div className={styles.container}>
-
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
@@ -27,6 +26,7 @@ const Home = () => {
             WIne FInd와 함께라면, 여러분은 더이상 와린이가 아닙니다.
             <br />
             <br /> 바로 시작해보세요!
+            <Login />
           </div>
           <div className={classNames(styles.logo_effect, styles.goToPosition)}>
             <div className={classNames(styles.box, styles.fade_in_box)}>WI</div>
@@ -50,7 +50,6 @@ const Home = () => {
               nd
             </div>
           </div>
-
         </div>
         <div className={styles.right_image}>
           <img height="50%" src="images/Background3.jpg"></img>
