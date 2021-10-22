@@ -1,16 +1,16 @@
-import styles from '../styles/Home.module.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'semantic-ui-css/semantic.min.css';
-import Footer from '../components/Footer';
-import Top from '../components/Top';
-import { Icon } from 'semantic-ui-react';
-import React, { useState, useEffect } from 'react';
+import styles from "../styles/Home.module.css";
+import "bootstrap/dist/css/bootstrap.css";
+import "semantic-ui-css/semantic.min.css";
+import Footer from "../components/Footer";
+import Top from "../components/Top";
+import { Icon } from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
 
 function MyApp({ Component, pageProps }) {
   const [showButton, setShowButton] = useState(false);
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       if (window.pageYOffset > 300) {
         setShowButton(true);
       } else {
@@ -34,8 +34,8 @@ function MyApp({ Component, pageProps }) {
         <div className={styles.gototop}>
           <Icon
             onClick={scrollToTop}
-            name='arrow alternate circle up'
-            size='huge'
+            name="arrow alternate circle up"
+            size="huge"
           />
         </div>
       )}
