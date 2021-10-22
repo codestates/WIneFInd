@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 import { Icon, Button } from 'semantic-ui-react';
 
@@ -18,11 +18,16 @@ const Login = () => {
     }
   };
 
-  // if (modal) {
-  //   document.body.classList.add('active-modal');
-  // } else {
-  //   document.body.classList.remove('active-modal');
-  // }
+  //scroll 방지 함수
+  if (modal === true) {
+    useEffect(() => {
+      document.body.style.overflowY = 'hidden';
+    });
+  } else {
+    useEffect(() => {
+      document.body.style.overflowY = 'scroll';
+    });
+  }
 
   return (
     <>

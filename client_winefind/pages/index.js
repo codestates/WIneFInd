@@ -6,6 +6,10 @@ import Login from "../components/Login";
 const Home = () => {
   return (
     <div className={styles.container}>
+<<<<<<< HEAD
+=======
+      <Login />
+>>>>>>> a564f5d88610a56892cea930acf1ea85f2c60b30
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
@@ -52,7 +56,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.right_image}>
-          <img height="50%" src="images/Background3.jpg"></img>
+          <img height='50%' src='images/Background3.jpg'></img>
         </div>
       </div>
       <div className={styles.learn_container}>
