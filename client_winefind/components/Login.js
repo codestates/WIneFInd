@@ -25,6 +25,7 @@ const Login = ({ changeLogin, toggleModal }) => {
       });
     toggleModal();
   };
+
   return (
     <div className={styles.modal_contents}>
       <div className={styles.signup_container}>
