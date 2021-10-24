@@ -2,10 +2,33 @@ import styles from "../styles/Top.module.css";
 import { useRouter } from "next/dist/client/router";
 import { Menu, Segment, Icon } from "semantic-ui-react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import LoginModal from "./LoginModal";
+import LoginModalForm from "./LoginModalForm";
 
 function Top() {
+  const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
   let activeItem;
+
+  const checkLogin = () => {
+    axios
+      .get("https://localhost:4000/auth", { withCredentials: true })
+      .then((res) => {
+        setIsLogin(() => true);
+        console.log("islogin?", isLogin);
+        console.log("auth:", res.data);
+      })
+      .catch((e) => {
+        setIsLogin(() => false);
+        console.log("isLogin", isLogin);
+        console.log("error:", e);
+      });
+  };
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   const handleLogout = () => {
     axios
@@ -36,14 +59,12 @@ function Top() {
   }
 
   function goLink(e, data) {
-    if (data.name === "user") {
-      router.push("/user");
-    } else if (data.name === "learning") {
-      router.push("/learning");
+    if (data.name === "mall") {
+      router.push("/mall");
     } else if (data.name === "test") {
       router.push("/test");
-    } else if (data.name === "board") {
-      router.push("/board");
+    } else if (data.name === "user") {
+      router.push("/user");
     } else if (data.name === "logout") {
       router.push("/index");
     }
@@ -69,11 +90,11 @@ function Top() {
             }}
           >
             <Menu.Item
-              name="learning"
-              active={activeItem === "learning"}
+              name="mall"
+              active={activeItem === "mall"}
               onClick={goLink}
             >
-              <p style={{ fontWeight: "bold" }}>와인 배우기</p>
+              <p style={{ fontWeight: "bold" }}>와인 몰</p>
             </Menu.Item>
             <Menu.Item
               name="test"
@@ -82,6 +103,7 @@ function Top() {
             >
               <p style={{ fontWeight: "bold" }}>와인 취향 테스트</p>
             </Menu.Item>
+
             <Menu.Item
               name="user"
               active={activeItem === "user"}
@@ -89,23 +111,26 @@ function Top() {
             >
               <p style={{ fontWeight: "bold" }}>나만의 와인 셀러</p>
             </Menu.Item>
-            <Menu.Item
-              name="board"
-              active={activeItem === "board"}
-              onClick={goLink}
-            >
-              <p style={{ fontWeight: "bold" }}>우리들의 와인 셀러</p>
-            </Menu.Item>
-            <Menu.Item
-              name="logout"
-              active={activeItem === "logout"}
-              onClick={goLink}
-            >
-              <Icon name="log out" />
-              <p onClick={handleLogout} style={{ fontWeight: "bold" }}>
-                Logout
-              </p>
-            </Menu.Item>
+            {isLogin ? (
+              <Menu.Item
+                name="logout"
+                active={activeItem === "logout"}
+                onClick={goLink}
+              >
+                <Icon name="log out" />
+                <p onClick={handleLogout} style={{ fontWeight: "bold" }}>
+                  Logout
+                </p>
+              </Menu.Item>
+            ) : (
+              <Menu.Item
+                name="login"
+                active={activeItem === "login"}
+                onClick={goLink}
+              >
+                <LoginModal />
+              </Menu.Item>
+            )}
           </Menu>
         </Segment>
       </div>

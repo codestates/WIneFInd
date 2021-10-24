@@ -2,11 +2,15 @@ import styles from "../styles/Home.module.css";
 import React, { useState, useEffect } from "react";
 import { Icon, Button } from "semantic-ui-react";
 import axios from "axios";
-const Login = ({ changeLogin, toggleModal }) => {
+import { useRouter } from "next/dist/client/router";
+
+const Login = ({ changeLoginToSignup, toggleModal }) => {
   const [logInInfo, setLoginInfo] = useState({
     email: "",
     password: "",
   });
+
+  const router = useRouter();
   const handleLoginInputValue = (key) => (e) => {
     setLoginInfo({ ...logInInfo, [key]: e.target.value });
   };
@@ -22,8 +26,13 @@ const Login = ({ changeLogin, toggleModal }) => {
       )
       .then((res) => {
         console.log(res);
+      })
+      .then(() => {
+        toggleModal();
+      })
+      .then(() => {
+        router.push("/index");
       });
-    toggleModal();
   };
 
   return (
@@ -67,7 +76,7 @@ const Login = ({ changeLogin, toggleModal }) => {
             Log In
           </Button>
           <div style={{ marginTop: "0.7rem" }}>
-            <Button color="violet" onClick={changeLogin}>
+            <Button color="violet" onClick={changeLoginToSignup}>
               Create an Account
             </Button>
           </div>

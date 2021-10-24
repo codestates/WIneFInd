@@ -3,7 +3,7 @@ import { Icon, Button } from "semantic-ui-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Signup = ({ toggleModal, changeLogin }) => {
+const Signup = ({ toggleModal, changeLoginToSignup }) => {
   const [signUpInfo, setSignUpInfo] = useState({
     email: "",
     nickname: "",
@@ -155,7 +155,7 @@ const Signup = ({ toggleModal, changeLogin }) => {
             Create Account
           </Button>
           <div style={{ marginTop: "0.7rem" }}>
-            <Button color="violet" onClick={changeLogin}>
+            <Button color="violet" onClick={changeLoginToSignup}>
               Go to Login
             </Button>
           </div>

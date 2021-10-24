@@ -1,22 +1,19 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/Home.module.css";
-import { Icon, Button } from "semantic-ui-react";
-import Login from "./Login";
-import Signup from "./Signup";
+import LoginModalForm from "./LoginModalForm";
 
 const LoginModal = () => {
   const [modal, setModal] = useState(false);
-  const [isLogin, setIsLogin] = useState(true);
+  const [isLoginOrSignup, setIsLoginOrSignup] = useState(true);
 
   const toggleModal = () => {
     setModal(!modal);
   };
 
-  const changeLogin = () => {
-    if (isLogin) {
-      setIsLogin(false);
+  const changeLoginToSignup = () => {
+    if (isLoginOrSignup) {
+      setIsLoginOrSignup(() => false);
     } else {
-      setIsLogin(true);
+      setIsLoginOrSignup(() => true);
     }
   };
 
@@ -33,20 +30,15 @@ const LoginModal = () => {
 
   return (
     <>
-      <button onClick={toggleModal} className={styles.btn_modal}>
+      <p onClick={toggleModal} style={{ fontWeight: "bold" }}>
         Login
-      </button>
-
-      {modal && (
-        <div className={styles.modal}>
-          <div onClick={toggleModal} className={styles.overlay}></div>
-          {isLogin ? (
-            <Login changeLogin={changeLogin} toggleModal={toggleModal} />
-          ) : (
-            <Signup changeLogin={changeLogin} toggleModal={toggleModal} />
-          )}
-        </div>
-      )}
+      </p>
+      <LoginModalForm
+        isLoginOrSignup={isLoginOrSignup}
+        modal={modal}
+        toggleModal={toggleModal}
+        changeLoginToSignup={changeLoginToSignup}
+      />
     </>
   );
 };
