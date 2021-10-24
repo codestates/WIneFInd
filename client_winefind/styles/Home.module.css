@@ -1,26 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
-.mainpage_container {
-  width: 100%;
-  height: 3000px;
-
-  background-image: linear-gradient(
-    to right top,
-    #7f7271,
-    #6c6161,
-    #5a5151,
-    #484242,
-    #373333,
-    #2f2c2d,
-    #272527,
-    #201f20,
-    #1f1f20,
-    #1f1f1f,
-    #1e1e1f,
-    #1e1e1e
-  );
-}
 
 .container {
   display: flex;
@@ -54,7 +34,7 @@
   font-size: 25px;
   animation: img_show 6s;
   font-family: "IBM Plex Sans KR", sans-serif;
-  margin-top: 200px;
+  /* margin-top: 800px; */
   color: transparent;
   background: linear-gradient(
     to top,
@@ -73,10 +53,48 @@
   );
   -webkit-background-clip: text;
 }
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 0;
+  padding: 18px 50px 20px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: none;
+  border: 1px solid rgba(223, 190, 106, 0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+.logo {
+  width: 60px;
+  height: 73px;
+}
+
 .logo_effect {
   display: flex;
-  margin-left: 950px;
-  margin-bottom: 300px;
+  margin-left: 500px;
+  /* margin-bottom: 1000px; */
   justify-content: center;
   align-items: center;
   animation-delay: 3s;
@@ -129,7 +147,6 @@
 
 .box {
   font-size: 15vh;
-  font-family: "Playfair Display", serif;
 }
 
 .fade_in_box {
@@ -217,18 +234,24 @@
 @-webkit-keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
+    opacity: 0;
     -webkit-transform: translateX(-500px) scale(0.5);
+    visibility: hidden;
   }
 }
 
 @keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
-    transform: translate(-600px, -300px) scale(0.5);
+    opacity: 0;
+    -webkit-transform: translate(-550px, -300px) scale(0.2);
+    visibility: hidden;
   }
 }
 
@@ -281,18 +304,6 @@
   100% {
     opacity: 1;
   }
-}
-
-.gototop {
-  position: fixed;
-  bottom: 20px;
-  right: 150px;
-  font-size: 15px;
-  color: #b77dfa;
-  cursor: pointer;
-  border-radius: 100px;
-  border: none;
-  box-shadow: 0 5px 0px #ccc;
 }
 
 /* =========== taste CSS ============== */

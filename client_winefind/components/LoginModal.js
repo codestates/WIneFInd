@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
-import LoginModalForm from "./LoginModalForm";
 
-const LoginModal = () => {
-  const [modal, setModal] = useState(false);
+import styles from "../styles/Home.module.css";
+
+import Login from "./Login";
+import Signup from "./Signup";
+
+const LoginModal = ({ toggleModal, modal }) => {
   const [isLoginOrSignup, setIsLoginOrSignup] = useState(true);
-
-  const toggleModal = () => {
-    setModal(!modal);
-  };
-
   const changeLoginToSignup = () => {
     if (isLoginOrSignup) {
       setIsLoginOrSignup(() => false);
@@ -16,29 +14,27 @@ const LoginModal = () => {
       setIsLoginOrSignup(() => true);
     }
   };
-
-  //scroll 방지 함수
-  if (modal === true) {
-    useEffect(() => {
-      document.body.style.overflowY = "hidden";
-    });
-  } else {
-    useEffect(() => {
-      document.body.style.overflowY = "scroll";
-    });
-  }
-
   return (
     <>
-      <p onClick={toggleModal} style={{ fontWeight: "bold" }}>
+      <button className={styles.btn} name="login" onClick={toggleModal}>
         Login
-      </p>
-      <LoginModalForm
-        isLoginOrSignup={isLoginOrSignup}
-        modal={modal}
-        toggleModal={toggleModal}
-        changeLoginToSignup={changeLoginToSignup}
-      />
+      </button>
+      {modal && (
+        <div className={styles.modal}>
+          <div onClick={toggleModal} className={styles.overlay}></div>
+          {isLoginOrSignup ? (
+            <Login
+              changeLoginToSignup={changeLoginToSignup}
+              toggleModal={toggleModal}
+            />
+          ) : (
+            <Signup
+              changeLoginToSignup={changeLoginToSignup}
+              toggleModal={toggleModal}
+            />
+          )}
+        </div>
+      )}
     </>
   );
 };

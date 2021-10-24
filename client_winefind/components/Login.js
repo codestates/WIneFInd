@@ -14,7 +14,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
   const handleLoginInputValue = (key) => (e) => {
     setLoginInfo({ ...logInInfo, [key]: e.target.value });
   };
-  const handleLogin = () => {
+  const handleLogin = (event) => {
     axios
       .post(
         "https://localhost:4000/login",
@@ -31,7 +31,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         toggleModal();
       })
       .then(() => {
-        router.push("/index");
+        window.location.reload();
       });
   };
 
