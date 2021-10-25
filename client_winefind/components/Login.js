@@ -31,7 +31,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         toggleModal();
       })
       .then(() => {
-        router.push();
+        window.location.reload();
       });
   };
 
