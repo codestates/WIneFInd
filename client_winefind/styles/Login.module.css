@@ -1,0 +1,111 @@
+.btn_modal {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+  background-color: rgb(188, 131, 235);
+  border-color: lightgrey;
+  color: rgb(252, 241, 255);
+}
+
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  overflow-y: hidden;
+}
+
+.overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.modal_contents {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 400px;
+  align-content: center;
+}
+.form_container {
+  display: flex;
+  flex-direction: column;
+}
+.form {
+  margin: 3px;
+}
+.form > input {
+  border: none;
+  margin-left: 10px;
+  margin-right: 5px;
+  height: 2rem;
+  width: 17rem;
+}
+
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.signup_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.close_modal {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 0;
+  padding: 18px 50px 20px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: none;
+  border: 1px solid rgba(223, 190, 106, 0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+
+/* ===========resign CSS============ */

@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Login.module.css";
 import React, { useState, useEffect } from "react";
 import { Icon, Button } from "semantic-ui-react";
 import axios from "axios";
@@ -31,7 +31,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         toggleModal();
       })
       .then(() => {
-        window.location.reload();
+        router.push();
       });
   };
 

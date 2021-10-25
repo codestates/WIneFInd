@@ -1,4 +1,4 @@
-import styles from "../styles/Home.module.css";
+import styles from "../styles/Login.module.css";
 import { Icon, Button } from "semantic-ui-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
