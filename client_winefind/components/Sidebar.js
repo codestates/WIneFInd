@@ -8,8 +8,8 @@ export default function Sidebar() {
 
   if (router.pathname === '/user') {
     activeItem = 'user';
-  } else if (router.pathname === '/myinquiry') {
-    activeItem = 'myinquiry';
+  } else if (router.pathname === '/shoppinglist') {
+    activeItem = 'shoppinglist';
   } else if (router.pathname === '/myprofile') {
     activeItem = 'myprofile';
   } else if (router.pathname === '/resign') {
@@ -19,8 +19,8 @@ export default function Sidebar() {
   function goLink(e, data) {
     if (data.name === 'user') {
       router.push('/user');
-    } else if (data.name === 'myinquiry') {
-      router.push('/myinquiry');
+    } else if (data.name === 'shoppinglist') {
+      router.push('/shoppinglist');
     } else if (data.name === 'myprofile') {
       router.push('/myprofile');
     } else if (data.name === 'resign') {
@@ -47,13 +47,12 @@ export default function Sidebar() {
         <Menu.Item name='user' active={activeItem === 'user'} onClick={goLink}>
           <Icon name='list layout' />내 와인
         </Menu.Item>
-
         <Menu.Item
-          name='myinquiry'
-          active={activeItem === 'myinquiry'}
+          name='shoppinglist'
+          active={activeItem === 'shoppinglist'}
           onClick={goLink}
         >
-          <Icon name='info' />내 문의 사항
+          <Icon name='shopping cart' /> 장바구니
         </Menu.Item>
 
         <Menu.Item
@@ -63,7 +62,6 @@ export default function Sidebar() {
         >
           <Icon name='user' />내 정보
         </Menu.Item>
-
         <Menu.Item
           name='resign'
           active={activeItem === 'resign'}
