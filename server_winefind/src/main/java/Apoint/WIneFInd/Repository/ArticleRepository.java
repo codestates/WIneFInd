@@ -4,6 +4,7 @@ package Apoint.WIneFInd.Repository;
 import Apoint.WIneFInd.Domain.ArticleDTO;
 import Apoint.WIneFInd.Model.Article;
 import Apoint.WIneFInd.Model.Users;
+import Apoint.WIneFInd.Model.Wines;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -25,13 +26,16 @@ public class ArticleRepository {
 
         Users user = new Users();
         Article article = new Article();
+        Wines wine = new Wines();
         user.setId(articleDTO.getUserId());
+        wine.setId(articleDTO.getUserId());
         System.out.println(user);
 
         article.setTitle(articleDTO.getTitle());
         article.setImage(articleDTO.getImage());
         article.setComment(articleDTO.getComment());
         article.setUser(user);
+        article.setWine(wine);
 
         entityManager.persist(article);
         entityManager.flush();

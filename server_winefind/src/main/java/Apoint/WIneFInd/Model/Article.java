@@ -26,8 +26,8 @@ public class Article {
     @JoinColumn(name = "user_id")
     private Users user;
 
-//    @ManyToOne
-//    @JoinColumn(name = "wine_id")
-//    private Wines wine;
+    @ManyToOne
+    @JoinColumn(name = "wine_id")
+    private Wines wine;
 
 }
