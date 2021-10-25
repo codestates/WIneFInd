@@ -1,16 +1,13 @@
-import styles from '../styles/Home.module.css';
-import Head from 'next/head';
-import classNames from 'classnames';
-import Login from '../components/Login';
+import styles from "../styles/Home.module.css";
+import classNames from "classnames";
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Login />
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
-            <br />
+            <h1 className="logo text">Welcome to WINE FIND</h1>
             <br />
             <br />
             WIne FIne, and you?
@@ -28,31 +25,39 @@ const Home = () => {
             <br />
             <br /> 바로 시작해보세요!
           </div>
-          <div className={classNames(styles.logo_effect, styles.goToPosition)}>
-            <div className={classNames(styles.box, styles.fade_in_box)}>WI</div>
+          <div className="text logo">
             <div
-              className={classNames(
-                styles.box,
-                styles.animated,
-                styles.bounceInLeft
-              )}
+              className={classNames(styles.logo_effect, styles.goToPosition)}
             >
-              ne&nbsp;&nbsp;
-            </div>
-            <div className={classNames(styles.box, styles.fade_in_box)}>FI</div>
-            <div
-              className={classNames(
-                styles.box,
-                styles.animated,
-                styles.bounceInLeft
-              )}
-            >
-              nd
+              <div className={classNames(styles.box, styles.fade_in_box)}>
+                WI
+              </div>
+              <div
+                className={classNames(
+                  styles.box,
+                  styles.animated,
+                  styles.bounceInLeft
+                )}
+              >
+                NE&nbsp;&nbsp;
+              </div>
+              <div className={classNames(styles.box, styles.fade_in_box)}>
+                FI
+              </div>
+              <div
+                className={classNames(
+                  styles.box,
+                  styles.animated,
+                  styles.bounceInLeft
+                )}
+              >
+                ND
+              </div>
             </div>
           </div>
         </div>
         <div className={styles.right_image}>
-          <img height='50%' src='images/Background3.jpg'></img>
+          <img height="50%" src="images/Background3.jpg"></img>
         </div>
       </div>
       <div className={styles.learn_container}>

@@ -1,17 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
-.mainpage_container {
-  width: 100%;
-  height: 1000px;
-  background-image: linear-gradient(
-    to bottom,
-    #c3aadf,
-    #d2b9e6,
-    #e1c9ee,
-    #eed9f6,
-    #fbeaff
-  );
-}
+@import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
 
 .container {
   display: flex;
@@ -33,9 +22,7 @@
 
 .intro_message {
   display: flex;
-
   border: 5px aqua solid;
-
   display: flex;
   width: 50%;
   flex-direction: column;
@@ -46,13 +33,68 @@
   border: 5px green solid;
   font-size: 25px;
   animation: img_show 6s;
-  font-family: 'IBM Plex Sans KR', sans-serif;
-  margin-top: 200px;
+  font-family: "IBM Plex Sans KR", sans-serif;
+  /* margin-top: 800px; */
+  color: transparent;
+  background: linear-gradient(
+    to top,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  -webkit-background-clip: text;
 }
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 0;
+  padding: 18px 50px 20px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: none;
+  border: 1px solid rgba(223, 190, 106, 0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+.logo {
+  width: 60px;
+  height: 73px;
+}
+
 .logo_effect {
   display: flex;
-  margin-left: 950px;
-  margin-bottom: 300px;
+  margin-left: 500px;
+  /* margin-bottom: 1000px; */
   justify-content: center;
   align-items: center;
   animation-delay: 3s;
@@ -61,6 +103,8 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   border: 5px green solid;
+  width: 100%;
+  color: #cda581;
 }
 .right_image {
   display: flex;
@@ -93,7 +137,7 @@
   align-items: center;
   font-size: 22px;
   text-align: center;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 .learn_image {
   width: 50%;
@@ -103,8 +147,6 @@
 
 .box {
   font-size: 15vh;
-  font-family: 'Raleway', sans-serif;
-  color: white;
 }
 
 .fade_in_box {
@@ -192,18 +234,24 @@
 @-webkit-keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
+    opacity: 0;
     -webkit-transform: translateX(-500px) scale(0.5);
+    visibility: hidden;
   }
 }
 
 @keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
-    transform: translate(-600px, -300px) scale(0.5);
+    opacity: 0;
+    -webkit-transform: translate(-550px, -300px) scale(0.2);
+    visibility: hidden;
   }
 }
 
@@ -258,18 +306,6 @@
   }
 }
 
-.gototop {
-  position: fixed;
-  bottom: 20px;
-  right: 150px;
-  font-size: 15px;
-  color: #b77dfa;
-  cursor: pointer;
-  border-radius: 100px;
-  border: none;
-  box-shadow: 0 5px 0px #ccc;
-}
-
 /* =========== taste CSS ============== */
 
 .cards_container {
@@ -292,7 +328,7 @@
   border: 5px gold solid;
   justify-content: space-evenly;
   text-align: center;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 
 .cards {
@@ -335,57 +371,6 @@
   height: 8px;
   border-radius: 7px;
 }
-
-/*--------- modal CSS --------*/
-
-.btn_modal {
-  padding: 10px 20px;
-  display: block;
-  margin: 100px auto 0;
-  font-size: 18px;
-  background-color: rgb(188, 131, 235);
-  border-color: lightgrey;
-  color: rgb(252, 241, 255);
-}
-
-.modal,
-.overlay {
-  width: 100vw;
-  height: 100vh;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: fixed;
-  overflow-y: hidden;
-}
-
-.overlay {
-  background: rgba(49, 49, 49, 0.8);
-}
-.modal_contents {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  line-height: 1.4;
-  background: #f1f1f1;
-  padding: 14px 28px;
-  border-radius: 3px;
-  max-width: 600px;
-  min-width: 300px;
-  align-content: center;
-}
-
-.close_modal {
-  position: absolute;
-  top: 1px;
-  right: 10px;
-  padding: 5px 7px;
-  cursor: pointer;
-}
-
-/* ===========resign CSS============ */
 
 .btn_resign {
   padding: 10px 20px;

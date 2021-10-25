@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
 html,
 body {
   padding: 0;
@@ -9,15 +9,62 @@ a {
   text-decoration: none;
 }
 
+input {
+  border: none;
+}
+
+.text {
+  color: transparent;
+  background: linear-gradient(
+    to top,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  -webkit-background-clip: text;
+}
+
+.logo {
+  font-family: "Playfair Display", serif;
+}
+
 .mainpage_container {
   width: 100%;
-  height: 950px;
+  height: 3000px;
   background-image: linear-gradient(
-    to bottom,
-    #c3aadf,
-    #d2b9e6,
-    #e1c9ee,
-    #eed9f6,
-    #fbeaff
+    to right top,
+    #7f7271,
+    #6c6161,
+    #5a5151,
+    #484242,
+    #373333,
+    #2f2c2d,
+    #272527,
+    #201f20,
+    #1f1f20,
+    #1f1f1f,
+    #1e1e1f,
+    #1e1e1e
   );
+}
+
+.gototop {
+  position: fixed;
+  bottom: 20px;
+  right: 150px;
+  font-size: 15px;
+  color: #b77dfa;
+  cursor: pointer;
+  border-radius: 100px;
+  border: none;
+  box-shadow: 0 5px 0px #ccc;
 }
