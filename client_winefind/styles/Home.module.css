@@ -1,19 +1,6 @@
-
 @import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap");
-.mainpage_container {
-  width: 100%;
-  height: 1000px;
-  background-image: linear-gradient(
-    to bottom,
-    #c3aadf,
-    #d2b9e6,
-    #e1c9ee,
-    #eed9f6,
-    #fbeaff
-  );
-}
-
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
 
 .container {
   display: flex;
@@ -35,9 +22,7 @@
 
 .intro_message {
   display: flex;
-
   border: 5px aqua solid;
-
   display: flex;
   width: 50%;
   flex-direction: column;
@@ -49,12 +34,67 @@
   font-size: 25px;
   animation: img_show 6s;
   font-family: "IBM Plex Sans KR", sans-serif;
-  margin-top: 200px;
+  /* margin-top: 800px; */
+  color: transparent;
+  background: linear-gradient(
+    to top,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  -webkit-background-clip: text;
 }
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 0;
+  padding: 18px 50px 20px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: none;
+  border: 1px solid rgba(223, 190, 106, 0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+.logo {
+  width: 60px;
+  height: 73px;
+}
+
 .logo_effect {
   display: flex;
-  margin-left: 950px;
-  margin-bottom: 300px;
+  margin-left: 500px;
+  /* margin-bottom: 1000px; */
   justify-content: center;
   align-items: center;
   animation-delay: 3s;
@@ -63,6 +103,8 @@
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   border: 5px green solid;
+  width: 100%;
+  color: #cda581;
 }
 .right_image {
   display: flex;
@@ -105,8 +147,6 @@
 
 .box {
   font-size: 15vh;
-  font-family: 'Raleway', sans-serif;
-  color: white;
 }
 
 .fade_in_box {
@@ -194,18 +234,24 @@
 @-webkit-keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
+    opacity: 0;
     -webkit-transform: translateX(-500px) scale(0.5);
+    visibility: hidden;
   }
 }
 
 @keyframes goToPosition {
   50% {
     transform: translateX(-100px), scale(0.75);
+    opacity: 1;
   }
   100% {
-    transform: translate(-600px, -300px) scale(0.5);
+    opacity: 0;
+    -webkit-transform: translate(-550px, -300px) scale(0.2);
+    visibility: hidden;
   }
 }
 
@@ -260,23 +306,84 @@
   }
 }
 
-/*--------- model CSS --------*/
-body.active_modal {
-  overflow-y: hidden;
+/* =========== taste CSS ============== */
+
+.cards_container {
+  display: flex;
+  height: 900px;
+  width: 66%;
 }
 
-.btn_modal {
+.image_height {
+  height: auto;
+  max-height: 250px;
+  width: auto;
+  max-width: 250px;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 5px gold solid;
+  justify-content: space-evenly;
+  text-align: center;
+  font-family: "Jua", sans-serif;
+}
+
+.cards {
+  height: 500px;
+}
+.card_head {
+  max-width: 300px;
+}
+
+.card_height {
+  max-width: 320px;
+  height: 490px;
+}
+
+.tasteStructure {
+  display: table;
+  border-collapse: separate;
+  border-color: grey;
+  border-spacing: 2px;
+}
+
+.indicatorBar_meter {
+  position: relative;
+  background: #f7f3f0;
+  max-height: 8px;
+  width: 100%;
+  height: 8px;
+  border-radius: 7px;
+}
+
+.tasteStructure_progressBar {
+  width: 100%;
+}
+
+.indicatorBar_progress {
+  display: block;
+  background-color: #ba1628;
+  position: absolute;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 7px;
+}
+
+.btn_resign {
   padding: 10px 20px;
   display: block;
   margin: 100px auto 0;
   font-size: 18px;
-  background-color: rgb(188, 131, 235);
+  background-color: black;
   border-color: lightgrey;
-  color: white;
+  color: rgb(252, 241, 255);
 }
 
-.modal,
-.overlay {
+.resign,
+.resign_overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -284,13 +391,12 @@ body.active_modal {
   right: 0;
   bottom: 0;
   position: fixed;
-  overflow-y: hidden;
 }
 
-.overlay {
+.resign_overlay {
   background: rgba(49, 49, 49, 0.8);
 }
-.modal_contents {
+.resign_contents {
   position: absolute;
   top: 40%;
   left: 50%;
@@ -302,12 +408,4 @@ body.active_modal {
   max-width: 600px;
   min-width: 300px;
   align-content: center;
-}
-
-.close_modal {
-  position: absolute;
-  top: 1px;
-  right: 10px;
-  padding: 5px 7px;
-  cursor: pointer;
 }

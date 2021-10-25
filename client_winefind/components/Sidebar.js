@@ -1,5 +1,5 @@
 import { useRouter } from "next/dist/client/router";
-import { Icon, Menu } from "semantic-ui-react";
+import { Icon, Menu, Sticky } from "semantic-ui-react";
 import styles from "../styles/Home.module.css";
 
 export default function Sidebar() {
@@ -8,8 +8,8 @@ export default function Sidebar() {
 
   if (router.pathname === "/user") {
     activeItem = "user";
-  } else if (router.pathname === "/myinquiry") {
-    activeItem = "myinquiry";
+  } else if (router.pathname === "/shoppinglist") {
+    activeItem = "shoppinglist";
   } else if (router.pathname === "/myprofile") {
     activeItem = "myprofile";
   } else if (router.pathname === "/resign") {
@@ -19,8 +19,8 @@ export default function Sidebar() {
   function goLink(e, data) {
     if (data.name === "user") {
       router.push("/user");
-    } else if (data.name === "myinquiry") {
-      router.push("/myinquiry");
+    } else if (data.name === "shoppinglist") {
+      router.push("/shoppinglist");
     } else if (data.name === "myprofile") {
       router.push("/myprofile");
     } else if (data.name === "resign") {
@@ -29,35 +29,48 @@ export default function Sidebar() {
   }
 
   return (
-    <Menu icon="labeled" vertical="true" style={{ margin: "20px 10rem" }}>
-      <Menu.Item name="user" active={activeItem === "user"} onClick={goLink}>
-        <Icon name="list layout" />내 와인
-      </Menu.Item>
-
-      <Menu.Item
-        name="myinquiry"
-        active={activeItem === "myinquiry"}
-        onClick={goLink}
+    <Sticky
+      style={{
+        position: "sticky",
+        top: "100px",
+        marginRight: "80rem",
+      }}
+    >
+      <Menu
+        icon="labeled"
+        vertical="true"
+        style={{
+          margin: "20px 10rem",
+          backgroundColor: "rgb(252, 241, 255)",
+        }}
       >
-        <Icon name="info" />내 문의 사항
-      </Menu.Item>
+        <Menu.Item name="user" active={activeItem === "user"} onClick={goLink}>
+          <Icon name="list layout" />내 와인
+        </Menu.Item>
+        <Menu.Item
+          name="shoppinglist"
+          active={activeItem === "shoppinglist"}
+          onClick={goLink}
+        >
+          <Icon name="shopping cart" /> 장바구니
+        </Menu.Item>
 
-      <Menu.Item
-        name="myprofile"
-        active={activeItem === "myprofile"}
-        onClick={goLink}
-      >
-        <Icon name="user" />내 정보
-      </Menu.Item>
-
-      <Menu.Item
-        name="resign"
-        active={activeItem === "resign"}
-        onClick={goLink}
-      >
-        <Icon name="user cancel" />
-        회원 탈퇴
-      </Menu.Item>
-    </Menu>
+        <Menu.Item
+          name="myprofile"
+          active={activeItem === "myprofile"}
+          onClick={goLink}
+        >
+          <Icon name="user" />내 정보
+        </Menu.Item>
+        <Menu.Item
+          name="resign"
+          active={activeItem === "resign"}
+          onClick={goLink}
+        >
+          <Icon name="user cancel" />
+          회원 탈퇴
+        </Menu.Item>
+      </Menu>
+    </Sticky>
   );
 }
