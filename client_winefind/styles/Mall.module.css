@@ -6,9 +6,8 @@
   border: 2px green solid;
 }
 .search_bar {
-  width: 66%;
+  width: 100%;
   margin: 40px;
-  border: 2px red solid;
 }
 
 .main_box {
