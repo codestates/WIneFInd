@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class LoginController {
 
     private final LoginService loginService;
@@ -63,7 +63,9 @@ public class LoginController {
         }
     }
 
+
     //    로그아웃 API
+
     @GetMapping(value = "/logout")
     public ResponseEntity<?> UserSignOut(HttpServletResponse response) {
 //        해당쿠키에서 "winefind" 키 값을 가진 쿠키를 찾고 제거
