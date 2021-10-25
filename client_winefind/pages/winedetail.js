@@ -1,9 +1,9 @@
-import Sidebar from '../components/Sidebar';
-import styles from '../styles/Board.module.css';
-import { Card, Icon, Button } from 'semantic-ui-react';
-import UploadModal from '../components/UploadModal';
+import Sidebar from "../components/Sidebar";
+import styles from "../styles/winedetail.module.css";
+import { Card, Icon, Button } from "semantic-ui-react";
+import UploadModal from "../components/UploadModal";
 //마이페이지
-const board = () => {
+const winedetail = () => {
   return (
     <>
       <div>
@@ -16,20 +16,20 @@ const board = () => {
               <div
                 className={styles.board_card}
                 style={{
-                  marginBottom: '10px',
-                  width: '100%',
-                  maxHeight: '470px',
+                  marginBottom: "10px",
+                  width: "100%",
+                  maxHeight: "470px",
                 }}
               >
                 <div
-                  className='row g-0'
-                  style={{ backgroundColor: 'lightyellow' }}
+                  className="row g-0"
+                  style={{ backgroundColor: "lightyellow" }}
                 >
-                  <div class='col-md-4' style={{ backgroundColor: 'white' }}>
+                  <div class="col-md-4" style={{ backgroundColor: "white" }}>
                     <div className={styles.cards}>
                       <Card className={styles.card_height}>
                         <img
-                          src='images/grand_cru.webp'
+                          src="images/grand_cru.webp"
                           className={styles.image_height}
                         />
                         <Card.Content>
@@ -37,15 +37,15 @@ const board = () => {
                             Château Corton Grancey Grand Cru 2015
                           </Card.Header>
                           <Card.Meta>
-                            <span className='date'>Louis Latour</span>
+                            <span className="date">Louis Latour</span>
                           </Card.Meta>
                           <Card.Description>
                             <table className={styles.tasteStructure}>
                               <tbody>
                                 {/* =========light / bold================= */}
-                                <tr class='tasteStructure_tasteCharacteristic'>
+                                <tr class="tasteStructure_tasteCharacteristic">
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Light
                                     </div>
                                   </td>
@@ -58,22 +58,22 @@ const board = () => {
                                       <span
                                         className={styles.indicatorBar_progress}
                                         style={{
-                                          width: '15%',
-                                          left: '34.5278%',
+                                          width: "15%",
+                                          left: "34.5278%",
                                         }} // 85%가 가장 높은 것! 85% 이상 안 쓰기
                                       ></span>
                                     </div>
                                   </td>
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Bold
                                     </div>
                                   </td>
                                 </tr>
                                 {/* =========Smooth / Tannic================= */}
-                                <tr class='tasteStructure_tasteCharacteristic'>
+                                <tr class="tasteStructure_tasteCharacteristic">
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Smooth
                                     </div>
                                   </td>
@@ -86,22 +86,22 @@ const board = () => {
                                       <span
                                         className={styles.indicatorBar_progress}
                                         style={{
-                                          width: '15%',
-                                          left: '24.5211%',
+                                          width: "15%",
+                                          left: "24.5211%",
                                         }}
                                       ></span>
                                     </div>
                                   </td>
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Tannic
                                     </div>
                                   </td>
                                 </tr>
                                 {/* =========Dry / Sweet================= */}
-                                <tr class='tasteStructure_tasteCharacteristic'>
+                                <tr class="tasteStructure_tasteCharacteristic">
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Dry
                                     </div>
                                   </td>
@@ -114,22 +114,22 @@ const board = () => {
                                       <span
                                         className={styles.indicatorBar_progress}
                                         style={{
-                                          width: '15%',
-                                          left: '9.45708%',
+                                          width: "15%",
+                                          left: "9.45708%",
                                         }}
                                       ></span>
                                     </div>
                                   </td>
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Sweet
                                     </div>
                                   </td>
                                 </tr>
                                 {/* =========Soft / Acidic================= */}
-                                <tr class='tasteStructure_tasteCharacteristic'>
+                                <tr class="tasteStructure_tasteCharacteristic">
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Soft
                                     </div>
                                   </td>
@@ -142,14 +142,14 @@ const board = () => {
                                       <span
                                         className={styles.indicatorBar_progress}
                                         style={{
-                                          width: '15%',
-                                          left: '64.4675%',
+                                          width: "15%",
+                                          left: "64.4675%",
                                         }}
                                       ></span>
                                     </div>
                                   </td>
                                   <td>
-                                    <div class='tasteStructure_property'>
+                                    <div class="tasteStructure_property">
                                       Acidic
                                     </div>
                                   </td>
@@ -160,22 +160,22 @@ const board = () => {
                         </Card.Content>
                         <Card.Content extra>
                           <a>
-                            <Icon name='star' />
+                            <Icon name="star" />
                             22 recommendations
                           </a>
                         </Card.Content>
                       </Card>
                     </div>
                   </div>
-                  <div className='col-md-8'>
-                    <div className='card-body'>
+                  <div className="col-md-8">
+                    <div className="card-body">
                       <h2 className={styles.card_title}>
                         Château Corton Grancey Grand Cru 2015
                       </h2>
                       <p className={styles.writer}>
                         <medium
-                          className='text-muted'
-                          style={{ textAlign: 'right' }}
+                          className="text-muted"
+                          style={{ textAlign: "right" }}
                         >
                           Written by. sehan95
                         </medium>
@@ -193,18 +193,18 @@ const board = () => {
                         asdf;lkasdf;lkasdflkfnwviuhqpiohqi[gwueowyeotwehqbwer
                         qweiprytwqberewq[r[wq[wethwqpthrqw]]]]
                       </p>
-                      <p className='card-text'>
-                        <small className='text-muted'>
+                      <p className="card-text">
+                        <small className="text-muted">
                           Last updated 3 mins ago
                         </small>
                       </p>
                       <div className={styles.buy}>
-                        <Button color='violet'>
-                          <Icon name='money' />
+                        <Button color="violet">
+                          <Icon name="money" />
                           &nbsp;구매하기
                         </Button>
-                        <Button color='purple'>
-                          <Icon name='shopping cart' />
+                        <Button color="purple">
+                          <Icon name="shopping cart" />
                           &nbsp;장바구니에 추가
                         </Button>
                         <UploadModal />
@@ -221,4 +221,4 @@ const board = () => {
   );
 };
 
-export default board;
+export default winedetail;
