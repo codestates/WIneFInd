@@ -23,7 +23,7 @@ public class Users {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private String userImage;
+    private String image;
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;

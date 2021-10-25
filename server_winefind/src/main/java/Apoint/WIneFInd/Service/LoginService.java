@@ -25,7 +25,6 @@ public class LoginService {
     }
 
     //    유저 회원가입
-
     public Users CreateUser(SignupDTO signupDTO) {
         for (Users i : loginRepository.findAll()) {
             if (i.getEmail().equals(signupDTO.getEmail())) {
@@ -37,23 +36,24 @@ public class LoginService {
     }
 
 
-    //    유저 리스트 보기
+    //    유저 전체 리스트 보기
     public List<Users> FindByAll() {
         return loginRepository.findAll();
     }
 
-    //   id로 유저 아이디 찾기
-    public Users FindById(long id) {
-        return loginRepository.findById(id).get(0);
-    }
+//    //   id로 유저 아이디 찾기
+//    public Users FindById(long id) {
+//        return loginRepository.findById(id);
+//    }
 
+    //    입력 받은 이메일과 같은 이메일 찾기
     public Users FindByEmail(String email) {
         return loginRepository.findByEmail(email).get(0);
     }
 
     //    id를 이용해 유저 업데이트 하기
-    public Users UpdateUser(Users users) {
-        return loginRepository.Update(users);
+    public void UpdateUser(Users users) {
+        loginRepository.Update(users);
     }
 
     //    id를 이용해 유저 삭제 하기
