@@ -9,10 +9,11 @@ import lombok.Setter;
 @Setter
 public class ArticleDTO {
 
+    private long userId;
     private String title;
-    private String comment;
     private String image;
-    private Boolean recommended;
-    private Users users;
+    private String comment;
+
+
     
 }

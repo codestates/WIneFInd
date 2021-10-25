@@ -20,7 +20,4 @@ public class Inquiry {
     @Column(nullable = false)
     private String comment;
 
-    @ManyToOne
-    @JoinColumn(name = "users_id")
-    private Users users;
 }

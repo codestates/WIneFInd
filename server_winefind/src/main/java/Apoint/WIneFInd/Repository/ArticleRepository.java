@@ -1,7 +1,7 @@
 package Apoint.WIneFInd.Repository;
 
+
 import Apoint.WIneFInd.Domain.ArticleDTO;
-import Apoint.WIneFInd.Domain.SignupDTO;
 import Apoint.WIneFInd.Model.Article;
 import Apoint.WIneFInd.Model.Users;
 import org.springframework.stereotype.Repository;
@@ -23,33 +23,43 @@ public class ArticleRepository {
 
     public void Create(ArticleDTO articleDTO) {
 
-        Article article = new Article();
         Users user = new Users();
+        Article article = new Article();
+        user.setId(articleDTO.getUserId());
+        System.out.println(user);
 
-        article.setTitle(signupDTO.getEmail());
-        article (signupDTO.getPassword());
-        article.setNickname(signupDTO.getNickname());
-        article.setImage("resources/default.jpeg");
+        article.setTitle(articleDTO.getTitle());
+        article.setImage(articleDTO.getImage());
+        article.setComment(articleDTO.getComment());
+        article.setUser(user);
 
-        entityManager.persist(user);
+        entityManager.persist(article);
         entityManager.flush();
         entityManager.close();
 
     }
 
+//    Article 전체 목록 조회
     public List<Article> findAll() {
-        // DB service_user 테이블에 모든 유저 정보를 리턴합니다.
-        // TODO :
-        return entityManager.createQuery("SELECT u FROM Article u", Article.class).getResultList();
+
+        return entityManager.createQuery("SELECT a FROM Article a", Article.class).getResultList();
     }
 
     //    유저 아이디 선택해서 찾기
     public Article findById(long id) {
         List<Article> list = entityManager
-                .createQuery("SELECT user FROM Article as user WHERE user.id='" + id + "'", Article.class)
+                .createQuery("SELECT a FROM Article a WHERE a.id='" + id + "'", Article.class)
                 .getResultList();
         entityManager.close();
         return list.get(0);
+    }
+
+    public List<Article> findByUserId(long userid) {
+        List<Article> list = entityManager
+                .createQuery("SELECT a FROM Article a WHERE a.user='" + userid + "'", Article.class)
+                .getResultList();
+        entityManager.close();
+        return list;
     }
 
 
@@ -59,16 +69,14 @@ public class ArticleRepository {
 //    }
 
     //    유저 아이디를 이용하여 업데이트
-    public void Update(Article users) {
+    public void Update(Article article) {
 
-        Article updateArticle = findById(users.getId());
+        Article updateArticle = findById(article.getId());
         Date now = new Date();
 
-        updateArticle.setComment(users.getComment());
-        updateArticle.setTitle(users.getImage());
-        updateArticle.setImage(users.getImage());
-        updateArticle.setCreatedAt(now);
-        updateArticle.setCreatedAt(now);
+        updateArticle.setTitle(article.getImage());
+        updateArticle.setImage(article.getImage());
+        updateArticle.setComment(article.getComment());
 
         entityManager.persist(updateArticle);
         entityManager.flush();
@@ -78,8 +86,8 @@ public class ArticleRepository {
 
     //    유저 아이디를 이용하여 삭제
     public void Delete(long id) {
-        Article users = findById(id);
-        entityManager.remove(users);
+        Article deleteArticle = findById(id);
+        entityManager.remove(deleteArticle);
         entityManager.close();
     }
 

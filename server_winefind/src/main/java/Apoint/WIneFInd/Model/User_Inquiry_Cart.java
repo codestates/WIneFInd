@@ -10,21 +10,17 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User_Wine {
+public class User_Inquiry_Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private Users users;
+    @JoinColumn(name = "consumer_id")
+    private Consumer consumer;
 
     @ManyToOne
-    @JoinColumn(name = "wines_id")
-    private Wines wines;
+    @JoinColumn(name = "inquiry_id")
+    private Inquiry inquiry;
 }
-
-
-
-

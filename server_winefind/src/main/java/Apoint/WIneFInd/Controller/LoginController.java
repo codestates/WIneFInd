@@ -36,7 +36,8 @@ public class LoginController {
         response.addCookie(cookie);
 
         return ResponseEntity.ok().body(new HashMap<>() {{
-            put("회원가입이 완료 되었습니다.", loginService.FindByEmail(user.getEmail()));
+            put("message", "회원가입이 완료 되었습니다.");
+            put("userInfo", loginService.FindByEmail(user.getEmail()));
         }});
     }
 
