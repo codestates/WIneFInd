@@ -17,8 +17,6 @@ public class Consumer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
-    private String kakaocode;
-    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @Column(nullable = false)
