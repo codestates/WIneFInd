@@ -4,12 +4,10 @@
   justify-content: center;
   align-items: center;
   border: 5px purple solid;
-  width: 100%;
 }
 
 .board_container {
   display: flex;
-  height: 900px;
   width: 66%;
 }
 

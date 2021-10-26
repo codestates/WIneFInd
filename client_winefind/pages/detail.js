@@ -1,5 +1,5 @@
 import Sidebar from "../components/Sidebar";
-import styles from "../styles/winedetail.module.css";
+import styles from "../styles/detail.module.css";
 import { Card, Icon, Button } from "semantic-ui-react";
 import UploadModal from "../components/UploadModal";
 //마이페이지
@@ -7,9 +7,7 @@ const winedetail = () => {
   return (
     <>
       <div>
-        <Sidebar />
         <div className={styles.container}>
-          <h1>Upload your Wine</h1>
           <div className={styles.board_container}>
             <div className={styles.board_layout}>
               {/* =================111================== */}
@@ -185,13 +183,6 @@ const winedetail = () => {
                         맞더라구요!
                         saldfalsdfljaslk;fjl;saldfalsdfljaslkasdflalsdjfllas;dflk;jsak;lfj;slkajflskaf
                         aslkfl;asjdf;Descriptionasdflksald;fl;asjdfl;ksjkl;fjsklflksajdlkf;sl;fjlksad;jflk;dsjkflsdjklfjskaldfjlsk;ajfklsjdfklsjfklsaj;lfa
-                        as;lkdfjl;kasjflk;ajslasd;lkfjsalk;jfklas;jfasd;fsa;lkfjlk;sajfl;sjf;ljas;lf
-                        as;ldkflaks;dfj;lkasjfl;kasdfl;kjasdf
-                        asd;lkfasd;lkfjasd;lkfjasdf;lkjasdl;kjasdfasd;lkfasdas;dsjkflsdjklfjskaldfjlsk
-                        asd;lkfjasdf;lkjasdf;lkjasdf;lkjasdf
-                        asd;lfkasfjasdl;kfjjasdf;lkasdf;lkasdf;lkjasdflkj
-                        asdf;lkasdf;lkasdflkfnwviuhqpiohqi[gwueowyeotwehqbwer
-                        qweiprytwqberewq[r[wq[wethwqpthrqw]]]]
                       </p>
                       <p className="card-text">
                         <small className="text-muted">
@@ -207,7 +198,6 @@ const winedetail = () => {
                           <Icon name="shopping cart" />
                           &nbsp;장바구니에 추가
                         </Button>
-                        <UploadModal />
                       </div>
                     </div>
                   </div>

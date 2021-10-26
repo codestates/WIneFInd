@@ -78,11 +78,11 @@
   border: 1px gray solid;
   background-color: #cda581;
 }
-.filter_button:focus {
+/* .filter_button:focus {
   color: #fff;
   border: 1px gray solid;
   background-color: #cda581;
-}
+} */
 
 .bottom_border {
   border-bottom: 1px black solid;
@@ -96,4 +96,17 @@
   width: 95%;
   margin: 15px;
   border-bottom: 2px solid black;
+}
+
+.filter_taste {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px;
+}
+
+.filter_price {
+  display: flex;
+  justify-content: center;
+  margin: 50px;
 }
