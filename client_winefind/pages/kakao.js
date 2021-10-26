@@ -17,8 +17,6 @@ const kakao = () => {
         .catch((e) => {
           console.log("get kakao api failed:", e);
         });
-    } else {
-      console.log("there is no code");
     }
   }, []);
   return <div>HI~</div>;
