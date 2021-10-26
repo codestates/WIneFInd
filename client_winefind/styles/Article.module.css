@@ -2,13 +2,13 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-
-  border: 2px white solid;
+  width: 95%;
+  border-bottom: 1px black solid;
 }
 
 .article_box {
   display: flex;
-  border: 3px yellow solid;
+  /* border: 3px yellow solid; */
   align-items: center;
 }
 
@@ -16,7 +16,6 @@
   width: 250px;
   margin: 20px;
   padding: 15px;
-  border: 1px white solid;
 }
 .wine_info {
   margin: 20px;
