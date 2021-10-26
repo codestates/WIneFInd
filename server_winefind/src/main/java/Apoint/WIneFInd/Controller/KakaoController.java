@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @RestController
+@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class KakaoController {
 
     private final KakaoService kakaoService;
@@ -22,7 +23,7 @@ public class KakaoController {
         this.kakaoService = kakaoService;
     }
 
-    @GetMapping(value="/kakao")
+    @GetMapping(value = "/kakao")
     public ResponseEntity<?> login(@RequestParam("code") String code, HttpSession session) {
 
         kakaoService.CreateConsumer(code, session);
@@ -40,7 +41,6 @@ public class KakaoController {
 //        mav.setViewName("index");
 //        return mav;
 //    }
-
 
 
 }
