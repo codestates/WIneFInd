@@ -1,0 +1,424 @@
+/* ==========내 셀러 css============= */
+.sidebar {
+  background: 'rgb(252, 241, 255)';
+  display: 'flex';
+  flex-direction: 'column';
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px purple solid;
+  width: 100%;
+  height: 900px;
+}
+
+.board_layout {
+  padding: 10px;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 5px gold solid;
+  flex-wrap: wrap;
+  flex: 1 1 100%;
+  font-family: 'Jua', sans-serif;
+}
+
+.cards_container {
+  display: flex;
+  height: 900px;
+  width: 66%;
+}
+
+.image_height {
+  height: auto;
+  max-height: 250px;
+  width: auto;
+  max-width: 250px;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 5px gold solid;
+  justify-content: space-evenly;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  flex-wrap: wrap;
+}
+
+.cards {
+  height: 550px;
+  margin-top: 15px;
+}
+.card_head {
+  max-width: 300px;
+  height: 50px;
+}
+
+.card_height {
+  max-width: 320px;
+  height: 100%;
+}
+
+.card_descrip {
+  height: 100%;
+}
+
+.tasteStructure {
+  display: table;
+  border-collapse: separate;
+  border-color: grey;
+  border-spacing: 2px;
+}
+
+.indicatorBar_meter {
+  position: relative;
+  background: #f7f3f0;
+  max-height: 8px;
+  width: 100%;
+  height: 8px;
+  border-radius: 7px;
+}
+
+.tasteStructure_progressBar {
+  width: 100%;
+}
+
+.indicatorBar_progress {
+  display: block;
+  background-color: #ba1628;
+  position: absolute;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 7px;
+}
+
+/* ============= 장바구니 css================= */
+
+.shoppinglist_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px purple solid;
+  width: 100%;
+  height: fit-content;
+}
+
+.shoppinglist_layout {
+  display: flex;
+  width: 66%;
+  height: 100%;
+  border: 5px gold solid;
+  justify-content: space-evenly;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  flex-wrap: wrap;
+}
+
+.shoppinglist_btn_container {
+  display: flex;
+  text-align: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 100%;
+}
+
+.price {
+  margin-top: 20px;
+  margin-right: 5px;
+  display: flex;
+  text-align: center;
+  justify-content: flex-end;
+  /* border: 1px solid #ba1628; */
+}
+
+.shoppinglist_btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 7px;
+  padding: 12px;
+  margin: 0px 2px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  border: none;
+  border: 2px solid rgba(223, 190, 106, 0.3);
+}
+
+.shoppinglist_btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 100% 50%;
+}
+
+/* ============내 정보 =============== */
+
+.profile_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px purple solid;
+  width: 100%;
+  height: 900px;
+}
+
+.profile_layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px rgb(95, 233, 77) solid;
+  width: 66%;
+  height: 900px;
+}
+
+.user_btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 0;
+  padding: 15px 45px 15px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  margin-top: -10px;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  border: 1px solid rgba(223, 190, 106, 0.3);
+}
+
+.user_btn:hover {
+  color: #fff;
+  border: 1px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+
+.background_img {
+  background: url('https://st4.depositphotos.com/11149298/37893/i/600/depositphotos_378934474-stock-photo-vintage-old-oak-barrels-of.jpg')
+    no-repeat center center;
+  border: 5px rgb(255, 188, 126) solid;
+  background-size: cover;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: baseline;
+}
+
+.text {
+  font-family: 'Playfair Display', serif;
+  text-align: center;
+  margin-top: 1rem;
+  background-color: rgb(236, 236, 236);
+  width: 100%;
+  height: 50px;
+  color: #b88a5e;
+  /* border: 5px rgb(95, 233, 77) solid; */
+}
+
+.image_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  text-align: center;
+  /* 프사 layout */
+  height: 200px;
+  width: 200px;
+  -webkit-border-radius: 90%;
+  -moz-border-radius: 75%;
+  box-shadow: 0 0 0 2px #eee;
+  background: url('https://www.eatthis.com/wp-content/uploads/sites/4/2020/01/red-wine-glass-bottle.jpg?quality=82&strip=all')
+    center center no-repeat;
+  background-size: cover;
+  margin: auto;
+  margin-top: 80px;
+  margin-bottom: -30px;
+  align-content: center;
+  border: 3px double white;
+}
+
+.image_uploader {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 5px;
+  padding: 5px 5px 5px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin-top: 70px;
+  border: none;
+  border: 2px solid rgba(223, 190, 106, 0.3);
+}
+.image_uploader:hover {
+  color: #fff;
+  border: 5px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+
+.image:hover {
+  box-shadow: 0px 5px 20px 0.9px #3f3f3f;
+}
+
+.image:hover {
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+  -webkit-transition: 1.2s ease-in-out;
+  transition: 1.2s ease-in-out;
+}
+
+.btn {
+  display: inline-block;
+  background: transparent;
+  text-transform: uppercase;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 5px;
+  padding: 18px 50px 20px;
+  transition: all 0.7s ease-out;
+  background: linear-gradient(
+    270deg,
+    #cda581,
+    rgba(146, 111, 52, 0.8),
+    rgba(34, 34, 34, 0),
+    rgba(34, 34, 34, 0)
+  );
+  background-position: 1% 50%;
+  background-size: 300% 300%;
+  text-decoration: none;
+  margin: 0.5rem;
+  border: none;
+  border: 2px solid rgba(223, 190, 106, 0.3);
+}
+
+.btn:hover {
+  color: #fff;
+  border: 5px solid rgba(223, 190, 106, 0);
+  color: white;
+  background-position: 99% 50%;
+}
+
+/* ===========탈퇴 css ================ */
+
+.resign_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 5px rgb(16, 185, 101) solid;
+  width: 100%;
+  height: 900px;
+}
+
+.resign_layout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 5px rgb(230, 215, 10) solid;
+  width: 66%;
+  height: 900px;
+}
+
+.btn_resign {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+  background-color: black;
+  border-color: lightgrey;
+  color: rgb(252, 241, 255);
+}
+
+.close_modal {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  padding: 5px 7px;
+  cursor: pointer;
+}
+
+.resign,
+.resign_overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.resign_overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.resign_contents {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 300px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
