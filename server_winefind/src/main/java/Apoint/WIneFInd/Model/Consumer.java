@@ -24,5 +24,9 @@ public class Consumer {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+    @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String nickname;
 
 }
