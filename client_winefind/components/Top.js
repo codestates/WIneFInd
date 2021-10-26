@@ -54,7 +54,9 @@ function Top({ toggleModal, modal }) {
       router.push("/test");
     } else if (event.target.name === "user") {
       router.push("/user");
-      toggleModal();
+      if (isLogin === false) {
+        toggleModal();
+      }
     } else {
     }
   }
