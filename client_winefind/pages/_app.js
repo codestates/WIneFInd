@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "semantic-ui-css/semantic.min.css";
 import Footer from "../components/Footer";
 import Top from "../components/Top";
-import { Icon } from "semantic-ui-react";
+
 import React, { useState, useEffect } from "react";
 import next from "next";
 import { useRouter } from "next/dist/client/router";
@@ -50,15 +50,6 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
         <Footer />
       </div>
-      {showButton && (
-        <div className="gototop">
-          <Icon
-            onClick={scrollToTop}
-            name="arrow alternate circle up"
-            size="huge"
-          />
-        </div>
-      )}
     </>
   );
 }
