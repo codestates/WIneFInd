@@ -2,9 +2,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
 .top_container {
   display: flex;
-  padding: 30px 20px 0px 20px;
-  font-family: 'Playfair Display', serif;
-
+  padding: 30px 20px 50px 20px;
+  font-family: "Playfair Display", serif;
   justify-content: space-between;
 }
 
@@ -15,14 +14,13 @@
 .btn {
   display: inline-block;
   background: transparent;
-  text-transform: uppercase;
   font-weight: bold;
   font-style: normal;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
+  font-size: 1rem;
+  /* letter-spacing: 0.3em; */
   color: #cda581;
-  border-radius: 3px;
-  padding: 18px 50px 20px;
+  border-radius: 50px;
+  padding: 18px 40px 20px;
   transition: all 0.7s ease-out;
   background: linear-gradient(
     270deg,
@@ -33,15 +31,13 @@
   );
   background-position: 1% 50%;
   background-size: 300% 300%;
-  text-decoration: none;
   margin: 0.5rem;
-  border: none;
-  border: 1px solid rgba(223, 190, 106, 0.3);
+  border: 1px #1e1e1e solid;
+  /* border: 1px solid rgba(223, 190, 106, 0.3); */
 }
 
 .btn:hover {
   color: #fff;
   border: 1px solid rgba(223, 190, 106, 0);
-  color: white;
   background-position: 99% 50%;
 }

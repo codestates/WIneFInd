@@ -35,6 +35,11 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
       });
   };
 
+  const kakaoLogin = () => {
+    router.push(
+      "https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=https://localhost:3000/kakao&response_type=code"
+    );
+  };
   return (
     <div className={styles.modal_contents}>
       <div className={styles.signup_container}>
@@ -80,6 +85,9 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
               Create an Account
             </Button>
           </div>
+          <Button color="purple" onClick={kakaoLogin}>
+            Kakao Login
+          </Button>
         </div>
         <br />
 

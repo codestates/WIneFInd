@@ -10,15 +10,15 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class User_Wine {
+public class User_Wine_Recommended {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne
-    @JoinColumn(name = "users_id")
-    private Users users;
+    @JoinColumn(name = "consumer_id")
+    private Consumer consumer;
 
     @ManyToOne
     @JoinColumn(name = "wines_id")
