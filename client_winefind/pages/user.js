@@ -104,12 +104,12 @@ const user = () => {
   );
   return (
     <>
-      <h1 className='logo text'>My Wine List</h1>
       {isLogin ? (
         <div className={styles.container}>
           <Sidebar />
           <div className={styles.cards_container}>
             <div className={styles.layout}>
+              <h1 className='logo text'>My Wine List</h1>
               {/* ====================  첫 번째 카드====================== */}
               <div className={styles.cards}>
                 <Card className={styles.card_height}>

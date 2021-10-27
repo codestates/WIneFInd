@@ -1,6 +1,6 @@
-import { useEffect } from "react";
-import styles from "../styles/Article.module.css";
-import router, { withRouter } from "next/router";
+import { useEffect } from 'react';
+import styles from '../styles/Article.module.css';
+import router, { withRouter } from 'next/router';
 const Article = ({ articles }) => {
   //users_id ==판매자 아이디
   //id == 게시글 아이디

@@ -29,13 +29,7 @@ export default function Sidebar({ handleIconClick, Myprofile }) {
   }
 
   return (
-    <Sticky
-      style={{
-        position: 'sticky',
-        top: '10px',
-        marginTop: '-40rem',
-      }}
-    >
+    <Sticky className={styles.side}>
       <Menu icon='labeled' vertical='true' className={styles.sidebar}>
         <Menu.Item name='user' active={activeItem === 'user'} onClick={goLink}>
           <Icon name='list layout' />내 셀러
