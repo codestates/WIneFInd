@@ -19,8 +19,6 @@ public class Article {
     private String title;
     @Column(nullable = false)
     private String comment;
-    @Column(nullable = false)
-    private String image;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "user_id")

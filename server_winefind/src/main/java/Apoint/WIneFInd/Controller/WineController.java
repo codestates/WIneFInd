@@ -23,7 +23,7 @@ public class WineController {
 //    Wine 생성
     @PostMapping(value = "/wine")
     public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
-        wineService.CreateArticle(wineDTO);
+//        wineService.CreateArticle(wineDTO);
 
         return ResponseEntity.ok().body(new HashMap<>(){{
             put("message", "create success!");
@@ -34,12 +34,13 @@ public class WineController {
     @GetMapping(value = "/wine")
     public ResponseEntity<?> FindByIdWine(@RequestParam(required = false) Long id) {
         if (id != null) {
-            Wines wine = wineService.FindById(id);
-            return ResponseEntity.ok().body(wine);
+//            Wines wine = wineService.FindById(id);
+//            return ResponseEntity.ok().body(wine);
         } else {
             List<Wines> wines = wineService.FindByAll();
             return ResponseEntity.ok().body(wines);
         }
+        return  null;
     }
 
     @GetMapping(value = "/wines")
@@ -56,8 +57,10 @@ public class WineController {
                                       @RequestParam(required = false) String comment,
                                       @RequestParam(required = false) String price) {
 
-        return wineService.FindByWines(wineName, type, country, grape, vintage, sweet,
-                acidity, body, tannic, image, comment, price);
+//        return wineService.FindByWines(wineName, type, country, grape, vintage, sweet,
+///**/                acidity, body, tannic, image, comment, price);
+
+        return null;
     }
 
     
