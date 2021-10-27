@@ -23,7 +23,9 @@ public class KakaoRepository {
     }
 
 
+
     public String Create (String code, HttpSession session){
+
         ModelAndView mav = new ModelAndView();
 
         KakaoAPI kakaoApi = new KakaoAPI();
@@ -40,7 +42,7 @@ public class KakaoRepository {
 
         System.out.println("login info : " + userInfo.toString());
 
-        if(userInfo.get("email") != null) {
+        if (userInfo.get("email") != null) {
             session.setAttribute("userId", userInfo.get("email"));
             session.setAttribute("accessToken", accessToken);
         }
@@ -50,6 +52,9 @@ public class KakaoRepository {
         System.out.println(mav);
         String nickname = userInfo.get("nickname").toString();
         String email = userInfo.get("email").toString();
+
+        String email = userInfo.get("email").toString();
+        String nickname = userInfo.get("nickname").toString();
 
         Date now = new Date();
         Consumer consumer = new Consumer();

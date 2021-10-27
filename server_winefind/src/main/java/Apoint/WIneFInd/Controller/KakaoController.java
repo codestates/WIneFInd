@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 @CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class KakaoController {
 
     private final KakaoService kakaoService;
@@ -34,6 +35,7 @@ public class KakaoController {
         } else{
             return null;
         }
+
     }
 
 //    @RequestMapping(value="/kakao/logout")
@@ -46,7 +48,6 @@ public class KakaoController {
 //        mav.setViewName("index");
 //        return mav;
 //    }
-
 
 
 }
