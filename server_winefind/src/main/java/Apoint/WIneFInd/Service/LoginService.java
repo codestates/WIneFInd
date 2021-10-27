@@ -51,6 +51,10 @@ public class LoginService {
         return loginRepository.findByEmail(email).get(0);
     }
 
+    public Users FindByPassword(String password) {
+        return loginRepository.findByPassword(password).get(0);
+    }
+
     //    id를 이용해 유저 업데이트 하기
     public void UpdateUser(Users users) {
         loginRepository.Update(users);

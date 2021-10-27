@@ -63,6 +63,11 @@ public class LoginRepository {
         return entityManager.createQuery("SELECT u FROM Users u WHERE u.email = '" + email + "'", Users.class).getResultList();
     }
 
+    public List<Users> findByPassword(String password) {
+        // DB service_user 테이블에 매개변수 email과 일치하는 유저 정보를 리턴합니다.
+        return entityManager.createQuery("SELECT u FROM Users u WHERE u.password = '" + password + "'", Users.class).getResultList();
+    }
+
     //    유저 아이디를 이용하여 업데이트
     public void Update(Users users) {
 

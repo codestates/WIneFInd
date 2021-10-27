@@ -16,9 +16,9 @@ public class KakaoService {
         this.kakaoRepository = kakaoRepository;
     }
 
-    public void CreateConsumer(String code, HttpSession session){
+    public void CreateConsumer(String code, HttpSession session) {
 
-        kakaoRepository.Create(code,session);
+        kakaoRepository.Create(code, session);
     }
 
 
