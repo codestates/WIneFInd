@@ -79,7 +79,12 @@ public class LoginController {
         Cookie cookie = new Cookie("winefind", null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        if (cookie.getName() != "winefind") {
+
+        Cookie kakaoSession = new Cookie("JSESSIONID", null);
+        kakaoSession.setMaxAge(0);
+        response.addCookie(kakaoSession);
+
+        if (cookie.getName() != "winefind" || kakaoSession.getName() != "JSESSIONID" ) {
             return ResponseEntity.badRequest().body("not authorization");
         } else {
             return ResponseEntity.ok().body("Logged out successfully");
@@ -113,10 +118,14 @@ public class LoginController {
 //        쿠키안에 "winefind" 토큰이 있는지 체크!
         Cookie[] cookies = request.getCookies();
         String cookieUser = "";
+        String kakaoUser = "";
         try {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("winefind")) {
                     cookieUser = cookie.getValue();
+                }
+                if (cookie.getName().equals("JSESSIONID")) {
+                    kakaoUser = cookie.getValue();
                 }
             }
         } catch (NullPointerException e) {
@@ -128,8 +137,13 @@ public class LoginController {
 //        토큰 유효성 체크
         Map<String, String> checkResult = loginService.CheckJWTToken(cookieUser);
 
-        if (checkResult.get("email") != null) {
+        if(kakaoUser != ""){
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("message", "카카오 회원 로그인 되었습니다.");
+            }});
+        }
 
+        if (checkResult.get("email") != null) {
             Users getUser = loginService.FindByEmail(checkResult.get("email"));
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("유저 정보", new HashMap<>() {{

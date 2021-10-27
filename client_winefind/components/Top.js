@@ -4,6 +4,7 @@ import { Menu, Segment, Icon } from "semantic-ui-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
+import Cookies from "js-cookie";
 
 function Top({ toggleModal, modal }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -14,13 +15,9 @@ function Top({ toggleModal, modal }) {
       .get("https://localhost:4000/auth", { withCredentials: true })
       .then((res) => {
         setIsLogin(() => true);
-        console.log("islogin?", isLogin);
-        console.log("auth:", res.data);
       })
       .catch((e) => {
         setIsLogin(() => false);
-        console.log("isLogin", isLogin);
-        console.log("error:", e);
       });
   };
 
@@ -54,7 +51,9 @@ function Top({ toggleModal, modal }) {
       router.push("/test");
     } else if (event.target.name === "user") {
       router.push("/user");
-      toggleModal();
+      if (isLogin === false) {
+        toggleModal();
+      }
     } else {
     }
   }
