@@ -9,7 +9,7 @@ import { FormRadio } from "semantic-ui-react";
 const mall = () => {
   const [articles, setArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
-  let types = ["레드", "화이트", "로제", "스파클링", "기타"];
+  let types = ["레드", "화이트", "로제", "스파클링"];
   let countries = [
     "프랑스",
     "이탈리아",
@@ -21,7 +21,6 @@ const mall = () => {
     "독일",
     "아르헨티나",
     "남아공",
-    "기타",
   ];
   let taste = ["acidity", "sweetness", "body", "tannic"];
   let filterConditionList = {
@@ -67,8 +66,8 @@ const mall = () => {
         filterConditionList.countries.push(ele);
       }
     }
-    // list = Object.values(filterConditionList).flat();
-    // console.log("condition:", list);
+    list = Object.values(filterConditionList).flat();
+    console.log("condition:", list);
     console.log(filterConditionList);
   };
 

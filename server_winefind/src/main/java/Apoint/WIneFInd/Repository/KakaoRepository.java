@@ -23,14 +23,20 @@ public class KakaoRepository {
     }
 
 
-    public void Create (String code, HttpSession session){
+    public String Create (String code, HttpSession session){
         ModelAndView mav = new ModelAndView();
 
         KakaoAPI kakaoApi = new KakaoAPI();
         // 1번 인증코드 요청 전달
         String accessToken = kakaoApi.getAccessToken(code);
+        if(accessToken == null){
+            return "NO access Token";
+        }
         // 2번 인증코드로 토큰 전달
         HashMap<String, Object> userInfo = kakaoApi.getUserInfo(accessToken);
+        if(userInfo == null){
+            return "NO userInfo";
+        }
 
         System.out.println("login info : " + userInfo.toString());
 
@@ -42,15 +48,18 @@ public class KakaoRepository {
         mav.addObject("userId", userInfo.get("email"));
         mav.setViewName("index");
         System.out.println(mav);
+        String nickname = userInfo.get("nickname").toString();
+        String email = userInfo.get("email").toString();
 
         Date now = new Date();
         Consumer consumer = new Consumer();
-        consumer.setEmail(userInfo.get("email").toString());
-        consumer.setNickname(userInfo.get("nickname").toString());
+        consumer.setEmail(email);
+        consumer.setNickname(nickname);
         consumer.setCreatedAt(now);
         consumer.setUpdatedAt(now);
         entityManager.persist(consumer);
         entityManager.flush();
         entityManager.close();
+        return "Create Success";
     }
 }

@@ -12,7 +12,7 @@ import Apoint.WIneFInd.Service.KakaoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class KakaoController {
 
@@ -23,11 +23,17 @@ public class KakaoController {
     }
 
     @GetMapping(value="/kakao")
-    public ResponseEntity<?> login(@RequestParam("code") String code, HttpSession session) {
+    public String login(@RequestParam("code") String code, HttpSession session) {
 
-        kakaoService.CreateConsumer(code, session);
-
-        return ResponseEntity.ok().body("KaKao login Seccess");
+        if(kakaoService.CreateConsumer(code, session)== "Create Success"){
+            return "Create Success";
+        } else if(kakaoService.CreateConsumer(code, session)=="NO userInfo"){
+            return "NO userInfo";
+        } else if(kakaoService.CreateConsumer(code, session)=="NO access Token") {
+            return "NO access Token";
+        } else{
+            return null;
+        }
     }
 
 //    @RequestMapping(value="/kakao/logout")

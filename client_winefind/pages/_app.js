@@ -5,27 +5,8 @@ import Footer from "../components/Footer";
 import Top from "../components/Top";
 
 import React, { useState, useEffect } from "react";
-import next from "next";
-import { useRouter } from "next/dist/client/router";
+
 function MyApp({ Component, pageProps }) {
-  const [showButton, setShowButton] = useState(false);
-  const router = useRouter();
-
-  // useEffect(() => {
-  //   window.addEventListener("scroll", () => {
-  //     if (window.pageYOffset > 300) {
-  //       setShowButton(true);
-  //     } else {
-  //       setShowButton(false);
-  //     }
-  //   });
-  // }, []);
-
-  const scrollToTop = () => {
-    window.scrollTo(0, 0);
-  };
-  //go to top button
-
   const [modal, setModal] = useState(false);
   const toggleModal = () => {
     setModal(() => !modal);
