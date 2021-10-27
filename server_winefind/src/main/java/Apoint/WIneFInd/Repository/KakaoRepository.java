@@ -55,8 +55,6 @@ public class KakaoRepository {
         mav.addObject("userId", userInfo.get("email"));
         mav.setViewName("index");
         System.out.println(mav);
-        String nickname = userInfo.get("nickname").toString();
-        String email = userInfo.get("email").toString();
 
         String email = userInfo.get("email").toString();
         String nickname = userInfo.get("nickname").toString();
