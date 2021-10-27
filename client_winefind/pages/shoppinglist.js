@@ -10,60 +10,10 @@ import Dummy from '../components/Dummy';
 
 //마이페이지
 const shoppinglist = () => {
-  // dummy
-  const items = [
-    {
-      id: 1,
-      name: 'Viña Ardanza Reserva 2015',
-      img: 'images/vina_ardanza.png',
-      price: 9900,
-    },
-    {
-      id: 2,
-      name: 'Château Corton Grancey Grand Cru 2015',
-      img: 'images/grand_cru.webp',
-      price: 12000,
-    },
-    {
-      id: 3,
-      name: 'Saperavi 2018',
-      img: 'images/vina_ardanza.png',
-      price: 2900,
-    },
-    {
-      id: 4,
-      name: 'Lapola 2019',
-      img: 'images/grand_cru.webp',
-      price: 4900,
-    },
-    {
-      id: 5,
-      name: 'PV Gran Cru 2019',
-      img: 'images/saperavi.jpeg',
-      price: 2900,
-    },
-  ];
-
-  let cartItems = [
-    {
-      itemId: 1,
-      quantity: 1,
-    },
-    {
-      itemId: 2,
-      quantity: 1,
-    },
-    {
-      itemId: 5,
-      quantity: 1,
-    },
-  ];
-
   // const [articles, setArticles] = useState([]);
-  const [checkedItems, setCheckedItems] = useState(
-    cartItems.map((el) => el.itemId)
-  ); // 와인 몰에서 와인을 추가 했을시
-  //Article Get Api로 articles에 게시글 목록 넣기
+  // 와인 몰에서 와인을 추가 했을시
+
+  // Article Get Api로 articles에 게시글 목록 넣기
   // const getArticles = () => {
   //   axios
   //     .get('https://localhost:4000/article', { withCredentials: true })
@@ -79,15 +29,56 @@ const shoppinglist = () => {
   // useEffect(() => {
   //   getArticles();
   // }, []);
-  // 전채 선택
-  const handleAllCheck = (checked) => {
-    if (checked) {
-      setCheckedItems(cartItems.map((el) => el.itemId));
-    } else {
-      setCheckedItems([]);
-    }
-  };
-  // 선택된 항목들
+
+  const items = [
+    {
+      id: 1,
+      name: 'Château Corton Grancey Grand Cru 2015',
+      img: '../images/grand_cru.webp',
+      price: 9900,
+    },
+    {
+      id: 2,
+      name: 'Lapola',
+      img: '../images/lapola.jpeg',
+      price: 9900,
+    },
+    {
+      id: 3,
+      name: 'saperavi',
+      img: '../images/saperavi.jpeg',
+      price: 9900,
+    },
+    {
+      id: 4,
+      name: 'vaselo',
+      img: '../images/vaselo.png',
+      price: 9900,
+    },
+  ];
+
+  const [cartItems, setCartItems] = useState([
+    {
+      itemId: 1,
+      quantity: 1,
+    },
+    {
+      itemId: 2,
+      quantity: 1,
+    },
+    {
+      itemId: 3,
+      quantity: 1,
+    },
+    {
+      itemId: 4,
+      quantity: 1,
+    },
+  ]);
+  const [checkedItems, setCheckedItems] = useState(
+    cartItems.map((el) => el.itemId)
+  );
+
   const handleCheckChange = (checked, id) => {
     if (checked) {
       setCheckedItems([...checkedItems, id]);
@@ -96,13 +87,20 @@ const shoppinglist = () => {
     }
   };
 
-  //delete
-  const handleDelete = (itemId) => {
-    setCheckedItems(checkedItems.filter((el) => el !== itemId));
-    console.log(checkedItems);
+  const handleAllCheck = (checked) => {
+    if (checked) {
+      setCheckedItems(cartItems.map((el) => el.itemId));
+    } else {
+      setCheckedItems([]);
+    }
   };
 
-  // 총 합을 리턴 하는 함수
+  const handleDelete = (itemId) => {
+    // 삭제 버튼을 누르면  el 을 찾아서 지우기
+    setCheckedItems(checkedItems.filter((el) => el !== itemId));
+    setCartItems(cartItems.filter((el) => el.itemId !== itemId)); // 여기도 손 봐야함
+  };
+
   const getTotal = () => {
     let cartIdArr = cartItems.map((el) => el.itemId);
     let total = {
@@ -121,6 +119,7 @@ const shoppinglist = () => {
     }
     return total;
   };
+
   const renderItems = items.filter(
     (el) => cartItems.map((el) => el.itemId).indexOf(el.id) > -1
   );
@@ -140,7 +139,7 @@ const shoppinglist = () => {
           <label>전체선택</label>
           <div>
             {!cartItems.length ? (
-              <div>{console.log('Im hereee')}장바구니에 아이템이 없습니다.</div>
+              <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
             ) : (
               <div id='cart-item-list'>
                 {renderItems.map((item, idx) => {
