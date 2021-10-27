@@ -33,8 +33,7 @@ const mall = () => {
     price: [],
   };
   //price 밑으로 찾기.
-
-  const [condition, setCondition] = useState([]);
+  const lodash = require("lodash");
 
   const getArticles = () => {
     axios
@@ -52,7 +51,7 @@ const mall = () => {
     //입력받은 텍스트로 와인 찾기.
   };
 
-  let list;
+  const [list, setList] = useState([]);
 
   const addToFilterCondition = (e) => {
     let ele = e.target.innerText;
@@ -66,14 +65,32 @@ const mall = () => {
         filterConditionList.countries.push(ele);
       }
     }
-    list = Object.values(filterConditionList).flat();
-    console.log("condition:", list);
-    console.log(filterConditionList);
+    setList(list.concat(Object.values(filterConditionList)).flat());
   };
 
   const handleInputValue = (e) => {
     let key = e.target.name;
-    filterConditionList[key][0] = e.target.value;
+
+    if (key === "sweetness") {
+      filterConditionList[key][0] = "sweetness" + e.target.value;
+    } else if (key === "acidity") {
+      filterConditionList[key][0] = "acidity" + e.target.value;
+    } else if (key === "body") {
+      filterConditionList[key][0] = "body" + e.target.value;
+    } else if (key === "tannic") {
+      filterConditionList[key][0] = "tannic" + e.target.value;
+    } else {
+      filterConditionList[key][0] = e.target.value;
+    }
+  };
+
+  const eraseAll = () => {
+    setList([]);
+  };
+  const eraseThis = (e) => {
+    let erase_target = e.target.innerText;
+    let new_list = list.filter((item) => item !== erase_target);
+    setList(new_list);
   };
 
   useEffect(() => {
@@ -104,10 +121,21 @@ const mall = () => {
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
               <div>
-                <input type="reset" value="모두 삭제" />
+                <input type="reset" value="모두 삭제" onClick={eraseAll} />
               </div>
             </div>
-            <div>aaa</div>
+            <div>
+              {list !== undefined
+                ? [...new Set(list)].map((ele, index) => (
+                    <button
+                      onClick={eraseThis}
+                      className={styles.filter_button}
+                    >
+                      {ele}
+                    </button>
+                  ))
+                : null}
+            </div>
           </div>
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
@@ -149,10 +177,11 @@ const mall = () => {
                   <div>{ele}</div>
                   <input
                     type="range"
-                    min="1"
-                    max="5"
+                    min="0"
+                    max="4"
                     step="1"
                     name={ele}
+                    onClick={addToFilterCondition}
                     onInput={handleInputValue}
                   />
                 </div>
