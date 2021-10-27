@@ -16,9 +16,18 @@ public class KakaoService {
         this.kakaoRepository = kakaoRepository;
     }
 
-    public void CreateConsumer(String code, HttpSession session){
 
-        kakaoRepository.Create(code,session);
+    public String CreateConsumer(String code, HttpSession session){
+
+        if(kakaoRepository.Create(code,session) == "Create Success"){
+            return "Create Success";
+        } else if(kakaoRepository.Create(code,session)=="NO userInfo"){
+            return "NO userInfo";
+        } else if (kakaoRepository.Create(code,session) =="NO access Token"){
+            return "NO access Token";
+        } else{
+            return null;
+        }
     }
 
 

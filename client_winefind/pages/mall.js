@@ -9,7 +9,31 @@ import { FormRadio } from "semantic-ui-react";
 const mall = () => {
   const [articles, setArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
-  const filterConditionList = [];
+  let types = ["레드", "화이트", "로제", "스파클링"];
+  let countries = [
+    "프랑스",
+    "이탈리아",
+    "스페인",
+    "뉴질랜드",
+    "미국",
+    "호주",
+    "칠레",
+    "독일",
+    "아르헨티나",
+    "남아공",
+  ];
+  let taste = ["acidity", "sweetness", "body", "tannic"];
+  let filterConditionList = {
+    types: [],
+    countries: [],
+    sweetness: [],
+    acidity: [],
+    body: [],
+    tannic: [],
+    price: [],
+  };
+  //price 밑으로 찾기.
+  const lodash = require("lodash");
 
   const getArticles = () => {
     axios
@@ -27,11 +51,46 @@ const mall = () => {
     //입력받은 텍스트로 와인 찾기.
   };
 
+  const [list, setList] = useState([]);
+
   const addToFilterCondition = (e) => {
-    if (!filterConditionList.includes(e.target.innerText)) {
-      filterConditionList.push(e.target.innerText);
+    let ele = e.target.innerText;
+    if (types.includes(ele)) {
+      if (!filterConditionList.types.includes(ele)) {
+        filterConditionList.types.push(ele);
+      }
     }
-    console.log(filterConditionList);
+    if (countries.includes(ele)) {
+      if (!filterConditionList.countries.includes(ele)) {
+        filterConditionList.countries.push(ele);
+      }
+    }
+    setList(list.concat(Object.values(filterConditionList)).flat());
+  };
+
+  const handleInputValue = (e) => {
+    let key = e.target.name;
+
+    if (key === "sweetness") {
+      filterConditionList[key][0] = "sweetness" + e.target.value;
+    } else if (key === "acidity") {
+      filterConditionList[key][0] = "acidity" + e.target.value;
+    } else if (key === "body") {
+      filterConditionList[key][0] = "body" + e.target.value;
+    } else if (key === "tannic") {
+      filterConditionList[key][0] = "tannic" + e.target.value;
+    } else {
+      filterConditionList[key][0] = e.target.value;
+    }
+  };
+
+  const eraseAll = () => {
+    setList([]);
+  };
+  const eraseThis = (e) => {
+    let erase_target = e.target.innerText;
+    let new_list = list.filter((item) => item !== erase_target);
+    setList(new_list);
   };
 
   useEffect(() => {
@@ -62,8 +121,20 @@ const mall = () => {
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
               <div>
-                <input type="reset" value="모두 삭제" />
+                <input type="reset" value="모두 삭제" onClick={eraseAll} />
               </div>
+            </div>
+            <div>
+              {list !== undefined
+                ? [...new Set(list)].map((ele, index) => (
+                    <button
+                      onClick={eraseThis}
+                      className={styles.filter_button}
+                    >
+                      {ele}
+                    </button>
+                  ))
+                : null}
             </div>
           </div>
           <div className={styles.filter_content}>
@@ -71,36 +142,14 @@ const mall = () => {
               <div className={styles.filter_title}>종류</div>
             </div>
             <div className={styles.filter_type}>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                레드
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                화이트
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                로제
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                스파클링
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                기타
-              </button>
+              {types.map((type, index) => (
+                <button
+                  className={styles.filter_button}
+                  onClick={addToFilterCondition}
+                >
+                  {type}
+                </button>
+              ))}
             </div>
           </div>
           <div className={styles.filter_content}>
@@ -108,80 +157,52 @@ const mall = () => {
               <div className={styles.filter_title}>국가</div>
             </div>
             <div className={styles.filter_type}>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                프랑스
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                이탈리아
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                스페인
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                뉴질랜드
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                미국
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                호주
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                칠레
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                독일
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                아르헨티나
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                남아공
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                기타
-              </button>
+              {countries.map((country, index) => (
+                <button
+                  className={styles.filter_button}
+                  onClick={addToFilterCondition}
+                >
+                  {country}
+                </button>
+              ))}
             </div>
           </div>
           <div className={styles.filter_content}>
-            맛
-            <input type="range" />
-            당도
+            <div className={styles.filter_top}>
+              <div className={styles.filter_title}>맛</div>
+            </div>
+            <div className={styles.filter_type}>
+              {taste.map((ele, index) => (
+                <div className={styles.filter_taste}>
+                  <div>{ele}</div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="4"
+                    step="1"
+                    name={ele}
+                    onClick={addToFilterCondition}
+                    onInput={handleInputValue}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={styles.filter_content}>와인 종류</div>
+          <div className={styles.filter_content}>
+            <div className={styles.filter_top}>
+              <div className={styles.filter_title}>가격</div>
+            </div>
+            <div className={styles.filter_price}>
+              <input
+                style={{ width: "300px" }}
+                type="range"
+                min="0"
+                max="1000000"
+                name="price"
+                onInput={handleInputValue}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>

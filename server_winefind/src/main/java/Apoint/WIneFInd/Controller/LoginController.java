@@ -44,23 +44,29 @@ public class LoginController {
     //    로그인 API
     @PostMapping(value = "/login")
     private ResponseEntity<?> UserLogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
-        try {
+
 //        Users 에 같은 이메일로 가입되어 있는 이메일이 있는지 체크
-            Users users = loginService.FindByEmail(loginDTO.getEmail());
+        Users users = loginService.FindByEmail(loginDTO.getEmail());
+        Users password = loginService.FindByPassword(loginDTO.getPassword());
 
-            Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
-            response.addCookie(cookie);
+        if (users.getEmail().equals(loginDTO.getEmail()) && password.getPassword().equals(loginDTO.getPassword())) {
+            try {
+                Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
+                response.addCookie(cookie);
 
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Email", users.getEmail());
-                put("nickname", users.getNickname());
-                put("cookie", cookie);
-            }});
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("error : " + e);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("Email", users.getEmail());
+                    put("nickname", users.getNickname());
+                    put("cookie", cookie);
+                }});
+            } catch (NullPointerException e) {
+                return ResponseEntity.badRequest().body("error : " + e);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e);
+            }
+
         }
+        return ResponseEntity.badRequest().body("login fail");
     }
 
 
@@ -73,7 +79,12 @@ public class LoginController {
         Cookie cookie = new Cookie("winefind", null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
-        if (cookie.getName() != "winefind") {
+
+        Cookie kakaoSession = new Cookie("JSESSIONID", null);
+        kakaoSession.setMaxAge(0);
+        response.addCookie(kakaoSession);
+
+        if (cookie.getName() != "winefind" || kakaoSession.getName() != "JSESSIONID" ) {
             return ResponseEntity.badRequest().body("not authorization");
         } else {
             return ResponseEntity.ok().body("Logged out successfully");
@@ -107,10 +118,14 @@ public class LoginController {
 //        쿠키안에 "winefind" 토큰이 있는지 체크!
         Cookie[] cookies = request.getCookies();
         String cookieUser = "";
+        String kakaoUser = "";
         try {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("winefind")) {
                     cookieUser = cookie.getValue();
+                }
+                if (cookie.getName().equals("JSESSIONID")) {
+                    kakaoUser = cookie.getValue();
                 }
             }
         } catch (NullPointerException e) {
@@ -122,8 +137,13 @@ public class LoginController {
 //        토큰 유효성 체크
         Map<String, String> checkResult = loginService.CheckJWTToken(cookieUser);
 
-        if (checkResult.get("email") != null) {
+        if(kakaoUser != ""){
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("message", "카카오 회원 로그인 되었습니다.");
+            }});
+        }
 
+        if (checkResult.get("email") != null) {
             Users getUser = loginService.FindByEmail(checkResult.get("email"));
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("유저 정보", new HashMap<>() {{

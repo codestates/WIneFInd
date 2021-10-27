@@ -23,12 +23,19 @@ public class KakaoController {
         this.kakaoService = kakaoService;
     }
 
-    @GetMapping(value = "/kakao")
-    public ResponseEntity<?> login(@RequestParam("code") String code, HttpSession session) {
+    @GetMapping(value="/kakao")
+    public String login(@RequestParam("code") String code, HttpSession session) {
 
-        kakaoService.CreateConsumer(code, session);
+        if(kakaoService.CreateConsumer(code, session)== "Create Success"){
+            return "Create Success";
+        } else if(kakaoService.CreateConsumer(code, session)=="NO userInfo"){
+            return "NO userInfo";
+        } else if(kakaoService.CreateConsumer(code, session)=="NO access Token") {
+            return "NO access Token";
+        } else{
+            return null;
+        }
 
-        return ResponseEntity.ok().body("KaKao login Seccess");
     }
 
 //    @RequestMapping(value="/kakao/logout")

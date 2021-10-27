@@ -17,14 +17,15 @@ public class Consumer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false)
+    private String email;
+    @Column(nullable = false)
+    private String nickname;
+    @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
-    @Column(nullable = false)
-    private String email;
-    @Column(nullable = false)
-    private String nickname;
+
 
 }

@@ -19,7 +19,7 @@ const kakao = () => {
         });
     }
   }, []);
-  return <div>HI~</div>;
+  return <div sty></div>;
 };
 
 export default kakao;

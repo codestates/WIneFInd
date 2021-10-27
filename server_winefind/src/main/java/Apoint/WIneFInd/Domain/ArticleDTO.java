@@ -14,6 +14,4 @@ public class ArticleDTO {
     private String image;
     private String comment;
 
-
-    
 }

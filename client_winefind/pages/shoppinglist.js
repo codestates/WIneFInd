@@ -44,7 +44,7 @@ const shoppinglist = () => {
     },
   ];
 
-  const cartItems = [
+  let cartItems = [
     {
       itemId: 1,
       quantity: 1,

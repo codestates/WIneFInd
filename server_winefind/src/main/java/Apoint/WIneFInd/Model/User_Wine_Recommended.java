@@ -16,11 +16,11 @@ public class User_Wine_Recommended {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "wines_id")
     private Wines wines;
 }
