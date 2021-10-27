@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
 
 .container {
   display: flex;
@@ -33,7 +33,7 @@
   border: 5px green solid;
   font-size: 25px;
   animation: img_show 6s;
-  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-family: "IBM Plex Sans KR", sans-serif;
   /* margin-top: 800px; */
   color: transparent;
   background: linear-gradient(
@@ -53,39 +53,7 @@
   );
   -webkit-background-clip: text;
 }
-.btn {
-  display: inline-block;
-  background: transparent;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
-  color: #cda581;
-  border-radius: 8px;
-  padding: 18px 50px 20px;
-  transition: all 0.7s ease-out;
-  background: linear-gradient(
-    270deg,
-    #cda581,
-    rgba(146, 111, 52, 0.8),
-    rgba(34, 34, 34, 0),
-    rgba(34, 34, 34, 0)
-  );
-  background-position: 1% 50%;
-  background-size: 300% 300%;
-  text-decoration: none;
-  margin: 0.5rem;
-  border: none;
-  border: 1px solid rgba(223, 190, 106, 0.3);
-}
 
-.btn:hover {
-  color: #fff;
-  border: 1px solid rgba(223, 190, 106, 0);
-  color: white;
-  background-position: 99% 50%;
-}
 .logo {
   width: 60px;
   height: 73px;
@@ -137,7 +105,7 @@
   align-items: center;
   font-size: 22px;
   text-align: center;
-  font-family: 'Jua', sans-serif;
+  font-family: "Jua", sans-serif;
 }
 .learn_image {
   width: 50%;
@@ -304,4 +272,108 @@
   100% {
     opacity: 1;
   }
+}
+
+/* =========== taste CSS ============== */
+
+.cards_container {
+  display: flex;
+  height: 900px;
+  width: 66%;
+}
+
+.image_height {
+  height: auto;
+  max-height: 250px;
+  width: auto;
+  max-width: 250px;
+}
+
+.layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  border: 5px gold solid;
+  justify-content: space-evenly;
+  text-align: center;
+  font-family: "Jua", sans-serif;
+}
+
+.cards {
+  height: 500px;
+}
+.card_head {
+  max-width: 300px;
+}
+
+.card_height {
+  max-width: 320px;
+  height: 490px;
+}
+
+.tasteStructure {
+  display: table;
+  border-collapse: separate;
+  border-color: grey;
+  border-spacing: 2px;
+}
+
+.indicatorBar_meter {
+  position: relative;
+  background: #f7f3f0;
+  max-height: 8px;
+  width: 100%;
+  height: 8px;
+  border-radius: 7px;
+}
+
+.tasteStructure_progressBar {
+  width: 100%;
+}
+
+.indicatorBar_progress {
+  display: block;
+  background-color: #ba1628;
+  position: absolute;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 7px;
+}
+
+.btn_resign {
+  padding: 10px 20px;
+  display: block;
+  margin: 100px auto 0;
+  font-size: 18px;
+  background-color: black;
+  border-color: lightgrey;
+  color: rgb(252, 241, 255);
+}
+
+.resign,
+.resign_overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+
+.resign_overlay {
+  background: rgba(49, 49, 49, 0.8);
+}
+.resign_contents {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  line-height: 1.4;
+  background: #f1f1f1;
+  padding: 14px 28px;
+  border-radius: 3px;
+  max-width: 600px;
+  min-width: 300px;
+  align-content: center;
 }

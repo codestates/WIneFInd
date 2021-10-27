@@ -36,14 +36,6 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
         console.log("true");
       }
     }
-
-    if (signUpInfo.checkPassword !== "") {
-      if (signUpInfo.checkPassword === signUpInfo.password) {
-        setIsCheckPasswordOk(true);
-      } else {
-        setIsCheckPasswordOk(false);
-      }
-    }
   };
 
   const createAccount = () => {
@@ -86,84 +78,96 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
   return (
     <div className={styles.modal_contents}>
       <div className={styles.signup_container}>
-        <div>
-          <h2>Sign Up</h2>
+        <h2>Sign Up</h2>
+        <div className={styles.login_box}>
           <img
             style={{
               display: "flex",
-              marginLeft: "-1rem",
-              width: "100px",
+              width: "160px",
+              height: "200px",
+              margin: "1rem",
             }}
             src="/images/logo.png"
           />
-        </div>
-        <div className={styles.form_container}>
-          <div className={styles.form}>
-            <img src="/images/email.png" height="30px" width="30px" />
-            <input
-              type="text"
-              value={signUpInfo.email}
-              placeholder="Email"
-              onChange={handleInputValue("email")}
-            />
-            {isEmailOk === null ? (
-              <div></div>
-            ) : isEmailOk ? (
-              <img width="20px" src="images/ok.png"></img>
-            ) : (
-              <img width="20px" src="images/notok.png"></img>
-            )}
-          </div>
-          <div className={styles.form}>
-            <img src="/images/user.png" height="30px" width="30px" />
-            <input
-              value={signUpInfo.nickname}
-              type="text"
-              placeholder="UserName"
-              onChange={handleInputValue("nickname")}
-            />
-          </div>
-          <div className={styles.form}>
-            <img src="/images/lock.png" height="30px" width="30px" />
-            <input
-              value={signUpInfo.password}
-              type="password"
-              placeholder="Password"
-              onChange={handleInputValue("password")}
-            />
-            {isPasswordOk === null ? (
-              <div></div>
-            ) : isPasswordOk ? (
-              <img width="20px" src="images/ok.png"></img>
-            ) : (
-              <img width="20px" src="images/notok.png"></img>
-            )}
-          </div>
-          <div className={styles.form}>
-            <img src="/images/checklock.png" height="30px" width="30px" />
-            <input
-              type="password"
-              value={signUpInfo.checkPassword}
-              placeholder="Check Password"
-              onChange={handleInputValue("checkPassword")}
-            />
-          </div>
-        </div>
-        <div className={styles.form}>{errorMessage}</div>
-        <div className={styles.button}>
-          <Button color="purple" onClick={createAccount}>
-            Create Account
-          </Button>
-          <div style={{ marginTop: "0.7rem" }}>
-            <Button color="violet" onClick={changeLoginToSignup}>
-              Go to Login
-            </Button>
-          </div>
-        </div>
+          <div className={styles.form_container} style={{ marginTop: "-20px" }}>
+            <div className={styles.forms}>
+              <div className={styles.form}>
+                <img src="/images/email.png" height="30px" width="30px" />
+                <input
+                  type="text"
+                  value={signUpInfo.email}
+                  placeholder="Email"
+                  onChange={handleInputValue("email")}
+                />
+                {isEmailOk === null ? (
+                  <div></div>
+                ) : isEmailOk ? (
+                  <img width="20px" src="images/ok.png"></img>
+                ) : (
+                  <img width="20px" src="images/notok.png"></img>
+                )}
+              </div>
+              <div className={styles.form}>
+                <img src="/images/user.png" height="30px" width="30px" />
+                <input
+                  value={signUpInfo.nickname}
+                  type="text"
+                  placeholder="UserName"
+                  onChange={handleInputValue("nickname")}
+                />
+              </div>
+              <div className={styles.form}>
+                <img src="/images/lock.png" height="30px" width="30px" />
+                <input
+                  value={signUpInfo.password}
+                  type="password"
+                  placeholder="Password"
+                  onChange={handleInputValue("password")}
+                />
+                {isPasswordOk === null ? (
+                  <div></div>
+                ) : isPasswordOk ? (
+                  <img width="20px" src="images/ok.png"></img>
+                ) : (
+                  <img width="20px" src="images/notok.png"></img>
+                )}
+              </div>
+              <div className={styles.form}>
+                <img src="/images/checklock.png" height="30px" width="30px" />
+                <input
+                  type="password"
+                  value={signUpInfo.checkPassword}
+                  placeholder="Check Password"
+                  onChange={handleInputValue("checkPassword")}
+                />
+              </div>
+            </div>
 
+            <div className={styles.errorMessage}>{errorMessage}</div>
+            <div className={styles.button}>
+              <div style={{ marginTop: "0.3rem" }}>
+                <Button
+                  style={{ width: "230px" }}
+                  color="purple"
+                  onClick={createAccount}
+                >
+                  Signup
+                </Button>
+              </div>
+              <div style={{ marginTop: "0.3rem" }}>
+                <Button
+                  style={{ width: "230px" }}
+                  color="violet"
+                  onClick={changeLoginToSignup}
+                >
+                  Go to Login
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
         <p>Copyright ⓒ 2021. Apoint. All rights reserved.</p>
       </div>
-
       <Icon
         name="window close"
         className={styles.close_modal}

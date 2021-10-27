@@ -9,7 +9,32 @@ import { FormRadio } from "semantic-ui-react";
 const mall = () => {
   const [articles, setArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
-  const filterConditionList = [];
+  let types = ["레드", "화이트", "로제", "스파클링"];
+  let countries = [
+    "프랑스",
+    "이탈리아",
+    "스페인",
+    "뉴질랜드",
+    "미국",
+    "호주",
+    "칠레",
+    "독일",
+    "아르헨티나",
+    "남아공",
+  ];
+  let taste = ["acidity", "sweetness", "body", "tannic"];
+  let filterConditionList = {
+    types: [],
+    countries: [],
+    sweetness: [],
+    acidity: [],
+    body: [],
+    tannic: [],
+    price: [],
+  };
+  //price 밑으로 찾기.
+
+  const [condition, setCondition] = useState([]);
 
   const getArticles = () => {
     axios
@@ -27,11 +52,28 @@ const mall = () => {
     //입력받은 텍스트로 와인 찾기.
   };
 
+  let list;
+
   const addToFilterCondition = (e) => {
-    if (!filterConditionList.includes(e.target.innerText)) {
-      filterConditionList.push(e.target.innerText);
+    let ele = e.target.innerText;
+    if (types.includes(ele)) {
+      if (!filterConditionList.types.includes(ele)) {
+        filterConditionList.types.push(ele);
+      }
     }
+    if (countries.includes(ele)) {
+      if (!filterConditionList.countries.includes(ele)) {
+        filterConditionList.countries.push(ele);
+      }
+    }
+    list = Object.values(filterConditionList).flat();
+    console.log("condition:", list);
     console.log(filterConditionList);
+  };
+
+  const handleInputValue = (e) => {
+    let key = e.target.name;
+    filterConditionList[key][0] = e.target.value;
   };
 
   useEffect(() => {
@@ -65,42 +107,21 @@ const mall = () => {
                 <input type="reset" value="모두 삭제" />
               </div>
             </div>
+            <div>aaa</div>
           </div>
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>종류</div>
             </div>
             <div className={styles.filter_type}>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                레드
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                화이트
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                로제
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                스파클링
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                기타
-              </button>
+              {types.map((type, index) => (
+                <button
+                  className={styles.filter_button}
+                  onClick={addToFilterCondition}
+                >
+                  {type}
+                </button>
+              ))}
             </div>
           </div>
           <div className={styles.filter_content}>
@@ -108,80 +129,51 @@ const mall = () => {
               <div className={styles.filter_title}>국가</div>
             </div>
             <div className={styles.filter_type}>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                프랑스
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                이탈리아
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                스페인
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                뉴질랜드
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                미국
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                호주
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                칠레
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                독일
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                아르헨티나
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                남아공
-              </button>
-              <button
-                className={styles.filter_button}
-                onClick={addToFilterCondition}
-              >
-                기타
-              </button>
+              {countries.map((country, index) => (
+                <button
+                  className={styles.filter_button}
+                  onClick={addToFilterCondition}
+                >
+                  {country}
+                </button>
+              ))}
             </div>
           </div>
           <div className={styles.filter_content}>
-            맛
-            <input type="range" />
-            당도
+            <div className={styles.filter_top}>
+              <div className={styles.filter_title}>맛</div>
+            </div>
+            <div className={styles.filter_type}>
+              {taste.map((ele, index) => (
+                <div className={styles.filter_taste}>
+                  <div>{ele}</div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    name={ele}
+                    onInput={handleInputValue}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
-          <div className={styles.filter_content}>와인 종류</div>
+          <div className={styles.filter_content}>
+            <div className={styles.filter_top}>
+              <div className={styles.filter_title}>가격</div>
+            </div>
+            <div className={styles.filter_price}>
+              <input
+                style={{ width: "300px" }}
+                type="range"
+                min="0"
+                max="1000000"
+                name="price"
+                onInput={handleInputValue}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
