@@ -24,15 +24,14 @@ public class ArticleRepository {
 
     public void Create(ArticleDTO articleDTO) {
 
-        Users user = new Users();
         Article article = new Article();
+        Users user = new Users();
         Wines wine = new Wines();
+
         user.setId(articleDTO.getUserId());
         wine.setId(articleDTO.getUserId());
-        System.out.println(user);
 
         article.setTitle(articleDTO.getTitle());
-        article.setImage(articleDTO.getImage());
         article.setComment(articleDTO.getComment());
         article.setUser(user);
         article.setWine(wine);
@@ -78,8 +77,7 @@ public class ArticleRepository {
         Article updateArticle = findById(article.getId());
         Date now = new Date();
 
-        updateArticle.setTitle(article.getImage());
-        updateArticle.setImage(article.getImage());
+        updateArticle.setTitle(article.getTitle());
         updateArticle.setComment(article.getComment());
 
         entityManager.persist(updateArticle);

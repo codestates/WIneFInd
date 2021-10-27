@@ -34,7 +34,7 @@ public class ArticleController {
     @GetMapping(value = "/article")
     public ResponseEntity<?> FindByIdArticle(@RequestParam(required = false) Long id) {
         if (id != null) {
-            List<Article> article = articleService.FindByUserId(id);
+            Article article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);
         } else {
             List<Article> articles = articleService.FindByAll();

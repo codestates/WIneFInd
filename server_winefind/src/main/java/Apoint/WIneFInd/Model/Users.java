@@ -3,7 +3,9 @@ package Apoint.WIneFInd.Model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -30,4 +32,5 @@ public class Users {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
 }

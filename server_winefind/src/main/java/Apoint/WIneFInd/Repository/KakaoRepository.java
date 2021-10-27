@@ -1,7 +1,9 @@
 package Apoint.WIneFInd.Repository;
 
 import Apoint.WIneFInd.Controller.KakaoAPI;
+import Apoint.WIneFInd.Model.Article;
 import Apoint.WIneFInd.Model.Consumer;
+import Apoint.WIneFInd.Model.Users;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -24,7 +27,9 @@ public class KakaoRepository {
 
 
 
+
     public String Create (String code, HttpSession session){
+
 
         ModelAndView mav = new ModelAndView();
 
@@ -56,6 +61,12 @@ public class KakaoRepository {
         String email = userInfo.get("email").toString();
         String nickname = userInfo.get("nickname").toString();
 
+        for (Consumer i : findAll()) {
+            if (i.getEmail().equals(email)) {
+                return null;
+            }
+
+        }
         Date now = new Date();
         Consumer consumer = new Consumer();
         consumer.setEmail(email);
@@ -66,5 +77,17 @@ public class KakaoRepository {
         entityManager.flush();
         entityManager.close();
         return "Create Success";
+
+    }
+
+    public List<Consumer> findAll() {
+
+        return entityManager.createQuery("SELECT c FROM Consumer c", Consumer.class).getResultList();
+    }
+
+    public List<Consumer> findByEmail(String email) {
+        // DB service_user 테이블에 매개변수 email과 일치하는 유저 정보를 리턴합니다.
+        return entityManager.createQuery("SELECT u FROM Consumer u WHERE u.email = '" + email + "'", Consumer.class).getResultList();
+
     }
 }

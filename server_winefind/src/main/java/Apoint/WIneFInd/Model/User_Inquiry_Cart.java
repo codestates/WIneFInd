@@ -16,11 +16,11 @@ public class User_Inquiry_Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "inquiry_id")
     private Inquiry inquiry;
 }

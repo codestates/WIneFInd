@@ -44,23 +44,29 @@ public class LoginController {
     //    로그인 API
     @PostMapping(value = "/login")
     private ResponseEntity<?> UserLogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
-        try {
+
 //        Users 에 같은 이메일로 가입되어 있는 이메일이 있는지 체크
-            Users users = loginService.FindByEmail(loginDTO.getEmail());
+        Users users = loginService.FindByEmail(loginDTO.getEmail());
+        Users password = loginService.FindByPassword(loginDTO.getPassword());
 
-            Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
-            response.addCookie(cookie);
+        if (users.getEmail().equals(loginDTO.getEmail()) && password.getPassword().equals(loginDTO.getPassword())) {
+            try {
+                Cookie cookie = new Cookie("winefind", loginService.CreateJWTToken(users));
+                response.addCookie(cookie);
 
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Email", users.getEmail());
-                put("nickname", users.getNickname());
-                put("cookie", cookie);
-            }});
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("error : " + e);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e);
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("Email", users.getEmail());
+                    put("nickname", users.getNickname());
+                    put("cookie", cookie);
+                }});
+            } catch (NullPointerException e) {
+                return ResponseEntity.badRequest().body("error : " + e);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(e);
+            }
+
         }
+        return ResponseEntity.badRequest().body("login fail");
     }
 
 
