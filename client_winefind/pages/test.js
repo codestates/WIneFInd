@@ -1,6 +1,6 @@
-import styles from "../styles/Test.module.css";
+import styles from '../styles/Test.module.css';
 
-const test = () => {
+const Test = () => {
   return (
     <div className={styles.test_container}>
       <div>서비스 개발중입니다</div>
@@ -8,4 +8,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

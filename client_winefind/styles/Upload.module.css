@@ -28,6 +28,8 @@
 }
 .writer {
   align-self: flex-end;
+  text-align: right;
+  margin-right: 5px;
 }
 .board_content {
   display: flex;
@@ -134,11 +136,6 @@
 .card_title {
   text-align: center;
   text-decoration: underline;
-}
-
-.writer {
-  text-align: right;
-  margin-right: 5px;
 }
 
 .buy {

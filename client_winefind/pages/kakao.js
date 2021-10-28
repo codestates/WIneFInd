@@ -2,7 +2,7 @@ import axios from 'axios';
 import router, { withRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-const kakao = () => {
+const Kakao = () => {
   useEffect(() => {
     let code = document.location.href.slice(34);
     if (code) {
@@ -33,4 +33,4 @@ const kakao = () => {
   );
 };
 
-export default kakao;
+export default Kakao;
