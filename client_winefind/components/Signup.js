@@ -1,20 +1,20 @@
-import styles from "../styles/Login.module.css";
-import { Icon, Button } from "semantic-ui-react";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import Input from "@material-ui/core/Input";
-import { Block } from "@material-ui/icons";
+import styles from '../styles/Login.module.css';
+import { Icon, Button } from 'semantic-ui-react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import Input from '@material-ui/core/Input';
+import { Block } from '@material-ui/icons';
 
 const Signup = ({ toggleModal, changeLoginToSignup }) => {
   const [signUpInfo, setSignUpInfo] = useState({
-    email: "",
-    nickname: "",
-    password: "",
-    checkPassword: "",
+    email: '',
+    nickname: '',
+    password: '',
+    checkPassword: '',
   });
   const [isEmailOk, setIsEmailOk] = useState(null);
   const [isPasswordOk, setIsPasswordOk] = useState(null);
@@ -27,46 +27,46 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
 
   const handleInputValue = (key) => (e) => {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
-    if (signUpInfo.email !== "") {
+    if (signUpInfo.email !== '') {
       if (regExp_Email.test(signUpInfo.email) === false) {
         setIsEmailOk(false);
-        console.log("false");
+        console.log('false');
       } else {
         setIsEmailOk(true);
-        console.log("true");
+        console.log('true');
       }
     }
 
-    if (signUpInfo.password !== "") {
+    if (signUpInfo.password !== '') {
       if (regExp_Password.test(signUpInfo.password) === false) {
         setIsPasswordOk(false);
-        console.log("false");
+        console.log('false');
       } else {
         setIsPasswordOk(true);
-        console.log("true");
+        console.log('true');
       }
     }
   };
 
   const createAccount = () => {
     if (
-      signUpInfo.email === "" ||
-      signUpInfo.nickname === "" ||
-      signUpInfo.password === "" ||
-      signUpInfo.checkPassword === ""
+      signUpInfo.email === '' ||
+      signUpInfo.nickname === '' ||
+      signUpInfo.password === '' ||
+      signUpInfo.checkPassword === ''
     ) {
-      setErrorMessage("모든 항목을 기입해주세요!");
+      setErrorMessage('모든 항목을 기입해주세요!');
       return null;
     } else if (signUpInfo.password !== signUpInfo.checkPassword) {
-      setErrorMessage("비밀번호가 일치하지 않습니다");
+      setErrorMessage('비밀번호가 일치하지 않습니다');
       return null;
     } else if (!(isEmailOk && isPasswordOk)) {
-      setErrorMessage("유효한 값을 입력해주세요");
+      setErrorMessage('유효한 값을 입력해주세요');
       return null;
     } else {
       axios
         .post(
-          "https://localhost:4000/signup",
+          `${process.env.NEXT_PUBLIC_API_URL}/signup`,
           {
             email: signUpInfo.email,
             nickname: signUpInfo.nickname,
@@ -75,12 +75,12 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
           { withCredentials: true }
         )
         .then(() => {
-          console.log("signup Success!");
+          console.log('signup Success!');
           window.location.reload();
-          alert("회원가입 성공하였습니다. 바로 서비스를 이용하세요!");
+          alert('회원가입 성공하였습니다. 바로 서비스를 이용하세요!');
         })
         .catch(() => {
-          console.log("Signup failed!");
+          console.log('Signup failed!');
           window.location.reload();
         });
     }
@@ -99,51 +99,51 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
         <div className={styles.login_box}>
           <img
             style={{
-              display: "flex",
-              width: "160px",
-              height: "200px",
-              margin: "1rem",
+              display: 'flex',
+              width: '160px',
+              height: '200px',
+              margin: '1rem',
             }}
-            src="/images/logo.png"
+            src='/images/logo.png'
           />
-          <div className={styles.form_container} style={{ marginTop: "-20px" }}>
+          <div className={styles.form_container} style={{ marginTop: '-20px' }}>
             <div className={styles.forms}>
               <div className={styles.form}>
-                <img src="/images/email.png" height="30px" width="30px" />
+                <img src='/images/email.png' height='30px' width='30px' />
                 <input
-                  type="text"
+                  type='text'
                   value={signUpInfo.email}
-                  placeholder="Email"
-                  onChange={handleInputValue("email")}
+                  placeholder='Email'
+                  onChange={handleInputValue('email')}
                 />
                 {isEmailOk === null ? (
                   <div></div>
                 ) : isEmailOk ? (
-                  <img width="20px" src="images/ok.png"></img>
+                  <img width='20px' src='images/ok.png'></img>
                 ) : (
-                  <img width="20px" src="images/notok.png"></img>
+                  <img width='20px' src='images/notok.png'></img>
                 )}
               </div>
               <div className={styles.form}>
-                <img src="/images/user.png" height="30px" width="30px" />
+                <img src='/images/user.png' height='30px' width='30px' />
                 <input
                   value={signUpInfo.nickname}
-                  type="text"
-                  placeholder="UserName"
-                  onChange={handleInputValue("nickname")}
+                  type='text'
+                  placeholder='UserName'
+                  onChange={handleInputValue('nickname')}
                 />
               </div>
               <div className={styles.form}>
-                <img src="/images/lock.png" height="30px" width="30px" />
+                <img src='/images/lock.png' height='30px' width='30px' />
                 <input
                   value={signUpInfo.password}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                  onChange={handleInputValue("password")}
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder='Password'
+                  onChange={handleInputValue('password')}
                 />
                 <IconButton
                   onClick={handleClickShowPassword}
-                  style={{ position: "absolute", right: "70px", top: "165px" }}
+                  style={{ position: 'absolute', right: '70px', top: '165px' }}
                 >
                   {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
@@ -151,43 +151,43 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
                 {isPasswordOk === null ? (
                   <span
                     style={{
-                      visibility: "hidden",
+                      visibility: 'hidden',
                     }}
                   >
                     HJ!
                   </span>
                 ) : isPasswordOk ? (
-                  <img width="20px" src="images/ok.png"></img>
+                  <img width='20px' src='images/ok.png'></img>
                 ) : (
-                  <img width="20px" src="images/notok.png"></img>
+                  <img width='20px' src='images/notok.png'></img>
                 )}
               </div>
               <div className={styles.form}>
-                <img src="/images/checklock.png" height="30px" width="30px" />
+                <img src='/images/checklock.png' height='30px' width='30px' />
                 <input
-                  type="password"
+                  type='password'
                   value={signUpInfo.checkPassword}
-                  placeholder="Check Password"
-                  onChange={handleInputValue("checkPassword")}
+                  placeholder='Check Password'
+                  onChange={handleInputValue('checkPassword')}
                 />
               </div>
             </div>
 
             <div className={styles.errorMessage}>{errorMessage}</div>
             <div className={styles.button}>
-              <div style={{ marginTop: "0.3rem" }}>
+              <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: "230px" }}
-                  color="purple"
+                  style={{ width: '230px' }}
+                  color='purple'
                   onClick={createAccount}
                 >
                   Signup
                 </Button>
               </div>
-              <div style={{ marginTop: "0.3rem" }}>
+              <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: "230px" }}
-                  color="violet"
+                  style={{ width: '230px' }}
+                  color='violet'
                   onClick={changeLoginToSignup}
                 >
                   Go to Login
@@ -199,7 +199,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
         <p>Copyright ⓒ 2021. Apoint. All rights reserved.</p>
       </div>
       <Icon
-        name="window close"
+        name='window close'
         className={styles.close_modal}
         onClick={toggleModal}
       />

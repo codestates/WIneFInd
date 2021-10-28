@@ -1,6 +1,6 @@
-import styles from "../styles/Article.module.css";
-import { Button, Icon } from "semantic-ui-react";
-import router from "next/router";
+import styles from '../styles/Article.module.css';
+import { Button, Icon } from 'semantic-ui-react';
+import router from 'next/router';
 const Article = ({ articles }) => {
   //users_id ==판매자 아이디
   //id == 게시글 아이디
@@ -26,7 +26,7 @@ const Article = ({ articles }) => {
                 <Button onClick={() => goToDescription(article.id)} animated>
                   <Button.Content visible>더 보기</Button.Content>
                   <Button.Content hidden>
-                    <Icon name="search plus" />
+                    <Icon name='search plus' />
                   </Button.Content>
                 </Button>
               </div>

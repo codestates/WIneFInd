@@ -1,6 +1,6 @@
 import Carousel from '../components/Testing';
 
-const test = () => {
+const Test = () => {
   return (
     <div
       horizontal='true'
@@ -23,4 +23,4 @@ const test = () => {
   );
 };
 
-export default test;
+export default Test;

@@ -14,15 +14,15 @@ function MyApp({ Component, pageProps }) {
   };
 
   //scroll 방지 함수
-  if (modal === true) {
-    useEffect(() => {
-      document.body.style.overflowY = 'hidden';
-    });
-  } else {
-    useEffect(() => {
-      document.body.style.overflowY = 'scroll';
-    });
-  }
+  // if (modal === true) {
+  //   useEffect(() => {
+  //     document.body.style.overflowY = 'hidden';
+  //   });
+  // } else {
+  //   useEffect(() => {
+  //     document.body.style.overflowY = 'scroll';
+  //   });
+  // }
   //login modal
 
   return (
