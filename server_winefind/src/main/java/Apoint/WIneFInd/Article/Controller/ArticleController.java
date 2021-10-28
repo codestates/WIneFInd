@@ -5,12 +5,11 @@ import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
@@ -37,6 +36,31 @@ public class ArticleController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("에러 발생!!! " + e);
         }
+    }
+
+
+    @GetMapping("article")
+    public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
+
+        if (id != null) {
+            Optional<Article> article = articleService.FindById(id);
+            return ResponseEntity.ok().body(article);
+        } else {
+            List<Article> articles = articleService.FindByAll();
+            return ResponseEntity.ok().body(articles);
+        }
+    }
+
+    @PutMapping("article")
+    public ResponseEntity<?> UpdateArticle(@RequestBody Article article) {
+        articleService.Update(article);
+        return ResponseEntity.ok().body("update success");
+    }
+
+    @DeleteMapping("/article/{id}")
+    public ResponseEntity<?> DeleteArticle(@PathVariable Long id) {
+        articleService.Delete(id);
+        return ResponseEntity.ok().body("delete success");
     }
 
 

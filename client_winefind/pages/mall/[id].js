@@ -6,7 +6,7 @@ import styles from '../../styles/detail.module.css';
 import { Card, Icon, Button } from 'semantic-ui-react';
 import Article from '../../components/Article';
 
-const details = ({ toggleModal }) => {
+const Details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
   const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
@@ -214,4 +214,4 @@ const details = ({ toggleModal }) => {
   );
 };
 
-export default details;
+export default Details;

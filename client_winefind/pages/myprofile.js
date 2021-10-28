@@ -10,7 +10,7 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Input from '@material-ui/core/Input';
 
 //마이페이지
-const myprofile = () => {
+const Myprofile = () => {
   const router = useRouter();
   const [values, setValues] = useState({
     password: '',
@@ -66,7 +66,7 @@ const myprofile = () => {
             <div id='overlay'>
               <div className={styles.image_container}>
                 <img src={createObjectURL} className={styles.image} />
-                <label className={styles.image_uploader} for='input-file'>
+                <label className={styles.image_uploader} htmlFor='input-file'>
                   Upload File
                 </label>
                 <input
@@ -109,4 +109,4 @@ const myprofile = () => {
   );
 };
 
-export default myprofile;
+export default Myprofile;

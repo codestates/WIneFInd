@@ -7,7 +7,7 @@ import Sidebar from '../components/Sidebar';
 import { Card } from 'semantic-ui-react';
 
 //마이페이지
-const user = () => {
+const User = () => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
 
@@ -166,4 +166,4 @@ const user = () => {
   );
 };
 
-export default user;
+export default User;
