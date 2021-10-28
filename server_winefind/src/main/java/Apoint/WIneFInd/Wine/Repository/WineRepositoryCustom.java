@@ -6,5 +6,14 @@ import java.util.List;
 
 public interface WineRepositoryCustom {
 
-    List<Wine> findByWineName(String winename, String type);
+//    List<Wine> findByWineFilter(List<String> typesList, List<String> countriesList, List<String> sweetnessList,
+//                                List<String> acidityList, List<String> bodyList, List<String> priceList);
+
+    List<Wine> findByWineFilter(List<String> typesList, List<String> countriesList,List<String> sweetnessList);
+
+    List<Wine> findById(List<Long> longTypeList);
+
+//    List<Wine> findByWineName(String winename, String type);
+
 }
+

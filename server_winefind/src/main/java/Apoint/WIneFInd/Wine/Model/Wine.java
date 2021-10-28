@@ -15,7 +15,7 @@ public class Wine {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    Long id;
     @Column(nullable = false)
     private String wineName;
     @Column(nullable = false)
