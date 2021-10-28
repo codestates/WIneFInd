@@ -10,6 +10,8 @@
   display: flex;
   /* border: 3px yellow solid; */
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .wine_image {
@@ -19,4 +21,7 @@
 }
 .wine_info {
   margin: 20px;
+}
+.article_findmore {
+  margin: 10px;
 }

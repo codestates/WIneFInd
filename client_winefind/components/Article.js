@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
-import styles from '../styles/Article.module.css';
-import router, { withRouter } from 'next/router';
+import styles from "../styles/Article.module.css";
+import { Button, Icon } from "semantic-ui-react";
+import router from "next/router";
 const Article = ({ articles }) => {
   //users_id ==판매자 아이디
   //id == 게시글 아이디
@@ -22,9 +22,14 @@ const Article = ({ articles }) => {
               <div>국가 :{article.wine.country}</div>
               <div>가격 : {article.wine.price}</div>
               <div>작성자 : {article.user.email}</div>
-              <button onClick={() => goToDescription(article.id)}>
-                자세히 보기
-              </button>
+              <div className={styles.article_findmore}>
+                <Button onClick={() => goToDescription(article.id)} animated>
+                  <Button.Content visible>더 보기</Button.Content>
+                  <Button.Content hidden>
+                    <Icon name="search plus" />
+                  </Button.Content>
+                </Button>
+              </div>
             </div>
           </div>
         </div>

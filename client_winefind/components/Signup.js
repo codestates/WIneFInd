@@ -2,6 +2,12 @@ import styles from "../styles/Login.module.css";
 import { Icon, Button } from "semantic-ui-react";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import IconButton from "@material-ui/core/IconButton";
+import Visibility from "@material-ui/icons/Visibility";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Input from "@material-ui/core/Input";
+import { Block } from "@material-ui/icons";
 
 const Signup = ({ toggleModal, changeLoginToSignup }) => {
   const [signUpInfo, setSignUpInfo] = useState({
@@ -12,8 +18,12 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
   });
   const [isEmailOk, setIsEmailOk] = useState(null);
   const [isPasswordOk, setIsPasswordOk] = useState(null);
-  const [isCheckPasswordOk, setIsCheckPasswordOk] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  //이메일, 비밀번호 정규식
+  const regExp_Email =
+    /^[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+  const regExp_Password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
 
   const handleInputValue = (key) => (e) => {
     setSignUpInfo({ ...signUpInfo, [key]: e.target.value });
@@ -64,16 +74,23 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
           },
           { withCredentials: true }
         )
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           console.log("signup Success!");
+          window.location.reload();
+          alert("회원가입 성공하였습니다. 바로 서비스를 이용하세요!");
+        })
+        .catch(() => {
+          console.log("Signup failed!");
+          window.location.reload();
         });
     }
   };
 
-  let regExp_Email =
-    /^[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-  let regExp_Password = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,20}$/;
+  // 비밀번호 보이고 안보이게 하는 버튼
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => {
+    setShowPassword(() => !showPassword);
+  };
 
   return (
     <div className={styles.modal_contents}>
@@ -120,12 +137,25 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
                 <img src="/images/lock.png" height="30px" width="30px" />
                 <input
                   value={signUpInfo.password}
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   onChange={handleInputValue("password")}
                 />
+                <IconButton
+                  onClick={handleClickShowPassword}
+                  style={{ position: "absolute", right: "70px", top: "165px" }}
+                >
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+
                 {isPasswordOk === null ? (
-                  <div></div>
+                  <span
+                    style={{
+                      visibility: "hidden",
+                    }}
+                  >
+                    HJ!
+                  </span>
                 ) : isPasswordOk ? (
                   <img width="20px" src="images/ok.png"></img>
                 ) : (
