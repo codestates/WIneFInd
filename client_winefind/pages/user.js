@@ -13,7 +13,7 @@ const user = () => {
 
   const checkLogin = () => {
     axios
-      .get('https://localhost:4000/auth', { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         setIsLogin(() => true);
         console.log('islogin?', isLogin);
@@ -32,9 +32,9 @@ const user = () => {
     <table className={styles.tasteStructure}>
       <tbody>
         {/* 여기서부턴 Light && Bold */}
-        <tr class='tasteStructure_tasteCharacteristic'>
+        <tr className='tasteStructure_tasteCharacteristic'>
           <td>
-            <div class='tasteStructure_property'>Light</div>
+            <div className='tasteStructure_property'>Light</div>
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.indicatorBar_meter}>
@@ -45,13 +45,13 @@ const user = () => {
             </div>
           </td>
           <td>
-            <div class='tasteStructure_property'>Bold</div>
+            <div className='tasteStructure_property'>Bold</div>
           </td>
         </tr>
         {/* 여기서부턴 smooth && tannic */}
-        <tr class='tasteStructure_tasteCharacteristic'>
+        <tr className='tasteStructure_tasteCharacteristic'>
           <td>
-            <div class='tasteStructure_property'>Smooth</div>
+            <div className='tasteStructure_property'>Smooth</div>
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.indicatorBar_meter}>
@@ -62,13 +62,13 @@ const user = () => {
             </div>
           </td>
           <td>
-            <div class='tasteStructure_property'>Tannic</div>
+            <div className='tasteStructure_property'>Tannic</div>
           </td>
         </tr>
         {/* 여기서부턴 dry && sweet */}
-        <tr class='tasteStructure_tasteCharacteristic'>
+        <tr className='tasteStructure_tasteCharacteristic'>
           <td>
-            <div class='tasteStructure_property'>Dry</div>
+            <div className='tasteStructure_property'>Dry</div>
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.indicatorBar_meter}>
@@ -79,13 +79,13 @@ const user = () => {
             </div>
           </td>
           <td>
-            <div class='tasteStructure_property'>Sweet</div>
+            <div className='tasteStructure_property'>Sweet</div>
           </td>
         </tr>
         {/* 여기서부턴 soft && acidic */}
-        <tr class='tasteStructure_tasteCharacteristic'>
+        <tr className='tasteStructure_tasteCharacteristic'>
           <td>
-            <div class='tasteStructure_property'>Soft</div>
+            <div className='tasteStructure_property'>Soft</div>
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.indicatorBar_meter}>
@@ -96,7 +96,7 @@ const user = () => {
             </div>
           </td>
           <td>
-            <div class='tasteStructure_property'>Acidic</div>
+            <div className='tasteStructure_property'>Acidic</div>
           </td>
         </tr>
       </tbody>
