@@ -9,30 +9,37 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
     email: "",
     password: "",
   });
+  const [errorMessage, setErrorMessage] = useState("");
 
   const router = useRouter();
   const handleLoginInputValue = (key) => (e) => {
     setLoginInfo({ ...logInInfo, [key]: e.target.value });
   };
   const handleLogin = () => {
-    axios
-      .post(
-        "https://localhost:4000/login",
-        {
-          email: logInInfo.email,
-          password: logInInfo.password,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .then(() => {
-        toggleModal();
-      })
-      .then(() => {
-        window.location.reload();
-      });
+    if (logInInfo.email === "") {
+      setErrorMessage("아이디를 입력해주세요");
+    } else if (logInInfo.password === "") {
+      setErrorMessage("비밀번호를 입력해주세요");
+    } else {
+      axios
+        .post(
+          "https://localhost:4000/login",
+          {
+            email: logInInfo.email,
+            password: logInInfo.password,
+          },
+          { withCredentials: true }
+        )
+        .then(() => {
+          toggleModal();
+        })
+        .then(() => {
+          window.location.reload();
+        })
+        .catch(() => {
+          setErrorMessage("아이디나 비밀번호를 확인해주세요");
+        });
+    }
   };
 
   const kakaoLogin = () => {
@@ -76,7 +83,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                 />
               </div>
             </div>
-
+            <div className={styles.errorMessage}>{errorMessage}</div>
             <div className={styles.button}>
               <div style={{ marginTop: "0.3rem" }}>
                 <Button
