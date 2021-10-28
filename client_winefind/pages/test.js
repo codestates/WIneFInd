@@ -1,9 +1,24 @@
-import styles from "../styles/Test.module.css";
+import Carousel from '../components/Testing';
 
 const test = () => {
   return (
-    <div className={styles.test_container}>
-      <div>서비스 개발중입니다</div>
+    <div
+      horizontal='true'
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        maxWidth: '100%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: 64,
+        Height: '500px',
+      }}
+    >
+      <Carousel>
+        <img src='images/search.png' alt='placeholder' />
+        <img src='images/search.png' alt='placeholder' />
+        <img src='images/search.png' alt='placeholder' />
+      </Carousel>
     </div>
   );
 };
