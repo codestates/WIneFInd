@@ -1,10 +1,8 @@
 import styles from "../styles/Top.module.css";
 import { useRouter } from "next/dist/client/router";
-import { Menu, Segment, Icon } from "semantic-ui-react";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import LoginModal from "./LoginModal";
-import Cookies from "js-cookie";
 
 function Top({ toggleModal, modal }) {
   const [isLogin, setIsLogin] = useState(false);
@@ -13,10 +11,10 @@ function Top({ toggleModal, modal }) {
   const checkLogin = () => {
     axios
       .get("https://localhost:4000/auth", { withCredentials: true })
-      .then((res) => {
+      .then(() => {
         setIsLogin(() => true);
       })
-      .catch((e) => {
+      .catch(() => {
         setIsLogin(() => false);
       });
   };
@@ -28,18 +26,12 @@ function Top({ toggleModal, modal }) {
   const handleLogout = () => {
     axios
       .get("https://localhost:4000/logout", { withCredentials: true })
-      .then((res) => {
-        // setUserinfo({
-        //   email: "",
-        //   username: "",
-        //   birth: "",
-        //   userId: 0,
-        // });
-        // setIsLogin(false);
-        // history.push("/");
-        console.log("logout success");
-      })
       .then(() => {
+        console.log("logout success");
+        router.push("/index");
+      })
+      .catch(() => {
+        console.log("logout failed");
         router.push("/index");
       });
   };

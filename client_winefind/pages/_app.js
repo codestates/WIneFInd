@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <div className="mainpage_container">
         <Top toggleModal={toggleModal} modal={modal} />
-        <Component {...pageProps} />
+        <Component toggleModal={toggleModal} modal={modal} {...pageProps} />
         <Footer />
       </div>
     </>

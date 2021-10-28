@@ -5,10 +5,16 @@
   flex-direction: column;
   /* border: 2px green solid; */
 }
-.search_bar {
-  width: 600px;
-  height: 40px;
+.mall_top {
+  /* border: 1px red solid; */
+  display: flex;
+  align-items: center;
   margin: 40px 10px;
+}
+.search_bar {
+  width: 700px;
+  height: 40px;
+  margin: 0px 20px;
   border-radius: 12px;
   background-color: white;
   border: 2px solid #cda581;

@@ -6,11 +6,12 @@ import styles from "../../styles/detail.module.css";
 import { Card, Icon, Button } from "semantic-ui-react";
 import Article from "../../components/Article";
 
-const details = () => {
+const details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
   const API_url = `https://localhost:4000/article?id=${id}`;
   const [article, setArticle] = useState(null);
+  const [isLogin, setIsLogin] = useState(false);
 
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {
@@ -24,6 +25,33 @@ const details = () => {
       })
       .catch((e) => {
         console.log("error!:", e);
+      });
+  };
+
+  const addToCart = () => {
+    axios
+      .get("https://localhost:4000/auth", { withCredentials: true })
+      .then((res) => {
+        console.log("logined");
+        console.log("장바구니에 담는 axios!!");
+      })
+      .catch((e) => {
+        console.log("not Logined");
+        toggleModal();
+      });
+  };
+
+  const purchaseItem = () => {
+    axios
+      .get("https://localhost:4000/auth", { withCredentials: true })
+      .then((res) => {
+        console.log("logined");
+        console.log("장바구니에 담고, 리스트로 이동!");
+        router.push("/shoppinglist");
+      })
+      .catch((e) => {
+        console.log("not Logined");
+        toggleModal();
       });
   };
 
@@ -146,6 +174,17 @@ const details = () => {
                   </table>
                 </Card.Description>
               </Card.Content>
+              <div style={{ textAlign: "center" }}>
+                {article ? article.wine.price : ""} / 750ml
+              </div>
+              <br />
+              <button className="ui button" onClick={addToCart}>
+                장바구니에 담기
+              </button>
+              <br />
+              <button className="ui button" onClick={purchaseItem}>
+                구매하기
+              </button>
             </Card>
           </div>
           <div className={styles.board_info}>
