@@ -1,29 +1,29 @@
-import styles from "../styles/Login.module.css";
-import React, { useState, useEffect } from "react";
-import { Icon, Button } from "semantic-ui-react";
-import axios from "axios";
-import { useRouter } from "next/dist/client/router";
+import styles from '../styles/Login.module.css';
+import React, { useState, useEffect } from 'react';
+import { Icon, Button } from 'semantic-ui-react';
+import axios from 'axios';
+import { useRouter } from 'next/dist/client/router';
 
 const Login = ({ changeLoginToSignup, toggleModal }) => {
   const [logInInfo, setLoginInfo] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
   const handleLoginInputValue = (key) => (e) => {
     setLoginInfo({ ...logInInfo, [key]: e.target.value });
   };
   const handleLogin = () => {
-    if (logInInfo.email === "") {
-      setErrorMessage("아이디를 입력해주세요");
-    } else if (logInInfo.password === "") {
-      setErrorMessage("비밀번호를 입력해주세요");
+    if (logInInfo.email === '') {
+      setErrorMessage('아이디를 입력해주세요');
+    } else if (logInInfo.password === '') {
+      setErrorMessage('비밀번호를 입력해주세요');
     } else {
       axios
         .post(
-          "https://localhost:4000/login",
+          `${process.env.NEXT_PUBLIC_API_URL}/login`,
           {
             email: logInInfo.email,
             password: logInInfo.password,
@@ -37,14 +37,14 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
           window.location.reload();
         })
         .catch(() => {
-          setErrorMessage("아이디나 비밀번호를 확인해주세요");
+          setErrorMessage('아이디나 비밀번호를 확인해주세요');
         });
     }
   };
 
   const kakaoLogin = () => {
     router.push(
-      "https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=https://localhost:3000/kakao&response_type=code"
+      'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=https://localhost:3000/kakao&response_type=code'
     );
   };
   return (
@@ -54,59 +54,59 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         <div className={styles.login_box}>
           <img
             style={{
-              display: "flex",
-              width: "160px",
-              height: "200px",
-              margin: "1rem",
+              display: 'flex',
+              width: '160px',
+              height: '200px',
+              margin: '1rem',
             }}
-            src="/images/logo.png"
+            src='/images/logo.png'
           />
           <div className={styles.form_container}>
             <div className={styles.forms}>
               <div className={styles.form}>
-                <img src="/images/user.png" height="30px" width="30px" />
+                <img src='/images/user.png' height='30px' width='30px' />
                 <input
-                  type="text"
-                  placeholder="Email"
-                  onChange={handleLoginInputValue("email")}
+                  type='text'
+                  placeholder='Email'
+                  onChange={handleLoginInputValue('email')}
                   value={logInInfo.email}
-                  styles={{ width: "10rem" }}
+                  styles={{ width: '10rem' }}
                 />
               </div>
               <div className={styles.form}>
-                <img src="/images/lock.png" height="30px" width="30px" />
+                <img src='/images/lock.png' height='30px' width='30px' />
                 <input
-                  type="password"
-                  placeholder="Password"
-                  onChange={handleLoginInputValue("password")}
+                  type='password'
+                  placeholder='Password'
+                  onChange={handleLoginInputValue('password')}
                   value={logInInfo.password}
                 />
               </div>
             </div>
             <div className={styles.errorMessage}>{errorMessage}</div>
             <div className={styles.button}>
-              <div style={{ marginTop: "0.3rem" }}>
+              <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: "230px" }}
-                  color="purple"
+                  style={{ width: '230px' }}
+                  color='purple'
                   onClick={handleLogin}
                 >
                   Login
                 </Button>
               </div>
-              <div style={{ marginTop: "0.3rem" }}>
+              <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: "230px" }}
-                  color="purple"
+                  style={{ width: '230px' }}
+                  color='purple'
                   onClick={kakaoLogin}
                 >
                   &nbsp;&nbsp;Kakao Login&nbsp;&nbsp;
                 </Button>
               </div>
-              <div style={{ marginTop: "0.3rem" }}>
+              <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: "230px" }}
-                  color="violet"
+                  style={{ width: '230px' }}
+                  color='violet'
                   onClick={changeLoginToSignup}
                 >
                   Create an Account
@@ -120,7 +120,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         <p>Copyright ⓒ 2021. Apoint. All rights reserved.</p>
       </div>
       <Icon
-        name="window close"
+        name='window close'
         className={styles.close_modal}
         onClick={toggleModal}
       />
