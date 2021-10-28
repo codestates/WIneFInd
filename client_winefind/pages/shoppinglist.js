@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import Article from '../components/Article';
 import OrderTotal from '../components/OrderTotal';
 import axios from 'axios';
-import Dummy from '../components/Dummy';
+import ArticleCart from '../components/ArticleCart';
 
 //마이페이지
 const shoppinglist = () => {
@@ -59,26 +59,26 @@ const shoppinglist = () => {
     },
   ];
 
-  // const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [checkedItems, setCheckedItems] = useState(
     cartItems.map((el) => el.itemId)
   ); // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
-  // const getArticles = () => {
-  //   axios
-  //     .get('https://localhost:4000/article', { withCredentials: true })
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       setArticles(res.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log('error!:', e);
-  //     });
-  // };
+  const getArticles = () => {
+    axios
+      .get('https://localhost:4000/article', { withCredentials: true })
+      .then((res) => {
+        console.log(res.data);
+        setArticles(res.data);
+      })
+      .catch((e) => {
+        console.log('error!:', e);
+      });
+  };
 
-  // useEffect(() => {
-  //   getArticles();
-  // }, []);
+  useEffect(() => {
+    getArticles();
+  }, []);
   // 전채 선택
   const handleAllCheck = (checked) => {
     if (checked) {
@@ -98,31 +98,31 @@ const shoppinglist = () => {
 
   //delete
   const handleDelete = (itemId) => {
-    setCheckedItems(checkedItems.filter((el) => el !== itemId));
-    console.log(checkedItems);
+    let resultList = checkedItems.splice(itemId);
+    setCheckedItems(resultList);
   };
 
   // 총 합을 리턴 하는 함수
   const getTotal = () => {
-    let cartIdArr = cartItems.map((el) => el.itemId);
+    let cartIdArr = articles.map((el) => el.id);
     let total = {
       price: 0,
       quantity: 0,
     };
     for (let i = 0; i < cartIdArr.length; i++) {
       if (checkedItems.indexOf(cartIdArr[i]) > -1) {
-        let quantity = cartItems[i].quantity;
-        let price = items.filter((el) => el.id === cartItems[i].itemId)[0]
+        let price = articles.filter((el) => el.id === articles[i].id)[0].wine
           .price;
+        console.log('i am the price', price);
 
-        total.price = total.price + quantity * price;
-        total.quantity = total.quantity + quantity;
+        total.price = total.price + Number(price);
+        total.quantity = total.quantity + 1;
       }
     }
     return total;
   };
   const renderItems = items.filter(
-    (el) => cartItems.map((el) => el.itemId).indexOf(el.id) > -1
+    (el) => articles.map((el) => el.id).indexOf(el.id) > -1
   );
   const total = getTotal();
 
@@ -138,29 +138,24 @@ const shoppinglist = () => {
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
-          <div>
-            {!cartItems.length ? (
-              <div>{console.log('Im hereee')}장바구니에 아이템이 없습니다.</div>
-            ) : (
-              <div id='cart-item-list'>
-                {renderItems.map((item, idx) => {
-                  const quantity = cartItems.filter(
-                    (el) => el.itemId === item.id
-                  )[0].quantity;
-                  return (
-                    <Dummy
-                      key={idx}
-                      handleCheckChange={handleCheckChange}
-                      handleDelete={handleDelete}
-                      item={item}
-                      checkedItems={checkedItems}
-                      quantity={quantity}
-                    />
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          {!cartItems.length ? (
+            <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
+          ) : (
+            <div id='cart-item-list'>
+              {renderItems.map((item, idx) => {
+                const quantity = articles.filter((el) => el.itemId === item.id);
+                return (
+                  <ArticleCart
+                    articles={articles}
+                    item={item}
+                    checkedItems={checkedItems}
+                    handleCheckChange={handleCheckChange}
+                    handleDelete={handleDelete}
+                  />
+                );
+              })}
+            </div>
+          )}
         </div>
         <div className={styles.filter_box}>
           <div className={styles.filter_content}>
