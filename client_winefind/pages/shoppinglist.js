@@ -9,7 +9,7 @@ import axios from 'axios';
 import ArticleCart from '../components/ArticleCart';
 
 //마이페이지
-const shoppinglist = () => {
+const Shoppinglist = () => {
   // dummy
   const items = [
     {
@@ -145,6 +145,7 @@ const shoppinglist = () => {
               {articles.map((item, idx) => {
                 return (
                   <ArticleCart
+                    key={idx}
                     articles={articles}
                     item={item}
                     checkedItems={checkedItems}
@@ -170,7 +171,7 @@ const shoppinglist = () => {
   );
 };
 
-export default shoppinglist;
+export default Shoppinglist;
 
 {
   /* <>

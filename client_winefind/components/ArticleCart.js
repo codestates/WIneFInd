@@ -11,7 +11,7 @@ export default function ArticleCart({
   return (
     <li className='cart-item-body'>
       {articles.map((article, index) => (
-        <div className={styles.article_container}>
+        <div key={index} className={styles.article_container}>
           <div className={styles.article_box}>
             <img className={styles.wine_image} src={article.wine.image} />
             <div className={styles.wine_info}>

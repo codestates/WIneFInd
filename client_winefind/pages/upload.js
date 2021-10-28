@@ -2,7 +2,7 @@ import styles from '../styles/upload.module.css';
 import { Card, Dropdown, Input, Button } from 'semantic-ui-react';
 import React, { useState, useEffect } from 'react';
 
-const upload = () => {
+const Upload = () => {
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
@@ -242,4 +242,4 @@ const upload = () => {
   );
 };
 
-export default upload;
+export default Upload;
