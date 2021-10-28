@@ -6,7 +6,7 @@ import classNames from "classnames";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button } from "semantic-ui-react";
 import { useRouter } from "next/router";
-const mall = () => {
+const mall = ({ toggleModal }) => {
   const router = useRouter();
 
   const [articles, setArticles] = useState([]);
@@ -141,6 +141,19 @@ const mall = () => {
     setList(new_list);
   };
 
+  const goToUpload = () => {
+    axios
+      .get("https://localhost:4000/auth", { withCredentials: true })
+      .then((res) => {
+        console.log("logined");
+        router.push("/upload");
+      })
+      .catch((e) => {
+        console.log("not Logined");
+        toggleModal();
+      });
+  };
+
   useEffect(() => {
     getArticles();
   }, []);
@@ -164,7 +177,7 @@ const mall = () => {
           src="images/search.png"
         />
         <div className={styles.uploadButton}>
-          <Button animated>
+          <Button onClick={goToUpload} animated>
             <Button.Content visible>게시글 작성</Button.Content>
             <Button.Content hidden>Upload</Button.Content>
           </Button>

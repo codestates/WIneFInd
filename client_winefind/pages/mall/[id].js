@@ -11,7 +11,6 @@ const details = ({ toggleModal }) => {
   const { id } = router.query;
   const API_url = `https://localhost:4000/article?id=${id}`;
   const [article, setArticle] = useState(null);
-  const [isLogin, setIsLogin] = useState(false);
 
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {

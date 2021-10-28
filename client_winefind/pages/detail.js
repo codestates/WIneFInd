@@ -1,7 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import styles from "../styles/detail.module.css";
 import { Card, Icon, Button } from "semantic-ui-react";
-import UploadModal from "../components/UploadModal";
+import UploadModal from "./UploadModal";
 //마이페이지
 const winedetail = () => {
   return (

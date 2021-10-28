@@ -121,9 +121,7 @@ const shoppinglist = () => {
     }
     return total;
   };
-  const renderItems = items.filter(
-    (el) => articles.map((el) => el.id).indexOf(el.id) > -1
-  );
+
   const total = getTotal();
 
   return (
@@ -142,8 +140,7 @@ const shoppinglist = () => {
             <div id="item-list-text">장바구니에 아이템이 없습니다.</div>
           ) : (
             <div id="cart-item-list">
-              {renderItems.map((item, idx) => {
-                const quantity = articles.filter((el) => el.itemId === item.id);
+              {articles.map((item, idx) => {
                 return (
                   <ArticleCart
                     articles={articles}
