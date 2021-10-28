@@ -123,7 +123,6 @@ const Shoppinglist = () => {
     }
     return total;
   };
-
   const total = getTotal();
 
   return (
@@ -151,6 +150,7 @@ const Shoppinglist = () => {
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}
+                    quantity={quantity}
                   />
                 );
               })}
