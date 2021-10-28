@@ -1,6 +1,6 @@
 package Apoint.WIneFInd.Article.Model;
 
-import Apoint.WIneFInd.User.Model.User;
+import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,15 +10,14 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String title;
     @Column(nullable = false)
