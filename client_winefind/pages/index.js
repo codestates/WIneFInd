@@ -1,5 +1,5 @@
-import styles from "../styles/Home.module.css";
-import classNames from "classnames";
+import styles from '../styles/Home.module.css';
+import classNames from 'classnames';
 
 const Home = () => {
   return (
@@ -7,7 +7,7 @@ const Home = () => {
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
-            <h1 className="logo text">Welcome to WINE FIND</h1>
+            <h1 className='logo text'>Welcome to WINE FIND</h1>
             <br />
             <br />
             WIne FIne, and you?
@@ -25,7 +25,7 @@ const Home = () => {
             <br />
             <br /> 바로 시작해보세요!
           </div>
-          <div className="text logo">
+          <div className='text logo'>
             <div
               className={classNames(styles.logo_effect, styles.goToPosition)}
             >
@@ -57,7 +57,7 @@ const Home = () => {
           </div>
         </div>
         <div className={styles.right_image}>
-          <img height="50%" src="images/Background3.jpg"></img>
+          <img height='50%' src='images/Background3.jpg'></img>
         </div>
       </div>
       <div className={styles.learn_container}>
