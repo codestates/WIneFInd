@@ -1,9 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
 .top_container {
   display: flex;
   padding: 30px 20px 30px 20px;
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   justify-content: space-between;
   border-bottom: 3px #cda581 solid;
 }
