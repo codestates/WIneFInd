@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/User.module.css';
 import { Icon } from 'semantic-ui-react';
 //마이페이지
-const resign = () => {
+const Resign = () => {
   const router = useRouter();
   const [modal, setModal] = useState(false);
 
@@ -12,15 +12,15 @@ const resign = () => {
     setModal(!modal);
   };
 
-  if (modal === true) {
-    useEffect(() => {
-      document.body.style.overflowY = 'hidden';
-    });
-  } else {
-    useEffect(() => {
-      document.body.style.overflowY = 'scroll';
-    });
-  }
+  // if (modal === true) {
+  //   useEffect(() => {
+  //     document.body.style.overflowY = 'hidden';
+  //   });
+  // } else {
+  //   useEffect(() => {
+  //     document.body.style.overflowY = 'scroll';
+  //   });
+  // }
 
   function goLink() {
     router.push('/index');
@@ -109,4 +109,4 @@ const resign = () => {
   );
 };
 
-export default resign;
+export default Resign;

@@ -1,5 +1,5 @@
-import styles from "../styles/Footer.module.css";
-import { Icon } from "semantic-ui-react";
+import styles from '../styles/Footer.module.css';
+import { Icon } from 'semantic-ui-react';
 const Footer = () => {
   const goToTop = () => {
     window.scrollTo(0, 0);
@@ -10,19 +10,17 @@ const Footer = () => {
         <div className={styles.contactus}>
           <h3>Contact Us</h3>
           <div>
-            <a href="https://github.com/codestates/WIneFInd">
-              <img src="/images/github.png" height="50px" width="50px"></img>
+            <a href='https://github.com/codestates/WIneFInd'>
+              <img src='/images/github.png' height='50px' width='50px'></img>
             </a>
             &nbsp;&nbsp;&nbsp;
-            <a href="https://localhost:3000/inquiry">
-              <img src="/images/inquiry.png" height="50px" width="50px"></img>
-            </a>
+            <img src='/images/inquiry.png' height='50px' width='50px'></img>
           </div>
         </div>
         <div className={styles.footer_rights}>
           Copyright ⓒ 2021. Apoint. All rights reserved.
         </div>
-        <Icon onClick={goToTop} name="arrow alternate circle up" size="huge" />
+        <Icon onClick={goToTop} name='arrow alternate circle up' size='huge' />
       </div>
     </>
   );

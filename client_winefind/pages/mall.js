@@ -6,7 +6,7 @@ import classNames from "classnames";
 import "bootstrap/dist/css/bootstrap.css";
 import { Button } from "semantic-ui-react";
 import { useRouter } from "next/router";
-const mall = ({ toggleModal }) => {
+const Mall = ({ toggleModal }) => {
   const router = useRouter();
 
   const [articles, setArticles] = useState([]);
@@ -70,7 +70,7 @@ const mall = ({ toggleModal }) => {
     };
     axios
       .get(
-        "https://localhost:4000/article",
+        `${process.env.NEXT_PUBLIC_API_URL}/article`,
         { params: searchParam },
         { withCredentials: true }
       )
@@ -85,7 +85,9 @@ const mall = ({ toggleModal }) => {
 
   const getArticles = () => {
     axios
-      .get("https://localhost:4000/article", { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res.data);
         setArticles(res.data);
@@ -161,6 +163,7 @@ const mall = ({ toggleModal }) => {
   return (
     <div className={styles.mall_container}>
       {console.log("list:", list)}
+      {console.log("aaa:", process.env.NEXT_PUBLIC_API_URL)}
       <div className={styles.mall_top}>
         <input
           className={styles.search_bar}
@@ -203,6 +206,7 @@ const mall = ({ toggleModal }) => {
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
                     <button
+                      key={index}
                       onClick={eraseThis}
                       className={styles.filter_button}
                     >
@@ -219,6 +223,7 @@ const mall = ({ toggleModal }) => {
             <div className={styles.filter_type}>
               {types.map((type, index) => (
                 <button
+                  key={index}
                   className={styles.filter_button}
                   onClick={addToFilterCondition}
                 >
@@ -234,6 +239,7 @@ const mall = ({ toggleModal }) => {
             <div className={styles.filter_type}>
               {countries.map((country, index) => (
                 <button
+                  key={index}
                   className={styles.filter_button}
                   onClick={addToFilterCondition}
                 >
@@ -248,7 +254,7 @@ const mall = ({ toggleModal }) => {
             </div>
             <div className={styles.filter_type}>
               {taste.map((ele, index) => (
-                <div className={styles.filter_taste}>
+                <div key={index} className={styles.filter_taste}>
                   <div>{ele}</div>
                   <input
                     type="range"
@@ -285,4 +291,4 @@ const mall = ({ toggleModal }) => {
   );
 };
 
-export default mall;
+export default Mall;

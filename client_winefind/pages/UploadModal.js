@@ -22,9 +22,15 @@ function UploadModal() {
     <table className={styles.tasteStructure}>
       <tbody>
         {/* 여기서부턴 Light && Bold */}
+<<<<<<< HEAD
         <tr class="tasteStructure_tasteCharacteristic">
           <td>
             <div class="tasteStructure_property">Light</div>
+=======
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Light</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
@@ -33,6 +39,7 @@ function UploadModal() {
             </div>
           </td>
           <td>
+<<<<<<< HEAD
             <div class="tasteStructure_property">Bold</div>
           </td>
         </tr>
@@ -40,6 +47,15 @@ function UploadModal() {
         <tr class="tasteStructure_tasteCharacteristic">
           <td>
             <div class="tasteStructure_property">Smooth</div>
+=======
+            <div className='tasteStructure_property'>Bold</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 smooth && tannic */}
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Smooth</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
@@ -48,6 +64,7 @@ function UploadModal() {
             </div>
           </td>
           <td>
+<<<<<<< HEAD
             <div class="tasteStructure_property">Tannic</div>
           </td>
         </tr>
@@ -55,6 +72,15 @@ function UploadModal() {
         <tr class="tasteStructure_tasteCharacteristic">
           <td>
             <div class="tasteStructure_property">Dry</div>
+=======
+            <div className='tasteStructure_property'>Tannic</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 dry && sweet */}
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Dry</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
@@ -63,6 +89,7 @@ function UploadModal() {
             </div>
           </td>
           <td>
+<<<<<<< HEAD
             <div class="tasteStructure_property">Sweet</div>
           </td>
         </tr>
@@ -70,6 +97,15 @@ function UploadModal() {
         <tr class="tasteStructure_tasteCharacteristic">
           <td>
             <div class="tasteStructure_property">Soft</div>
+=======
+            <div className='tasteStructure_property'>Sweet</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 soft && acidic */}
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Soft</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
@@ -78,7 +114,11 @@ function UploadModal() {
             </div>
           </td>
           <td>
+<<<<<<< HEAD
             <div class="tasteStructure_property">Acidic</div>
+=======
+            <div className='tasteStructure_property'>Acidic</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
         </tr>
       </tbody>

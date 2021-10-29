@@ -9,7 +9,7 @@ import axios from "axios";
 import ArticleCart from "../components/ArticleCart";
 
 //마이페이지
-const shoppinglist = () => {
+const Shoppinglist = () => {
   // dummy
   const items = [
     {
@@ -66,7 +66,9 @@ const shoppinglist = () => {
   //Article Get Api로 articles에 게시글 목록 넣기
   const getArticles = () => {
     axios
-      .get("https://localhost:4000/article", { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res.data);
         setArticles(res.data);
@@ -121,7 +123,6 @@ const shoppinglist = () => {
     }
     return total;
   };
-
   const total = getTotal();
 
   return (
@@ -143,11 +144,13 @@ const shoppinglist = () => {
               {articles.map((item, idx) => {
                 return (
                   <ArticleCart
+                    key={idx}
                     articles={articles}
                     item={item}
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}
+                    quantity={quantity}
                   />
                 );
               })}
@@ -168,7 +171,7 @@ const shoppinglist = () => {
   );
 };
 
-export default shoppinglist;
+export default Shoppinglist;
 
 {
   /* <>

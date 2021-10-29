@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import styles from "../styles/Login.module.css";
+import styles from '../styles/Login.module.css';
 
-import Login from "./Login";
-import Signup from "./Signup";
+import Login from './Login';
+import Signup from './Signup';
 
 const LoginModal = ({ toggleModal, modal }) => {
   const [isLoginOrSignup, setIsLoginOrSignup] = useState(true);
@@ -16,7 +16,7 @@ const LoginModal = ({ toggleModal, modal }) => {
   };
   return (
     <>
-      <button className={styles.btn} name="login" onClick={toggleModal}>
+      <button className={styles.btn} name='login' onClick={toggleModal}>
         Login
       </button>
       {modal && (
