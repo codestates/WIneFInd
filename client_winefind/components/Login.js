@@ -44,7 +44,11 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
 
   const kakaoLogin = () => {
     router.push(
-      `https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=${process.env.NEXT_PUBLIC_API_URL}/kakao&response_type=code`
+      'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao&response_type=code'
+      //배포할때:
+      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao&response_type=code'
+      // 개발할때:
+      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=https://localhost:3000/kakao&response_type=code'
     );
   };
   return (
