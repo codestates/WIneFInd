@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpSession;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class KakaoController {
 
     private final KakaoService kakaoService;
