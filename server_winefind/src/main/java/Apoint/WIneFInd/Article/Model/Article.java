@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -30,4 +31,5 @@ public class Article {
     @ManyToOne
     @JoinColumn(name = "wine_id")
     private Wine wine;
+
 }

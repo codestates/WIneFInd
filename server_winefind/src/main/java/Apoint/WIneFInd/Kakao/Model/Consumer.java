@@ -1,4 +1,4 @@
-package Apoint.WIneFInd.Consumer.Model;
+package Apoint.WIneFInd.Kakao.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,7 +17,7 @@ public class Consumer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)

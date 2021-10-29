@@ -17,23 +17,24 @@ import java.util.Optional;
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
-    private MemberRepository memberRepository;
-    private WineRepository wineRepository;
+    private final MemberRepository memberRepository;
+    private final WineRepository wineRepository;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository articleRepository) {
+    public ArticleServiceImpl(ArticleRepository articleRepository, MemberRepository memberRepository, WineRepository wineRepository) {
         this.articleRepository = articleRepository;
+        this.memberRepository = memberRepository;
+        this.wineRepository = wineRepository;
     }
-
 
     @Override
     public Article Save(ArticleDTO articleDTO) {
 
-        Optional<Article> checkTitle = articleRepository.findByTitle(articleDTO.getTitle());
+        List<Article> checkTitle = articleRepository.findByTitle(articleDTO.getTitle());
 
         if (!checkTitle.isEmpty()) {
 
-            return null;
+            throw new NullPointerException("동일한 아이디가 존재 합니다~");
         }
 
         Article article = new Article();
@@ -68,7 +69,7 @@ public class ArticleServiceImpl implements ArticleService {
         updateArticle.setTitle(article.getTitle());
         updateArticle.setComment(article.getComment());
 
-        return updateArticle;
+        return articleRepository.save(updateArticle);
     }
 
     @Override
