@@ -158,6 +158,7 @@ const Mall = ({ toggleModal }) => {
 
   useEffect(() => {
     getArticles();
+    console.log("here is mall ",document.location.href)
   }, []);
 
   return (
