@@ -144,16 +144,17 @@ const Mall = ({ toggleModal }) => {
   };
 
   const goToUpload = () => {
-    axios
-      .get("https://localhost:4000/auth", { withCredentials: true })
-      .then((res) => {
-        console.log("logined");
-        router.push("/upload");
-      })
-      .catch((e) => {
-        console.log("not Logined");
-        toggleModal();
-      });
+    router.push("/upload");
+    // axios
+    //   .get("https://localhost:4000/auth", { withCredentials: true })
+    //   .then((res) => {
+    //     console.log("logined");
+    //     router.push("/upload");
+    //   })
+    //   .catch((e) => {
+    //     console.log("not Logined");
+    //     toggleModal();
+    //   });
   };
 
   useEffect(() => {

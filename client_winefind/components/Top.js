@@ -46,25 +46,10 @@ function Top({ toggleModal, modal }) {
       router.push('/test');
     } else if (event.target.name === 'user') {
       router.push('/user');
-      if (isLogin === false) {
-        toggleModal();
-      }
+      // if (isLogin === false) {
+      //   toggleModal();
+      // }
     } else {
-    }
-  }
-
-  const[name, setName]=useState("block")
-  // const[margin, setMargin] = useState("0.5rem")
-  const isMenuPressed =()=>{
-    if(document.body.offsetWidth>768){
-      setName("block")
-    }
-    if(name==="none"){
-      setName("flex")
-      // setMargin("0px")
-    } else{
-      setName("none")
-      // setMargin("0.5rem")
     }
   }
 
