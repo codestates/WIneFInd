@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from '../styles/Article.module.css';
+import React from "react";
+import styles from "../styles/Article.module.css";
 
 export default function ArticleCart({
   item,
@@ -9,15 +9,15 @@ export default function ArticleCart({
   articles,
 }) {
   return (
-    <li className='cart-item-body'>
+    <li className="cart-item-body">
       {articles.map((article, index) => (
         <div key={index} className={styles.article_container}>
           <div className={styles.article_box}>
             <img className={styles.wine_image} src={article.wine.image} />
             <div className={styles.wine_info}>
               <input
-                type='checkbox'
-                className='cart-item-checkbox'
+                type="checkbox"
+                className="cart-item-checkbox"
                 onChange={(e) => {
                   handleCheckChange(e.target.checked, item.id);
                 }}
@@ -32,7 +32,7 @@ export default function ArticleCart({
                 자세히 보기
               </button>
               <button
-                className='cart-item-delete'
+                className="cart-item-delete"
                 onClick={() => {
                   handleDelete(item.id);
                 }}

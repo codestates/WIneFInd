@@ -77,7 +77,11 @@ public class MemberController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        if (cookie.getName() != "winefind") {
+        Cookie kakao = new Cookie("JSESSIONID", null);
+        kakao.setMaxAge(0);
+        response.addCookie(kakao);
+
+        if (cookie.getName() != "winefind" || kakao.getName() != "JSESSIONID" ) {
             return ResponseEntity.badRequest().body("쿠기가 삭제되지 않았습니다.");
         } else {
             return ResponseEntity.ok().body("Logged out successfully");

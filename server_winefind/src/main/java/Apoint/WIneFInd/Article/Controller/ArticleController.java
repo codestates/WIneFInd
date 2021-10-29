@@ -39,10 +39,10 @@ public class ArticleController {
     }
 
 
+
     @GetMapping("article")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
-
-        if (id != null) {
+       if (id != null) {
             Optional<Article> article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);
         } else {

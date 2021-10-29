@@ -11,12 +11,12 @@ const Kakao = () => {
           withCredentials: true,
         })
         .then(() => {
-          // router.back();
+          router.push('/index');
           console.log('kakao login success');
         })
         .catch((e) => {
           console.log('get kakao api failed:', e);
-          // router.back();
+          router.back();
         });
     }
   }, []);

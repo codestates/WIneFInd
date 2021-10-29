@@ -1,12 +1,12 @@
-import Sidebar from '../components/Sidebar';
-import { Card } from 'semantic-ui-react';
-import { useEffect, useState } from 'react';
-import styles from '../styles/Shoppinglist.module.css';
-import classNames from 'classnames';
-import Article from '../components/Article';
-import OrderTotal from '../components/OrderTotal';
-import axios from 'axios';
-import ArticleCart from '../components/ArticleCart';
+import Sidebar from "../components/Sidebar";
+import { Card } from "semantic-ui-react";
+import { useEffect, useState } from "react";
+import styles from "../styles/Shoppinglist.module.css";
+import classNames from "classnames";
+import Article from "../components/Article";
+import OrderTotal from "../components/OrderTotal";
+import axios from "axios";
+import ArticleCart from "../components/ArticleCart";
 
 //마이페이지
 const Shoppinglist = () => {
@@ -14,32 +14,32 @@ const Shoppinglist = () => {
   const items = [
     {
       id: 1,
-      name: 'Viña Ardanza Reserva 2015',
-      img: 'images/vina_ardanza.png',
+      name: "Viña Ardanza Reserva 2015",
+      img: "images/vina_ardanza.png",
       price: 9900,
     },
     {
       id: 2,
-      name: 'Château Corton Grancey Grand Cru 2015',
-      img: 'images/grand_cru.webp',
+      name: "Château Corton Grancey Grand Cru 2015",
+      img: "images/grand_cru.webp",
       price: 12000,
     },
     {
       id: 3,
-      name: 'Saperavi 2018',
-      img: 'images/vina_ardanza.png',
+      name: "Saperavi 2018",
+      img: "images/vina_ardanza.png",
       price: 2900,
     },
     {
       id: 4,
-      name: 'Lapola 2019',
-      img: 'images/grand_cru.webp',
+      name: "Lapola 2019",
+      img: "images/grand_cru.webp",
       price: 4900,
     },
     {
       id: 5,
-      name: 'PV Gran Cru 2019',
-      img: 'images/saperavi.jpeg',
+      name: "PV Gran Cru 2019",
+      img: "images/saperavi.jpeg",
       price: 2900,
     },
   ];
@@ -74,7 +74,7 @@ const Shoppinglist = () => {
         setArticles(res.data);
       })
       .catch((e) => {
-        console.log('error!:', e);
+        console.log("error!:", e);
       });
   };
 
@@ -115,7 +115,7 @@ const Shoppinglist = () => {
       if (checkedItems.indexOf(cartIdArr[i]) > -1) {
         let price = articles.filter((el) => el.id === articles[i].id)[0].wine
           .price;
-        console.log('i am the price', price);
+        console.log("i am the price", price);
 
         total.price = total.price + Number(price);
         total.quantity = total.quantity + 1;
@@ -128,19 +128,19 @@ const Shoppinglist = () => {
   return (
     <div className={styles.mall_container}>
       <Sidebar />
-      <div horizontal='true' className={styles.main_box}>
+      <div horizontal="true" className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
           <input
-            type='checkbox'
+            type="checkbox"
             checked={checkedItems.length === cartItems.length ? true : false}
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
           {!cartItems.length ? (
-            <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
+            <div id="item-list-text">장바구니에 아이템이 없습니다.</div>
           ) : (
-            <div id='cart-item-list'>
+            <div id="cart-item-list">
               {articles.map((item, idx) => {
                 return (
                   <ArticleCart
