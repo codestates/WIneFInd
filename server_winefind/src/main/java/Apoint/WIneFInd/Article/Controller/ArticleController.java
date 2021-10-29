@@ -38,18 +38,11 @@ public class ArticleController {
         }
     }
 
-<<<<<<< HEAD:server_winefind/src/main/java/Apoint/WIneFInd/Controller/ArticleController.java
-    //조회
-    @GetMapping(value = "/article")
-    public ResponseEntity<?> FindByIdArticle(@RequestParam(required = false) Long id
-                                             ) {
-=======
+
 
     @GetMapping("article")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
-
->>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee:server_winefind/src/main/java/Apoint/WIneFInd/Article/Controller/ArticleController.java
-        if (id != null) {
+       if (id != null) {
             Optional<Article> article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);
         } else {
