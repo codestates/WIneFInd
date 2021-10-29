@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Kakao.Controller;
 
 import Apoint.WIneFInd.Kakao.Service.KakaoService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,19 +19,15 @@ public class KakaoController {
         this.kakaoService = kakaoService;
     }
 
-    @GetMapping(value = "/kakao")
+    @GetMapping("kakao")
     public String login(@RequestParam("code") String code, HttpSession session) {
 
-        if (kakaoService.CreateConsumer(code, session) == "Create Success") {
-            return "Create Success";
-        } else if (kakaoService.CreateConsumer(code, session) == "NO userInfo") {
-            return "NO userInfo";
-        } else if (kakaoService.CreateConsumer(code, session) == "NO access Token") {
-            return "NO access Token";
-        } else {
-            return null;
+        try {
+            kakaoService.Create(code, session);
+            return "Success Create";
+        } catch (NullPointerException e) {
+            return "" + e;
         }
-
     }
 
 //    @RequestMapping(value="/kakao/logout")
