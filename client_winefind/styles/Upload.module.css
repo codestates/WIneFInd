@@ -15,11 +15,7 @@
   margin: 100px;
   flex-wrap: wrap;
   flex-direction: column;
-<<<<<<< HEAD
   font-family: "Jua", sans-serif;
-=======
-  font-family: 'Jua', sans-serif;
->>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
 }
 .wineName_writer {
   display: flex;
@@ -32,11 +28,8 @@
 }
 .writer {
   align-self: flex-end;
-<<<<<<< HEAD
-=======
   text-align: right;
   margin-right: 5px;
->>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
 }
 .board_content {
   display: flex;
@@ -88,11 +81,7 @@
 }
 .textarea {
   resize: none;
-<<<<<<< HEAD
   width: "100%";
-=======
-  width: '100%';
->>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
   height: 200px;
   margin: 15px 0px;
 }

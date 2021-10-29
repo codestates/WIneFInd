@@ -1,9 +1,15 @@
 import styles from '../styles/Home.module.css';
 import classNames from 'classnames';
-
+import React, {useEffect} from 'react'
 const Home = () => {
+
+  useEffect(()=>{
+    console.log("here is index ",document.location.href)
+  },[])
+
   return (
     <div className={styles.container}>
+    
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.intro_content}>
