@@ -9,8 +9,8 @@
 }
 
 .logo {
-  width: 50px;
-  height: 57px;
+  width: 3.5rem;
+  height: 4.4rem;
 }
 .btn {
   display: inline-block;
@@ -42,3 +42,27 @@
   border: 1px solid rgba(223, 190, 106, 0);
   background-position: 99% 50%;
 }
+
+.top_btn{
+  width:35px;
+  height:35px;
+  display:none;
+  
+}
+
+
+@media only screen and (max-width: 900px){
+  .top_bar{
+    display:none;
+  }
+  .top_btn{
+    display:flex;
+    position: absolute;
+    right:20px;
+    top: 50px;
+  }
+}
+
+
+
+

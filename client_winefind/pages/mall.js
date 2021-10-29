@@ -189,7 +189,7 @@ const Mall = ({ toggleModal }) => {
       </div>
       <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
-          <div className={classNames(styles.text_big)}>Wine List</div>
+          <div className={styles.text_big}>Wine List</div>
           <Article articles={articles} />
         </div>
         <div className={styles.filter_box}>

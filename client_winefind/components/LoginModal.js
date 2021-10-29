@@ -17,7 +17,7 @@ const LoginModal = ({ toggleModal, modal }) => {
   return (
     <>
       <button className={styles.btn} name='login' onClick={toggleModal}>
-        Login
+        로그인
       </button>
       {modal && (
         <div className={styles.modal}>
