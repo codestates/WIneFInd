@@ -1,6 +1,6 @@
-import { Button, Header, Image, Modal } from 'semantic-ui-react';
-import styles from '../styles/Upload.module.css';
-import React, { useState, useEffect } from 'react';
+import { Button, Header, Image, Modal } from "semantic-ui-react";
+import styles from "../styles/UploadModal.module.css";
+import React, { useState, useEffect } from "react";
 
 function UploadModal() {
   const [open, setOpen] = useState(false);
@@ -16,23 +16,38 @@ function UploadModal() {
     }
   };
 
-  let tasteValue = <input type='range' value='' className={styles.taste_bar} />;
+  let tasteValue = <input type="range" value="" className={styles.taste_bar} />;
 
   let taste = (
     <table className={styles.tasteStructure}>
       <tbody>
         {/* 여기서부턴 Light && Bold */}
+<<<<<<< HEAD
+        <tr class="tasteStructure_tasteCharacteristic">
+          <td>
+            <div class="tasteStructure_property">Light</div>
+=======
         <tr className='tasteStructure_tasteCharacteristic'>
           <td>
             <div className='tasteStructure_property'>Light</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
               {/* 여기에 input type 들어감 */}
-              <input type='range' className={styles.taste_bar} />
+              <input type="range" className={styles.taste_bar} />
             </div>
           </td>
           <td>
+<<<<<<< HEAD
+            <div class="tasteStructure_property">Bold</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 smooth && tannic */}
+        <tr class="tasteStructure_tasteCharacteristic">
+          <td>
+            <div class="tasteStructure_property">Smooth</div>
+=======
             <div className='tasteStructure_property'>Bold</div>
           </td>
         </tr>
@@ -40,14 +55,24 @@ function UploadModal() {
         <tr className='tasteStructure_tasteCharacteristic'>
           <td>
             <div className='tasteStructure_property'>Smooth</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
               {/* 여기에 input type 들어감 */}
-              <input type='range' className={styles.taste_bar} />
+              <input type="range" className={styles.taste_bar} />
             </div>
           </td>
           <td>
+<<<<<<< HEAD
+            <div class="tasteStructure_property">Tannic</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 dry && sweet */}
+        <tr class="tasteStructure_tasteCharacteristic">
+          <td>
+            <div class="tasteStructure_property">Dry</div>
+=======
             <div className='tasteStructure_property'>Tannic</div>
           </td>
         </tr>
@@ -55,14 +80,24 @@ function UploadModal() {
         <tr className='tasteStructure_tasteCharacteristic'>
           <td>
             <div className='tasteStructure_property'>Dry</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
               {/* 여기에 input type 들어감 */}
-              <input type='range' className={styles.taste_bar} />
+              <input type="range" className={styles.taste_bar} />
             </div>
           </td>
           <td>
+<<<<<<< HEAD
+            <div class="tasteStructure_property">Sweet</div>
+          </td>
+        </tr>
+        {/* 여기서부턴 soft && acidic */}
+        <tr class="tasteStructure_tasteCharacteristic">
+          <td>
+            <div class="tasteStructure_property">Soft</div>
+=======
             <div className='tasteStructure_property'>Sweet</div>
           </td>
         </tr>
@@ -70,15 +105,20 @@ function UploadModal() {
         <tr className='tasteStructure_tasteCharacteristic'>
           <td>
             <div className='tasteStructure_property'>Soft</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
           <td className={styles.tasteStructure_progressBar}>
             <div className={styles.tastebar_container}>
               {/* 여기에 input type 들어감 */}
-              <input type='range' className={styles.taste_bar} />
+              <input type="range" className={styles.taste_bar} />
             </div>
           </td>
           <td>
+<<<<<<< HEAD
+            <div class="tasteStructure_property">Acidic</div>
+=======
             <div className='tasteStructure_property'>Acidic</div>
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
           </td>
         </tr>
       </tbody>
@@ -96,10 +136,9 @@ function UploadModal() {
         <Modal.Header>Select a Photo</Modal.Header>
         <div className={styles.contain}>
           <Modal.Content image>
-            {/* <Image size='medium' src='images/vina_ardanza.png' wrapped /> */}
             <img src={createObjectURL} className={styles.keepimg} />
             <div>
-              <input type='file' onChange={uploadToClient} />
+              <input type="file" onChange={uploadToClient} />
             </div>
             <div>{taste}</div>
             <div className={styles.upload}>
@@ -107,26 +146,26 @@ function UploadModal() {
                 <Header>
                   <input
                     className={styles.wine_name}
-                    placeholder='Wine Title Here'
+                    placeholder="Wine Title Here"
                   ></input>
                 </Header>
                 <textarea
                   className={styles.upload_text}
-                  type='textbox'
-                  placeholder='Wine Description Here!'
+                  type="textbox"
+                  placeholder="Wine Description Here!"
                 />
               </Modal.Description>
             </div>
           </Modal.Content>
         </div>
         <Modal.Actions>
-          <Button color='black' onClick={() => setOpen(false)}>
+          <Button color="black" onClick={() => setOpen(false)}>
             Cancel
           </Button>
           <Button
-            content='Upload'
-            labelPosition='right'
-            icon='checkmark'
+            content="Upload"
+            labelPosition="right"
+            icon="checkmark"
             onClick={() => setOpen(false)}
             positive
           />

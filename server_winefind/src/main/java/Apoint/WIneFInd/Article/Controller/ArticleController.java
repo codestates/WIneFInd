@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -38,10 +38,17 @@ public class ArticleController {
         }
     }
 
+<<<<<<< HEAD:server_winefind/src/main/java/Apoint/WIneFInd/Controller/ArticleController.java
+    //조회
+    @GetMapping(value = "/article")
+    public ResponseEntity<?> FindByIdArticle(@RequestParam(required = false) Long id
+                                             ) {
+=======
 
     @GetMapping("article")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
 
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee:server_winefind/src/main/java/Apoint/WIneFInd/Article/Controller/ArticleController.java
         if (id != null) {
             Optional<Article> article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);

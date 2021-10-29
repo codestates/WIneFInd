@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Kakao.Controller;
 
+
 import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpSession;
 public class KakaoController {
 
     private final KakaoService kakaoService;
+
+
+
 
     public KakaoController(KakaoService kakaoService) {
         this.kakaoService = kakaoService;
