@@ -12,18 +12,24 @@ import ArticleCart from '../components/ArticleCart';
 const Shoppinglist = () => {
   const [articles, setArticles] = useState([]);
 
-  //checked Items는 배열로 선택된 애들을 담아준다.
+  //checked Items는 배열로 선택된 애들을 담아준다. 체크된 애들만 숫자로 배열에 담아준다.
   const [checkedItems, setCheckedItems] = useState(articles.map((el) => el.id));
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
+
+  //카카오 auth 명령으로 내 id 받아와야해요 민쥰님!!
+  const getMyId = () => {};
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=1`, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
-        setArticles(res.data);
+        setArticles(
+          res.data['Show MyCartItem'].map((ele) => {
+            return ele.article;
+          })
+        );
       })
       .catch((e) => {
         console.log('error!:', e);
@@ -36,7 +42,7 @@ const Shoppinglist = () => {
 
   const handleAllCheck = (checked) => {
     if (checked) {
-      setCheckedItems(cartItems.map((el) => el.itemId));
+      setCheckedItems(articles.map((el) => el.id));
     } else {
       setCheckedItems([]);
     }
@@ -50,45 +56,41 @@ const Shoppinglist = () => {
     }
   };
 
-  const handleDelete = (itemId) => {
-    let resultList = checkedItems.splice(itemId);
-    setCheckedItems(resultList);
+  const handleDelete = (id) => {
+    setArticles(articles.splice(id));
   };
 
   const getTotal = () => {
-    let cartIdArr = articles.map((el) => el.id);
+    let cartIdArr = checkedItems;
     let total = {
       price: 0,
       quantity: 0,
     };
     for (let i = 0; i < cartIdArr.length; i++) {
-      if (checkedItems.indexOf(cartIdArr[i]) > -1) {
-        let price = articles.filter((el) => el.id === articles[i].id)[0].wine
-          .price;
-        console.log('i am the price', price);
-
-        total.price = total.price + Number(price);
-        total.quantity = total.quantity + 1;
-      }
+      let price = articles.filter((el) => el.id === articles[i].id)[0].wine
+        .price;
+      console.log('i am the price', price);
+      total.price = total.price + Number(price);
+      total.quantity = total.quantity + 1;
     }
     return total;
   };
-  const total = getTotal();
+  let total = getTotal();
 
   return (
     <div className={styles.mall_container}>
-      {console.log('get data:')}
-      {/* <Sidebar />
+      {console.log('get data:', articles)}
+      <Sidebar />
       <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
           <input
             type='checkbox'
-            checked={checkedItems.length === cartItems.length ? true : false}
+            checked={checkedItems.length === articles.length ? true : false}
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
-          {!cartItems.length ? (
+          {!articles.length ? (
             <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
           ) : (
             <div id='cart-item-list'>
@@ -96,7 +98,6 @@ const Shoppinglist = () => {
                 return (
                   <ArticleCart
                     key={idx}
-                    articles={articles}
                     item={item}
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
@@ -116,7 +117,7 @@ const Shoppinglist = () => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
