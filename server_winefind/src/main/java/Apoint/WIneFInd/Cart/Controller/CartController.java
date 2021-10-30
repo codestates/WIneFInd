@@ -7,11 +7,16 @@ import Apoint.WIneFInd.Cart.Service.CartService;
 import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
 public class CartController {
@@ -34,23 +39,27 @@ public class CartController {
                 }});
             }});
 
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body(e);
+        } catch (NonUniqueResultException e) {
+            return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. : " + e);
+        } catch (IncorrectResultSizeDataAccessException e) {
+            return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. : " + e);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(500).body("장바구니에 Consumer & Article 정보가 존재하지 않습니다. \n" + e);
+        } catch (InvalidDataAccessApiUsageException e) {
+            return ResponseEntity.status(500).body("Domain 양식에 맞지 않습니다 양식에 맞춰 다시보내주세요. \n" + e);
         }
     }
 
     @GetMapping("cart")
-    public ResponseEntity<?> FindCart(@RequestParam Long id) {
+    public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
 
         try {
             List<Cart> carts = cartService.FindByConsumerId(id);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("data", new HashMap<>() {{
-                    put("Show MyCartItem", carts);
-                }});
+                put("Show MyCartItem", carts);
             }});
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body(e);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
         }
     }
 }
