@@ -40,20 +40,6 @@ function Top({ toggleModal, modal }) {
       });
   };
 
-  function goLink(event) {
-    if (event.target.name === 'mall') {
-      router.push('/mall');
-    } else if (event.target.name === 'test') {
-      router.push('/test');
-    } else if (event.target.name === 'user') {
-      router.push('/user');
-      if (isLogin === false) {
-        toggleModal();
-      }
-    } else {
-    }
-  }
-
   return (
     <>
       <div className={styles.nav_bar_container}>
@@ -76,15 +62,24 @@ function Top({ toggleModal, modal }) {
               나만의 와인셀러
             </a>
           </Link>
-          <Link href='/login'>
-            <a className={classNames('text', styles.nav_btn)}>Login</a>
-          </Link>
+          {isLogin ? (
+            <a
+              className={classNames('text', styles.nav_btn)}
+              onClick={handleLogout}
+            >
+              로그아웃
+            </a>
+          ) : (
+            <LoginModal modal={modal} toggleModal={toggleModal} />
+          )}
         </div>
       </div>
     </>
   );
 }
-
+{
+  /* <LoginModal modal={modal} toggleModal={toggleModal} /> */
+}
 export default Top;
 
 // <div className={styles.top_container}>

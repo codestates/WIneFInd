@@ -13,13 +13,12 @@
 }
 .search_bar {
   min-width: 300px;
-  width:40%;
+  width: 40%;
   height: 40px;
   margin: 0px 20px;
   border-radius: 12px;
   background-color: white;
   border: 2px solid #cda581;
-  
 }
 .search_image {
   width: 50px;
@@ -27,8 +26,10 @@
 
 .main_box {
   display: flex;
-  min-width:700px;
-  width: 66%;
+  /* min-width: 700px; */
+  /* width: 100%; */
+  padding: 10px;
+  margin: 0 8rem;
   border: 5px solid #e4a065;
   border-radius: 15px;
   background: white;
@@ -97,7 +98,7 @@
   height: 150px;
   display: flex;
   border: 3px yellow solid;
-  padding:10px;
+  padding: 10px;
   align-items: center;
   width: 95%;
   margin: 15px;
@@ -115,4 +116,9 @@
   display: flex;
   justify-content: center;
   margin: 50px;
+}
+@media only screen and (max-width: 760px) {
+  .main_box {
+    flex-direction: column-reverse;
+  }
 }

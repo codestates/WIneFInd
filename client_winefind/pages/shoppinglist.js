@@ -1,68 +1,20 @@
-import Sidebar from "../components/Sidebar";
-import { Card } from "semantic-ui-react";
-import { useEffect, useState } from "react";
-import styles from "../styles/Shoppinglist.module.css";
-import classNames from "classnames";
-import Article from "../components/Article";
-import OrderTotal from "../components/OrderTotal";
-import axios from "axios";
-import ArticleCart from "../components/ArticleCart";
+import Sidebar from '../components/Sidebar';
+import { Card } from 'semantic-ui-react';
+import { useEffect, useState } from 'react';
+import styles from '../styles/Shoppinglist.module.css';
+import classNames from 'classnames';
+import Article from '../components/Article';
+import OrderTotal from '../components/OrderTotal';
+import axios from 'axios';
+import ArticleCart from '../components/ArticleCart';
 
 //마이페이지
 const Shoppinglist = () => {
-  // dummy
-  const items = [
-    {
-      id: 1,
-      name: "Viña Ardanza Reserva 2015",
-      img: "images/vina_ardanza.png",
-      price: 9900,
-    },
-    {
-      id: 2,
-      name: "Château Corton Grancey Grand Cru 2015",
-      img: "images/grand_cru.webp",
-      price: 12000,
-    },
-    {
-      id: 3,
-      name: "Saperavi 2018",
-      img: "images/vina_ardanza.png",
-      price: 2900,
-    },
-    {
-      id: 4,
-      name: "Lapola 2019",
-      img: "images/grand_cru.webp",
-      price: 4900,
-    },
-    {
-      id: 5,
-      name: "PV Gran Cru 2019",
-      img: "images/saperavi.jpeg",
-      price: 2900,
-    },
-  ];
-
-  let cartItems = [
-    {
-      itemId: 1,
-      quantity: 1,
-    },
-    {
-      itemId: 2,
-      quantity: 1,
-    },
-    {
-      itemId: 5,
-      quantity: 1,
-    },
-  ];
-
   const [articles, setArticles] = useState([]);
-  const [checkedItems, setCheckedItems] = useState(
-    cartItems.map((el) => el.itemId)
-  ); // 와인 몰에서 와인을 추가 했을시
+
+  //checked Items는 배열로 선택된 애들을 담아준다.
+  const [checkedItems, setCheckedItems] = useState(articles.map((el) => el.id));
+  // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
   const getArticles = () => {
     axios
@@ -74,14 +26,14 @@ const Shoppinglist = () => {
         setArticles(res.data);
       })
       .catch((e) => {
-        console.log("error!:", e);
+        console.log('error!:', e);
       });
   };
 
   useEffect(() => {
     getArticles();
   }, []);
-  // 전채 선택
+
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(cartItems.map((el) => el.itemId));
@@ -89,7 +41,7 @@ const Shoppinglist = () => {
       setCheckedItems([]);
     }
   };
-  // 선택된 항목들
+
   const handleCheckChange = (checked, id) => {
     if (checked) {
       setCheckedItems([...checkedItems, id]);
@@ -98,13 +50,11 @@ const Shoppinglist = () => {
     }
   };
 
-  //delete
   const handleDelete = (itemId) => {
     let resultList = checkedItems.splice(itemId);
     setCheckedItems(resultList);
   };
 
-  // 총 합을 리턴 하는 함수
   const getTotal = () => {
     let cartIdArr = articles.map((el) => el.id);
     let total = {
@@ -115,7 +65,7 @@ const Shoppinglist = () => {
       if (checkedItems.indexOf(cartIdArr[i]) > -1) {
         let price = articles.filter((el) => el.id === articles[i].id)[0].wine
           .price;
-        console.log("i am the price", price);
+        console.log('i am the price', price);
 
         total.price = total.price + Number(price);
         total.quantity = total.quantity + 1;
@@ -127,20 +77,21 @@ const Shoppinglist = () => {
 
   return (
     <div className={styles.mall_container}>
-      <Sidebar />
-      <div horizontal="true" className={styles.main_box}>
+      {console.log('get data:')}
+      {/* <Sidebar />
+      <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
           <input
-            type="checkbox"
+            type='checkbox'
             checked={checkedItems.length === cartItems.length ? true : false}
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
           {!cartItems.length ? (
-            <div id="item-list-text">장바구니에 아이템이 없습니다.</div>
+            <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
           ) : (
-            <div id="cart-item-list">
+            <div id='cart-item-list'>
               {articles.map((item, idx) => {
                 return (
                   <ArticleCart
@@ -150,7 +101,6 @@ const Shoppinglist = () => {
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}
-                    quantity={quantity}
                   />
                 );
               })}
@@ -166,7 +116,7 @@ const Shoppinglist = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

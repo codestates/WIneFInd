@@ -1,30 +1,30 @@
-import styles from "../styles/Mall.module.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import Article from "../components/Article";
-import classNames from "classnames";
-import "bootstrap/dist/css/bootstrap.css";
-import { Button } from "semantic-ui-react";
-import { useRouter } from "next/router";
+import styles from '../styles/Mall.module.css';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import Article from '../components/Article';
+import classNames from 'classnames';
+import 'bootstrap/dist/css/bootstrap.css';
+import { Button } from 'semantic-ui-react';
+import { useRouter } from 'next/router';
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
 
   const [articles, setArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
-  let types = ["red", "white", "rose", "sparkling"];
+  let types = ['red', 'white', 'rose', 'sparkling'];
   let countries = [
-    "France",
-    "Italy",
-    "Spain",
-    "New Zealand",
-    "USA",
-    "Australia",
-    "Chile",
-    "Germany",
-    "Argentina",
-    "Republic of South Africa",
+    'France',
+    'Italy',
+    'Spain',
+    'New Zealand',
+    'USA',
+    'Australia',
+    'Chile',
+    'Germany',
+    'Argentina',
+    'Republic of South Africa',
   ];
-  let taste = ["acidity", "sweetness", "body", "tannic"];
+  let taste = ['acidity', 'sweetness', 'body', 'tannic'];
 
   let filterConditionList = {
     types: [],
@@ -50,23 +50,23 @@ const Mall = ({ toggleModal }) => {
         typeslist.push(ele);
       } else if (countries.includes(ele)) {
         countrieslist.push(ele);
-      } else if (ele.slice(0, 5) === "sweet") {
+      } else if (ele.slice(0, 5) === 'sweet') {
         sweetnesslist.push(ele);
-      } else if (ele.slice(0, 7) === "acidity") {
+      } else if (ele.slice(0, 7) === 'acidity') {
         aciditylist.push(ele);
-      } else if (ele.slice(0, 4) === "body") {
+      } else if (ele.slice(0, 4) === 'body') {
         bodylist.push(ele);
-      } else if (ele.slice(0, 6) === "tannic") {
+      } else if (ele.slice(0, 6) === 'tannic') {
         tanniclist.push(ele);
       }
     }
     const searchParam = {
-      typeslist: typeslist.join(","),
-      countrieslist: countrieslist.join(","),
-      sweetnesslist: sweetnesslist.join(","),
-      aciditylist: aciditylist.join(","),
-      bodylist: bodylist.join(","),
-      tanniclist: tanniclist.join(","),
+      typeslist: typeslist.join(','),
+      countrieslist: countrieslist.join(','),
+      sweetnesslist: sweetnesslist.join(','),
+      aciditylist: aciditylist.join(','),
+      bodylist: bodylist.join(','),
+      tanniclist: tanniclist.join(','),
     };
     axios
       .get(
@@ -75,11 +75,11 @@ const Mall = ({ toggleModal }) => {
         { withCredentials: true }
       )
       .then((res) => {
-        console.log("SUCCESS, NOW GET NEW DATA!!!");
-        console.log("???:", res);
+        console.log('SUCCESS, NOW GET NEW DATA!!!');
+        console.log('???:', res);
       })
       .catch((e) => {
-        console.log("error!:", e);
+        console.log('error!:', e);
       });
   };
 
@@ -93,7 +93,7 @@ const Mall = ({ toggleModal }) => {
         setArticles(res.data);
       })
       .catch((e) => {
-        console.log("error!:", e);
+        console.log('error!:', e);
       });
   };
 
@@ -121,14 +121,14 @@ const Mall = ({ toggleModal }) => {
 
   const handleInputValue = (e) => {
     let key = e.target.name;
-    if (key === "sweetness") {
-      filterConditionList[key][0] = "sweetness" + e.target.value;
-    } else if (key === "acidity") {
-      filterConditionList[key][0] = "acidity" + e.target.value;
-    } else if (key === "body") {
-      filterConditionList[key][0] = "body" + e.target.value;
-    } else if (key === "tannic") {
-      filterConditionList[key][0] = "tannic" + e.target.value;
+    if (key === 'sweetness') {
+      filterConditionList[key][0] = 'sweetness' + e.target.value;
+    } else if (key === 'acidity') {
+      filterConditionList[key][0] = 'acidity' + e.target.value;
+    } else if (key === 'body') {
+      filterConditionList[key][0] = 'body' + e.target.value;
+    } else if (key === 'tannic') {
+      filterConditionList[key][0] = 'tannic' + e.target.value;
     } else {
       filterConditionList[key][0] = e.target.value;
     }
@@ -145,44 +145,46 @@ const Mall = ({ toggleModal }) => {
 
   const goToUpload = () => {
     axios
-      .get("https://localhost:4000/auth", { withCredentials: true })
+      .get('https://localhost:4000/auth', { withCredentials: true })
       .then((res) => {
-        console.log("logined");
-        router.push("/upload");
+        console.log('logined');
+        router.push('/upload');
       })
       .catch((e) => {
-        console.log("not Logined");
+        console.log('not Logined');
         toggleModal();
       });
   };
 
   useEffect(() => {
     getArticles();
-    console.log("here is mall ",document.location.href)
+    console.log('here is mall ', document.location.href);
   }, []);
 
   return (
     <div className={styles.mall_container}>
-      {console.log("list:", list)}
-      {console.log("aaa:", process.env.NEXT_PUBLIC_API_URL)}
+      {console.log('list:', list)}
+      {console.log('aaa:', process.env.NEXT_PUBLIC_API_URL)}
       <div className={styles.mall_top}>
         <input
           className={styles.search_bar}
-          placeholder="   Find Your Wine!"
-          type="search"
+          placeholder='   Find Your Wine!'
+          type='search'
         />
         <img
           style={{
-            width: "20px",
-            height: "20px",
-            position: "relative",
-            right: "50px",
+            width: '20px',
+            height: '20px',
+            position: 'relative',
+            right: '50px',
           }}
-          src="images/search.png"
+          src='images/search.png'
         />
         <div className={styles.uploadButton}>
           <Button onClick={goToUpload} animated>
-            <Button.Content visible>게시글 작성</Button.Content>
+            <Button.Content style={{ width: '4.6rem' }} visible>
+              게시글 작성
+            </Button.Content>
             <Button.Content hidden>Upload</Button.Content>
           </Button>
         </div>
@@ -200,7 +202,7 @@ const Mall = ({ toggleModal }) => {
                 <button onClick={getFilteredList}>필터 적용</button>
               </div>
               <div>
-                <input type="reset" value="모두 삭제" onClick={eraseAll} />
+                <input type='reset' value='모두 삭제' onClick={eraseAll} />
               </div>
             </div>
             <div>
@@ -258,10 +260,10 @@ const Mall = ({ toggleModal }) => {
                 <div key={index} className={styles.filter_taste}>
                   <div>{ele}</div>
                   <input
-                    type="range"
-                    min="0"
-                    max="4"
-                    step="1"
+                    type='range'
+                    min='0'
+                    max='4'
+                    step='1'
                     name={ele}
                     onClick={addToFilterCondition}
                     onInput={handleInputValue}
@@ -276,11 +278,11 @@ const Mall = ({ toggleModal }) => {
             </div>
             <div className={styles.filter_price}>
               <input
-                style={{ width: "300px" }}
-                type="range"
-                min="0"
-                max="1000000"
-                name="price"
+                style={{ width: '300px' }}
+                type='range'
+                min='0'
+                max='1000000'
+                name='price'
                 onClick={addToFilterCondition}
                 onInput={handleInputValue}
               />
