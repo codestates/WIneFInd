@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from '../styles/Login.module.css';
-
+import classNames from 'classnames';
 import Login from './Login';
 import Signup from './Signup';
 
@@ -16,9 +16,13 @@ const LoginModal = ({ toggleModal, modal }) => {
   };
   return (
     <>
-      <button className={styles.btn} name='login' onClick={toggleModal}>
+      <a
+        className={classNames('text', styles.nav_btn)}
+        name='login'
+        onClick={toggleModal}
+      >
         로그인
-      </button>
+      </a>
       {modal && (
         <div className={styles.modal}>
           <div onClick={toggleModal} className={styles.overlay}></div>

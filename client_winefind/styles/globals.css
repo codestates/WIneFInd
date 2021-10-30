@@ -33,13 +33,9 @@ input {
   -webkit-background-clip: text;
 }
 
-.logo {
-  font-family: 'Playfair Display', serif;
-}
-
 .mainpage_container {
   width: 100%;
-
+  z-index: -100;
   background-image: linear-gradient(
     to right top,
     #7f7271,
