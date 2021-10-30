@@ -32,7 +32,7 @@ public class ArticleController {
             }});
 
         } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("동일한 아이디가 존재 합니다." + e);
+            return ResponseEntity.badRequest().body(e);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("에러 발생!!! " + e);
         }
