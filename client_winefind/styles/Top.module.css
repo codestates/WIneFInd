@@ -1,68 +1,81 @@
-@import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
-.top_container {
+.nav_bar_container {
   display: flex;
-  padding: 30px 20px 30px 20px;
+  flex-wrap: wrap;
+  padding: 0.3rem 1rem;
   font-family: 'Playfair Display', serif;
   justify-content: space-between;
-  border-bottom: 3px #cda581 solid;
+  align-items: center;
+  border-bottom: 1px #cda581 solid;
 }
 
-.logo {
-  width: 3.5rem;
-  height: 4.4rem;
+.nav_logo {
+  font-size: 2.2rem;
+  margin: 1.5rem;
+  text-decoration: none;
 }
-.btn {
-  display: inline-block;
-  background: transparent;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 1rem;
-  /* letter-spacing: 0.3em; */
-  color: #cda581;
-  border-radius: 50px;
-  padding: 18px 40px 20px;
-  transition: all 0.7s ease-out;
+.nav_logo:hover {
+  text-decoration: none;
+  font-size: 2.2rem;
   background: linear-gradient(
-    270deg,
-    #cda581,
-    rgba(146, 111, 52, 0.8),
-    rgba(34, 34, 34, 0),
-    rgba(34, 34, 34, 0)
+    to bottom,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
   );
-  background-position: 1% 50%;
-  background-size: 300% 300%;
-  margin: 0.5rem;
-  border: 1px #1e1e1e solid;
-  /* border: 1px solid rgba(223, 190, 106, 0.3); */
+  color: transparent;
+  -webkit-background-clip: text;
 }
 
-.btn:hover {
-  color: #fff;
-  border: 1px solid rgba(223, 190, 106, 0);
-  background-position: 99% 50%;
+.nav_btns {
+  /* border: 2px red solid; */
+  display: flex;
+  justify-content: flex-end;
+}
+.nav_btn {
+  font-size: 1rem;
+  margin: 1.5rem;
+}
+.nav_btn:hover {
+  /* color: #cda581; */
+  background: linear-gradient(
+    to bottom,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  color: transparent;
+  -webkit-background-clip: text;
 }
 
-.top_btn{
-  width:35px;
-  height:35px;
-  display:none;
-  
-}
-
-
-@media only screen and (max-width: 900px){
-  .top_bar{
-    display:none;
+@media only screen and (max-width: 760px) {
+  .nav_bar_container {
+    justify-content: center;
+    padding: 2rem 0rem 0rem 0rem;
   }
-  .top_btn{
-    display:flex;
-    position: absolute;
-    right:20px;
-    top: 50px;
+  .nav_btns {
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+  }
+  .nav_btn {
   }
 }
-
-
-
-
