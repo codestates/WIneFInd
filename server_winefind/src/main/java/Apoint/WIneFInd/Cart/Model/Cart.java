@@ -4,17 +4,15 @@ package Apoint.WIneFInd.Cart.Model;
 import Apoint.WIneFInd.Article.Model.Article;
 
 import Apoint.WIneFInd.Kakao.Model.Consumer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
 @Getter @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "article_consumer_cart")
 public class Cart {
 
