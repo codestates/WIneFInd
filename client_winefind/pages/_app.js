@@ -1,6 +1,5 @@
 import '../styles/globals.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import '../node_modules/bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
 import Footer from '../components/Footer';
 import Top from '../components/Top';
