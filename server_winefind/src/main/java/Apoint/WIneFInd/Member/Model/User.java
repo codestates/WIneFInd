@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Member.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +37,7 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Article> articleList;
 

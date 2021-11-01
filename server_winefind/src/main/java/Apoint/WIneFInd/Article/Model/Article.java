@@ -30,18 +30,18 @@ public class Article {
 
     @Column(nullable = false)
     private String comment;
-
-    @JsonBackReference
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
 
-    @JsonBackReference
+    private User user;
+    @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "wine_id")
     private Wine wine;
 
-    @JsonManagedReference
+
+    @JsonBackReference
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Cart> cartList;
 }
