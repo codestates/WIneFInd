@@ -1,12 +1,15 @@
 package Apoint.WIneFInd.Member.Model;
 
+import Apoint.WIneFInd.Article.Model.Article;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,4 +35,7 @@ public class User {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Article> articleList = new ArrayList<>();
 }

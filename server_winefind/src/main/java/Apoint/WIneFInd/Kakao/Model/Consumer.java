@@ -1,9 +1,12 @@
 package Apoint.WIneFInd.Kakao.Model;
 
+import Apoint.WIneFInd.Cart.Model.Cart;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder
@@ -26,4 +29,7 @@ public class Consumer {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList = new ArrayList<>();
 }

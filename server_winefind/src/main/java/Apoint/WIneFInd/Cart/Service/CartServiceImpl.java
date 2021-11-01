@@ -75,4 +75,11 @@ public class CartServiceImpl implements CartService {
         // "Consumer"가 있으면 결과 출력
         return consumerList;
     }
+
+    @Override
+    public void DeleteCart(Long id) {
+        Long id1 = kakaoRepository.findById(id).get().getId();
+
+        kakaoRepository.deleteById(id1);
+    }
 }
