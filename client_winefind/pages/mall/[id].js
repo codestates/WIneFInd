@@ -11,7 +11,6 @@ const Details = ({ toggleModal }) => {
   const { id } = router.query;
   const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   const [article, setArticle] = useState(null);
-  const [userId, setUserId] = useState(null);
 
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {
@@ -43,13 +42,14 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to cart success');
-            if (typeof func === 'function') {
+            if (func === 'goToShoppingList') {
               console.log('here is func:', func);
+              router.push('/shoppinglist');
             }
           })
 
           .catch((e) => {
-            console.log('Already on Cart!');
+            console.log('Already on Cart!:articleId:', id);
             alert('Already on Cart!');
           });
       })
@@ -60,11 +60,7 @@ const Details = ({ toggleModal }) => {
   };
 
   const purchaseItem = () => {
-    addToCart(() => goToShoppingList);
-  };
-
-  const goToShoppingList = () => {
-    return router.push('/shoppinglist');
+    addToCart('goToShoppingList');
   };
 
   useEffect(() => {
