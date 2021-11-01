@@ -31,8 +31,20 @@ const Details = ({ toggleModal }) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        console.log('logined');
+        console.log('logined:', res);
         console.log('장바구니에 담는 axios!!');
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_API_URL}/cart`,
+            {
+              articleId: 1,
+              consumerId: 1,
+              //여기에 auth로 내가 누군지 알아야해
+            },
+            { withCredentials: true }
+          )
+          .then(console.log('add to cart success'))
+          .catch(console.log('add to cart failed'));
       })
       .catch((e) => {
         console.log('not Logined');

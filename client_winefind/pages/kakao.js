@@ -4,19 +4,19 @@ import { useEffect, useState } from 'react';
 
 const Kakao = () => {
   useEffect(() => {
-    let code = document.location.href.split('code=')[1]
+    let code = document.location.href.split('code=')[1];
     if (code) {
       axios
         .get(`${process.env.NEXT_PUBLIC_API_URL}/kakao?code=${code}`, {
           withCredentials: true,
         })
         .then(() => {
-          router.push('/index');
+          // router.push('/index');
           console.log('kakao login success');
         })
         .catch((e) => {
           console.log('get kakao api failed:', e);
-          router.back();
+          // router.back();
         });
     }
   }, []);

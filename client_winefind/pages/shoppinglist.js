@@ -10,10 +10,12 @@ import ArticleCart from '../components/ArticleCart';
 
 //마이페이지
 const Shoppinglist = () => {
-  const [articles, setArticles] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
 
   //checked Items는 배열로 선택된 애들을 담아준다. 체크된 애들만 숫자로 배열에 담아준다.
-  const [checkedItems, setCheckedItems] = useState(articles.map((el) => el.id));
+  const [checkedItems, setCheckedItems] = useState(
+    cartItems.map((el) => el.id)
+  );
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
 
@@ -25,7 +27,7 @@ const Shoppinglist = () => {
         withCredentials: true,
       })
       .then((res) => {
-        setArticles(
+        setCartItems(
           res.data['Show MyCartItem'].map((ele) => {
             return ele.article;
           })
@@ -42,7 +44,7 @@ const Shoppinglist = () => {
 
   const handleAllCheck = (checked) => {
     if (checked) {
-      setCheckedItems(articles.map((el) => el.id));
+      setCheckedItems(cartItems.map((el) => el.id));
     } else {
       setCheckedItems([]);
     }
@@ -57,7 +59,7 @@ const Shoppinglist = () => {
   };
 
   const handleDelete = (id) => {
-    setArticles(articles.splice(id));
+    setCartItems(cartItems.splice(id));
   };
 
   const getTotal = () => {
@@ -67,34 +69,38 @@ const Shoppinglist = () => {
       quantity: 0,
     };
     for (let i = 0; i < cartIdArr.length; i++) {
-      let price = articles.filter((el) => el.id === articles[i].id)[0].wine
-        .price;
-      console.log('i am the price', price);
-      total.price = total.price + Number(price);
-      total.quantity = total.quantity + 1;
+      if (cartItems.length !== 0) {
+        let price = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
+          .price;
+        console.log('i am the price', price);
+        total.price = total.price + Number(price);
+        total.quantity = total.quantity + 1;
+      }
+      return total;
     }
-    return total;
   };
   let total = getTotal();
 
   return (
     <div className={styles.mall_container}>
-      {console.log('get data:', articles)}
+      {console.log('get data:', cartItems)}
       <Sidebar />
       <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
           <input
             type='checkbox'
-            checked={checkedItems.length === articles.length ? true : false}
+            checked={checkedItems.length === cartItems.length ? true : false}
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
-          {!articles.length ? (
-            <div id='item-list-text'>장바구니에 아이템이 없습니다.</div>
+          {!cartItems.length ? (
+            <div id='item-list-text' className={styles.no_cartItems}>
+              장바구니에 아이템이 없습니다.
+            </div>
           ) : (
             <div id='cart-item-list'>
-              {articles.map((item, idx) => {
+              {cartItems.map((item, idx) => {
                 return (
                   <ArticleCart
                     key={idx}
@@ -112,7 +118,11 @@ const Shoppinglist = () => {
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>
-                <OrderTotal total={total.price} totalQty={total.quantity} />
+                {total ? (
+                  <OrderTotal total={total.price} totalQty={total.quantity} />
+                ) : (
+                  <div>No Items~</div>
+                )}
               </div>
             </div>
           </div>
@@ -123,178 +133,3 @@ const Shoppinglist = () => {
 };
 
 export default Shoppinglist;
-
-{
-  /* <>
-      <h1 className='logo text'>My Shopping Cart</h1>
-      <div className={styles.shoppinglist_container}>
-        <Sidebar />
-        <div className={styles.shoppinglist_layout}>
-          <div className={styles.cards}>
-          
-            <Card className={styles.card_height}>
-              <img
-                src='images/grand_cru.webp'
-                className={styles.image_height}
-              />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>
-                    Château Corton Grancey Grand Cru 2015
-                  </h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>Louis Latour</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 300.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-          
-          <div className={styles.cards}>
-            <Card className={styles.card_height}>
-              <img
-                src='images/vina_ardanza.png'
-                className={styles.image_height}
-              />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>Viña Ardanza Reserva 2015</h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>La Rioja Alta</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 1400.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-          
-          <div className={styles.cards}>
-            <Card className={styles.card_height}>
-              <img src='images/saperavi.jpeg' className={styles.image_height} />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>Saperavi 2018</h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>Gitana</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 2000.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-          
-          <div className={styles.cards}>
-            <Card className={styles.card_height}>
-              <img src='images/lapola.jpeg' className={styles.image_height} />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>Lapola 2019</h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>Dominio do Bibei</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 1000000.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-          
-          <div className={styles.cards}>
-            <Card className={styles.card_height}>
-              <img src='images/vaselo.png' className={styles.image_height} />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>PV Gran Cru 2019</h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>Petro Vaselo</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 450.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-          
-          <div className={styles.cards}>
-            <Card className={styles.card_height}>
-              <img src='images/petrus.png' className={styles.image_height} />
-              <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  <h3 className='logo text'>Pomerol 2008</h3>
-                </Card.Header>
-                <Card.Meta>
-                  <span className='date'>Pétrus</span>
-                </Card.Meta>
-                <Card.Description>{taste}</Card.Description>
-                <div className={styles.price}>
-                  <h3 className='logo text'>₩ 40.000</h3>
-                </div>
-              </Card.Content>
-              <Card.Content extra>
-                <div className={styles.shoppinglist_btn_container}>
-                  <button className={styles.shoppinglist_btn}>
-                    상품 보러 가기
-                  </button>
-                  <button className={styles.shoppinglist_btn}>구매하기</button>
-                </div>
-              </Card.Content>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </> */
-}

@@ -11,6 +11,7 @@ import java.util.HashMap;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import lombok.Value;
 
 public class KakaoAPI {
 
@@ -18,7 +19,6 @@ public class KakaoAPI {
         String accessToken = "";
         String refreshToken = "";
         String reqURL = "https://kauth.kakao.com/oauth/token";
-
         try {
             URL url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -29,7 +29,7 @@ public class KakaoAPI {
             StringBuilder sb = new StringBuilder();
             sb.append("grant_type=authorization_code");
             sb.append("&client_id=c936006613666667da816aebf5f62b69");
-            sb.append("&redirect_uri=${config.domain}/kakao");
+            sb.append("&redirect_uri=https://localhost:3000/kakao");
             sb.append("&code=" + code);
 
             bw.write(sb.toString());

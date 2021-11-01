@@ -56,15 +56,6 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
       <div className={styles.signup_container}>
         <h2>Sign In</h2>
         <div className={styles.login_box}>
-          <img
-            style={{
-              display: 'flex',
-              width: '160px',
-              height: '200px',
-              margin: '1rem',
-            }}
-            src='/images/logo.png'
-          />
           <div className={styles.form_container}>
             <div className={styles.forms}>
               <div className={styles.form}>

@@ -153,3 +153,6 @@
   color: white;
   background-position: 100% 50%;
 }
+.no_cartItems {
+  height: 20rem;
+}
