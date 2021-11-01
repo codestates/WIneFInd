@@ -29,3 +29,10 @@ INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (2, "H
 INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (3, "SW@cos", "SW", now(), now())
 
 INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,1,1)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,2,3)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,1,2)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (2,1,1)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (3,1,1)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (3,1,1)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,2,3)
+INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (3,2,1)
