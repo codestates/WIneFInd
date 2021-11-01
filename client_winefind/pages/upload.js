@@ -168,7 +168,7 @@ const Upload = () => {
                 />
                 <br />
                 <p>Grape</p>
-                <Input placeholder='Type Grape' />
+                <Input placeholder='Type of Grape' />
                 <br />
                 <p>Vintage</p>
                 <Input

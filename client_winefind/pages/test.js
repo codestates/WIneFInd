@@ -8,7 +8,7 @@ const Test = () => {
       <Carousel>
         {/* 여기 안에 있는 애들은 다 props children으로 들어간다*/}
         <div className={styles.questions}>
-          <Questions questionnum={1} question='단거가 얼마나 좋으십니까?' />
+          <Questions questionnum={1} question='나는 사탕을 매우 좋아한다' />
         </div>
         <div className={styles.questions}>
           <Questions
@@ -20,7 +20,13 @@ const Test = () => {
           <Questions questionnum={3} question='나는 퍽퍽한 것을 좋아한다' />
         </div>
         <div className={styles.questions}>
-          <Questions questionnum={4} question='' />
+          <Questions questionnum={4} question='나는 탄산수를 좋아한다' />
+        </div>
+        <div className={styles.questions}>
+          <Questions
+            questionnum={5}
+            question='나는 술 도수가 높은 와인을 좋아한다'
+          />
         </div>
       </Carousel>
     </div>

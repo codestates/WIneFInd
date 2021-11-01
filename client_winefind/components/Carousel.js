@@ -38,7 +38,7 @@ const Carousel = (props) => {
             percent={percent}
             style={{
               width: '100%',
-              height: '20px',
+              height: '15px',
               backgroundColor: '#2F2F2F',
             }}
             indicating
