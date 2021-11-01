@@ -26,6 +26,8 @@
 .overlay {
 }
 .modal_contents {
+  border: 1px solid #cda581;
+  box-shadow: 0px 0px 0.5rem #cda581;
   position: absolute;
   top: 45%;
   left: 50%;
@@ -38,7 +40,17 @@
   min-width: 600px;
   z-index: 100;
   align-content: center;
+  animation: fadein 0.5s;
 }
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .form_container {
   display: flex;
   flex-direction: column;
@@ -94,37 +106,31 @@
   right: 10px;
   padding: 5px 7px;
   cursor: pointer;
-}
-.btn {
-  display: inline-block;
-  background: transparent;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-style: normal;
-  font-size: 0.85rem;
-  letter-spacing: 0.3em;
-  color: #cda581;
-  border-radius: 50px;
-  padding: 18px 50px 20px;
-  transition: all 0.7s ease-out;
-  background: linear-gradient(
-    270deg,
-    #cda581,
-    rgba(146, 111, 52, 0.8),
-    rgba(34, 34, 34, 0),
-    rgba(34, 34, 34, 0)
-  );
-  background-position: 1% 50%;
-  background-size: 300% 300%;
-  text-decoration: none;
-  margin: 0.5rem;
-  border: none;
-  /* border: 1px solid rgba(223, 190, 106, 0.3); */
+  animation: fadeout 0.5s;
 }
 
-.btn:hover {
-  color: #fff;
-  border: 1px solid rgba(223, 190, 106, 0);
-  color: white;
-  background-position: 99% 50%;
+.nav_btn {
+  font-size: 1rem;
+  margin: 1.5rem;
+}
+.nav_btn:hover {
+  /* color: #cda581; */
+  cursor: pointer;
+  background: linear-gradient(
+    to bottom,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  color: transparent;
+  -webkit-background-clip: text;
 }

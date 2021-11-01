@@ -1,6 +1,5 @@
 .container {
   display: flex;
-
   justify-content: center;
   align-items: center;
   border: 5px purple solid;
@@ -8,15 +7,17 @@
 
 .board_layout {
   padding: 10px;
+  margin: 3rem 100px;
   display: flex;
-  width: 66%;
-  border: 5px solid #cda581;
+  width: 100%;
+  border: 1px solid #cda581;
   border-radius: 12px;
   background-color: white;
-  margin: 100px;
+
   flex-wrap: wrap;
   flex-direction: column;
   font-family: 'Jua', sans-serif;
+  box-shadow: 0 0 1rem #cda581;
 }
 .wineName_writer {
   display: flex;
@@ -124,4 +125,10 @@
 .buy {
   display: flex;
   justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 760px) {
+  .board_content {
+    flex-direction: column;
+  }
 }

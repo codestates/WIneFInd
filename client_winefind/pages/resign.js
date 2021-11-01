@@ -12,16 +12,6 @@ const Resign = () => {
     setModal(!modal);
   };
 
-  // if (modal === true) {
-  //   useEffect(() => {
-  //     document.body.style.overflowY = 'hidden';
-  //   });
-  // } else {
-  //   useEffect(() => {
-  //     document.body.style.overflowY = 'scroll';
-  //   });
-  // }
-
   function goLink() {
     router.push('/index');
   }
