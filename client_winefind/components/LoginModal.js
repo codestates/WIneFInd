@@ -20,6 +20,7 @@ const LoginModal = ({ toggleModal, modal }) => {
         className={classNames('text', styles.nav_btn)}
         name='login'
         onClick={toggleModal}
+        style={{ alignSelf: 'center' }}
       >
         로그인
       </a>

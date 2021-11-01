@@ -62,24 +62,35 @@ const Shoppinglist = () => {
     setCartItems(cartItems.splice(id));
   };
 
-  const getTotal = () => {
-    let cartIdArr = checkedItems;
-    let total = {
-      price: 0,
-      quantity: 0,
-    };
-    for (let i = 0; i < cartIdArr.length; i++) {
-      if (cartItems.length !== 0) {
-        let price = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
-          .price;
-        console.log('i am the price', price);
-        total.price = total.price + Number(price);
-        total.quantity = total.quantity + 1;
+  const getTotalPrice = () => {
+    let totalprice = 0;
+    if (checkedItems.length !== 0) {
+      for (let i of checkedItems) {
+        totalprice += Number(
+          cartItems.filter((el) => el.id === i)[0].wine.price
+        );
       }
-      return total;
     }
+    return totalprice;
   };
-  let total = getTotal();
+
+  // const getTotal = () => {
+  //   let cartIdArr = checkedItems;
+  //   for (let i = 0; i < cartIdArr.length; i++) {
+  //     if (cartItems.length !== 0) {
+  //       let money = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
+  //           .price,
+  //       setTotal({
+  //         price: cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
+  //           .price,
+  //       });
+  //       console.log('i am the price', price);
+  //       total.price = total.price + Number(price);
+  //       total.quantity = total.quantity + 1;
+  //     }
+  //     return total;
+  //   }
+  // };
 
   return (
     <div className={styles.mall_container}>
@@ -118,8 +129,11 @@ const Shoppinglist = () => {
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>
-                {total ? (
-                  <OrderTotal total={total.price} totalQty={total.quantity} />
+                {checkedItems.length !== 0 ? (
+                  <OrderTotal
+                    total={() => getTotalPrice()}
+                    totalQty={checkedItems.length}
+                  />
                 ) : (
                   <div>No Items~</div>
                 )}

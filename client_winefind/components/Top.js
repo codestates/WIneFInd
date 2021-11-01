@@ -40,12 +40,17 @@ function Top({ toggleModal, modal }) {
       });
   };
 
+  const goToUserAndToggleLogin = () => {
+    router.push('/user');
+    toggleModal();
+  };
+
   return (
     <>
       <div className={styles.nav_bar_container}>
         <div>
           <Link href='/'>
-            <a className={classNames(styles.nav_logo, 'text')}>WIne FInd</a>
+            <a className={classNames('text', styles.nav_logo)}>WIne FInd</a>
           </Link>
         </div>
         <div className={styles.nav_btns}>
@@ -57,11 +62,21 @@ function Top({ toggleModal, modal }) {
               와인 취향 테스트
             </a>
           </Link>
-          <Link href='/user'>
-            <a className={classNames('text', styles.nav_btn)}>
+          {isLogin ? (
+            <Link href='/user'>
+              <a className={classNames('text', styles.nav_btn)}>
+                나만의 와인셀러
+              </a>
+            </Link>
+          ) : (
+            <a
+              onClick={goToUserAndToggleLogin}
+              className={classNames('text', styles.nav_btn)}
+            >
               나만의 와인셀러
             </a>
-          </Link>
+          )}
+
           {isLogin ? (
             <a
               className={classNames('text', styles.nav_btn)}
@@ -77,33 +92,4 @@ function Top({ toggleModal, modal }) {
     </>
   );
 }
-{
-  /* <LoginModal modal={modal} toggleModal={toggleModal} /> */
-}
 export default Top;
-
-// <div className={styles.top_container}>
-//         <div style={{ display: 'flex', marginLeft: '1rem', fontSize: '2rem' }}>
-//           <img className={styles.logo} src='/images/logo.png' />
-//           &nbsp;&nbsp;
-//           <h2 className='text logo'>WIne FInd</h2>
-//         </div>
-//         <div className={styles.top_bar} >
-//           <button className={styles.btn} name='mall' onClick={goLink}>
-//             와인 몰
-//           </button>
-//           <button className={styles.btn} name='test' onClick={goLink}>
-//             와인 취향 테스트
-//           </button>
-//           <button className={styles.btn} name='user' onClick={goLink}>
-//             나만의 와인셀러
-//           </button>
-//           {isLogin ? (
-//             <button className={styles.btn} name='logout' onClick={handleLogout}>
-//               로그아웃
-//             </button>
-//           ) : (
-//             <LoginModal modal={modal} toggleModal={toggleModal} />
-//           )}
-//         </div>
-//       </div>

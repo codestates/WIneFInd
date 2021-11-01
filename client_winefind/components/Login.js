@@ -82,8 +82,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
             <div className={styles.button}>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px' }}
-                  color='purple'
+                  style={{ width: '230px', backgroundColor: '#cda581' }}
                   onClick={handleLogin}
                 >
                   Login
@@ -91,20 +90,28 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
               </div>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px' }}
-                  color='purple'
-                  onClick={kakaoLogin}
+                  style={{ width: '230px', backgroundColor: '#cda581' }}
+                  onClick={changeLoginToSignup}
                 >
-                  &nbsp;&nbsp;Kakao Login&nbsp;&nbsp;
+                  Create an Account
                 </Button>
               </div>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px' }}
-                  color='violet'
-                  onClick={changeLoginToSignup}
+                  style={{
+                    width: '230px',
+                    color: 'black',
+                    padding: '0.5rem',
+                  }}
+                  color='yellow'
+                  onClick={kakaoLogin}
                 >
-                  Create an Account
+                  <img
+                    src='/images/kakao_login.png'
+                    height='25px'
+                    width='25px'
+                  />
+                  카카오 로그인
                 </Button>
               </div>
             </div>

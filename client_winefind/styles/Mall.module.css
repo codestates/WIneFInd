@@ -10,10 +10,11 @@
   display: flex;
   align-items: center;
   margin: 40px 10px;
+  width: 80%;
+  justify-content: center;
 }
 .search_bar {
-  min-width: 300px;
-  width: 40%;
+  min-width: 60%;
   height: 40px;
   margin: 0px 20px;
   border-radius: 12px;

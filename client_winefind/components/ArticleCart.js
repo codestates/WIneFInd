@@ -33,7 +33,7 @@ export default function ArticleCart({
             <button onClick={() => goToDescription(item.id)}>
               자세히 보기
             </button>
-            <button
+            {/* <button
               className='cart-item-delete'
               onClick={() => {
                 console.log('id:', item.id);
@@ -42,7 +42,7 @@ export default function ArticleCart({
               }}
             >
               삭제
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
