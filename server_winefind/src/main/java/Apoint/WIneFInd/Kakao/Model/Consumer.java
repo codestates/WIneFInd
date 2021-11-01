@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Kakao.Model;
 
 import Apoint.WIneFInd.Cart.Model.Cart;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,7 @@ public class Consumer {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
-    private List<Cart> cartList = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+//    private List<Cart> cartList;
 }

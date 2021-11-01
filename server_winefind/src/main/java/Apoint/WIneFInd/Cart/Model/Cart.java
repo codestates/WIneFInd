@@ -2,9 +2,8 @@ package Apoint.WIneFInd.Cart.Model;
 
 
 import Apoint.WIneFInd.Article.Model.Article;
-
 import Apoint.WIneFInd.Kakao.Model.Consumer;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,13 +20,13 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @JsonBackReference
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "article_id")
     private Article article;
 
+    @JsonBackReference
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "consumer_id")
     private Consumer consumer;
 }

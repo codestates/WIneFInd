@@ -1,13 +1,13 @@
 package Apoint.WIneFInd.Member.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,6 +36,8 @@ public class User {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Article> articleList = new ArrayList<>();
+    private List<Article> articleList;
+
 }

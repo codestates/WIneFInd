@@ -3,7 +3,9 @@ package Apoint.WIneFInd.Article.Model;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Wine.Model.Wine;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,17 +31,17 @@ public class Article {
     @Column(nullable = false)
     private String comment;
 
+    @JsonBackReference
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "wine_id")
     private Wine wine;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
-    private List<Cart> cartList = new ArrayList<>();
-
+    private List<Cart> cartList;
 }

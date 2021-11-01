@@ -42,8 +42,10 @@ public class CartController {
 
         } catch (NonUniqueResultException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
-        } catch (IncorrectResultSizeDataAccessException e) {
+        }
+        catch (IncorrectResultSizeDataAccessException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
+
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(500).body("장바구니에 Consumer & Article 정보가 존재하지 않습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {

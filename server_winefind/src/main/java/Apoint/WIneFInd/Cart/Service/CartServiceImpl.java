@@ -8,6 +8,7 @@ import Apoint.WIneFInd.Cart.Repository.CartRepository;
 import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NonUniqueResultException;
@@ -39,15 +40,23 @@ public class CartServiceImpl implements CartService {
         Article findArticle = articleRepository.findById(cartDTO.getArticleId()).get();
 
         // 장바구니에 이미 존재 하는지 안하는지를 체크
-        Cart checkConsumer = cartRepository.findByConsumerId(findConsumer.getId());
-        Cart checkArticle = cartRepository.findByArticleId(findArticle.getId());
-
+        List<Cart> byConsumerId = cartRepository.findByConsumer(findConsumer);
+//        List<Cart> checkArticle = cartRepository.findByArticle(findArticle);
         // "Consumer"가 이미 동일한 "Article"을 가지고 있으면 'NonUniqueResultException'
-        if (checkConsumer != null && checkArticle != null)
-            throw new NonUniqueResultException("다른 'Article'을 선택해 주세요.  ");
+//        if (checkConsumer.get(0) != null && checkArticle.get(0) != null)
+//            throw new IncorrectResultSizeDataAccessException("다른 'Article'을 선택해 주세요.  ",0);
+        Optional<Cart> check = byConsumerId
+                .stream()
+                .filter(item -> item.getArticle().getId().equals(cartDTO.getArticleId()))
+                .findAny();
+
+
+        if (!check.isEmpty()) throw new NonUniqueResultException("다른 'Article'을 선택해 주세요.  ");
+
 
         // 장바구니에 "Consumer"가 동일한 "Article"을 가지고 있지 않다면
         // 장바구니에 정보를 저장합니다.
+
         Cart cart = new Cart();
         cart = cart.builder()
                 .consumer(findConsumer)
@@ -55,6 +64,7 @@ public class CartServiceImpl implements CartService {
                 .build();
 
         return cartRepository.save(cart);
+
 
     }
 
@@ -78,8 +88,10 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void DeleteCart(Long id) {
-        Long id1 = kakaoRepository.findById(id).get().getId();
+        Consumer findConsumer = kakaoRepository.findById(id).get();
 
-        kakaoRepository.deleteById(id1);
+        List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
+
+        cartRepository.deleteAll(byConsumer);
     }
 }
