@@ -1,14 +1,16 @@
 package Apoint.WIneFInd.Kakao.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import Apoint.WIneFInd.Cart.Model.Cart;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,4 +30,8 @@ public class Consumer {
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
+
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+//    private List<Cart> cartList;
 }

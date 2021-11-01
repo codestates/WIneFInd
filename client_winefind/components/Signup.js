@@ -168,7 +168,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
             <div className={styles.button}>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px', backgroundColor: '#ddb496' }}
+                  style={{ width: '230px', backgroundColor: '#cda581' }}
                   onClick={createAccount}
                 >
                   Signup

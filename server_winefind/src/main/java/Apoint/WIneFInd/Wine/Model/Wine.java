@@ -1,13 +1,15 @@
 package Apoint.WIneFInd.Wine.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import Apoint.WIneFInd.Article.Model.Article;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor
@@ -42,4 +44,7 @@ public class Wine {
     @Column(nullable = false)
     private String price;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "wine", cascade = CascadeType.REMOVE)
+    private List<Article> articleList;
 }

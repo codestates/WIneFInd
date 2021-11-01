@@ -89,7 +89,7 @@ const Mall = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res.data);
+        console.log('all articles:', res.data);
         setArticles(res.data);
       })
       .catch((e) => {
@@ -158,13 +158,10 @@ const Mall = ({ toggleModal }) => {
 
   useEffect(() => {
     getArticles();
-    console.log('here is mall ', document.location.href);
   }, []);
 
   return (
     <div className={styles.mall_container}>
-      {console.log('list:', list)}
-      {console.log('aaa:', process.env.NEXT_PUBLIC_API_URL)}
       <div className={styles.mall_top}>
         <input
           className={styles.search_bar}
@@ -192,7 +189,11 @@ const Mall = ({ toggleModal }) => {
       <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={styles.text_big}>Wine List</div>
-          <Article articles={articles} />
+          {articles.length !== 0 ? (
+            <Article articles={articles} />
+          ) : (
+            <div>Loading Something</div>
+          )}
         </div>
         <div className={styles.filter_box}>
           <div className={styles.filter_content}>

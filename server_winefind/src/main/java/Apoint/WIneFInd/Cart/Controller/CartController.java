@@ -17,6 +17,7 @@ import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
+
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class CartController {
@@ -41,8 +42,10 @@ public class CartController {
 
         } catch (NonUniqueResultException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
-        } catch (IncorrectResultSizeDataAccessException e) {
+        }
+        catch (IncorrectResultSizeDataAccessException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
+
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(500).body("장바구니에 Consumer & Article 정보가 존재하지 않습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
@@ -61,5 +64,11 @@ public class CartController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
         }
+    }
+
+    @DeleteMapping("/cart/{id}")
+    public ResponseEntity<?> DeleteCart(@PathVariable Long id) {
+        cartService.DeleteCart(id);
+        return ResponseEntity.ok().body("Delete Success");
     }
 }

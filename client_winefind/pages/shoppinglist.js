@@ -20,22 +20,28 @@ const Shoppinglist = () => {
   //Article Get Api로 articles에 게시글 목록 넣기
 
   //카카오 auth 명령으로 내 id 받아와야해요 민쥰님!!
-  const getMyId = () => {};
+
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=1`, {
-        withCredentials: true,
-      })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        setCartItems(
-          res.data['Show MyCartItem'].map((ele) => {
-            return ele.article;
+        let id = res.data['카카오 정보'].id;
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`, {
+            withCredentials: true,
           })
-        );
+          .then((res) => {
+            setCartItems(
+              res.data['Show MyCartItem'].map((ele) => {
+                return ele.article;
+              })
+            );
+          })
+          .catch((e) => {
+            console.log('There is no Article:', e);
+          });
       })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
+      .catch((e) => console.log('Plz login:', e));
   };
 
   useEffect(() => {
@@ -62,24 +68,35 @@ const Shoppinglist = () => {
     setCartItems(cartItems.splice(id));
   };
 
-  const getTotal = () => {
-    let cartIdArr = checkedItems;
-    let total = {
-      price: 0,
-      quantity: 0,
-    };
-    for (let i = 0; i < cartIdArr.length; i++) {
-      if (cartItems.length !== 0) {
-        let price = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
-          .price;
-        console.log('i am the price', price);
-        total.price = total.price + Number(price);
-        total.quantity = total.quantity + 1;
+  const getTotalPrice = () => {
+    let totalprice = 0;
+    if (checkedItems.length !== 0) {
+      for (let i of checkedItems) {
+        totalprice += Number(
+          cartItems.filter((el) => el.id === i)[0].wine.price
+        );
       }
-      return total;
     }
+    return totalprice;
   };
-  let total = getTotal();
+
+  // const getTotal = () => {
+  //   let cartIdArr = checkedItems;
+  //   for (let i = 0; i < cartIdArr.length; i++) {
+  //     if (cartItems.length !== 0) {
+  //       let money = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
+  //           .price,
+  //       setTotal({
+  //         price: cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
+  //           .price,
+  //       });
+  //       console.log('i am the price', price);
+  //       total.price = total.price + Number(price);
+  //       total.quantity = total.quantity + 1;
+  //     }
+  //     return total;
+  //   }
+  // };
 
   return (
     <div className={styles.mall_container}>
@@ -118,8 +135,11 @@ const Shoppinglist = () => {
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>
-                {total ? (
-                  <OrderTotal total={total.price} totalQty={total.quantity} />
+                {checkedItems.length !== 0 ? (
+                  <OrderTotal
+                    total={() => getTotalPrice()}
+                    totalQty={checkedItems.length}
+                  />
                 ) : (
                   <div>No Items~</div>
                 )}

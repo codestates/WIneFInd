@@ -7,7 +7,7 @@ import Sidebar from '../components/Sidebar';
 import { Card } from 'semantic-ui-react';
 
 //마이페이지
-const User = () => {
+const User = ({ toggleModal }) => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
 
@@ -20,7 +20,7 @@ const User = () => {
         console.log('auth:', res.data);
       })
       .catch((e) => {
-        setIsLogin(() => false);
+        setIsLogin(false);
         console.log('isLogin', isLogin);
         console.log('error:', e);
       });
@@ -160,7 +160,9 @@ const User = () => {
           </div>
         </div>
       ) : (
-        <div>로그인 후 서비스 사용 가능합니다</div>
+        <>
+          <div>로그인 후 서비스 사용 가능합니다</div>
+        </>
       )}
     </>
   );

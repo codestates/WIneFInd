@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -97,8 +94,21 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<User> Delete(Long id) {
+        /*
+        Consumer findConsumer = kakaoRepository.findById(id).get();
+
+        List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
+
+        cartRepository.deleteAll(byConsumer);
+    }*/
 
         memberRepository.deleteById(id);
+
+//        User user = memberRepository.findById(id).get();
+//        List<User> byEmail = memberRepository.findByEmail(user.getEmail());
+//
+//        memberRepository.deleteAll(byEmail);
+
         return memberRepository.findAll();
     }
 
@@ -114,6 +124,22 @@ public class MemberServiceImpl implements MemberService{
                 .setExpiration(new Date(now.getTime() + Duration.ofDays(1).toMillis()))
                 .claim("email", user.getEmail())
                 .claim("nickname", user.getNickname())
+                .signWith(SignatureAlgorithm.HS256, SIGN_KEY)
+                .compact();
+    }
+
+    @Override
+    public String CreateKaKao(String email, String nickname) {
+
+        Date now = new Date();
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setIssuer("apoint")
+                .setIssuedAt(now)
+                .setSubject("kakao")
+                .setExpiration(new Date(now.getTime() + Duration.ofDays(1).toMillis()))
+                .claim("email", email)
+                .claim("nickname", nickname)
                 .signWith(SignatureAlgorithm.HS256, SIGN_KEY)
                 .compact();
     }

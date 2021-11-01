@@ -27,24 +27,31 @@ const Details = ({ toggleModal }) => {
       });
   };
 
-  const addToCart = () => {
+  const addToCart = (func) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        console.log('logined:', res);
-        console.log('장바구니에 담는 axios!!');
         axios
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/cart`,
             {
-              articleId: 1,
-              consumerId: 1,
-              //여기에 auth로 내가 누군지 알아야해
+              articleId: id,
+              consumerId: res.data['카카오 정보'].id,
             },
             { withCredentials: true }
           )
-          .then(console.log('add to cart success'))
-          .catch(console.log('add to cart failed'));
+          .then(() => {
+            console.log('add to cart success');
+            if (func === 'goToShoppingList') {
+              console.log('here is func:', func);
+              router.push('/shoppinglist');
+            }
+          })
+
+          .catch((e) => {
+            console.log('Already on Cart!:articleId:', id);
+            alert('Already on Cart!');
+          });
       })
       .catch((e) => {
         console.log('not Logined');
@@ -53,17 +60,7 @@ const Details = ({ toggleModal }) => {
   };
 
   const purchaseItem = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
-      .then((res) => {
-        console.log('logined');
-        console.log('장바구니에 담고, 리스트로 이동!');
-        router.push('/shoppinglist');
-      })
-      .catch((e) => {
-        console.log('not Logined');
-        toggleModal();
-      });
+    addToCart('goToShoppingList');
   };
 
   useEffect(() => {

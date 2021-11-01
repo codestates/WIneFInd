@@ -1,10 +1,10 @@
-import { useState } from 'react';
 import styles from '../styles/Test.module.css';
 
-export default function Questions({ questionnum, question }) {
+export default function Questions({ questionnum, question, next }) {
   return (
     <div>
       <div className={styles.stars_container}>
+        {console.log('next:', next)}
         <div className={styles.question_container}>
           <h2>
             {questionnum}.&nbsp;&nbsp;
@@ -13,7 +13,7 @@ export default function Questions({ questionnum, question }) {
         </div>
         <hr></hr>
         <div className={styles.stars}>
-          <button className={styles.winebtn}>
+          <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
           <button className={styles.winebtn}>
