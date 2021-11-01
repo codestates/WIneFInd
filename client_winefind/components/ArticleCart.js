@@ -1,12 +1,16 @@
 import React from 'react';
 import styles from '../styles/Article.module.css';
-
+import router from 'next/router';
 export default function ArticleCart({
   item,
   checkedItems,
   handleCheckChange,
   handleDelete,
 }) {
+  const goToDescription = (ele) => {
+    // console.log(ele);
+    router.push(`/mall/${ele}`);
+  };
   return (
     <li className='cart-item-body'>
       <div className={styles.article_container}>
