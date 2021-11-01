@@ -1,5 +1,7 @@
 package Apoint.WIneFInd.Member.Controller;
 
+import Apoint.WIneFInd.Kakao.Model.Consumer;
+import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import Apoint.WIneFInd.Member.Domain.LoginDTO;
 import Apoint.WIneFInd.Member.Domain.SignUpDTO;
 import Apoint.WIneFInd.Member.Model.User;
@@ -20,10 +22,12 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
+    private final KakaoService kakaoService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberService memberService, KakaoService kakaoService) {
         this.memberService = memberService;
+        this.kakaoService = kakaoService;
     }
 
     @PostMapping("signup")
@@ -77,11 +81,11 @@ public class MemberController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        Cookie kakao = new Cookie("JSESSIONID", null);
+        Cookie kakao = new Cookie("TEST", null);
         kakao.setMaxAge(0);
         response.addCookie(kakao);
 
-        if (cookie.getName() != "winefind" || kakao.getName() != "JSESSIONID" ) {
+        if (cookie.getName() != "winefind" || kakao.getName() != "TEST" ) {
             return ResponseEntity.badRequest().body("쿠기가 삭제되지 않았습니다.");
         } else {
             return ResponseEntity.ok().body("Logged out successfully");
@@ -100,7 +104,7 @@ public class MemberController {
                 if (cookie.getName().equals("winefind")) {
                     cookieUser = cookie.getValue();
                 }
-                if (cookie.getName().equals("JSESSIONID")) {
+                if (cookie.getName().equals("TEST")) {
                     kakaoUser = cookie.getValue();
                 }
             }
@@ -112,10 +116,18 @@ public class MemberController {
 
 //        토큰 유효성 체크
         Map<String, String> checkResult = memberService.CheckJWTToken(cookieUser);
+        Map<String, String> checkKaKao = memberService.CheckJWTToken(kakaoUser);
 
-        if (kakaoUser != "") {
+
+        if (checkKaKao.get("email") != null) {
+            Consumer consumer = kakaoService.FindByEmail(checkKaKao.get("email")).get(0);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("message", "카카오 회원 로그인 되었습니다.");
+                put("카카오 정보", new HashMap<>(){{
+                    put("id",consumer.getId());
+                    put("email",consumer.getEmail());
+                    put("nickname",consumer.getNickname());
+                }});
+                put("message","카카오 회원 로그인 되었습니다.");
             }});
         }
 

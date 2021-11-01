@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Wine.Service;
 
+import Apoint.WIneFInd.Wine.Domain.WineDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,25 @@ public class WineServiceImpl implements WineService {
     }
 
     @Override
-    public Wine Save(Wine wine) {
+    public Wine Save(WineDTO wineDTO) {
 
-        return wineRepository.save(wine);
+        Wine createWine = new Wine();
+        createWine = createWine.builder()
+                .wineName(wineDTO.getWineName())
+                .type(wineDTO.getType())
+                .country(wineDTO.getCountry())
+                .grape(wineDTO.getGrape())
+                .vintage(wineDTO.getVintage())
+                .sweet(wineDTO.getSweet())
+                .acidity(wineDTO.getAcidity())
+                .body(wineDTO.getBody())
+                .tannic(wineDTO.getTannic())
+                .image(wineDTO.getImage())
+                .comment(wineDTO.getComment())
+                .price(wineDTO.getPrice())
+                .build();
+
+        return wineRepository.save(createWine);
     }
 
     @Override
@@ -41,18 +58,20 @@ public class WineServiceImpl implements WineService {
 
         Wine updateWine = wineRepository.findById(wine.getId()).get();
 
-        updateWine.setWineName(wine.getWineName());
-        updateWine.setType(wine.getType());
-        updateWine.setCountry(wine.getCountry());
-        updateWine.setGrape(wine.getGrape());
-        updateWine.setVintage(wine.getVintage());
-        updateWine.setSweet(wine.getSweet());
-        updateWine.setAcidity(wine.getAcidity());
-        updateWine.setBody(wine.getBody());
-        updateWine.setTannic(wine.getTannic());
-        updateWine.setImage(wine.getImage());
-        updateWine.setComment(wine.getComment());
-        updateWine.setPrice(wine.getPrice());
+        updateWine = updateWine.builder()
+                .wineName(wine.getWineName())
+                .type(wine.getType())
+                .country(wine.getCountry())
+                .grape(wine.getGrape())
+                .vintage(wine.getVintage())
+                .sweet(wine.getSweet())
+                .acidity(wine.getAcidity())
+                .body(wine.getBody())
+                .tannic(wine.getTannic())
+                .image(wine.getImage())
+                .comment(wine.getComment())
+                .price(wine.getPrice())
+                .build();
 
         return wineRepository.save(updateWine);
     }

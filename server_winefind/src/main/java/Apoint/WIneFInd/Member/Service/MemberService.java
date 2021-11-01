@@ -26,4 +26,6 @@ public interface MemberService {
     public String CreateJWTToken(User user);
 
     public Map<String, String> CheckJWTToken(String key);
+
+    public String CreateKaKao(String email, String nickname);
 }

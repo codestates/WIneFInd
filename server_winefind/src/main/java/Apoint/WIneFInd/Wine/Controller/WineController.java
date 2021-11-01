@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Wine.Controller;
 
+import Apoint.WIneFInd.Wine.Domain.WineDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
@@ -46,9 +47,9 @@ public class WineController {
     }
 
     @PostMapping("wine")
-    public ResponseEntity<?> CreateWine(@RequestBody Wine wine) {
+    public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
 
-        Wine save = wineService.Save(wine);
+        Wine save = wineService.Save(wineDTO);
 
         return ResponseEntity.ok().body(new HashMap<>() {{
             put("message", save);
