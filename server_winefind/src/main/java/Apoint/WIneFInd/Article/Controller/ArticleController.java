@@ -3,6 +3,8 @@ package Apoint.WIneFInd.Article.Controller;
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Service.ArticleService;
+import Apoint.WIneFInd.Wine.Model.Wine;
+import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,18 +18,25 @@ import java.util.Optional;
 public class ArticleController {
 
     private final ArticleService articleService;
+    private final WineService wineService;
 
     @Autowired
-    public ArticleController(ArticleService articleService) {
+    public ArticleController(ArticleService articleService, WineService wineService) {
         this.articleService = articleService;
+        this.wineService = wineService;
     }
+
+
+
 
     @PostMapping("article")
     public ResponseEntity<?> CreateArticle(@RequestBody ArticleDTO articleDTO) {
 
         try {
+            Wine save = wineService.Save(articleDTO.getWines().get(0));
             Article saveTitle = articleService.Save(articleDTO);
             return ResponseEntity.ok().body(new HashMap<>() {{
+                put("Wine", save);
                 put("data", saveTitle);
             }});
 

@@ -119,6 +119,22 @@ public class MemberServiceImpl implements MemberService{
     }
 
     @Override
+    public String CreateKaKao(String email, String nickname) {
+
+        Date now = new Date();
+        return Jwts.builder()
+                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+                .setIssuer("apoint")
+                .setIssuedAt(now)
+                .setSubject("kakao")
+                .setExpiration(new Date(now.getTime() + Duration.ofDays(1).toMillis()))
+                .claim("email", email)
+                .claim("nickname", nickname)
+                .signWith(SignatureAlgorithm.HS256, SIGN_KEY)
+                .compact();
+    }
+
+    @Override
     public Map<String, String> CheckJWTToken(String key) {
         try {
             Claims claims = Jwts.parser().setSigningKey(SIGN_KEY)
