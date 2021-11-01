@@ -21,6 +21,8 @@ public interface KakaoService {
 
     public List<Consumer> FindByEmail(String email);
 
+    public void Delete(Long id);
+
     public String getAccessToken(String code);
 
     public HashMap<String, Object> getUserInfo(String accessToken);

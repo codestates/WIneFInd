@@ -1,8 +1,11 @@
 package Apoint.WIneFInd.Wine.Model;
 
+import Apoint.WIneFInd.Article.Model.Article;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -40,4 +43,6 @@ public class Wine {
     @Column(nullable = false)
     private String price;
 
+    @OneToMany(mappedBy = "wine", cascade = CascadeType.REMOVE)
+    private List<Article> articleList = new ArrayList<>();
 }
