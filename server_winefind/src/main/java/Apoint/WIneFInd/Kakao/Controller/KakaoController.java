@@ -33,16 +33,4 @@ public class KakaoController {
             return ResponseEntity.badRequest().body("" + e);
         }
     }
-
-    @PostMapping(value="/kakao/logout")
-    public void logout(HttpSession session) {
-
-        kakaoService.kakaoLogout();
-        kakaoApi.kakaoLogout((String)session.getAttribute("accessToken"));
-        session.removeAttribute("accessToken");
-        session.removeAttribute("userId");
-        mav.setViewName("index");
-
-    }
-
 }

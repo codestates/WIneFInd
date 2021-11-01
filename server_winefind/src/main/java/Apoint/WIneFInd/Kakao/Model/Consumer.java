@@ -1,14 +1,12 @@
 package Apoint.WIneFInd.Kakao.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@Builder
 @Getter
 @Setter
 @NoArgsConstructor

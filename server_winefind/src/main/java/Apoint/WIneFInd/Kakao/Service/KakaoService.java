@@ -24,5 +24,5 @@ public interface KakaoService {
     public String getAccessToken(String code);
 
     public HashMap<String, Object> getUserInfo(String accessToken);
-    public void kakaoLogout(String accessToken) ;
+
 }

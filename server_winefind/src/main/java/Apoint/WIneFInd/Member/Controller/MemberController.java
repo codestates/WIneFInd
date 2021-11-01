@@ -81,7 +81,7 @@ public class MemberController {
         cookie.setMaxAge(0);
         response.addCookie(cookie);
 
-        Cookie kakao = new Cookie("TEST", null);
+        Cookie kakao = new Cookie("Kakao", null);
         kakao.setMaxAge(0);
         response.addCookie(kakao);
 
@@ -104,7 +104,7 @@ public class MemberController {
                 if (cookie.getName().equals("winefind")) {
                     cookieUser = cookie.getValue();
                 }
-                if (cookie.getName().equals("TEST")) {
+                if (cookie.getName().equals("Kakao")) {
                     kakaoUser = cookie.getValue();
                 }
             }

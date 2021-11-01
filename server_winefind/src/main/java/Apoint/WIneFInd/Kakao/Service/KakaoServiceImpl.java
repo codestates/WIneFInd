@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
@@ -56,7 +55,7 @@ public class KakaoServiceImpl implements KakaoService {
 
         String KakaoOAuth = memberService.CreateKaKao(jwtEmail, jwtNickname);
 
-        Cookie cookie = new Cookie("TEST", KakaoOAuth);
+        Cookie cookie = new Cookie("Kakao", KakaoOAuth);
         response.addCookie(cookie);
 
 //        if (userInfo.get("email") != null) {
@@ -78,10 +77,17 @@ public class KakaoServiceImpl implements KakaoService {
 
         Date now = new Date();
         Consumer consumer = new Consumer();
-        consumer.setEmail(email);
-        consumer.setNickname(nickname);
-        consumer.setCreatedAt(now);
-        consumer.setUpdatedAt(now);
+        consumer = consumer.builder()
+                .nickname(nickname)
+                .email(email)
+                .updatedAt(now)
+                .createdAt(now)
+                .build();
+
+//        consumer.setNickname(nickname);
+//        consumer.setCreatedAt(now);
+//        consumer.setEmail(email);
+//        consumer.setUpdatedAt(now);
 
         return kakaoRepository.save(consumer);
     }
@@ -177,30 +183,30 @@ public class KakaoServiceImpl implements KakaoService {
         return userInfo;
     }
 
-    @Override
-    public void kakaoLogout(String accessToken) {
-        String reqURL = "http://kapi.kakao.com/v1/user/logout";
-        try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode = " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String result = "";
-            String line = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println(result);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    public void kakaoLogout(String accessToken) {
+//        String reqURL = "http://kapi.kakao.com/v1/user/logout";
+//        try {
+//            URL url = new URL(reqURL);
+//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//            conn.setRequestMethod("POST");
+//            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
+//            int responseCode = conn.getResponseCode();
+//            System.out.println("responseCode = " + responseCode);
+//
+//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+//
+//            String result = "";
+//            String line = "";
+//
+//            while ((line = br.readLine()) != null) {
+//                result += line;
+//            }
+//            System.out.println(result);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     @Override
     public List<Consumer> FindByAll() {
