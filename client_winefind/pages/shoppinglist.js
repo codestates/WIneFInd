@@ -20,22 +20,28 @@ const Shoppinglist = () => {
   //Article Get Api로 articles에 게시글 목록 넣기
 
   //카카오 auth 명령으로 내 id 받아와야해요 민쥰님!!
-  const getMyId = () => {};
+
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=1`, {
-        withCredentials: true,
-      })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        setCartItems(
-          res.data['Show MyCartItem'].map((ele) => {
-            return ele.article;
+        let id = res.data['카카오 정보'].id;
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`, {
+            withCredentials: true,
           })
-        );
+          .then((res) => {
+            setCartItems(
+              res.data['Show MyCartItem'].map((ele) => {
+                return ele.article;
+              })
+            );
+          })
+          .catch((e) => {
+            console.log('There is no Article:', e);
+          });
       })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
+      .catch((e) => console.log('Plz login:', e));
   };
 
   useEffect(() => {
