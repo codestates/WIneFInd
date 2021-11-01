@@ -1,10 +1,11 @@
 package Apoint.WIneFInd.Wine.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -43,6 +44,7 @@ public class Wine {
     @Column(nullable = false)
     private String price;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "wine", cascade = CascadeType.REMOVE)
-    private List<Article> articleList = new ArrayList<>();
+    private List<Article> articleList;
 }

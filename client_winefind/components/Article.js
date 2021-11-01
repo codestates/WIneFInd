@@ -26,7 +26,7 @@ const Article = ({ articles }) => {
                 <Button onClick={() => goToDescription(article.id)} animated>
                   <Button.Content visible>더 보기</Button.Content>
                   <Button.Content hidden>
-                    <Icon name='search plus' />
+                    <Icon name="search plus" />
                   </Button.Content>
                 </Button>
               </div>

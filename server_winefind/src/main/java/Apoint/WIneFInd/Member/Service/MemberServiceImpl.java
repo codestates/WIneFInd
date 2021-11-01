@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -97,8 +94,21 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     public List<User> Delete(Long id) {
+        /*
+        Consumer findConsumer = kakaoRepository.findById(id).get();
+
+        List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
+
+        cartRepository.deleteAll(byConsumer);
+    }*/
 
         memberRepository.deleteById(id);
+
+//        User user = memberRepository.findById(id).get();
+//        List<User> byEmail = memberRepository.findByEmail(user.getEmail());
+//
+//        memberRepository.deleteAll(byEmail);
+
         return memberRepository.findAll();
     }
 
