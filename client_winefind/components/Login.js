@@ -44,6 +44,10 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
 
   const kakaoLogin = () => {
     router.push(
+      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao&response_type=code'
+      //배포할때:
+      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao&response_type=code'
+      // 개발할때:
       'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=https://localhost:3000/kakao&response_type=code'
     );
   };
@@ -52,15 +56,6 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
       <div className={styles.signup_container}>
         <h2>Sign In</h2>
         <div className={styles.login_box}>
-          <img
-            style={{
-              display: 'flex',
-              width: '160px',
-              height: '200px',
-              margin: '1rem',
-            }}
-            src='/images/logo.png'
-          />
           <div className={styles.form_container}>
             <div className={styles.forms}>
               <div className={styles.form}>

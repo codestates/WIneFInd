@@ -4,7 +4,11 @@ build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+<<<<<<< HEAD
+#/src/main/resources/https/localhost.p12
+=======
 /src/main/resources/https/localhost.p12
+>>>>>>> 015373d7bf53bbabb706cada0d45acef8bd91fee
 #/src/main/resources/application.properties
 .DS_Store
 ### STS ###

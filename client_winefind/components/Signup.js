@@ -97,15 +97,6 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
       <div className={styles.signup_container}>
         <h2>Sign Up</h2>
         <div className={styles.login_box}>
-          <img
-            style={{
-              display: 'flex',
-              width: '160px',
-              height: '200px',
-              margin: '1rem',
-            }}
-            src='/images/logo.png'
-          />
           <div className={styles.form_container} style={{ marginTop: '-20px' }}>
             <div className={styles.forms}>
               <div className={styles.form}>
@@ -177,8 +168,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
             <div className={styles.button}>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px' }}
-                  color='purple'
+                  style={{ width: '230px', backgroundColor: '#ddb496' }}
                   onClick={createAccount}
                 >
                   Signup
@@ -186,8 +176,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
               </div>
               <div style={{ marginTop: '0.3rem' }}>
                 <Button
-                  style={{ width: '230px' }}
-                  color='violet'
+                  style={{ width: '230px', backgroundColor: '#cda581' }}
                   onClick={changeLoginToSignup}
                 >
                   Go to Login

@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "https://localhost:3000", allowedHeaders = "*", allowCredentials = "true")
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -32,17 +32,17 @@ public class ArticleController {
             }});
 
         } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("동일한 아이디가 존재 합니다." + e);
+            return ResponseEntity.badRequest().body(e);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("에러 발생!!! " + e);
         }
     }
 
 
+
     @GetMapping("article")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
-
-        if (id != null) {
+       if (id != null) {
             Optional<Article> article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);
         } else {

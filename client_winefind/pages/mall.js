@@ -158,6 +158,7 @@ const Mall = ({ toggleModal }) => {
 
   useEffect(() => {
     getArticles();
+    console.log('here is mall ', document.location.href);
   }, []);
 
   return (
@@ -181,14 +182,16 @@ const Mall = ({ toggleModal }) => {
         />
         <div className={styles.uploadButton}>
           <Button onClick={goToUpload} animated>
-            <Button.Content visible>게시글 작성</Button.Content>
+            <Button.Content style={{ width: '4.6rem' }} visible>
+              게시글 작성
+            </Button.Content>
             <Button.Content hidden>Upload</Button.Content>
           </Button>
         </div>
       </div>
       <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
-          <div className={classNames(styles.text_big)}>Wine List</div>
+          <div className={styles.text_big}>Wine List</div>
           <Article articles={articles} />
         </div>
         <div className={styles.filter_box}>
