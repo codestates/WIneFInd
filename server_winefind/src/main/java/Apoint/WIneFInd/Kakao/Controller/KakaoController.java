@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
@@ -32,5 +33,11 @@ public class KakaoController {
         } catch (NullPointerException e) {
             return ResponseEntity.badRequest().body("" + e);
         }
+    }
+
+    @DeleteMapping("/kakao/{id}")
+    public ResponseEntity<?> DeleteKakao(@PathVariable Long id) {
+        kakaoService.Delete(id);
+        return ResponseEntity.ok().body("Delete Success");
     }
 }

@@ -1,13 +1,16 @@
 package Apoint.WIneFInd.Article.Model;
 
+import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Wine.Model.Wine;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,11 +30,16 @@ public class Article {
     private String comment;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "wine_id")
     private Wine wine;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList = new ArrayList<>();
 
 }

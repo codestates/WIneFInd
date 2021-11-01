@@ -18,10 +18,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class KakaoServiceImpl implements KakaoService {
@@ -80,8 +77,8 @@ public class KakaoServiceImpl implements KakaoService {
         consumer = consumer.builder()
                 .nickname(nickname)
                 .email(email)
-                .updatedAt(now)
                 .createdAt(now)
+                .updatedAt(now)
                 .build();
 
 //        consumer.setNickname(nickname);
@@ -221,5 +218,10 @@ public class KakaoServiceImpl implements KakaoService {
     @Override
     public List<Consumer> FindByEmail(String email) {
         return kakaoRepository.findByEmail(email);
+    }
+
+    @Override
+    public void Delete(Long id) {
+        kakaoRepository.deleteById(id);
     }
 }
