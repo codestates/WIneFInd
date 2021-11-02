@@ -86,19 +86,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void DeleteCart(Long id) {
+    public void DeleteCart(Long id, Long artId) {
         Consumer findConsumer = kakaoRepository.findById(id).get();
 
         List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
 
-        cartRepository.deleteAll(byConsumer);
+        if (artId != null) {
+            Optional<Cart> findCart = byConsumer
+                    .stream()
+                    .filter(item -> item.getArticle().getId().equals(artId))
+                    .findAny();
+
+            cartRepository.deleteById(findCart.get().getId());
+        } else {
+            cartRepository.deleteAll(byConsumer);
+        }
     }
 
-    @Override
-    public void DeleteCartIem(Long id) {
-        Consumer consumer = kakaoRepository.findById(id).get();
-
-        List<Cart> byConsumer = cartRepository.findByConsumer(consumer);
-        cartRepository.deleteById(id);
-    }
 }

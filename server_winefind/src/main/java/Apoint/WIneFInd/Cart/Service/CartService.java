@@ -12,7 +12,6 @@ public interface CartService {
 
     public List<Cart> FindByConsumerId(Long id);
 
-    public void DeleteCart(Long id);
+    public void DeleteCart(Long id, Long artId);
 
-    public void DeleteCartIem(Long id);
 }
