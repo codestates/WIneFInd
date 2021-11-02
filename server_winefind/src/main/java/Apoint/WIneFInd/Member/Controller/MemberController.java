@@ -150,6 +150,13 @@ public class MemberController {
         }
     }
 
+    @GetMapping("user")
+    public ResponseEntity<?> TestUser(@RequestParam String email) {
+
+        List<User> member = memberService.FindByEmail(email);
+        return ResponseEntity.ok().body(member);
+    }
+
     @PutMapping("user")
     public ResponseEntity<?> UpdateUser(@RequestBody User user) {
 
@@ -173,10 +180,5 @@ public class MemberController {
         }});
     }
 
-    @GetMapping("user")
-    public ResponseEntity<?> TestUser(@RequestParam String email) {
 
-        List<User> member = memberService.FindByEmail(email);
-        return ResponseEntity.ok().body(member);
-    }
 }

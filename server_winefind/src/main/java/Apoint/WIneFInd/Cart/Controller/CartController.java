@@ -29,6 +29,19 @@ public class CartController {
         this.cartService = cartService;
     }
 
+    @GetMapping("cart")
+    public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
+
+        try {
+            List<Cart> carts = cartService.FindByConsumerId(id);
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("Show MyCartItem", carts);
+            }});
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
+        }
+    }
+
     @PostMapping("cart")
     public ResponseEntity<?> AddCartList(@RequestBody CartDTO cartDTO) {
 
@@ -49,19 +62,6 @@ public class CartController {
             return ResponseEntity.status(500).body("장바구니에 Consumer & Article 정보가 존재하지 않습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
             return ResponseEntity.status(500).body("Domain 양식에 맞지 않습니다 양식에 맞춰 다시보내주세요. \n" + e);
-        }
-    }
-
-    @GetMapping("cart")
-    public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
-
-        try {
-            List<Cart> carts = cartService.FindByConsumerId(id);
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Show MyCartItem", carts);
-            }});
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
         }
     }
 

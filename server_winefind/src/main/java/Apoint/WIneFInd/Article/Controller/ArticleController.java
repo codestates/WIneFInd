@@ -26,6 +26,16 @@ public class ArticleController {
         this.wineService = wineService;
     }
 
+    @GetMapping("article")
+    public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
+        if (id != null) {
+            Optional<Article> article = articleService.FindById(id);
+            return ResponseEntity.ok().body(article);
+        } else {
+            List<Article> articles = articleService.FindByAll();
+            return ResponseEntity.ok().body(articles);
+        }
+    }
 
     @PostMapping("article")
     public ResponseEntity<?> CreateArticle(@RequestBody ArticleDTO articleDTO) {
@@ -45,18 +55,6 @@ public class ArticleController {
         }
     }
 
-
-    @GetMapping("article")
-    public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
-        if (id != null) {
-            Optional<Article> article = articleService.FindById(id);
-            return ResponseEntity.ok().body(article);
-        } else {
-            List<Article> articles = articleService.FindByAll();
-            return ResponseEntity.ok().body(articles);
-        }
-    }
-
     @PutMapping("article")
     public ResponseEntity<?> UpdateArticle(@RequestBody Article article) {
         articleService.Update(article);
@@ -68,6 +66,5 @@ public class ArticleController {
         articleService.Delete(id);
         return ResponseEntity.ok().body("delete success");
     }
-
 
 }
