@@ -1,158 +1,35 @@
 import styles from '../styles/Home.module.css';
 import classNames from 'classnames';
 import CardCompo from '../components/CardCompo';
-import { Icon } from 'semantic-ui-react';
-import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Navigation, Pagination, Autoplay } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-const wines = [
-  {
-    index: 1,
-    name: 'Petrus 1998',
-    region: 'Pretini Petrus',
-    img: '../public/images/petrus.png',
-    price: 9900,
-  },
-  {
-    index: 2,
-    name: 'lapola 2001',
-    region: 'Louis Latour',
-    img: '../public/images/lapola.jpeg',
-    price: 12000,
-  },
-  {
-    index: 3,
-    name: 'michelle 1980',
-    region: 'Regio Mich',
-    img: '../public/images/mainpage.jpg',
-    price: 2900,
-  },
-];
-const delay = 4000;
-let taste = (
-  <table className={styles.tasteStructure}>
-    <tbody>
-      {/* 여기서부턴 Light && Bold */}
-      <tr className='tasteStructure_tasteCharacteristic'>
-        <td>
-          <div className='tasteStructure_property'>Light</div>
-        </td>
-        <td className={styles.tasteStructure_progressBar}>
-          <div className={styles.indicatorBar_meter}>
-            <span
-              className={styles.indicatorBar_progress}
-              style={{ width: '15%', left: '60%' }} // left는 85% 가 max이다 85 안넘기 조심하기
-            ></span>
-          </div>
-        </td>
-        <td>
-          <div className='tasteStructure_property'>Bold</div>
-        </td>
-      </tr>
-      {/* 여기서부턴 smooth && tannic */}
-      <tr className='tasteStructure_tasteCharacteristic'>
-        <td>
-          <div className='tasteStructure_property'>Smooth</div>
-        </td>
-        <td className={styles.tasteStructure_progressBar}>
-          <div className={styles.indicatorBar_meter}>
-            <span
-              className={styles.indicatorBar_progress}
-              style={{ width: '15%', left: '55%' }}
-            ></span>
-          </div>
-        </td>
-        <td>
-          <div className='tasteStructure_property'>Tannic</div>
-        </td>
-      </tr>
-      {/* 여기서부턴 dry && sweet */}
-      <tr className='tasteStructure_tasteCharacteristic'>
-        <td>
-          <div className='tasteStructure_property'>Dry</div>
-        </td>
-        <td className={styles.tasteStructure_progressBar}>
-          <div className={styles.indicatorBar_meter}>
-            <span
-              className={styles.indicatorBar_progress}
-              style={{ width: '15%', left: '9.45708%' }}
-            ></span>
-          </div>
-        </td>
-        <td>
-          <div className='tasteStructure_property'>Sweet</div>
-        </td>
-      </tr>
-      {/* 여기서부턴 soft && acidic */}
-      <tr className='tasteStructure_tasteCharacteristic'>
-        <td>
-          <div className='tasteStructure_property'>Soft</div>
-        </td>
-        <td className={styles.tasteStructure_progressBar}>
-          <div className={styles.indicatorBar_meter}>
-            <span
-              className={styles.indicatorBar_progress}
-              style={{ width: '15%', left: '64.4675%' }}
-            ></span>
-          </div>
-        </td>
-        <td>
-          <div className='tasteStructure_property'>Acidic</div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-);
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const Home = () => {
-  //   const [cartItems, setCartItems] = useState([]);
-  const [index, setIndex] = useState(0);
-  const timeoutRef = useRef(null);
+  const [articles, setArticles] = useState([]);
 
-  //   const getArticles = () => {
-  //     axios
-  //       .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=1`, {
-  //         withCredentials: true,
-  //       })
-  //       .then((res) => {
-  //         setCartItems(
-  //           res.data['Show MyCartItem'].map((ele) => {
-  //             return ele.article;
-  //           })
-  //         );
-  //       })
-  //       .catch((e) => {
-  //         console.log('error!:', e);
-  //       });
-  //   };
-
-  function resetTimeout() {
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
-  }
-  //   useEffect(() => {
-  //     getArticles();
-  //   }, []);
-
+  const getArticles = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('all articles:', res.data);
+        setArticles(res.data);
+      })
+      .catch((e) => {
+        console.log('error!:', e);
+      });
+  };
   useEffect(() => {
-    resetTimeout();
-    timeoutRef.current = setTimeout(
-      // 여기 'prevIndex ===' 다음에 숫자를 원하는 슬라이드 만큼 적으면 된다
-      () =>
-        setIndex((prevIndex) =>
-          prevIndex === wines.length - 1 ? 0 : prevIndex + 1
-        ),
-      delay
-    );
-
-    return () => {
-      resetTimeout();
-    };
-  }, [index]);
-  // useEffect(() => {
-  //   console.log('here is index ', document.location.href);
-  // }, []);
+    getArticles();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -218,40 +95,88 @@ const Home = () => {
       </div>
 
       <div className={styles.learn_container}>
-        <div className={styles.slideshow}>
-          <div
-            className={styles.slideshowSlider}
-            style={{ transform: `translate3d(${-index * 100}%,10,0)` }}
-          >
-            {wines.map((index) => (
-              <div className='slide' key={index}>
-                <CardCompo wines={wines} />
-              </div>
-            ))}
-          </div>
-
-          <div className={styles.slideshowDots}>
-            {wines.map((_, idx) => (
-              <div
-                // 여기도 숫자를 바꿔서 원하는 슬라이드 만큼 바꿔줘야 한다
-                key={idx}
-                className={`styles.slideshowDot ${
-                  index === idx ? 'active' : ''
-                }`}
-                onClick={() => {
-                  setIndex(idx);
-                }}
-              >
-                <Icon style={{ color: 'white' }} name='circle' />
-              </div>
-            ))}
-          </div>
+        <div className={styles.learn_head}>
+          <h1>Most Searched Wines</h1>
         </div>
+        <Swiper
+          // install Swiper modules
+          modules={[Navigation, Pagination, Autoplay]}
+          slidesPerView={3}
+          spaceBetween={20}
+          centeredSlides={true}
+          loop={true}
+          pagination={{
+            clickable: true,
+          }}
+          navigation
+          autoplay={{
+            delay: 5500,
+            disableOnInteraction: false,
+          }}
+          pagination={{ type: 'fraction' }}
+          onSwiper={() => console.log('sliding')}
+          onSlideChange={() => console.log('is moving')}
+          style={{
+            // border: '5px white solid',
+            width: '100%',
+            height: '600px',
+          }}
+        >
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(0, 1)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(1, 2)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(2, 3)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(3, 4)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(4, 5)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(5, 6)} />
+          </SwiperSlide>
+          <SwiperSlide
+            style={{
+              display: 'flex',
+            }}
+          >
+            <CardCompo compo={articles.slice(6, 7)} />
+          </SwiperSlide>
+        </Swiper>
       </div>
 
-      <div className={styles.learn_container}>
-        <div className={styles.learn_image}></div>
-        <div className={styles.learn_intro}>
+      <div className={styles.tesing_container}>
+        <div className={styles.testing_image}></div>
+        <div className={styles.testing_intro}>
           <p>
             당신에게 잘 맞는 와인은 무엇일까요?
             <br />
