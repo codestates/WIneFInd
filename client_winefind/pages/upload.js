@@ -18,22 +18,22 @@ const Upload = () => {
   };
   const typeOptions = [
     {
-      key: 'type',
+      key: 'red',
       text: 'red',
       value: 'red',
     },
     {
-      key: 'type',
+      key: 'white',
       text: 'white',
       value: 'white',
     },
     {
-      key: 'type',
+      key: 'sparkling',
       text: 'sparkling',
       value: 'sparkling',
     },
     {
-      key: 'type',
+      key: 'rose',
       text: 'rose',
       value: 'rose',
     },
@@ -50,92 +50,92 @@ const Upload = () => {
     { key: 'es', value: 'es', flag: 'es', text: 'Spain' },
     { key: 'za', value: 'za', flag: 'za', text: 'Repulic of South Africa' },
   ];
-  let taste = (
-    <table className={styles.tasteStructure}>
-      <tbody>
-        {/* 여기서부턴 Light && Bold */}
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Light</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.tastebar_container}>
-              <input
-                min='0'
-                max='4'
-                step='1'
-                type='range'
-                className={styles.taste_bar}
-              />
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Bold</div>
-          </td>
-        </tr>
+  // let taste = (
+  //   <table className={styles.tasteStructure}>
+  //     <tbody>
+  //       {/* 여기서부턴 Light && Bold */}
+  //       <tr className='tasteStructure_tasteCharacteristic'>
+  //         <td>
+  //           <div className='tasteStructure_property'>Light</div>
+  //         </td>
+  //         <td className={styles.tasteStructure_progressBar}>
+  //           <div className={styles.tastebar_container}>
+  //             <input
+  //               min='0'
+  //               max='4'
+  //               step='1'
+  //               type='range'
+  //               className={styles.taste_bar}
+  //             />
+  //           </div>
+  //         </td>
+  //         <td>
+  //           <div className='tasteStructure_property'>Bold</div>
+  //         </td>
+  //       </tr>
 
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Smooth</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.tastebar_container}>
-              <input
-                min='0'
-                max='4'
-                step='1'
-                type='range'
-                className={styles.taste_bar}
-              />
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Tannic</div>
-          </td>
-        </tr>
+  //       <tr className='tasteStructure_tasteCharacteristic'>
+  //         <td>
+  //           <div className='tasteStructure_property'>Smooth</div>
+  //         </td>
+  //         <td className={styles.tasteStructure_progressBar}>
+  //           <div className={styles.tastebar_container}>
+  //             <input
+  //               min='0'
+  //               max='4'
+  //               step='1'
+  //               type='range'
+  //               className={styles.taste_bar}
+  //             />
+  //           </div>
+  //         </td>
+  //         <td>
+  //           <div className='tasteStructure_property'>Tannic</div>
+  //         </td>
+  //       </tr>
 
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Dry</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.tastebar_container}>
-              <input
-                min='0'
-                max='4'
-                step='1'
-                type='range'
-                className={styles.taste_bar}
-              />
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Sweet</div>
-          </td>
-        </tr>
+  //       <tr className='tasteStructure_tasteCharacteristic'>
+  //         <td>
+  //           <div className='tasteStructure_property'>Dry</div>
+  //         </td>
+  //         <td className={styles.tasteStructure_progressBar}>
+  //           <div className={styles.tastebar_container}>
+  //             <input
+  //               min='0'
+  //               max='4'
+  //               step='1'
+  //               type='range'
+  //               className={styles.taste_bar}
+  //             />
+  //           </div>
+  //         </td>
+  //         <td>
+  //           <div className='tasteStructure_property'>Sweet</div>
+  //         </td>
+  //       </tr>
 
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Soft</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.tastebar_container}>
-              <input
-                min='0'
-                max='4'
-                step='1'
-                type='range'
-                className={styles.taste_bar}
-              />
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Acidic</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
+  //       <tr className='tasteStructure_tasteCharacteristic'>
+  //         <td>
+  //           <div className='tasteStructure_property'>Soft</div>
+  //         </td>
+  //         <td className={styles.tasteStructure_progressBar}>
+  //           <div className={styles.tastebar_container}>
+  //             <input
+  //               min='0'
+  //               max='4'
+  //               step='1'
+  //               type='range'
+  //               className={styles.taste_bar}
+  //             />
+  //           </div>
+  //         </td>
+  //         <td>
+  //           <div className='tasteStructure_property'>Acidic</div>
+  //         </td>
+  //       </tr>
+  //     </tbody>
+  //   </table>
+  // );
 
   return (
     <div className={styles.container}>
@@ -148,10 +148,10 @@ const Upload = () => {
             <div className={styles.title_article}>와인 상세 정보</div>
             <div className={styles.wine_info}>
               <div className={styles.wine_info_2}>
-                <p>Wine name</p>
+                <div>Wine name</div>
                 <Input type='text' placeholder='Type wine name' />
                 <br />
-                <p>Type</p>
+                <div>Type</div>
                 <Dropdown
                   placeholder='Select Type'
                   fluid
@@ -159,7 +159,7 @@ const Upload = () => {
                   options={typeOptions}
                 />
                 <br />
-                <p>Country</p>
+                <div>Country</div>
                 <Dropdown
                   placeholder='Select Country'
                   fluid
@@ -167,30 +167,29 @@ const Upload = () => {
                   options={countryOptions}
                 />
                 <br />
-                <p>Grape</p>
+                <div>Grape</div>
                 <Input placeholder='Type Grape' />
                 <br />
-                <p>Vintage</p>
+                <div>Vintage</div>
                 <Input
                   type='number'
                   defaultValue='2020'
                   placeholder='Type vintage'
                 />
                 <br />
-                <p>Price(\)</p>
+                <div>Price(\)</div>
                 <Input
                   type='number'
                   defaultValue='0'
                   placeholder='Type price'
                 />
                 <br />
-                <p>Comment</p>
+                <div>Comment</div>
                 <textarea
                   className={styles.textarea_wine}
                   placeholder='Comment about your wine'
                 ></textarea>
               </div>
-              {/* /// */}
               <div className={styles.board_image}>
                 <Card className={styles.card_height}>
                   <img src={createObjectURL} className={styles.keepimg} />
@@ -203,14 +202,14 @@ const Upload = () => {
                       Describe taste of the Wine!
                     </Card.Header>
 
-                    <Card.Description>{taste}</Card.Description>
+                    <Card.Description>{/* {taste} */}</Card.Description>
                   </Card.Content>
                 </Card>
               </div>
             </div>
 
             <div className={styles.title_article}>게시글 정보</div>
-            <p className={styles.comment_article}>
+            <div className={styles.comment_article}>
               <Input
                 type='text'
                 style={{ width: '300px' }}
@@ -220,7 +219,7 @@ const Upload = () => {
                 className={styles.textarea}
                 placeholder='Comment about your wine'
               ></textarea>
-            </p>
+            </div>
 
             <Button
               style={{

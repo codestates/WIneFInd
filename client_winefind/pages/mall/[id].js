@@ -42,7 +42,6 @@ const Details = ({ toggleModal }) => {
           .then(() => {
             console.log('add to cart success');
             if (func === 'goToShoppingList') {
-              console.log('here is func:', func);
               router.push('/shoppinglist');
             }
           })
@@ -64,6 +63,34 @@ const Details = ({ toggleModal }) => {
     addToCart('goToShoppingList');
   };
 
+  const addOrDeleteWineList = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_API_URL}/recommend`,
+            {
+              wineId: article.wine.id,
+              consumerId: res.data['카카오 정보'].id,
+            },
+            { withCredentials: true }
+          )
+          .then(() => {
+            console.log('add to recommend success');
+            alert('success to recommend');
+          })
+          .catch((e) => {
+            console.log('already in !');
+            alert('already recommended');
+          });
+      })
+      .catch((e) => {
+        console.log('not Logined');
+        toggleModal();
+      });
+  };
+
   useEffect(() => {
     if (id && id > 0) {
       getArticle();
@@ -77,6 +104,7 @@ const Details = ({ toggleModal }) => {
           <div className={styles.wineName}>
             {article ? article.wine.wineName : ''}
           </div>
+          <button onClick={addOrDeleteWineList}>add to my wine list</button>
         </div>
         <div className={styles.board_content}>
           <div className={styles.board_image}>
