@@ -6,9 +6,10 @@ import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Dropdown } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
+import Pagination from 'react-js-pagination';
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
-
+  const [page, setPage] = useState(1);
   const [articles, setArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
   let types = ['red', 'white', 'rose', 'sparkling'];
@@ -34,6 +35,10 @@ const Mall = ({ toggleModal }) => {
     body: [],
     tannic: [],
     price: [],
+  };
+  const handlePageChange = (page) => {
+    setPage(page);
+    console.log(page);
   };
 
   const getFilteredList = () => {
@@ -85,7 +90,7 @@ const Mall = ({ toggleModal }) => {
 
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -96,6 +101,19 @@ const Mall = ({ toggleModal }) => {
         console.log('error!:', e);
       });
   };
+  // const getArticlesPage = () => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log('this page data:', res.data);
+  //       setArticles(res.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log('error!:', e);
+  //     });
+  // };
 
   const findWineWithText = () => {
     //입력받은 텍스트로 와인 찾기.
@@ -158,7 +176,7 @@ const Mall = ({ toggleModal }) => {
 
   useEffect(() => {
     getArticles();
-  }, []);
+  }, [page]);
 
   return (
     <div className={styles.mall_container}>
@@ -200,12 +218,22 @@ const Mall = ({ toggleModal }) => {
               </select>
             </form>
           </div>
-
           {articles.length !== 0 ? (
             <Article articles={articles} />
           ) : (
             <div>Loading Something</div>
           )}
+          <div className={styles.page}>
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={5}
+              totalItemsCount={20}
+              pageRangeDisplayed={5}
+              prevPageText={'‹'}
+              nextPageText={'›'}
+              onChange={handlePageChange}
+            />
+          </div>
         </div>
         <div className={styles.filter_box}>
           <div className={styles.filter_content}>

@@ -1,6 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import styles from '../styles/User.module.css';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
 
 import IconButton from '@material-ui/core/IconButton';
@@ -8,6 +8,7 @@ import Visibility from '@material-ui/icons/Visibility';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Input from '@material-ui/core/Input';
+import axios from 'axios';
 
 //마이페이지
 const Myprofile = () => {
@@ -57,6 +58,25 @@ const Myprofile = () => {
   function goLink() {
     router.push('/user');
   }
+  const [userInfo, setUserInfo] = useState({
+    userName: '',
+    userImage: '',
+  });
+  const getUserInfo = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        console.log('res:', res.data);
+        setUserInfo({ userName: res.data['카카오 정보'].nickname });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
   return (
     <>
       <div className={styles.profile_container}>
@@ -79,7 +99,7 @@ const Myprofile = () => {
               <Input
                 className={styles.text}
                 type='text'
-                placeholder='Enter USERNAME'
+                placeholder={userInfo.userName}
               />
               <Input
                 className={styles.text}
