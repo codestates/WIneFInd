@@ -10,16 +10,20 @@ const CardCompo = ({ compo }) => {
 
   return (
     <>
-      {/* {console.log('i work', compo[0].wine.wineName)} */}
-      <div
-        className={styles.card_height}
-        onClick={() => goToDescription(compo[0].id)}
-      >
-        <div className={styles.card_head}>
-          <h3 className='logo text'>{compo[0].wine.wineName}</h3>
+      {/* {console.log('i work', compo[0].wine)} */}
+      {compo.map((article, index) => (
+        <div
+          className={styles.card_height}
+          key={index}
+          onClick={() => goToDescription(article.id)}
+        >
+          <div className={styles.card_head}>
+            <h2 className='logo text'>{article.wine.wineName}</h2>
+          </div>
+          <img src={article.wine.image} className={styles.image_height} />
+          <img className={styles.bord} src='/images/border.png' />
         </div>
-        <img src={compo[0].wine.image} className={styles.image_height} />
-      </div>
+      ))}
     </>
   );
 };

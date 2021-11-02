@@ -126,7 +126,7 @@
   animation-duration: 1.5s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
-  border: 5px green solid;
+  /* border: 5px green solid; */
   width: 100%;
   color: #cda581;
 }
@@ -135,7 +135,7 @@
   display: flex;
   height: 800px;
   width: 100%;
-  border: 5px red solid;
+  /* border: 5px red solid; */
 }
 
 .box {
@@ -299,56 +299,144 @@
   }
 }
 
-/* =========== taste CSS ============== */
+/* =========== learn CSS ============== */
 .learn_container {
   display: flex;
   flex-direction: column;
   height: 650px;
   width: 80%;
+  margin-top: 8px;
   /* border: 5px red solid; */
   /* background-color: #f3e9e2; */
-  background: rgba(255, 255, 255, 0.288);
+  background: rgba(34, 34, 34, 0.63);
   border-radius: 5px;
 }
 
 .learn_head {
   display: flex;
-  color: rgb(71, 14, 38);
-  margin: 10px 0px;
+  margin: 15px 0px;
   justify-content: center;
-}
-
-.image_height {
-  height: auto;
-  height: 420px;
-  width: auto;
-  max-width: 100%;
-}
-
-.layout {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  border: 5px gold solid;
-  justify-content: space-evenly;
-  text-align: center;
-  font-family: 'Jua', sans-serif;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+  color: transparent;
+  background: linear-gradient(
+    to top,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  -webkit-background-clip: text;
 }
 
 .card_head {
   width: 97%;
-  height: 40px;
+  margin-top: 8%;
+  height: 55px;
   /* border: 5px gold solid; */
   text-align: center;
 }
 
 .card_height {
-  height: 500px;
-  width: 50%;
-  margin: 0px 10px;
-  border: 5px rgb(212, 16, 230) solid;
+  max-height: 460px;
+  max-width: 260px;
+  margin-top: 25px;
+  z-index: 1;
+  /* border: 5px rgb(212, 16, 230) solid; */
   background-color: white;
+  border-radius: 15px;
 }
+
+.image_height {
+  height: auto;
+  max-height: 450px;
+  width: auto;
+  max-width: 250px;
+  z-index: 1;
+}
+
+.bord {
+  margin-top: -115px;
+  height: 538px;
+  width: 450px;
+  position: absolute;
+  z-index: 2;
+  margin-left: -20.5%;
+}
+
 .card_height:hover {
   cursor: pointer;
+}
+
+.testing_container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 578px;
+  width: 80%;
+  margin: 5px 0px;
+  /* border: 5px red solid; */
+  background-color: #fdfdd32d;
+  /* background: rgba(34, 34, 34, 0.63); */
+  border-radius: 5px;
+}
+
+.testing_image {
+  display: flex;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  /* border: 5px solid white; */
+}
+
+.testing_intro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  /* border: 5px solid red; */
+  background: url('https://ilglobo.com/media/listing_images/2017/03/31/yv.jpg')
+    center center no-repeat;
+  background-size: contain;
+  border-radius: 5px;
+}
+
+.testing_p {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 8%;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  color: transparent;
+  background: linear-gradient(
+    to top,
+    #f6dcce,
+    #eecebb,
+    #e6c1a8,
+    #ddb496,
+    #d4a783,
+    #cea17a,
+    #c89a70,
+    #c29467,
+    #bf9165,
+    #bd8f62,
+    #ba8c60,
+    #b88a5e
+  );
+  -webkit-background-clip: text;
+  border-radius: 3px;
+}
+
+.testing_contain {
+  background: rgba(19, 19, 19, 0.829);
+  width: 90%;
 }
