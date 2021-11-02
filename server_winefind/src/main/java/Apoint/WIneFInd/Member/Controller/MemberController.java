@@ -33,7 +33,7 @@ public class MemberController {
     @PostMapping("signup")
     public ResponseEntity<?> SignUp(@RequestBody SignUpDTO signUpDTO, HttpServletResponse response) {
 
-        try {
+//        try {
             User signUpUser = memberService.Save(signUpDTO);
             // 쿠키생성 후 "winefind" 쿠키 생성
             Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(signUpUser));
@@ -47,15 +47,16 @@ public class MemberController {
                 put("message", "회원가입이 완료 되었습니다.");
                 put("userInfo", signUpUser);
             }});
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("이미 존재하는 회원입니다. : " + e);
-        }
+//        }
+//        catch (NullPointerException e) {
+//            return ResponseEntity.badRequest().body("이미 존재하는 회원입니다. : " + e);
+//        }
     }
 
     @PostMapping("login")
     public ResponseEntity<?> LogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
 
-        try {
+//        try {
             // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
             User loginUser = memberService.LoginCheck(loginDTO).get(0);
             System.out.println(loginUser);
@@ -66,11 +67,11 @@ public class MemberController {
                 put("Email", loginUser.getEmail());
             }});
 
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("Null이 발생 했습니다. : " + e);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("아이디 비밀번호 확인해봐! " + e);
-        }
+//        } catch (NullPointerException e) {
+//            return ResponseEntity.badRequest().body("Null이 발생 했습니다. : " + e);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("아이디 비밀번호 확인해봐! " + e);
+//        }
     }
 
     @GetMapping("logout")
