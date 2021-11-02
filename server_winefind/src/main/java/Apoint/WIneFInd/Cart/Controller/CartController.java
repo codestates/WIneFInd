@@ -65,16 +65,10 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("cart/{id}")
-    public ResponseEntity<?> DeleteCart(@PathVariable Long id) {
-        cartService.DeleteCart(id);
+    @DeleteMapping("cart")
+    public ResponseEntity<?> DeleteCart(@RequestParam Long id, @RequestParam(required = false) Long artId) {
+        cartService.DeleteCart(id, artId);
         return ResponseEntity.ok().body("Delete Success");
     }
 
-    @DeleteMapping("/cartitem/{id}")
-    public ResponseEntity<?> DeleteCartItem(@PathVariable Long id) {
-        cartService.DeleteCartIem(id);
-        return ResponseEntity.ok().body("Delete Success");
-
-    }
 }
