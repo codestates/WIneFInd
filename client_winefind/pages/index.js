@@ -98,7 +98,7 @@ const Home = () => {
         <div className={styles.learn_head}>
           <h1>Most Searched Wines</h1>
         </div>
-        <Swiper
+        {/* <Swiper
           // install Swiper modules
           modules={[Navigation, Pagination, Autoplay]}
           slidesPerView={3}
@@ -171,7 +171,7 @@ const Home = () => {
           >
             <CardCompo compo={articles.slice(6, 7)} />
           </SwiperSlide>
-        </Swiper>
+        </Swiper> */}
       </div>
 
       <div className={styles.tesing_container}>

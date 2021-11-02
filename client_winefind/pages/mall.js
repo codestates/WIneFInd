@@ -90,7 +90,7 @@ const Mall = ({ toggleModal }) => {
 
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -101,19 +101,19 @@ const Mall = ({ toggleModal }) => {
         console.log('error!:', e);
       });
   };
-  const getArticlesPage = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('this page data:', res.data);
-        setArticles(res.data);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
+  // const getArticlesPage = () => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log('this page data:', res.data);
+  //       setArticles(res.data);
+  //     })
+  //     .catch((e) => {
+  //       console.log('error!:', e);
+  //     });
+  // };
 
   const findWineWithText = () => {
     //입력받은 텍스트로 와인 찾기.
@@ -175,7 +175,7 @@ const Mall = ({ toggleModal }) => {
   };
 
   useEffect(() => {
-    getArticlesPage();
+    getArticles();
   }, [page]);
 
   return (
