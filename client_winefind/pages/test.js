@@ -8,7 +8,6 @@ import { Progress } from 'semantic-ui-react';
 const Test = () => {
   const length = 4;
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const [percent, setPercent] = useState(100 / length);
 
   // Set the length to match current children from props
