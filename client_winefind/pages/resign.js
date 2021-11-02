@@ -18,26 +18,33 @@ const Resign = () => {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         let id = 0;
-
-        if (res.data.message == '카카오 회원 로그인 되었습니다') {
+        if (res.data.message == '카카오 회원 로그인 되었습니다.') {
           id = res.data['카카오 정보'].id;
-          console.log(id);
+          axios
+            .delete(`${process.env.NEXT_PUBLIC_API_URL}/kakao/${id}`, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log('done!:', res);
+              router.push('/index');
+            })
+            .catch((e) => {
+              console.log('err:', e);
+            });
+        } else {
+          id = res.data['유저 정보'].id;
+          axios
+            .delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log('done!:', res);
+              router.push('/index');
+            })
+            .catch((e) => {
+              console.log('err:', e);
+            });
         }
-        // else {
-        //   id = res.data['유저 정보'].id;
-        // }
-        // console.log('id:', id);
-        // axios
-        //   .delete(`${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`, {
-        //     withCredentials: true,
-        //   })
-        //   .then((res) => {
-        //     console.log('done!:', res);
-        //     window.location.reload();
-        //   })
-        //   .catch((e) => {
-        //     console.log('err:', e);
-        //   });
       })
       .catch((e) => {
         console.log('not login:', e);

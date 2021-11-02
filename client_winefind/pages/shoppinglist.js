@@ -60,7 +60,7 @@ const Shoppinglist = () => {
     }
   };
 
-  const handleDelete = () => {
+  const handleDeleteAll = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
@@ -81,6 +81,19 @@ const Shoppinglist = () => {
         console.log('not login:', e);
       });
   };
+  const handleDelete = () => {
+    axios
+      .delete(`${process.env.NEXT_PUBLIC_API_URL}/cartitem/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('done!:', res);
+        window.location.reload();
+      })
+      .catch((e) => {
+        console.log('err:', e);
+      });
+  };
 
   const getTotalPrice = () => {
     let totalprice = 0;
@@ -95,7 +108,7 @@ const Shoppinglist = () => {
   };
   useEffect(() => {
     getArticles();
-  });
+  }, []);
 
   // const getTotal = () => {
   //   let cartIdArr = checkedItems;
@@ -117,8 +130,8 @@ const Shoppinglist = () => {
 
   return (
     <div className={styles.mall_container}>
-      {console.log('get data:', cartItems)}
       <Sidebar />
+      {console.log('cartitems:~', cartItems)}
       <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
@@ -128,6 +141,7 @@ const Shoppinglist = () => {
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
+
           {!cartItems.length ? (
             <div id='item-list-text' className={styles.no_cartItems}>
               장바구니에 아이템이 없습니다.
@@ -139,6 +153,7 @@ const Shoppinglist = () => {
                   <ArticleCart
                     key={idx}
                     item={item}
+                    // cartId={cartId}
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}
