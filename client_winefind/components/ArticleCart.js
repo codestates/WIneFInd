@@ -36,7 +36,7 @@ export default function ArticleCart({
             <button
               className='cart-item-delete'
               onClick={() => {
-                // handleDelete(item.cartId);
+                handleDelete(item.id);
               }}
             >
               삭제

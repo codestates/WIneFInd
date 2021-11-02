@@ -25,8 +25,15 @@
 }
 .wineName {
   font-size: 25px;
-
   margin: 25px;
+}
+.wine_image {
+  width: 250px;
+  margin: 20px;
+  height: 160px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .writer {
   align-self: flex-end;
