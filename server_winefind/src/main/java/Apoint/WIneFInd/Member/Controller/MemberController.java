@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+@RestController
 public class MemberController {
 
     private final MemberService memberService;

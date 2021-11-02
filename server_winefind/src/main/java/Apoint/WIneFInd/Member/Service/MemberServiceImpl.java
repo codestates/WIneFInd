@@ -78,11 +78,12 @@ public class MemberServiceImpl implements MemberService {
         List<User> checkPwd = memberRepository.findByPassword(loginDTO.getPassword());
 
         // "Email"과 "Password"를 체크한 후에 동일하면 "Email" 실패하면 "Error"를 반환합니다.
-        if (checkEmail.get(0).equals(loginDTO.getEmail()) && checkPwd.get(0).equals(loginDTO.getPassword())) {
-            return checkEmail;
-        } else {
+        if (!(checkEmail.get(0).getEmail().equals(loginDTO.getEmail()) && checkPwd.get(0).getPassword().equals(loginDTO.getPassword()))){
             throw new NonUniqueResultException("'Email'과 'Password'를 다시 기입하여 주시기 바랍니다.");
         }
+
+        return checkEmail;
+
     }
 
     // "User" 정보 수정

@@ -11,8 +11,8 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+@RestController
 public class KakaoController {
 
     private final KakaoService kakaoService;
