@@ -18,9 +18,6 @@ const Shoppinglist = () => {
   );
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
-
-  //카카오 auth 명령으로 내 id 받아와야해요 민쥰님!!
-
   const getArticles = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -44,10 +41,6 @@ const Shoppinglist = () => {
       .catch((e) => console.log('Plz login:', e));
   };
 
-  useEffect(() => {
-    getArticles();
-  }, []);
-
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(cartItems.map((el) => el.id));
@@ -64,9 +57,46 @@ const Shoppinglist = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    setCartItems(cartItems.splice(id));
+  const handleDelete = (articleId) => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        let id = res.data['카카오 정보'].id;
+        let url = `${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`;
+        if (articleId === undefined) {
+          //all delete
+        } else {
+          url += `&artId=${articleId}`;
+        }
+        axios
+          .delete(url, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log('err:', e);
+          });
+      })
+      .catch((e) => {
+        console.log('not login:', e);
+      });
   };
+
+  // const handleDelete = () => {
+  //   axios
+  //     .delete(`${process.env.NEXT_PUBLIC_API_URL}/cartitem/${id}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log('done!:', res);
+  //       window.location.reload();
+  //     })
+  //     .catch((e) => {
+  //       console.log('err:', e);
+  //     });
+  // };
 
   const getTotalPrice = () => {
     let totalprice = 0;
@@ -79,6 +109,9 @@ const Shoppinglist = () => {
     }
     return totalprice;
   };
+  useEffect(() => {
+    getArticles();
+  }, []);
 
   // const getTotal = () => {
   //   let cartIdArr = checkedItems;
@@ -100,8 +133,8 @@ const Shoppinglist = () => {
 
   return (
     <div className={styles.mall_container}>
-      {console.log('get data:', cartItems)}
       <Sidebar />
+      {console.log('cartitems:~', cartItems)}
       <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
@@ -111,6 +144,8 @@ const Shoppinglist = () => {
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
+          <button onClick={() => handleDelete()}>전체삭제</button>
+
           {!cartItems.length ? (
             <div id='item-list-text' className={styles.no_cartItems}>
               장바구니에 아이템이 없습니다.
@@ -122,6 +157,7 @@ const Shoppinglist = () => {
                   <ArticleCart
                     key={idx}
                     item={item}
+                    // cartId={cartId}
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}

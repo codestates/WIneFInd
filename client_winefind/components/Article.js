@@ -15,7 +15,11 @@ const Article = ({ articles }) => {
       {articles.map((article, index) => (
         <div className={styles.article_container} key={index}>
           <div className={styles.article_box}>
-            <img className={styles.wine_image} src={article.wine.image} />
+            <div
+              style={{ backgroundImage: `url(${article.wine.image})` }}
+              className={styles.wine_image}
+            ></div>
+            {/* <img className={styles.wine_image} src={article.wine.image} /> */}
             <div className={styles.wine_info}>
               <div>와인명 : {article.wine.wineName}</div>
               <div>종류 : {article.wine.type}</div>

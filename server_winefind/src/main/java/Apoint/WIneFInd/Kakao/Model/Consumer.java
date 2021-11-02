@@ -1,6 +1,8 @@
 package Apoint.WIneFInd.Kakao.Model;
 
 import Apoint.WIneFInd.Cart.Model.Cart;
+import Apoint.WIneFInd.Recommend.Model.Recommend;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -31,7 +33,11 @@ public class Consumer {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
-//    private List<Cart> cartList;
+    @JsonBackReference
+    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+    private List<Recommend> recommendList = new ArrayList<>();
 }

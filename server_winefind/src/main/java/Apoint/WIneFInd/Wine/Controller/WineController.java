@@ -46,16 +46,6 @@ public class WineController {
         }
     }
 
-    @PostMapping("wine")
-    public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
-
-        Wine save = wineService.Save(wineDTO);
-
-        return ResponseEntity.ok().body(new HashMap<>() {{
-            put("message", save);
-        }});
-    }
-
     @GetMapping("wine")
     public ResponseEntity<?> FindWine(@RequestParam(required = false) Long id) {
 
@@ -66,6 +56,16 @@ public class WineController {
             List<Wine> wines = wineService.FindByAll();
             return ResponseEntity.ok().body(wines);
         }
+    }
+
+    @PostMapping("wine")
+    public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
+
+        Wine save = wineService.Save(wineDTO);
+
+        return ResponseEntity.ok().body(new HashMap<>() {{
+            put("message", save);
+        }});
     }
 
     @PutMapping("wine")

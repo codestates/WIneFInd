@@ -8,7 +8,6 @@ import Apoint.WIneFInd.Cart.Repository.CartRepository;
 import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.NonUniqueResultException;
@@ -87,11 +86,21 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void DeleteCart(Long id) {
+    public void DeleteCart(Long id, Long artId) {
         Consumer findConsumer = kakaoRepository.findById(id).get();
 
         List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
 
-        cartRepository.deleteAll(byConsumer);
+        if (artId != null) {
+            Optional<Cart> findCart = byConsumer
+                    .stream()
+                    .filter(item -> item.getArticle().getId().equals(artId))
+                    .findAny();
+
+            cartRepository.deleteById(findCart.get().getId());
+        } else {
+            cartRepository.deleteAll(byConsumer);
+        }
     }
+
 }

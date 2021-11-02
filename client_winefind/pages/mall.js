@@ -4,7 +4,7 @@ import axios from 'axios';
 import Article from '../components/Article';
 import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button } from 'semantic-ui-react';
+import { Button, Dropdown } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
@@ -165,7 +165,7 @@ const Mall = ({ toggleModal }) => {
       <div className={styles.mall_top}>
         <input
           className={styles.search_bar}
-          placeholder='   Find Your Wine!'
+          placeholder='Find Your Wine!'
           type='search'
         />
         <img
@@ -188,7 +188,19 @@ const Mall = ({ toggleModal }) => {
       </div>
       <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
-          <div className={styles.text_big}>Wine List</div>
+          <div className={styles.text_and_sort}>
+            <div className={styles.text_big}>전체 와인({articles.length})</div>
+            <form>
+              <select style={{ padding: '0.4rem' }}>
+                {/* onchange로 api 호출 */}
+                <option value='최신등록순'>최신등록순</option>
+                <option value='가격낮은순'>가격낮은순</option>
+                <option value='가격높은순'>가격높은순</option>
+                <option value='평점순'>평점순</option>
+              </select>
+            </form>
+          </div>
+
           {articles.length !== 0 ? (
             <Article articles={articles} />
           ) : (
