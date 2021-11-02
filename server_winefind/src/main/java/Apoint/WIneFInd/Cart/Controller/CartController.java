@@ -42,8 +42,7 @@ public class CartController {
 
         } catch (NonUniqueResultException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
-        }
-        catch (IncorrectResultSizeDataAccessException e) {
+        } catch (IncorrectResultSizeDataAccessException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
 
         } catch (NoSuchElementException e) {
@@ -66,9 +65,16 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("/cart/{id}")
+    @DeleteMapping("cart/{id}")
     public ResponseEntity<?> DeleteCart(@PathVariable Long id) {
         cartService.DeleteCart(id);
         return ResponseEntity.ok().body("Delete Success");
+    }
+
+    @DeleteMapping("/cartitem/{id}")
+    public ResponseEntity<?> DeleteCartItem(@PathVariable Long id) {
+        cartService.DeleteCartIem(id);
+        return ResponseEntity.ok().body("Delete Success");
+
     }
 }
