@@ -44,10 +44,6 @@ const Shoppinglist = () => {
       .catch((e) => console.log('Plz login:', e));
   };
 
-  useEffect(() => {
-    getArticles();
-  }, []);
-
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(cartItems.map((el) => el.id));
@@ -64,8 +60,26 @@ const Shoppinglist = () => {
     }
   };
 
-  const handleDelete = (id) => {
-    setCartItems(cartItems.splice(id));
+  const handleDelete = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        let id = res.data['카카오 정보'].id;
+        axios
+          .delete(`${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log('done!:', res);
+            window.location.reload();
+          })
+          .catch((e) => {
+            console.log('err:', e);
+          });
+      })
+      .catch((e) => {
+        console.log('not login:', e);
+      });
   };
 
   const getTotalPrice = () => {
@@ -79,6 +93,9 @@ const Shoppinglist = () => {
     }
     return totalprice;
   };
+  useEffect(() => {
+    getArticles();
+  });
 
   // const getTotal = () => {
   //   let cartIdArr = checkedItems;

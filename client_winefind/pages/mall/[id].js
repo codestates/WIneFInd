@@ -50,7 +50,9 @@ const Details = ({ toggleModal }) => {
 
           .catch((e) => {
             console.log('Already on Cart!:articleId:', id);
-            alert('Already on Cart!');
+            if (func === 'goToShoppingList') {
+              router.push('/shoppinglist');
+            }
           });
       })
       .catch((e) => {

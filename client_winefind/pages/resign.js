@@ -3,6 +3,7 @@ import { useRouter } from 'next/dist/client/router';
 import React, { useState, useEffect } from 'react';
 import styles from '../styles/User.module.css';
 import { Icon } from 'semantic-ui-react';
+import axios from 'axios';
 //마이페이지
 const Resign = () => {
   const router = useRouter();
@@ -12,9 +13,36 @@ const Resign = () => {
     setModal(!modal);
   };
 
-  function goLink() {
-    router.push('/index');
-  }
+  const resignAccount = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        let id = 0;
+
+        if (res.data.message == '카카오 회원 로그인 되었습니다') {
+          id = res.data['카카오 정보'].id;
+          console.log(id);
+        }
+        // else {
+        //   id = res.data['유저 정보'].id;
+        // }
+        // console.log('id:', id);
+        // axios
+        //   .delete(`${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`, {
+        //     withCredentials: true,
+        //   })
+        //   .then((res) => {
+        //     console.log('done!:', res);
+        //     window.location.reload();
+        //   })
+        //   .catch((e) => {
+        //     console.log('err:', e);
+        //   });
+      })
+      .catch((e) => {
+        console.log('not login:', e);
+      });
+  };
 
   return (
     <>
@@ -64,7 +92,7 @@ const Resign = () => {
               />
             </div>
             <div
-              onClick={goLink}
+              onClick={resignAccount}
               style={{
                 display: 'flex',
                 fontWeight: 'bold',
