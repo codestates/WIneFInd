@@ -18,9 +18,6 @@ const Shoppinglist = () => {
   );
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기
-
-  //카카오 auth 명령으로 내 id 받아와야해요 민쥰님!!
-
   const getArticles = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -60,17 +57,22 @@ const Shoppinglist = () => {
     }
   };
 
-  const handleDeleteAll = () => {
+  const handleDelete = (articleId) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         let id = res.data['카카오 정보'].id;
+        let url = `${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`;
+        if (articleId === undefined) {
+          //all delete
+        } else {
+          url += `&artId=${articleId}`;
+        }
         axios
-          .delete(`${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`, {
+          .delete(url, {
             withCredentials: true,
           })
           .then((res) => {
-            console.log('done!:', res);
             window.location.reload();
           })
           .catch((e) => {
@@ -81,19 +83,20 @@ const Shoppinglist = () => {
         console.log('not login:', e);
       });
   };
-  const handleDelete = () => {
-    axios
-      .delete(`${process.env.NEXT_PUBLIC_API_URL}/cartitem/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('done!:', res);
-        window.location.reload();
-      })
-      .catch((e) => {
-        console.log('err:', e);
-      });
-  };
+
+  // const handleDelete = () => {
+  //   axios
+  //     .delete(`${process.env.NEXT_PUBLIC_API_URL}/cartitem/${id}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log('done!:', res);
+  //       window.location.reload();
+  //     })
+  //     .catch((e) => {
+  //       console.log('err:', e);
+  //     });
+  // };
 
   const getTotalPrice = () => {
     let totalprice = 0;
@@ -141,6 +144,7 @@ const Shoppinglist = () => {
             onChange={(e) => handleAllCheck(e.target.checked)}
           ></input>
           <label>전체선택</label>
+          <button onClick={() => handleDelete()}>전체삭제</button>
 
           {!cartItems.length ? (
             <div id='item-list-text' className={styles.no_cartItems}>

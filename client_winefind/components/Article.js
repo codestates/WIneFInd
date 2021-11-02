@@ -15,7 +15,11 @@ const Article = ({ articles }) => {
       {articles.map((article, index) => (
         <div className={styles.article_container} key={index}>
           <div className={styles.article_box}>
-            <img className={styles.wine_image} src={article.wine.image} />
+            <div
+              style={{ backgroundImage: `url(${article.wine.image})` }}
+              className={styles.wine_image}
+            ></div>
+            {/* <img className={styles.wine_image} src={article.wine.image} /> */}
             <div className={styles.wine_info}>
               <div>와인명 : {article.wine.wineName}</div>
               <div>종류 : {article.wine.type}</div>
@@ -26,7 +30,7 @@ const Article = ({ articles }) => {
                 <Button onClick={() => goToDescription(article.id)} animated>
                   <Button.Content visible>더 보기</Button.Content>
                   <Button.Content hidden>
-                    <Icon name="search plus" />
+                    <Icon name='search plus' />
                   </Button.Content>
                 </Button>
               </div>

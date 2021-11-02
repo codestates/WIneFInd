@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import styles from '../../styles/detail.module.css';
-import { Card, Icon, Button } from 'semantic-ui-react';
-import Article from '../../components/Article';
+import { Card } from 'semantic-ui-react';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();
@@ -82,7 +81,14 @@ const Details = ({ toggleModal }) => {
         <div className={styles.board_content}>
           <div className={styles.board_image}>
             <Card className={styles.card_height}>
-              {article ? <img src={article.wine.image} /> : ''}
+              {article ? (
+                <div
+                  style={{ backgroundImage: `url(${article.wine.image})` }}
+                  className={styles.wine_image}
+                ></div>
+              ) : (
+                ''
+              )}
 
               <Card.Content>
                 <Card.Header className={styles.card_head}>
