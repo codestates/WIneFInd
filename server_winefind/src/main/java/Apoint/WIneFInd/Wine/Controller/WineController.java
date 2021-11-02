@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+@RestController
 public class WineController {
 
     private WineRepository wineRepository;
