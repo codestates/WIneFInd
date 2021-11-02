@@ -31,7 +31,7 @@ public class MemberServiceImpl implements MemberService {
 
         // "User" DB 에서 같은 "Email"이 존재 하는지 체크
         List<User> checkUser = memberRepository.findByEmail(signUpDTO.getEmail());
-        if (!checkUser.isEmpty()) throw new NonUniqueResultException("이미 회원가입 되어 있습니다.");
+        if (!checkUser.isEmpty()) throw new NonUniqueResultException("가입양식에 맞춰 다시 기입하여 주시기 바랍니다.");
 
         User user = new User();
         Date now = new Date();
@@ -81,7 +81,7 @@ public class MemberServiceImpl implements MemberService {
         if (checkEmail.get(0).equals(loginDTO.getEmail()) && checkPwd.get(0).equals(loginDTO.getPassword())) {
             return checkEmail;
         } else {
-            throw new NonUniqueResultException("아이디와 비밀번호가 맞지 않습니다.");
+            throw new NonUniqueResultException("'Email'과 'Password'를 다시 기입하여 주시기 바랍니다.");
         }
     }
 
