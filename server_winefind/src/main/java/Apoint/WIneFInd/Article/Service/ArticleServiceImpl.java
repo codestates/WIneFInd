@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
+//asdf
 
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;
@@ -53,6 +54,20 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> FindByAll() {
 
         return articleRepository.findAll();
+    }
+
+    @Override
+
+    public Page<Article> FindByAllPage(Pageable pageable) {
+
+        return articleRepository.findAll(pageable);
+    }
+
+    
+    @Override
+    public Page<Article> FindByTitleContainingOrCommentContaining(String text, String content, Pageable pageable) {
+
+        return articleRepository.findByTitleContainingOrCommentContaining(text, content, pageable);
     }
 
     @Override
