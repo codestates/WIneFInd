@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleDTO {
-//a
+
     private Long userId;
     private Long wineId;
     private String title;

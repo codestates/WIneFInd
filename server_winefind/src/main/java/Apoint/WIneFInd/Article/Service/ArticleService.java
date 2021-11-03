@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArticleService {
-    //as
+
     public Article Save(ArticleDTO articleDTO);
 
     public List<Article> FindByAll();
