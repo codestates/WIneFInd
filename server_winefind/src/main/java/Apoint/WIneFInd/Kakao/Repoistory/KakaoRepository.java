@@ -4,7 +4,7 @@ import Apoint.WIneFInd.Kakao.Model.Consumer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
-
+//as
 public interface KakaoRepository extends JpaRepository<Consumer, Long> {
     List<Consumer> findByEmail(String email);
 }

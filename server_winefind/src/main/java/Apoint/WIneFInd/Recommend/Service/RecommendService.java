@@ -6,7 +6,7 @@ import Apoint.WIneFInd.Recommend.Model.Recommend;
 import java.util.List;
 
 public interface RecommendService {
-
+    //as
     public Recommend Save(RecommendDTO recommendDTO);
 
     public List<Recommend> FindByConsumerId(Long id);

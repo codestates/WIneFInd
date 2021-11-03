@@ -9,8 +9,9 @@ import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const [articles, setArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState([]);
   //Article Get Api로 articles에 게시글 목록 넣기
   let types = ['red', 'white', 'rose', 'sparkling'];
   let countries = [
@@ -37,8 +38,8 @@ const Mall = ({ toggleModal }) => {
     price: [],
   };
   const handlePageChange = (page) => {
-    setPage(page);
-    console.log(page);
+    setPage(page - 1);
+    console.log(page - 1);
   };
 
   const getFilteredList = () => {
@@ -95,25 +96,25 @@ const Mall = ({ toggleModal }) => {
       })
       .then((res) => {
         console.log('all articles:', res.data);
-        setArticles(res.data);
+        setTotalArticles(res.data);
       })
       .catch((e) => {
         console.log('error!:', e);
       });
   };
-  // const getArticlesPage = () => {
-  //   axios
-  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       console.log('this page data:', res.data);
-  //       setArticles(res.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log('error!:', e);
-  //     });
-  // };
+  const getArticlesPage = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('this page data:', res.data.content);
+        setArticles(res.data.content);
+      })
+      .catch((e) => {
+        console.log('error!:', e);
+      });
+  };
 
   const findWineWithText = () => {
     //입력받은 텍스트로 와인 찾기.
@@ -175,6 +176,7 @@ const Mall = ({ toggleModal }) => {
   };
 
   useEffect(() => {
+    getArticlesPage();
     getArticles();
   }, [page]);
 
@@ -207,7 +209,9 @@ const Mall = ({ toggleModal }) => {
       <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={styles.text_and_sort}>
-            <div className={styles.text_big}>전체 와인({articles.length})</div>
+            <div className={styles.text_big}>
+              전체 와인({totalArticles.length})
+            </div>
             <form>
               <select style={{ padding: '0.4rem' }}>
                 {/* onchange로 api 호출 */}
@@ -225,9 +229,9 @@ const Mall = ({ toggleModal }) => {
           )}
           <div className={styles.page}>
             <Pagination
-              activePage={page}
+              activePage={page + 1}
               itemsCountPerPage={5}
-              totalItemsCount={20}
+              totalItemsCount={totalArticles.length}
               pageRangeDisplayed={5}
               prevPageText={'‹'}
               nextPageText={'›'}

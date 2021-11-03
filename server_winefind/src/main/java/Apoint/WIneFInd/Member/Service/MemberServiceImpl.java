@@ -8,15 +8,13 @@ import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.NonUniqueResultException;
-import javax.transaction.Transactional;
 import java.time.Duration;
 import java.util.*;
 
 @Service
 @Transactional
 public class MemberServiceImpl implements MemberService {
-
+    //as
     private final static String SIGN_KEY = "apoinkey";
     private final MemberRepository memberRepository;
 
@@ -25,99 +23,96 @@ public class MemberServiceImpl implements MemberService {
         this.memberRepository = memberRepository;
     }
 
-    // "User" 회원 가입
     @Override
     public User Save(SignUpDTO signUpDTO) {
 
-        // "User" DB 에서 같은 "Email"이 존재 하는지 체크
         List<User> checkUser = memberRepository.findByEmail(signUpDTO.getEmail());
-        if (!checkUser.isEmpty()) throw new NonUniqueResultException("가입양식에 맞춰 다시 기입하여 주시기 바랍니다.");
+        if (!checkUser.isEmpty()) {
+            return null;
+        }
 
         User user = new User();
         Date now = new Date();
 
-        // 유효성 검사가 통과하면 "User"정보 생성
-        user = user.builder()
-                .email(signUpDTO.getEmail())
-                .password(signUpDTO.getPassword())
-                .nickname(signUpDTO.getNickname())
-                .image("default Images")
-                .createdAt(now)
-                .updatedAt(now)
-                .build();
+        user.setEmail(signUpDTO.getEmail());
+        user.setPassword(signUpDTO.getPassword());
+        user.setNickname(signUpDTO.getNickname());
+        user.setImage("default Images");
+        user.setCreatedAt(now);
+        user.setUpdatedAt(now);
 
-        // 저장
         return memberRepository.save(user);
     }
 
-//    @Override
-//    public List<User> FindAll() {
-//
-//        return memberRepository.findAll();
-//    }
-//
-//    @Override
-//    public User FindById(Long id) {
-//
-//        return memberRepository.findById(id).get();
-//    }
+    @Override
+    public List<User> FindAll() {
 
-    // "User_Email" 조회
+        return memberRepository.findAll();
+    }
+
+    @Override
+    public User FindById(Long id) {
+
+        return memberRepository.findById(id).get();
+    }
+
     @Override
     public List<User> FindByEmail(String email) {
 
         return memberRepository.findByEmail(email);
     }
 
-    // 로그인 유효성 검사
     @Override
     public List<User> LoginCheck(LoginDTO loginDTO) {
 
-        // 유저 DB 안에 "Email"과 "Password"를 찾아 옵니다.
         List<User> checkEmail = memberRepository.findByEmail(loginDTO.getEmail());
         List<User> checkPwd = memberRepository.findByPassword(loginDTO.getPassword());
 
-        // "Email"과 "Password"를 체크한 후에 동일하면 "Email" 실패하면 "Error"를 반환합니다.
-        if (!(checkEmail.get(0).getEmail().equals(loginDTO.getEmail()) && checkPwd.get(0).getPassword().equals(loginDTO.getPassword()))){
-            throw new NonUniqueResultException("'Email'과 'Password'를 다시 기입하여 주시기 바랍니다.");
+        // 입력받은 로그인과 비밀번호가 동일하면 로그인 성공
+        if (loginDTO.getEmail().equals(checkEmail.get(0).getEmail()) && loginDTO.getPassword().equals(checkPwd.get(0).getPassword())) {
+            return checkEmail;
+        } else {
+            return null;
         }
-
-        return checkEmail;
-
     }
 
-    // "User" 정보 수정
     @Override
     public User Update(User user) {
 
-        // "User" DB 에서 입력받은 "User"와 같은 "User"조회
         User updateUser = memberRepository.findById(user.getId()).get();
+
         Date now = new Date();
 
-        updateUser = updateUser.builder()
-                .email(user.getEmail())
-                .password(user.getPassword())
-                .nickname(user.getNickname())
-                .image(updateUser.getImage())
-                .createdAt(now)
-                .updatedAt(now)
-                .build();
+        updateUser.setEmail(user.getEmail());
+        updateUser.setPassword(user.getPassword());
+        updateUser.setNickname(user.getNickname());
+        updateUser.setImage(user.getImage());
+        updateUser.setCreatedAt(now);
+        updateUser.setUpdatedAt(now);
 
-        // "User" 저장
         return memberRepository.save(updateUser);
     }
 
     @Override
     public List<User> Delete(Long id) {
+        /*
+        Consumer findConsumer = kakaoRepository.findById(id).get();
 
-        // "User" DB 에서 입력받은 id와 동일한 "User" 정보 삭제
+        List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
+
+        cartRepository.deleteAll(byConsumer);
+    }*/
+
         memberRepository.deleteById(id);
 
-        // 남은 "User" 정보 출력
+//        User user = memberRepository.findById(id).get();
+//        List<User> byEmail = memberRepository.findByEmail(user.getEmail());
+//
+//        memberRepository.deleteAll(byEmail);
+
         return memberRepository.findAll();
     }
 
-    // "User" JWT 토큰 생성
     @Override
     public String CreateJWTToken(User user) {
 
@@ -134,7 +129,6 @@ public class MemberServiceImpl implements MemberService {
                 .compact();
     }
 
-    // "KaKao" JWT 토큰 생성
     @Override
     public String CreateKaKao(String email, String nickname) {
 
@@ -151,7 +145,6 @@ public class MemberServiceImpl implements MemberService {
                 .compact();
     }
 
-    // JWT 토큰 검증
     @Override
     public Map<String, String> CheckJWTToken(String key) {
         try {

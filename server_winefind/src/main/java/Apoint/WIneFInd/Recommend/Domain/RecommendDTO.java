@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RecommendDTO {
-
+    //as
     private Long consumerId;
     private Long wineId;
 }

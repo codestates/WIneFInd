@@ -177,18 +177,6 @@
 .page > ul > li:active a {
   color: white;
 }
-.page > ul > .activeLinkClass {
+.page > ul > li:active {
   background-color: #337ab7;
-}
-/* .page > ul > li:nth-child(3) {
-  background-color: black;
-} */
-/* .page > ul > li a:hover,
-.page > ul > li a.active {
-  color: blue;
-} */
-.page > .page-selection {
-  width: 48px;
-  height: 30px;
-  color: #337ab7;
 }

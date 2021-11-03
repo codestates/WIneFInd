@@ -2,14 +2,10 @@ package Apoint.WIneFInd.Article.Controller;
 
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Model.Article;
-import Apoint.WIneFInd.Article.Repository.ArticleRepository;
 import Apoint.WIneFInd.Article.Service.ArticleService;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 //ahah
 
@@ -32,6 +28,7 @@ public class ArticleController {
     }
 
     @GetMapping("article")
+
     public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5) Pageable pageable,
                                              @RequestParam(required = false) Long id,
                                              @RequestParam(required = false, defaultValue = "") String text) {
@@ -46,6 +43,8 @@ public class ArticleController {
         return ResponseEntity.ok().body(articles);
     }
 
+
+    //reload
     @GetMapping("articles")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
         if (id != null) {

@@ -1,4 +1,4 @@
-import styles from '../styles/upload.module.css';
+import styles from '../styles/Upload.module.css';
 import { Card, Dropdown, Input, Button } from 'semantic-ui-react';
 import React, { useState, useEffect } from 'react';
 
@@ -50,92 +50,92 @@ const Upload = () => {
     { key: 'es', value: 'es', flag: 'es', text: 'Spain' },
     { key: 'za', value: 'za', flag: 'za', text: 'Repulic of South Africa' },
   ];
-  // let taste = (
-  //   <table className={styles.tasteStructure}>
-  //     <tbody>
-  //       {/* 여기서부턴 Light && Bold */}
-  //       <tr className='tasteStructure_tasteCharacteristic'>
-  //         <td>
-  //           <div className='tasteStructure_property'>Light</div>
-  //         </td>
-  //         <td className={styles.tasteStructure_progressBar}>
-  //           <div className={styles.tastebar_container}>
-  //             <input
-  //               min='0'
-  //               max='4'
-  //               step='1'
-  //               type='range'
-  //               className={styles.taste_bar}
-  //             />
-  //           </div>
-  //         </td>
-  //         <td>
-  //           <div className='tasteStructure_property'>Bold</div>
-  //         </td>
-  //       </tr>
+  let taste = (
+    <table className={styles.tasteStructure}>
+      <tbody>
+        {/* 여기서부턴 Light && Bold */}
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Light</div>
+          </td>
+          <td className={styles.tasteStructure_progressBar}>
+            <div className={styles.tastebar_container}>
+              <input
+                min='0'
+                max='4'
+                step='1'
+                type='range'
+                className={styles.taste_bar}
+              />
+            </div>
+          </td>
+          <td>
+            <div className='tasteStructure_property'>Bold</div>
+          </td>
+        </tr>
 
-  //       <tr className='tasteStructure_tasteCharacteristic'>
-  //         <td>
-  //           <div className='tasteStructure_property'>Smooth</div>
-  //         </td>
-  //         <td className={styles.tasteStructure_progressBar}>
-  //           <div className={styles.tastebar_container}>
-  //             <input
-  //               min='0'
-  //               max='4'
-  //               step='1'
-  //               type='range'
-  //               className={styles.taste_bar}
-  //             />
-  //           </div>
-  //         </td>
-  //         <td>
-  //           <div className='tasteStructure_property'>Tannic</div>
-  //         </td>
-  //       </tr>
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Smooth</div>
+          </td>
+          <td className={styles.tasteStructure_progressBar}>
+            <div className={styles.tastebar_container}>
+              <input
+                min='0'
+                max='4'
+                step='1'
+                type='range'
+                className={styles.taste_bar}
+              />
+            </div>
+          </td>
+          <td>
+            <div className='tasteStructure_property'>Tannic</div>
+          </td>
+        </tr>
 
-  //       <tr className='tasteStructure_tasteCharacteristic'>
-  //         <td>
-  //           <div className='tasteStructure_property'>Dry</div>
-  //         </td>
-  //         <td className={styles.tasteStructure_progressBar}>
-  //           <div className={styles.tastebar_container}>
-  //             <input
-  //               min='0'
-  //               max='4'
-  //               step='1'
-  //               type='range'
-  //               className={styles.taste_bar}
-  //             />
-  //           </div>
-  //         </td>
-  //         <td>
-  //           <div className='tasteStructure_property'>Sweet</div>
-  //         </td>
-  //       </tr>
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Dry</div>
+          </td>
+          <td className={styles.tasteStructure_progressBar}>
+            <div className={styles.tastebar_container}>
+              <input
+                min='0'
+                max='4'
+                step='1'
+                type='range'
+                className={styles.taste_bar}
+              />
+            </div>
+          </td>
+          <td>
+            <div className='tasteStructure_property'>Sweet</div>
+          </td>
+        </tr>
 
-  //       <tr className='tasteStructure_tasteCharacteristic'>
-  //         <td>
-  //           <div className='tasteStructure_property'>Soft</div>
-  //         </td>
-  //         <td className={styles.tasteStructure_progressBar}>
-  //           <div className={styles.tastebar_container}>
-  //             <input
-  //               min='0'
-  //               max='4'
-  //               step='1'
-  //               type='range'
-  //               className={styles.taste_bar}
-  //             />
-  //           </div>
-  //         </td>
-  //         <td>
-  //           <div className='tasteStructure_property'>Acidic</div>
-  //         </td>
-  //       </tr>
-  //     </tbody>
-  //   </table>
-  // );
+        <tr className='tasteStructure_tasteCharacteristic'>
+          <td>
+            <div className='tasteStructure_property'>Soft</div>
+          </td>
+          <td className={styles.tasteStructure_progressBar}>
+            <div className={styles.tastebar_container}>
+              <input
+                min='0'
+                max='4'
+                step='1'
+                type='range'
+                className={styles.taste_bar}
+              />
+            </div>
+          </td>
+          <td>
+            <div className='tasteStructure_property'>Acidic</div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
 
   return (
     <div className={styles.container}>
@@ -203,7 +203,7 @@ const Upload = () => {
                       Describe taste of the Wine!
                     </Card.Header>
 
-                    <Card.Description>{/* {taste} */}</Card.Description>
+                    <Card.Description>{taste}</Card.Description>
                   </Card.Content>
                 </Card>
               </div>

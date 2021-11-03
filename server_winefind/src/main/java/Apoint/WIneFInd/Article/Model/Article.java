@@ -20,7 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
-//ahah
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
