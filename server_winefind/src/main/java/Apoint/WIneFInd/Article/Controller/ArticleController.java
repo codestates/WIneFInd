@@ -20,6 +20,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class ArticleController {
+//asdf
 
     private final ArticleService articleService;
     private final WineService wineService;
