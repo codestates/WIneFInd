@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 public class ArticleDTO {
 //asdf
+//asdfaa
 
     private Long userId;
     private Long wineId;
