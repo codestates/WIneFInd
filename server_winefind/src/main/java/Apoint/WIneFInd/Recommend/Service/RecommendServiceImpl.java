@@ -18,7 +18,7 @@ import java.util.Optional;
 
 @Service
 public class RecommendServiceImpl implements RecommendService {
-
+    //as
     private final RecommendRepository recommendRepository;
     private final KakaoRepository kakaoRepository;
     private final WineRepository wineRepository;

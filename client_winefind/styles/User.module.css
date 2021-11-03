@@ -102,6 +102,26 @@
   border-radius: 7px;
 }
 
+.logintouse {
+  font-size: 30px;
+  color: #fff;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: 600px;
+  margin-left: 40px;
+  /* border: 5px purple solid; */
+}
+
+.contenttwo {
+  font-size: 30px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  /* border: 5px purple solid; */
+}
+
 /* ============내 정보 =============== */
 
 .profile_container {

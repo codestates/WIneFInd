@@ -11,10 +11,10 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Optional;
 
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class KakaoController {
-    //adsf
+
     private final KakaoService kakaoService;
 
     public KakaoController(KakaoService kakaoService) {

@@ -7,7 +7,7 @@ import Apoint.WIneFInd.Kakao.Model.Consumer;
 import java.util.List;
 
 public interface CartService {
-    //adsf
+
     public Cart Save(CartDTO cartDTO);
 
     public List<Cart> FindByConsumerId(Long id);
