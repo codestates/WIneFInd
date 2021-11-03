@@ -10,8 +10,8 @@ const CardCompo = ({ compo }) => {
 
   return (
     <>
-      {/* {console.log('i work', compo[0].wine.wineName)} */}
-      {/* <div
+      {console.log('i work', compo[0].wine.wineName)}
+      <div
         className={styles.card_height}
         onClick={() => goToDescription(compo[0].id)}
       >
@@ -19,7 +19,7 @@ const CardCompo = ({ compo }) => {
           <h3 className='logo text'>{compo[0].wine.wineName}</h3>
         </div>
         <img src={compo[0].wine.image} className={styles.image_height} />
-      </div> */}
+      </div>
     </>
   );
 };

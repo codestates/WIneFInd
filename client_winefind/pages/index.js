@@ -16,7 +16,7 @@ const Home = () => {
 
   const getArticles = () => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -33,6 +33,7 @@ const Home = () => {
 
   return (
     <div className={styles.container}>
+      {console.log('arallt:', articles)}
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.separate1}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
