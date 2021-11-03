@@ -17,6 +17,7 @@ public interface ArticleService {
 
     public Page<Article> FindByAllPage(Pageable pageable);
 
+    //aawq
     public Page<Article> FindByTitleContainingOrCommentContaining(String text,String content, Pageable pageable);
 
     public Optional<Article> FindById(Long id);
