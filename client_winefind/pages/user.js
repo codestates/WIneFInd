@@ -4,7 +4,7 @@ import { useRouter } from 'next/dist/client/router';
 
 import styles from '../styles/User.module.css';
 import Sidebar from '../components/Sidebar';
-import { Card } from 'semantic-ui-react';
+import { Card, Icon } from 'semantic-ui-react';
 
 //마이페이지
 const User = ({ toggleModal }) => {
@@ -117,6 +117,7 @@ const User = ({ toggleModal }) => {
       </tbody>
     </table>
   );
+
   return (
     <>
       {isLogin ? (
@@ -127,8 +128,8 @@ const User = ({ toggleModal }) => {
               <h1 className='logo text'>My Wine List</h1>
               {/* ====================  첫 번째 카드====================== */}
               {wineList
-                ? wineList.map((wine) => (
-                    <div className={styles.cards}>
+                ? wineList.map((wine, index) => (
+                    <div className={styles.cards} key={index}>
                       <Card className={styles.card_height}>
                         <img
                           src={wine.wine.image}
@@ -159,7 +160,19 @@ const User = ({ toggleModal }) => {
         </div>
       ) : (
         <>
-          <div>로그인 후 서비스 사용 가능합니다</div>
+          <div className={styles.logintouse}>
+            <div className={styles.logincontent}>
+              로그인 후 서비스 사용 가능합니다!
+              <br />
+              <br />
+              <div className={styles.contenttwo}>
+                <Icon.Group size='huge'>
+                  <Icon loading size='big' name='circle notch' />
+                  <Icon name='user' />
+                </Icon.Group>
+              </div>
+            </div>
+          </div>
         </>
       )}
     </>
