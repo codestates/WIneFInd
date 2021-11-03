@@ -111,7 +111,6 @@
   width: 100%;
   height: 600px;
   margin-left: 40px;
-  /* border: 5px purple solid; */
 }
 
 .contenttwo {
@@ -119,7 +118,6 @@
   color: #fff;
   display: flex;
   justify-content: center;
-  /* border: 5px purple solid; */
 }
 
 /* ============내 정보 =============== */
@@ -201,7 +199,6 @@
   width: 100%;
   height: 50px;
   color: #b88a5e;
-  /* border: 5px rgb(95, 233, 77) solid; */
 }
 
 .image_container {

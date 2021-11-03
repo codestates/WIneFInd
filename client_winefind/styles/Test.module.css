@@ -10,7 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 5px purple solid; */
   width: 100%;
   height: 100%;
   background: url('https://c1.wallpaperflare.com/preview/350/209/129/botti-ceiling-lights-cellar.jpg')
@@ -23,7 +22,6 @@
   display: flex;
   width: 66%;
   position: relative;
-  /* border: 5px rgb(233, 223, 233) solid; */
   max-height: 600px;
 }
 
@@ -31,7 +29,6 @@
   overflow: hidden;
   width: 100%;
   max-height: 100%;
-  /* border: 5px rgb(42, 13, 209) solid; */
 }
 
 .carousel_content {
@@ -96,7 +93,6 @@
   flex-wrap: wrap;
   margin: 10px 10%;
   justify-content: space-evenly;
-  /* border: 5px solid palevioletred; */
   margin-top: 50px;
 }
 
@@ -105,9 +101,7 @@
 }
 
 .winebtn :hover {
-  /* border: 2px solid purple; */
   transform: rotate(25deg);
-  /* filter: invert(80%); */
   filter: contrast(300%);
 }
 
@@ -117,7 +111,6 @@
   justify-content: space-between;
   margin-bottom: 9%;
   color: burlywood;
-  /* border: 5px solid rgb(36, 224, 61); */
 }
 
 .stars_container {

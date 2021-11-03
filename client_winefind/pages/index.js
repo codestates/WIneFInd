@@ -74,7 +74,7 @@ const Home = () => {
       <div className={styles.learn_container}>
         {/* 가장 많이 검색 되는 와인들 섹션 */}
         <div className={styles.learn_head}>
-          <h1 className={styles.learn_head}>Most Searched Wines</h1>
+          <p className={styles.learn_head}>Most Searched Wines</p>
         </div>
         <CardCompo />
       </div>

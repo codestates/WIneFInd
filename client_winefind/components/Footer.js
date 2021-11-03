@@ -20,7 +20,12 @@ const Footer = () => {
         <div className={styles.footer_rights}>
           Copyright ⓒ 2021. Apoint. All rights reserved.
         </div>
-        <Icon onClick={goToTop} name='arrow alternate circle up' size='huge' />
+        <Icon
+          onClick={goToTop}
+          name='arrow alternate circle up'
+          size='huge'
+          style={{ cursor: 'pointer' }}
+        />
       </div>
     </>
   );
