@@ -27,6 +27,24 @@ public class ArticleController {
     }
 
     @GetMapping("article")
+
+    public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5) Pageable pageable,
+                                             @RequestParam(required = false) Long id,
+                                             @RequestParam(required = false, defaultValue = "") String text) {
+
+        if (id != null) {
+            Optional<Article> article = articleService.FindById(id);
+            return ResponseEntity.ok().body(article);
+        }
+
+        Page<Article> articles = articleService.FindByTitleContainingOrCommentContaining(text, text, pageable);
+
+        return ResponseEntity.ok().body(articles);
+    }
+
+
+    //reload
+    @GetMapping("articles")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
         if (id != null) {
             Optional<Article> article = articleService.FindById(id);
