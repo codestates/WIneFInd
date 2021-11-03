@@ -8,7 +8,7 @@ import java.util.List;
 public interface MemberRepository extends JpaRepository<User, Long> {
 
     List<User> findByEmail(String email);
-
+    //adsf
     List<User> findByPassword(String pwd);
 
 }
