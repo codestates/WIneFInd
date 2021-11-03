@@ -17,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wine {
-    //as
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

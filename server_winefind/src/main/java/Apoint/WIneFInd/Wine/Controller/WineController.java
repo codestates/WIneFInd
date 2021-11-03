@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class WineController {
-    //as
+
     private WineRepository wineRepository;
     private final WineService wineService;
 

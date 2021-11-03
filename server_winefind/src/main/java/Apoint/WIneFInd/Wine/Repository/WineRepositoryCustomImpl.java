@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WineRepositoryCustomImpl implements WineRepositoryCustom {
-    //as
+
     @PersistenceContext
     private EntityManager em;
 
