@@ -1,36 +1,10 @@
 import styles from '../styles/Home.module.css';
 import classNames from 'classnames';
 import CardCompo from '../components/CardCompo';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { Navigation, Pagination, Autoplay } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
 
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+import IndexTest from '../components/IndexTest';
 
 const Home = () => {
-  const [articles, setArticles] = useState([]);
-
-  const getArticles = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('all articles:', res.data);
-        setArticles(res.data);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
-  useEffect(() => {
-    getArticles();
-  }, []);
-
   return (
     <div className={styles.container}>
       {console.log('arallt:', articles)}
@@ -42,7 +16,9 @@ const Home = () => {
             <div className={styles.separate}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div className={styles.intro_back}>
               <div className={styles.intro_content}>
-                <h1>Welcome to WINE FIND</h1>
+                <h1 style={{ fontFamily: 'Playfair Display, serif' }}>
+                  Welcome to WINE FIND
+                </h1>
                 <br />
                 <br />
                 WIne FIne, and you?
@@ -97,95 +73,13 @@ const Home = () => {
 
       <div className={styles.learn_container}>
         <div className={styles.learn_head}>
-          <h1>Most Searched Wines</h1>
+          <h1 className={styles.learn_head}>Most Searched Wines</h1>
         </div>
-        {/* <Swiper
-          // install Swiper modules
-          modules={[Navigation, Pagination, Autoplay]}
-          slidesPerView={3}
-          spaceBetween={20}
-          centeredSlides={true}
-          loop={true}
-          pagination={{
-            clickable: true,
-          }}
-          navigation
-          autoplay={{
-            delay: 5500,
-            disableOnInteraction: false,
-          }}
-          pagination={{ type: 'fraction' }}
-          onSwiper={() => console.log('sliding')}
-          onSlideChange={() => console.log('is moving')}
-          style={{
-            // border: '5px white solid',
-            width: '100%',
-            height: '600px',
-          }}
-        >
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(0, 1)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(1, 2)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(2, 3)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(3, 4)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(4, 5)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(5, 6)} />
-          </SwiperSlide>
-          <SwiperSlide
-            style={{
-              display: 'flex',
-            }}
-          >
-            <CardCompo compo={articles.slice(6, 7)} />
-          </SwiperSlide>
-        </Swiper> */}
+        <CardCompo />
       </div>
 
-      <div className={styles.tesing_container}>
-        <div className={styles.testing_image}></div>
-        <div className={styles.testing_intro}>
-          <p>
-            당신에게 잘 맞는 와인은 무엇일까요?
-            <br />
-            지금 바로 와인 취향 테스트를 해보세요!
-            <button>Test Start!</button>
-          </p>
-          <br />
-        </div>
+      <div className={styles.testing_container}>
+        <IndexTest />
       </div>
     </div>
   );
