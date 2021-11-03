@@ -16,16 +16,16 @@ export default function Questions({ questionnum, question, next }) {
           <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button className={styles.winebtn}>
+          <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button className={styles.winebtn}>
+          <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button className={styles.winebtn}>
+          <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button className={styles.winebtn}>
+          <button onClick={next} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
         </div>

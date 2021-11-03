@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class RecommendController {
 
     private final RecommendService recommendService;
