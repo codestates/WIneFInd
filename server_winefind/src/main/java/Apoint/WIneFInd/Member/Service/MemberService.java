@@ -10,7 +10,11 @@ import java.util.Map;
 public interface MemberService {
 
     public User Save(SignUpDTO signUpDTO);
-    //adsf
+
+    public List<User> FindAll();
+
+    public User FindById(Long id);
+
     public List<User> FindByEmail(String email);
 
     public User Update(User user);

@@ -7,11 +7,9 @@ import Apoint.WIneFInd.Member.Domain.SignUpDTO;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +17,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class MemberController {
-    //adsf
+
     private final MemberService memberService;
     private final KakaoService kakaoService;
 
@@ -46,37 +44,37 @@ public class MemberController {
 
             // 응답 메시지 설정
             return ResponseEntity.ok().body(new HashMap<>() {{
+                put("message", "회원가입이 완료 되었습니다.");
                 put("userInfo", signUpUser);
+
                 put("message", "회원가입이 성공 하였습니다!.");
+
+
             }});
-        } catch (NonUniqueResultException e) {
-            return ResponseEntity.status(500).body("이미 가입된 회원 정보가 존재 합니다. \n" + e);
-        } catch (DataIntegrityViolationException e) {
-            return ResponseEntity.status(500).body("회원가입 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
+        } catch (NullPointerException e) {
+            return ResponseEntity.badRequest().body("이미 존재하는 회원입니다. : " + e);
         }
     }
 
     @PostMapping("login")
     public ResponseEntity<?> LogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
 
-//        try {
-        // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
-            User logInUser = memberService.LoginCheck(loginDTO).get(0);
-//        List<User> logInUser = memberService.LoginCheck(loginDTO);
-        Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
-        response.addCookie(cookie);
+        try {
+            // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
+            User loginUser = memberService.LoginCheck(loginDTO).get(0);
+            System.out.println(loginUser);
+            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(loginUser));
+            response.addCookie(cookie);
 
-        return ResponseEntity.ok().body(new HashMap<>() {{
-            put("userInfo", logInUser);
-            put("message", "로그인이 성공 하였습니다.");
-        }});
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("Email", loginUser.getEmail());
+            }});
 
-
-//        } catch (NullPointerException e) {
-//            return ResponseEntity.badRequest().body("Null이 발생 했습니다. : " + e);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("아이디 비밀번호 확인해봐! " + e);
-//        }
+        } catch (NullPointerException e) {
+            return ResponseEntity.badRequest().body("Null이 발생 했습니다. : " + e);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("아이디 비밀번호 확인해봐! " + e);
+        }
     }
 
     @GetMapping("logout")
@@ -91,7 +89,7 @@ public class MemberController {
         kakao.setMaxAge(0);
         response.addCookie(kakao);
 
-        if (cookie.getName() != "winefind" || kakao.getName() != "TEST") {
+        if (cookie.getName() != "winefind" || kakao.getName() != "TEST" ) {
             return ResponseEntity.badRequest().body("쿠기가 삭제되지 않았습니다.");
         } else {
             return ResponseEntity.ok().body("Logged out successfully");
@@ -128,12 +126,12 @@ public class MemberController {
         if (checkKaKao.get("email") != null) {
             Consumer consumer = kakaoService.FindByEmail(checkKaKao.get("email")).get(0);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("카카오 정보", new HashMap<>() {{
-                    put("id", consumer.getId());
-                    put("email", consumer.getEmail());
-                    put("nickname", consumer.getNickname());
+                put("카카오 정보", new HashMap<>(){{
+                    put("id",consumer.getId());
+                    put("email",consumer.getEmail());
+                    put("nickname",consumer.getNickname());
                 }});
-                put("message", "카카오 회원 로그인 되었습니다.");
+                put("message","카카오 회원 로그인 되었습니다.");
             }});
         }
 
