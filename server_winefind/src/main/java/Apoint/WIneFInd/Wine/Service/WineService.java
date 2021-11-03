@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WineService {
-    //adsf
+
     public Wine Save(WineDTO wineDTO);
 
     public List<Wine> FindByAll();

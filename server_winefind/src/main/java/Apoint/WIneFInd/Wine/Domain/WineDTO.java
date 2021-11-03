@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WineDTO {
-    //adsf
+
     private String wineName;
     private String type;
     private String country;
