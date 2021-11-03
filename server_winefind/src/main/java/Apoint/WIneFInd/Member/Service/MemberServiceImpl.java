@@ -16,7 +16,7 @@ import java.util.*;
 @Service
 @Transactional
 public class MemberServiceImpl implements MemberService {
-
+    //as
     private final static String SIGN_KEY = "apoinkey";
     private final MemberRepository memberRepository;
 

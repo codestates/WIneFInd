@@ -14,7 +14,7 @@ import java.util.Optional;
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 public class KakaoController {
-
+    //as
     private final KakaoService kakaoService;
 
     public KakaoController(KakaoService kakaoService) {

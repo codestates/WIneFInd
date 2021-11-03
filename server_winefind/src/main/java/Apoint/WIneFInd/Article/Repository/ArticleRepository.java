@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-
+    //as
     List<Article> findByTitle(String title);
 
     Page<Article> findByTitleContainingOrCommentContaining(String text, String content, Pageable pageable);
