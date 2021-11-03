@@ -15,6 +15,7 @@ import 'swiper/css/pagination';
 const CardCompo = () => {
   const [articles, setArticles] = useState([]);
 
+  // 정보 조회 API
   const getArticles = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
@@ -33,14 +34,13 @@ const CardCompo = () => {
     getArticles();
   }, []);
 
+  // 자세히 보기 페이지로 가기
   const goToDescription = (ele) => {
-    // console.log(ele);
     router.push(`/mall/${ele}`);
   };
 
   return (
     <>
-
       {articles.length !== 0 ? (
         <Swiper
           // install Swiper modules
@@ -58,12 +58,12 @@ const CardCompo = () => {
           onSwiper={() => console.log('sliding')}
           // onSlideChange={() => console.log('is moving')}
           style={{
-            // border: '5px white solid',
             width: '100%',
             height: '600px',
             color: 'white',
           }}
         >
+          {/* 여기서부터 와인들 id토대로 보여주기 */}
           <SwiperSlide
             style={{
               display: 'flex',
@@ -285,6 +285,7 @@ const CardCompo = () => {
           </SwiperSlide>
         </Swiper>
       ) : (
+        // 로딩중이면 로딩 보여주는 섹션
         <div className={styles.load_contain}>
           <div className={styles.load}>
             Loading...

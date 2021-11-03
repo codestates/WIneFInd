@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/User.module.css';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
-//마이페이지
+
+//마이페이지 회원 탈퇴 페이지
 const Resign = () => {
   const router = useRouter();
   const [modal, setModal] = useState(false);
@@ -12,7 +13,7 @@ const Resign = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
-
+  //회원 탈퇴 API
   const resignAccount = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -55,6 +56,7 @@ const Resign = () => {
     <>
       <div className={styles.resign_container}>
         <Sidebar />
+        {/* 회원 탈퇴 하기 */}
         <div className={styles.resign_layout}>
           <h2 style={{ color: 'red', fontWeight: 'bold' }}>
             <Icon name='warning sign' size='huge' />
@@ -70,6 +72,7 @@ const Resign = () => {
           </button>
         </div>
       </div>
+      {/* 탈퇴 하시겠어요 모달 띄어주는 기능 */}
       {modal && (
         <div className={styles.resign}>
           <div onClick={toggleModal} className={styles.resign_overlay}></div>

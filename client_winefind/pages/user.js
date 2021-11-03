@@ -1,17 +1,17 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/dist/client/router';
-
 import styles from '../styles/User.module.css';
 import Sidebar from '../components/Sidebar';
 import { Card, Icon } from 'semantic-ui-react';
 
-//마이페이지
+//마이페이지 추천 받은 와인 페이지
 const User = ({ toggleModal }) => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
   const [wineList, setWineList] = useState([]);
 
+  //로그인 체크 하기
   const checkLogin = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -43,6 +43,7 @@ const User = ({ toggleModal }) => {
   useEffect(() => {
     checkLogin();
   }, []);
+  // 와인 맛들을 정렬 한 것
   let taste = (
     <table className={styles.tasteStructure}>
       <tbody>
@@ -160,6 +161,7 @@ const User = ({ toggleModal }) => {
         </div>
       ) : (
         <>
+          {/* 로그인 후 서비스 사용 띄우기 */}
           <div className={styles.logintouse}>
             <div className={styles.logincontent}>
               로그인 후 서비스 사용 가능합니다!

@@ -10,9 +10,13 @@ import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Input from '@material-ui/core/Input';
 import axios from 'axios';
 
-//마이페이지
+//마이페이지  내 정보 수정 페이지
 const Myprofile = () => {
   const router = useRouter();
+  const [userInfo, setUserInfo] = useState({
+    userName: '',
+    userImage: '',
+  });
   const [values, setValues] = useState({
     password: '',
     showPassword: false,
@@ -20,6 +24,7 @@ const Myprofile = () => {
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
+  // 사진을 올리기
   const uploadToClient = (event) => {
     if (event.target.files && event.target.files[0]) {
       const i = event.target.files[0];
@@ -28,40 +33,21 @@ const Myprofile = () => {
       setCreateObjectURL(URL.createObjectURL(i));
     }
   };
-
+  // 비밀번호 보여주기 함수
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
-  const handleMouseDownPassword = (event) => {
-    if (charCode < 97 || charCode > 122) {
-      var charCode = evt.charCode;
-      if (charCode != 0) {
-        if (charCode < 97 || charCode > 122) {
-          event.preventDefault();
-          displayWarning(
-            'Please use lowercase letters only.' +
-              '\n' +
-              'charCode: ' +
-              charCode +
-              '\n'
-          );
-        }
-      }
-    }
-  };
-
+  // 비밀번호 바꾸이
   const handlePasswordChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  // 수정 됬으면 내 와인 추천 페이지로 가기
   function goLink() {
     router.push('/user');
   }
-  const [userInfo, setUserInfo] = useState({
-    userName: '',
-    userImage: '',
-  });
+  // 유저 정보 조회 API
   const getUserInfo = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -82,6 +68,7 @@ const Myprofile = () => {
       <div className={styles.profile_container}>
         <Sidebar />
         <div className={styles.profile_layout}>
+          {/* 사진 업로드 하는 기능 */}
           <div className={styles.background_img}>
             <div id='overlay'>
               <div className={styles.image_container}>
@@ -96,11 +83,13 @@ const Myprofile = () => {
                   onChange={uploadToClient}
                 />
               </div>
+              {/* 유저네임 보여주는 기능 */}
               <Input
                 className={styles.text}
                 type='text'
                 placeholder={userInfo.userName}
               />
+              {/* 비밀번호 수성/ 보기 기능 */}
               <Input
                 className={styles.text}
                 type={values.showPassword ? 'text' : 'password'}
@@ -109,10 +98,7 @@ const Myprofile = () => {
                 value={values.password}
                 endAdornment={
                   <InputAdornment position='end'>
-                    <IconButton
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                    >
+                    <IconButton onClick={handleClickShowPassword}>
                       {values.showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>

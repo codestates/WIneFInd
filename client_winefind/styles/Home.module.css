@@ -23,17 +23,13 @@
 .intro_message {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   /* border: 5px aqua solid; */
   width: 100%;
   background: url('https://images5.alphacoders.com/443/thumb-1920-443997.jpg')
     no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-  /* filter: contrast(150%); */
 }
-/* https://images5.alphacoders.com/443/thumb-1920-443997.jpg */
-/* https://c4.wallpaperflare.com/wallpaper/922/142/355/black-white-glass-wallpaper-preview.jpg */
 
 .title_text {
   /* border: 5px green solid; */
@@ -85,7 +81,6 @@
   font-size: 22px;
   animation: img_show 6s;
   font-family: 'IBM Plex Sans KR', sans-serif;
-  /* margin-top: 80px; */
   color: transparent;
   background: linear-gradient(
     to top,
@@ -118,7 +113,6 @@
 .logo_effect {
   display: flex;
   margin-left: 300px;
-  /* margin-bottom: 1000px; */
   justify-content: center;
   align-items: center;
   animation-delay: 3s;
@@ -308,7 +302,6 @@
   width: 80%;
   margin-top: 8px;
   /* border: 5px red solid; */
-  /* background-color: #f3e9e2; */
   background: rgba(34, 34, 34, 0.63);
   border-radius: 5px;
 }
@@ -385,7 +378,6 @@
   margin: 5px 0px;
   /* border: 5px red solid; */
   background-color: #fdfdd32d;
-  /* background: rgba(34, 34, 34, 0.63); */
   border-radius: 5px;
 }
 

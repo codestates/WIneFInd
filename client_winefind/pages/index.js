@@ -6,8 +6,8 @@ import IndexTest from '../components/IndexTest';
 
 const Home = () => {
   return (
+    // 사이트 소개 섹션
     <div className={styles.container}>
-      {console.log('arallt:', articles)}
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.separate1}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
@@ -72,12 +72,13 @@ const Home = () => {
       </div>
 
       <div className={styles.learn_container}>
+        {/* 가장 많이 검색 되는 와인들 섹션 */}
         <div className={styles.learn_head}>
           <h1 className={styles.learn_head}>Most Searched Wines</h1>
         </div>
         <CardCompo />
       </div>
-
+      {/* 와인 취향 테스트 받으로 가기 섹션 */}
       <div className={styles.testing_container}>
         <IndexTest />
       </div>
