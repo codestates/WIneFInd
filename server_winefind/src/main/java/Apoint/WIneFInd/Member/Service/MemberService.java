@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface MemberService {
-
+    //as
     public User Save(SignUpDTO signUpDTO);
 
     public List<User> FindAll();

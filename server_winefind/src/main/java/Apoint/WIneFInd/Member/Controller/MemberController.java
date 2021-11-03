@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class MemberController {
-
+    //as
     private final MemberService memberService;
     private final KakaoService kakaoService;
 

@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 @RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class RecommendController {
-
+    //as
     private final RecommendService recommendService;
 
     @Autowired

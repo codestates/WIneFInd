@@ -15,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "wine_consumer_recommend")
 public class Recommend {
-
+    //as
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
