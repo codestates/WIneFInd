@@ -10,7 +10,7 @@
   display: flex;
   width: 66%;
   box-shadow: 0px 0px 1rem #cda581;
-  border: 15px solid #cda581;
+  /* border: 15px solid #cda581; */
   min-width: 1000px;
   border-radius: 12px;
   background-color: white;
