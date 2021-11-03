@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CartDTO {
-    //as
+
     private Long consumerId;
     private Long articleId;
 }

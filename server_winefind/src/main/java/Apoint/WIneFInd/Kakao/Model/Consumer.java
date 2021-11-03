@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Consumer {
-    //as
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
