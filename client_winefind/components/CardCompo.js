@@ -40,6 +40,7 @@ const CardCompo = () => {
 
   return (
     <>
+
       {articles.length !== 0 ? (
         <Swiper
           // install Swiper modules
