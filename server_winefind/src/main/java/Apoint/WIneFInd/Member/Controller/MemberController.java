@@ -47,7 +47,7 @@ public class MemberController {
             // 응답 메시지 설정
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userInfo", signUpUser);
-                put("message", "회원가입이 성공 하였습니다.");
+                put("message", "회원가입이 성공 하였습니다!.");
             }});
         } catch (NonUniqueResultException e) {
             return ResponseEntity.status(500).body("이미 가입된 회원 정보가 존재 합니다. \n" + e);
