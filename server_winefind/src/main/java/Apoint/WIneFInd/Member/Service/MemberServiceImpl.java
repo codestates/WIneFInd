@@ -12,7 +12,8 @@ import java.time.Duration;
 import java.util.*;
 
 @Service
-public class MemberServiceImpl implements MemberService{
+@Transactional
+public class MemberServiceImpl implements MemberService {
 
     private final static String SIGN_KEY = "apoinkey";
     private final MemberRepository memberRepository;
