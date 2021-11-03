@@ -46,6 +46,10 @@ public class MemberController {
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("message", "회원가입이 완료 되었습니다.");
                 put("userInfo", signUpUser);
+
+                put("message", "회원가입이 성공 하였습니다!.");
+
+
             }});
         } catch (NullPointerException e) {
             return ResponseEntity.badRequest().body("이미 존재하는 회원입니다. : " + e);
