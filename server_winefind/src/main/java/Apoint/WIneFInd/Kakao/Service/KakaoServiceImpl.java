@@ -22,7 +22,7 @@ import java.util.*;
 
 @Service
 public class KakaoServiceImpl implements KakaoService {
-
+    //adsf
     private final KakaoRepository kakaoRepository;
     public final MemberService memberService;
 
