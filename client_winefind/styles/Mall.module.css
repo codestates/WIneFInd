@@ -5,22 +5,32 @@
   flex-direction: column;
   /* border: 2px green solid; */
 }
+.searchAndWineList_box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0px 5rem;
+}
+.top_banner {
+  margin: 15px 10px 0px 20px;
+}
+
 .mall_top {
   /* border: 1px red solid; */
   display: flex;
   align-items: center;
-  margin: 40px 10px;
-  width: 80%;
+  margin: 40px 0px 0px 0px;
+  width: 97%;
   justify-content: center;
 }
 .search_bar {
-  min-width: 60%;
+  /* min-width: 60%; */
   height: 40px;
   margin: 0px 20px;
-  border-radius: 12px;
+  width: 100%;
   background-color: white;
-  /* border: 2px solid #cda581; */
-  box-shadow: 0px 0px 0.8rem #cda581;
+  border: 2px solid #cda581;
+
   padding: 1rem;
 }
 .search_bar:focus {
@@ -34,40 +44,45 @@
 .main_box {
   display: flex;
   /* min-width: 700px; */
-  /* width: 100%; */
+  width: 100%;
   padding: 10px;
   margin: 0 8rem;
-  border: 1px solid #e4a065;
-  border-radius: 15px;
   background: white;
-  box-shadow: 0px 0px 0.8rem #cda581;
+  /* background: transparent;  */
+  /* opacity: 0.9; */
 }
 .mall_content_box {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 2px violet solid;
+  /* border: 2px violet solid; */
 }
 
 .filter_box {
   display: flex;
-  width: 40%;
+  width: 50%;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
-  border-left: 0.1px black dotted;
-  border: 6px green solid;
+  border-left: 0.1px grey dotted;
+  /* border: 6px green solid; */
+  padding-right: 5rem;
 }
-
+.filter_top_content {
+  min-height: 150px;
+  min-width: 300px;
+  width: 90%;
+  margin: 5rem 0.1rem 0.1rem 0.1rem;
+  padding: 0.2rem;
+  border-bottom: 2px grey solid;
+}
 .filter_content {
   min-height: 150px;
   min-width: 300px;
-  width: 100%;
-  /* border: 3px blue solid; */
-  /* border-bottom: 1px black dotted; */
-  border: 3px yellow solid;
-  padding: 12px;
+  width: 90%;
+  margin: 0.1rem;
+  padding: 0.2rem;
 }
 
 .filter_top {
@@ -99,17 +114,17 @@
 }
 
 .bottom_border {
-  border-bottom: 1px black solid;
+  border-bottom: 1px rgb(127, 127, 127) solid;
 }
 .text_and_sort {
-  height: 150px;
+  height: 100px;
   display: flex;
-  border: 3px yellow solid;
+  /* border: 3px yellow solid; */
   padding: 10px;
   align-items: center;
   width: 95%;
-  margin: 15px;
-  border-bottom: 2px solid black;
+  margin: 0px 15px 15px 15px;
+  border-bottom: 2px solid grey;
   justify-content: space-between;
 }
 .text_big {
@@ -137,6 +152,9 @@
     flex-direction: column-reverse;
   }
   .filter_box {
+    display: none;
+  }
+  .top_banner {
     display: none;
   }
 }

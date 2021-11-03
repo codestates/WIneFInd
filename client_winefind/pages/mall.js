@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Dropdown } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
+import CardCompo from '../components/CardCompo';
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
   const [page, setPage] = useState(0);
@@ -182,65 +183,73 @@ const Mall = ({ toggleModal }) => {
 
   return (
     <div className={styles.mall_container}>
-      <div className={styles.mall_top}>
-        <input
-          className={styles.search_bar}
-          placeholder='Find Your Wine!'
-          type='search'
-        />
-        <img
-          style={{
-            width: '20px',
-            height: '20px',
-            position: 'relative',
-            right: '50px',
-          }}
-          src='images/search.png'
-        />
-        <div className={styles.uploadButton}>
-          <Button onClick={goToUpload} animated>
-            <Button.Content style={{ width: '4.6rem' }} visible>
-              게시글 작성
-            </Button.Content>
-            <Button.Content hidden>Upload</Button.Content>
-          </Button>
-        </div>
-      </div>
       <div className={styles.main_box}>
-        <div className={styles.mall_content_box}>
-          <div className={styles.text_and_sort}>
-            <div className={styles.text_big}>
-              전체 와인({totalArticles.length})
-            </div>
-            <form>
-              <select style={{ padding: '0.4rem' }}>
-                {/* onchange로 api 호출 */}
-                <option value='최신등록순'>최신등록순</option>
-                <option value='가격낮은순'>가격낮은순</option>
-                <option value='가격높은순'>가격높은순</option>
-                <option value='평점순'>평점순</option>
-              </select>
-            </form>
-          </div>
-          {articles.length !== 0 ? (
-            <Article articles={articles} />
-          ) : (
-            <div>Loading Something</div>
-          )}
-          <div className={styles.page}>
-            <Pagination
-              activePage={page + 1}
-              itemsCountPerPage={5}
-              totalItemsCount={totalArticles.length}
-              pageRangeDisplayed={5}
-              prevPageText={'‹'}
-              nextPageText={'›'}
-              onChange={handlePageChange}
+        <div className={styles.searchAndWineList_box}>
+          <div className={styles.top_banner}>
+            <img
+              style={{ width: '53rem', height: '170px' }}
+              src='images/winebanner2.gif'
             />
+          </div>
+          <div className={styles.mall_top}>
+            <input
+              className={styles.search_bar}
+              placeholder='Find Your Wine!'
+              type='search'
+            />
+            <img
+              style={{
+                width: '20px',
+                height: '20px',
+                position: 'relative',
+                right: '50px',
+              }}
+              src='images/search.png'
+            />
+            <div className={styles.uploadButton}>
+              <Button onClick={goToUpload} animated>
+                <Button.Content style={{ width: '4.6rem' }} visible>
+                  게시글 작성
+                </Button.Content>
+                <Button.Content hidden>Upload</Button.Content>
+              </Button>
+            </div>
+          </div>
+          <div className={styles.mall_content_box}>
+            <div className={styles.text_and_sort}>
+              <div className={styles.text_big}>
+                전체 와인({totalArticles.length})
+              </div>
+              <form>
+                <select style={{ padding: '0.4rem' }}>
+                  {/* onchange로 api 호출 */}
+                  <option value='최신등록순'>최신등록순</option>
+                  <option value='가격낮은순'>가격낮은순</option>
+                  <option value='가격높은순'>가격높은순</option>
+                  <option value='평점순'>평점순</option>
+                </select>
+              </form>
+            </div>
+            {articles.length !== 0 ? (
+              <Article articles={articles} />
+            ) : (
+              <div>Loading Something</div>
+            )}
+            <div className={styles.page}>
+              <Pagination
+                activePage={page + 1}
+                itemsCountPerPage={5}
+                totalItemsCount={totalArticles.length}
+                pageRangeDisplayed={5}
+                prevPageText={'‹'}
+                nextPageText={'›'}
+                onChange={handlePageChange}
+              />
+            </div>
           </div>
         </div>
         <div className={styles.filter_box}>
-          <div className={styles.filter_content}>
+          <div className={styles.filter_top_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
               <div>
