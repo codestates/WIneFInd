@@ -140,6 +140,7 @@
 
 .box {
   font-size: 15vh;
+  font-family: 'Playfair Display, serif';
 }
 
 .fade_in_box {
@@ -439,4 +440,14 @@
 .testing_contain {
   background: rgba(19, 19, 19, 0.829);
   width: 90%;
+}
+
+.load_contain {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.load {
+  color: white;
 }

@@ -10,14 +10,29 @@ import { Card, Icon } from 'semantic-ui-react';
 const User = ({ toggleModal }) => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
+  const [wineList, setWineList] = useState([]);
 
   const checkLogin = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         setIsLogin(() => true);
-        console.log('islogin?', isLogin);
-        console.log('auth:', res.data);
+        console.log(res.data.message);
+        if (res.data.message === '카카오 회원 로그인 되었습니다.') {
+          console.log(res.data['카카오 정보'].id);
+          let id = res.data['카카오 정보'].id;
+          axios
+            .get(`${process.env.NEXT_PUBLIC_API_URL}/recommend?id=${id}`, {
+              withCredentials: true,
+            })
+            .then((res) => {
+              console.log(res.data['Show Recommend']);
+              setWineList(res.data['Show Recommend']);
+            })
+            .catch((e) => {
+              console.log('No wine List', e);
+            });
+        }
       })
       .catch((e) => {
         setIsLogin(false);
@@ -112,51 +127,34 @@ const User = ({ toggleModal }) => {
             <div className={styles.layout}>
               <h1 className='logo text'>My Wine List</h1>
               {/* ====================  첫 번째 카드====================== */}
-              <div className={styles.cards}>
-                <Card className={styles.card_height}>
-                  <img
-                    src='images/grand_cru.webp'
-                    className={styles.image_height}
-                  />
-                  <Card.Content>
-                    <Card.Header className={styles.card_head}>
-                      <h3 className='logo text'>
-                        Château Corton Grancey Grand Cru 2015
-                      </h3>
-                    </Card.Header>
-                    <Card.Meta>
-                      <span className='date'>Louis Latour</span>
-                    </Card.Meta>
-                    <Card.Description>{taste}</Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <button className={styles.user_btn}>상품 보러 가기</button>
-                  </Card.Content>
-                </Card>
-              </div>
-              {/* ===================두번째 카드====================== */}
-              <div className={styles.cards}>
-                <Card className={styles.card_height}>
-                  <img
-                    src='images/vina_ardanza.png'
-                    className={styles.image_height}
-                  />
-                  <Card.Content>
-                    <Card.Header className={styles.card_head}>
-                      <h3 className='logo text'>Viña Ardanza Reserva 2015</h3>
-                    </Card.Header>
-                    <Card.Meta>
-                      <span className='date'>La Rioja Alta</span>
-                    </Card.Meta>
-                    <Card.Description className={styles.card_descrip}>
-                      {taste}
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    <button className={styles.user_btn}>상품 보러 가기</button>
-                  </Card.Content>
-                </Card>
-              </div>
+              {wineList
+                ? wineList.map((wine, index) => (
+                    <div className={styles.cards} key={index}>
+                      <Card className={styles.card_height}>
+                        <img
+                          src={wine.wine.image}
+                          className={styles.image_height}
+                        />
+                        <Card.Content>
+                          <Card.Header className={styles.card_head}>
+                            <h3 className='logo text'>{wine.wine.wineName}</h3>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className='date'>
+                              {wine.wine.type},{wine.wine.country}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{taste}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <button className={styles.user_btn}>
+                            상품 보러 가기
+                          </button>
+                        </Card.Content>
+                      </Card>
+                    </div>
+                  ))
+                : ''}
             </div>
           </div>
         </div>
