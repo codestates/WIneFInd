@@ -8,6 +8,8 @@ import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,7 @@ import java.util.Optional;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
+//asdf
 
     private final ArticleRepository articleRepository;
     private final MemberRepository memberRepository;
@@ -53,6 +56,19 @@ public class ArticleServiceImpl implements ArticleService {
     public List<Article> FindByAll() {
 
         return articleRepository.findAll();
+    }
+
+    @Override
+    public Page<Article> FindByAllPage(Pageable pageable) {
+
+        return articleRepository.findAll(pageable);
+    }
+
+    
+    @Override
+    public Page<Article> FindByTitleContainingOrCommentContaining(String text, String content, Pageable pageable) {
+
+        return articleRepository.findByTitleContainingOrCommentContaining(text, content, pageable);
     }
 
     @Override

@@ -15,8 +15,6 @@ INSERT INTO wine (id, wine_name, type, country, grape, vintage, sweet, acidity, 
 INSERT INTO wine (id, wine_name, type, country, grape, vintage, sweet, acidity, body, tannic, image, comment, price) VALUES (9, "Blanc Sparkling", "blue", "Chile", "Sauternes", "1995", "2", "1", "0", "4", "https://porterfamilyvineyards.com/assets/images/wines/originals/2014%20Syrah1.png", "선명한 보라색을 띠며, 자두, 레드 커런트, 카시스, 허브 향이 피어 오른다. 입 안에서는 매끈하고 부드러운 타닌과 풍부한 과일 풍미가 입 안을 가득 메우는 레드와인이다.", "40000")
 INSERT INTO wine (id, wine_name, type, country, grape, vintage, sweet, acidity, body, tannic, image, comment, price) VALUES (10, "Rosee Calamari", "blue", "Italy", "Sauternes", "1990", "2", "1", "0", "4", "https://www.lcbo.com/content/dam/lcbo/products/099408.jpg/jcr:content/renditions/cq5dam.web.1280.1280.jpeg", "선명한 보라색을 띠며, 자두, 레드 커런트, 카시스, 허브 향이 피어 오른다. 입 안에서는 매끈하고 부드러운 타닌과 풍부한 과일 풍미가 입 안을 가득 메우는 레드와인이다.", "40000")
 
-
-
 INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (1, "소비뇽 블랑 판매합니다", "보관 상태 양호합니다", 1, 1);
 INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (2, "TEST2", "TEST2 content", 2, 2);
 INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (3, "TEST3", "TEST3 content", 3, 3);
@@ -35,7 +33,5 @@ INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (2, "H
 INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (3, "SW@cos", "SW", now(), now())
 
 INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,1,1)
-
 INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (2,4 ,1)
 INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (3,3,1)
-
