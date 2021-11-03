@@ -41,12 +41,14 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to cart success');
+            alert('add to cart Success');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
           })
 
           .catch((e) => {
+            alert('already on cart');
             console.log('Already on Cart!:articleId:', id);
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');

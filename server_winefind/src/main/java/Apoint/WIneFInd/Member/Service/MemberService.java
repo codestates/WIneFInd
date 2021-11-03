@@ -11,6 +11,10 @@ public interface MemberService {
     //as
     public User Save(SignUpDTO signUpDTO);
 
+    public List<User> FindAll();
+
+    public User FindById(Long id);
+
     public List<User> FindByEmail(String email);
 
     public User Update(User user);

@@ -177,7 +177,7 @@ const Shoppinglist = () => {
                     totalQty={checkedItems.length}
                   />
                 ) : (
-                  <div>No Items~</div>
+                  <div>Cart is Empty</div>
                 )}
               </div>
             </div>

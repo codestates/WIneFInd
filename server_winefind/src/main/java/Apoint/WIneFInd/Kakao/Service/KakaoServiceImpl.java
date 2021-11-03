@@ -50,8 +50,7 @@ public class KakaoServiceImpl implements KakaoService {
         String jwtEmail = (String) userInfo.get("email");
         String jwtNickname = (String) userInfo.get("nickname");
 
-        String KakaoOAuth = memberService.
-                CreateKaKao(jwtEmail, jwtNickname);
+        String KakaoOAuth = memberService.CreateKaKao(jwtEmail, jwtNickname);
 
         Cookie cookie = new Cookie("Kakao", KakaoOAuth);
         response.addCookie(cookie);
