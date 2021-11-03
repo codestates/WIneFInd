@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleDTO {
+//ahah
 
     private Long userId;
     private Long wineId;
