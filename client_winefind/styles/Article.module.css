@@ -3,7 +3,8 @@
   justify-content: flex-start;
   align-items: center;
   width: 95%;
-  border-bottom: 1px black solid;
+  border-bottom: 1px rgba(98, 97, 97, 0.766) solid;
+  cursor: pointer;
 }
 
 .article_box {
@@ -15,12 +16,15 @@
 }
 
 .wine_image {
-  width: 250px;
+  width: 160px;
   margin: 20px;
   height: 160px;
   background-size: auto 100%;
   background-position: center;
   background-repeat: no-repeat;
+  /* padding: 100px;   */
+  background-origin: content-box;
+  border: 1px solid lightgray;
 }
 /* .wine_image {
   width: 250px;
@@ -29,8 +33,17 @@
   height: 250px;
 } */
 .wine_info {
-  margin: 20px;
+  margin: 0.5rem;
+  line-height: 2rem;
+  /* color: rgb(248, 184, 195); */
 }
 .article_findmore {
   margin: 10px;
+}
+.wineName {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.typeAndPrice {
+  display: flex;
 }

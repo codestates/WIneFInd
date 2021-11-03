@@ -40,7 +40,6 @@ const CardCompo = () => {
 
   return (
     <>
-
       {articles.length !== 0 ? (
         <Swiper
           // install Swiper modules
@@ -51,7 +50,7 @@ const CardCompo = () => {
           loop={true}
           navigation
           autoplay={{
-            delay: 10000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           pagination={{ type: 'fraction', clickable: true }}
