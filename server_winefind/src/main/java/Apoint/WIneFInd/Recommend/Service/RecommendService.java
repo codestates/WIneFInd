@@ -6,6 +6,7 @@ import Apoint.WIneFInd.Recommend.Model.Recommend;
 import java.util.List;
 
 public interface RecommendService {
+//ahah
 
     public Recommend Save(RecommendDTO recommendDTO);
 

@@ -23,6 +23,7 @@ import java.util.Map;
 @RestController
 public class MemberController {
 
+    //ahah
     private final MemberService memberService;
     private final KakaoService kakaoService;
 

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 public interface WineRepository extends JpaRepository<Wine, Long>, QuerydslPredicateExecutor<Wine>, WineRepositoryCustom {
+//ahah
 
     Wine findByWineName(String wineName);
 }

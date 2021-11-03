@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface KakaoRepository extends JpaRepository<Consumer, Long> {
     List<Consumer> findByEmail(String email);
+//ahah
 }

@@ -5,6 +5,7 @@ import Apoint.WIneFInd.Wine.Model.Wine;
 import java.util.List;
 
 public interface WineRepositoryCustom {
+//ahah
 
 //    List<Wine> findByWineFilter(List<String> typesList, List<String> countriesList, List<String> sweetnessList,
 //                                List<String> acidityList, List<String> bodyList, List<String> priceList);

@@ -16,6 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "article_consumer_cart")
 public class Cart {
+//ahah
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

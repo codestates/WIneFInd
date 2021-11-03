@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name = "wine_consumer_recommend")
 public class Recommend {
 
+    //ahah
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
