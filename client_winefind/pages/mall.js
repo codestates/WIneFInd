@@ -267,9 +267,12 @@ const Mall = ({ toggleModal }) => {
                       className={styles.totalfilter_button}
                       onClick={eraseThis}
                     >
-                      {ele}
-
-                      <Icon name='close' className={styles.filter_icon} />
+                      <label>
+                        {ele}
+                        <Icon name='close' className={styles.filter_icon}>
+                          {ele}
+                        </Icon>
+                      </label>
                     </button>
                   ))
                 : null}
