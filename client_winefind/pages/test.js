@@ -33,6 +33,7 @@ const Test = () => {
             percent={percent}
             style={{
               width: '100%',
+              top: '5px',
               height: '20px',
               backgroundColor: '#2F2F2F',
             }}

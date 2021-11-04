@@ -89,6 +89,7 @@ function Top({ toggleModal, modal }) {
           )}
         </div>
       </div>
+      {/* <div className={styles.shadow}></div> */}
     </>
   );
 }

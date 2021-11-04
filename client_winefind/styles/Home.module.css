@@ -302,7 +302,7 @@
   width: 80%;
   margin-top: 8px;
   /* border: 5px red solid; */
-  background: rgba(34, 34, 34, 0.63);
+  background: rgba(73, 73, 73, 0.63);
   border-radius: 5px;
 }
 
@@ -333,8 +333,8 @@
 
 .card_head {
   width: 97%;
-  margin-top: 8%;
-  height: 55px;
+  margin-top: 7%;
+  height: 70px;
   /* border: 5px gold solid; */
   text-align: center;
 }
@@ -350,20 +350,22 @@
 }
 
 .image_height {
-  height: auto;
-  max-height: 450px;
-  width: auto;
-  max-width: 250px;
-  z-index: 1;
+  width: 250px;
+  height: 350px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  border: 1.2px solid rgba(231, 216, 77, 0.445);
 }
 
 .bord {
-  margin-top: -115px;
+  margin-top: -480px;
   height: 538px;
   width: 450px;
   position: absolute;
   z-index: 2;
-  margin-left: -20.5%;
+  margin-left: -100px;
 }
 
 .card_height:hover {
@@ -442,4 +444,8 @@
 
 .load {
   color: white;
+}
+
+.swiper-pagination-bullet-active {
+  background: red !important;
 }
