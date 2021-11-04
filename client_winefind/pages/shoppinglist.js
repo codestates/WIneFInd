@@ -1,9 +1,7 @@
 import Sidebar from '../components/Sidebar';
-import { Card } from 'semantic-ui-react';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Shoppinglist.module.css';
 import classNames from 'classnames';
-import Article from '../components/Article';
 import OrderTotal from '../components/OrderTotal';
 import axios from 'axios';
 import ArticleCart from '../components/ArticleCart';
@@ -17,7 +15,7 @@ const Shoppinglist = () => {
     cartItems.map((el) => el.id)
   );
   // 와인 몰에서 와인을 추가 했을시
-  //Article Get Api로 articles에 게시글 목록 넣기
+  //Article Get Api로 articles에 게시글 목록 넣기 API
   const getArticles = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -40,7 +38,7 @@ const Shoppinglist = () => {
       })
       .catch((e) => console.log('Plz login:', e));
   };
-
+  // 모든 아이템들을 체크 하기
   const handleAllCheck = (checked) => {
     if (checked) {
       setCheckedItems(cartItems.map((el) => el.id));
@@ -48,7 +46,7 @@ const Shoppinglist = () => {
       setCheckedItems([]);
     }
   };
-
+  // 각 아이템의 체크 기능 함수
   const handleCheckChange = (checked, id) => {
     if (checked) {
       setCheckedItems([...checkedItems, id]);
@@ -56,7 +54,7 @@ const Shoppinglist = () => {
       setCheckedItems(checkedItems.filter((el) => el !== id));
     }
   };
-
+  // 지우기 기능 API
   const handleDelete = (articleId) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
@@ -83,21 +81,7 @@ const Shoppinglist = () => {
         console.log('not login:', e);
       });
   };
-
-  // const handleDelete = () => {
-  //   axios
-  //     .delete(`${process.env.NEXT_PUBLIC_API_URL}/cartitem/${id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       console.log('done!:', res);
-  //       window.location.reload();
-  //     })
-  //     .catch((e) => {
-  //       console.log('err:', e);
-  //     });
-  // };
-
+  // 총합 구하는 함수
   const getTotalPrice = () => {
     let totalprice = 0;
     if (checkedItems.length !== 0) {
@@ -109,32 +93,15 @@ const Shoppinglist = () => {
     }
     return totalprice;
   };
+
   useEffect(() => {
     getArticles();
   }, []);
 
-  // const getTotal = () => {
-  //   let cartIdArr = checkedItems;
-  //   for (let i = 0; i < cartIdArr.length; i++) {
-  //     if (cartItems.length !== 0) {
-  //       let money = cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
-  //           .price,
-  //       setTotal({
-  //         price: cartItems.filter((el) => el.id === cartItems[i].id)[0].wine
-  //           .price,
-  //       });
-  //       console.log('i am the price', price);
-  //       total.price = total.price + Number(price);
-  //       total.quantity = total.quantity + 1;
-  //     }
-  //     return total;
-  //   }
-  // };
-
   return (
     <div className={styles.mall_container}>
       <Sidebar />
-      {console.log('cartitems:~', cartItems)}
+      {/* 장바구니에 아이템들을 보기 */}
       <div horizontal='true' className={styles.main_box}>
         <div className={styles.mall_content_box}>
           <div className={classNames(styles.text_big)}>장바구니</div>
@@ -157,7 +124,6 @@ const Shoppinglist = () => {
                   <ArticleCart
                     key={idx}
                     item={item}
-                    // cartId={cartId}
                     checkedItems={checkedItems}
                     handleCheckChange={handleCheckChange}
                     handleDelete={handleDelete}
@@ -167,6 +133,7 @@ const Shoppinglist = () => {
             </div>
           )}
         </div>
+        {/* 총합 아이템들 보여주기 */}
         <div className={styles.filter_box}>
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
@@ -177,7 +144,9 @@ const Shoppinglist = () => {
                     totalQty={checkedItems.length}
                   />
                 ) : (
-                  <div>Cart is Empty</div>
+                  <div style={{ fontFamily: 'Playfair Display, serif' }}>
+                    Cart is Empty
+                  </div>
                 )}
               </div>
             </div>

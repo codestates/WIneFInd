@@ -3,10 +3,6 @@ import { Flag, Label } from 'semantic-ui-react';
 import router from 'next/router';
 import { style } from 'dom-helpers';
 const Article = ({ articles }) => {
-  //users_id ==판매자 아이디
-  //id == 게시글 아이디
-  //wine id == 와인 아이디
-  // const { id, users_id, wine_id, title, comment, image } = article;
   const goToDescription = (ele) => {
     // console.log(ele);
     router.push(`/mall/${ele}`);

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Festive&family=Raleway&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap');
 
 .container {
   display: flex;
@@ -23,17 +23,13 @@
 .intro_message {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
   /* border: 5px aqua solid; */
   width: 100%;
   background: url('https://images5.alphacoders.com/443/thumb-1920-443997.jpg')
     no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-  /* filter: contrast(150%); */
 }
-/* https://images5.alphacoders.com/443/thumb-1920-443997.jpg */
-/* https://c4.wallpaperflare.com/wallpaper/922/142/355/black-white-glass-wallpaper-preview.jpg */
 
 .title_text {
   /* border: 5px green solid; */
@@ -85,7 +81,6 @@
   font-size: 22px;
   animation: img_show 6s;
   font-family: 'IBM Plex Sans KR', sans-serif;
-  /* margin-top: 80px; */
   color: transparent;
   background: linear-gradient(
     to top,
@@ -118,7 +113,6 @@
 .logo_effect {
   display: flex;
   margin-left: 300px;
-  /* margin-bottom: 1000px; */
   justify-content: center;
   align-items: center;
   animation-delay: 3s;
@@ -308,8 +302,7 @@
   width: 80%;
   margin-top: 8px;
   /* border: 5px red solid; */
-  /* background-color: #f3e9e2; */
-  background: rgba(34, 34, 34, 0.63);
+  background: rgba(73, 73, 73, 0.63);
   border-radius: 5px;
 }
 
@@ -340,8 +333,8 @@
 
 .card_head {
   width: 97%;
-  margin-top: 8%;
-  height: 55px;
+  margin-top: 7%;
+  height: 70px;
   /* border: 5px gold solid; */
   text-align: center;
 }
@@ -357,20 +350,22 @@
 }
 
 .image_height {
-  height: auto;
-  max-height: 450px;
-  width: auto;
-  max-width: 250px;
-  z-index: 1;
+  width: 250px;
+  height: 350px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  border: 1.2px solid rgba(231, 216, 77, 0.445);
 }
 
 .bord {
-  margin-top: -115px;
+  margin-top: -480px;
   height: 538px;
   width: 450px;
   position: absolute;
   z-index: 2;
-  margin-left: -20.5%;
+  margin-left: -100px;
 }
 
 .card_height:hover {
@@ -385,7 +380,6 @@
   margin: 5px 0px;
   /* border: 5px red solid; */
   background-color: #fdfdd32d;
-  /* background: rgba(34, 34, 34, 0.63); */
   border-radius: 5px;
 }
 
@@ -450,4 +444,8 @@
 
 .load {
   color: white;
+}
+
+.swiper-pagination-bullet-active {
+  background: red !important;
 }

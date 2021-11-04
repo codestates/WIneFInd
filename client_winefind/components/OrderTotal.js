@@ -2,6 +2,7 @@ import React from 'react';
 
 export default function OrderTotal({ totalQty, total }) {
   return (
+    // 총 합 알려주는 창
     <div id='order-summary-container'>
       <h2>주문 합계</h2>
       <div id='order-summary'>

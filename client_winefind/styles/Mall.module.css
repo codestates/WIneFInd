@@ -93,6 +93,7 @@
 
 .filter_title {
   font-size: 1.2rem;
+  font-weight: bolder;
 }
 .filter_type {
   display: flex;
@@ -100,12 +101,26 @@
   flex-wrap: wrap;
 }
 
+.filter_icon {
+  color: rgb(141, 12, 44);
+}
+
+.totalfilter_button {
+  background: white;
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 3px;
+  width: 140px;
+  border: none;
+}
+
 .filter_button {
   border: 1px gray solid;
   /* background: linear-gradient(270deg, #cda581, rgba(146, 111, 52, 0.8)); */
   margin: 3px;
   padding: 5px 20px;
-  border-radius: 50px;
+  border-radius: 5px;
+  width: 110px;
 }
 .filter_button:hover {
   color: #fff;

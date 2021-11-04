@@ -2,6 +2,7 @@ import styles from '../styles/Home.module.css';
 import Link from 'next/link';
 const IndexTest = () => {
   return (
+    // 와인 취향 테스트 받으로 가기 섹션
     <>
       <div className={styles.testing_image}>움짤 여기요</div>
       <div className={styles.testing_intro}>
@@ -14,6 +15,7 @@ const IndexTest = () => {
           </p>
         </div>
         <br />
+        {/* 취향 테스트 받으러 가는 링크 */}
         <Link href='/test'>
           <button
             type='button'

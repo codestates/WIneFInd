@@ -51,7 +51,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 2px violet solid; */
 }
 
 .filter_box {
@@ -61,15 +60,12 @@
   align-items: center;
   flex-direction: column;
   border-left: 0.1px black dotted;
-  /* border: 12px green solid; */
 }
 
 .filter_content {
   min-height: 150px;
   min-width: 300px;
   width: 100%;
-  /* border: 3px blue solid; */
-  /* border-bottom: 1px black dotted; */
   padding: 12px;
 }
 
@@ -90,7 +86,6 @@
 
 .filter_button {
   border: 1px gray solid;
-  /* background: linear-gradient(270deg, #cda581, rgba(146, 111, 52, 0.8)); */
   margin: 3px;
   padding: 5px 20px;
   border-radius: 50px;
@@ -155,4 +150,5 @@
 }
 .no_cartItems {
   height: 20rem;
+  font-family: 'Playfair Display', serif;
 }

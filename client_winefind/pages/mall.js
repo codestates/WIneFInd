@@ -4,7 +4,7 @@ import axios from 'axios';
 import Article from '../components/Article';
 import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button, Dropdown } from 'semantic-ui-react';
+import { Button, Dropdown, Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
 import CardCompo from '../components/CardCompo';
@@ -264,10 +264,12 @@ const Mall = ({ toggleModal }) => {
                 ? [...new Set(list)].map((ele, index) => (
                     <button
                       key={index}
+                      className={styles.totalfilter_button}
                       onClick={eraseThis}
-                      className={styles.filter_button}
                     >
                       {ele}
+
+                      <Icon name='close' className={styles.filter_icon} />
                     </button>
                   ))
                 : null}
