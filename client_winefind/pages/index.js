@@ -3,15 +3,23 @@ import classNames from 'classnames';
 import CardCompo from '../components/CardCompo';
 
 import IndexTest from '../components/IndexTest';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const goToTop = () => {
+    window.scrollTo(0, 80);
+  };
+  useEffect(() => {
+    goToTop();
+  }, []);
+
   return (
     // 사이트 소개 섹션
     <div className={styles.container}>
       <div className={styles.intro_container}>
         <div className={styles.intro_message}>
           <div className={styles.separate1}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
-          <h1 className={styles.title_text}>WINE FIND</h1>
+          <div className={styles.title_text}>WINE FIND</div>
           <div className={styles.content_container}>
             <div className={styles.separate}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
             <div className={styles.intro_back}>
@@ -38,14 +46,18 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <div className='text logo'>
+          <div className='text'>
             <div
               className={classNames(styles.logo_effect, styles.goToPosition)}
             >
-              <div className={classNames(styles.box, styles.fade_in_box)}>
+              <div
+                style={{ fontFamily: 'Playfair Display, serif' }}
+                className={classNames(styles.box, styles.fade_in_box)}
+              >
                 WI
               </div>
               <div
+                style={{ fontFamily: 'Playfair Display, serif' }}
                 className={classNames(
                   styles.box,
                   styles.animated,
@@ -54,10 +66,14 @@ const Home = () => {
               >
                 NE&nbsp;&nbsp;
               </div>
-              <div className={classNames(styles.box, styles.fade_in_box)}>
+              <div
+                style={{ fontFamily: 'Playfair Display, serif' }}
+                className={classNames(styles.box, styles.fade_in_box)}
+              >
                 FI
               </div>
               <div
+                style={{ fontFamily: 'Playfair Display, serif' }}
                 className={classNames(
                   styles.box,
                   styles.animated,

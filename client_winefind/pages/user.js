@@ -4,13 +4,16 @@ import { useRouter } from 'next/dist/client/router';
 import styles from '../styles/User.module.css';
 import Sidebar from '../components/Sidebar';
 import { Card, Icon } from 'semantic-ui-react';
-
+import classNames from 'classnames';
 //마이페이지 추천 받은 와인 페이지
 const User = ({ toggleModal }) => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
   const [wineList, setWineList] = useState([]);
 
+  const goToDescription = (ele) => {
+    router.push(`/mall/${ele}`);
+  };
   //로그인 체크 하기
   const checkLogin = () => {
     axios
@@ -40,8 +43,12 @@ const User = ({ toggleModal }) => {
         console.log('error:', e);
       });
   };
+  const goToTop = () => {
+    window.scrollTo(0, 10);
+  };
   useEffect(() => {
     checkLogin();
+    // goToTop();
   }, []);
   // 와인 맛들을 정렬 한 것
   let taste = (
@@ -122,37 +129,39 @@ const User = ({ toggleModal }) => {
   return (
     <>
       {isLogin ? (
-        <div className={styles.container}>
+        <div className={classNames('text_eng', styles.container)}>
           <Sidebar />
-          <div className={styles.cards_container}>
-            <div className={styles.layout}>
-              <h1 className='logo text'>My Wine List</h1>
-              {/* ====================  첫 번째 카드====================== */}
+
+          <div className={styles.layout}>
+            <div
+              className={classNames('text', 'text_eng', styles.cellar_title)}
+            >
+              My Wine Cellar
+            </div>
+            {console.log('WhAT???', wineList)}
+            <div className={styles.card_box}>
               {wineList
                 ? wineList.map((wine, index) => (
                     <div className={styles.cards} key={index}>
-                      <Card className={styles.card_height}>
-                        <img
-                          src={wine.wine.image}
-                          className={styles.image_height}
-                        />
-                        <Card.Content>
-                          <Card.Header className={styles.card_head}>
-                            <h3 className='logo text'>{wine.wine.wineName}</h3>
-                          </Card.Header>
-                          <Card.Meta>
-                            <span className='date'>
-                              {wine.wine.type},{wine.wine.country}
-                            </span>
-                          </Card.Meta>
-                          <Card.Description>{taste}</Card.Description>
-                        </Card.Content>
-                        <Card.Content extra>
-                          <button className={styles.user_btn}>
-                            상품 보러 가기
-                          </button>
-                        </Card.Content>
-                      </Card>
+                      <div
+                        className={styles.image_height}
+                        style={{ backgroundImage: `url(${wine.wine.image})` }}
+                      ></div>
+
+                      <h3 className='text'>{wine.wine.wineName}</h3>
+
+                      <span className='date'>
+                        {wine.wine.type},{wine.wine.country}
+                      </span>
+
+                      {taste}
+
+                      <button
+                        onClick={() => goToDescription(wine.id)}
+                        className={styles.user_btn}
+                      >
+                        상품 보러 가기
+                      </button>
                     </div>
                   ))
                 : ''}
@@ -162,7 +171,7 @@ const User = ({ toggleModal }) => {
       ) : (
         <>
           {/* 로그인 후 서비스 사용 띄우기 */}
-          <div className={styles.logintouse}>
+          <div className={styles.loginToUse}>
             <div className={styles.logincontent}>
               로그인 후 서비스 사용 가능합니다!
               <br />

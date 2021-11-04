@@ -17,6 +17,9 @@ input {
 .text_font {
   font-family: 'IBM Plex Sans KR', sans-serif;
 }
+.text_eng {
+  font-family: 'Playfair Display', serif;
+}
 
 .text {
   color: transparent;
