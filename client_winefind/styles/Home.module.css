@@ -33,8 +33,11 @@
 
 .title_text {
   /* border: 5px green solid; */
+  /* display: flex; */
+  padding-top: 40px;
+  height: 150px;
   animation: img_show 6s;
-  font-size: 60px;
+  font-size: 120px;
   text-align: center;
   font-family: 'Playfair Display', serif;
   color: transparent;
@@ -66,7 +69,7 @@
 
 .separate1 {
   display: flex;
-  height: 80px;
+  height: 60px;
   /* border: 5px green solid; */
 }
 
@@ -133,7 +136,7 @@
 }
 
 .box {
-  font-size: 15vh;
+  font-size: 20vh;
   font-family: 'Playfair Display, serif';
 }
 
