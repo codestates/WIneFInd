@@ -30,11 +30,12 @@ public class Article {
 
     @Column(nullable = false)
     private String comment;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
-
     private User user;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "wine_id")

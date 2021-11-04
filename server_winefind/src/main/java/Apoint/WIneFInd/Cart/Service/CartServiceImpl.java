@@ -6,7 +6,9 @@ import Apoint.WIneFInd.Cart.Domain.CartDTO;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Cart.Repository.CartRepository;
 import Apoint.WIneFInd.Kakao.Model.Consumer;
-import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
+import Apoint.WIneFInd.Member.Model.User;
+import Apoint.WIneFInd.Member.Repository.MemberRepository;
+import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +22,13 @@ public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
     private final ArticleRepository articleRepository;
-    private final KakaoRepository kakaoRepository;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository, ArticleRepository articleRepository, KakaoRepository kakaoRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ArticleRepository articleRepository, MemberRepository memberRepository) {
         this.cartRepository = cartRepository;
         this.articleRepository = articleRepository;
-        this.kakaoRepository = kakaoRepository;
+        this.memberRepository = memberRepository;
     }
 
     // 장바구니 생성 메소드!
@@ -35,11 +37,11 @@ public class CartServiceImpl implements CartService {
 
         // 장바구니를 만들 때 "Consumer"와 "Article"을 등록해주기 위해서
         // 파라미터로 받은 "articleId" & "consumerId" 입력받아서 해당 데이터를 찾기
-        Consumer findConsumer = kakaoRepository.findById(cartDTO.getConsumerId()).get();
+        User findConsumer = memberRepository.findById(cartDTO.getConsumerId()).get();
         Article findArticle = articleRepository.findById(cartDTO.getArticleId()).get();
 
         // 장바구니에 이미 존재 하는지 안하는지를 체크
-        List<Cart> byConsumerId = cartRepository.findByConsumer(findConsumer);
+        List<Cart> byConsumerId = cartRepository.findByUser(findConsumer);
 //        List<Cart> checkArticle = cartRepository.findByArticle(findArticle);
         // "Consumer"가 이미 동일한 "Article"을 가지고 있으면 'NonUniqueResultException'
 //        if (checkConsumer.get(0) != null && checkArticle.get(0) != null)
@@ -58,7 +60,7 @@ public class CartServiceImpl implements CartService {
 
         Cart cart = new Cart();
         cart = cart.builder()
-                .consumer(findConsumer)
+//                .consumer(findConsumer)
                 .article(findArticle)
                 .build();
 
@@ -72,11 +74,11 @@ public class CartServiceImpl implements CartService {
     public List<Cart> FindByConsumerId(Long id) {
 
         // 입력받은 "Id"로 해당하는 "Consumer" 찾기
-        Consumer findConsumer = kakaoRepository.findById(id).get();
+        User findConsumer = memberRepository.findById(id).get();
 
         // 장바구니에서 해당 "Consumer"가 참조하는 모든 "Article"을 조회하기 위해서
         // "findConsumer"를 입력받아 장바구니 에서 "Consumer"조회
-        List<Cart> consumerList = cartRepository.findByConsumer(findConsumer);
+        List<Cart> consumerList = cartRepository.findByUser(findConsumer);
 
         // 장바구니에 해당하는 "Consumer"가 비어있으면 에러 발생!
         if (consumerList.isEmpty()) throw new NoSuchElementException("다시 조회하여 주시기 바랍니다. ");
@@ -87,9 +89,9 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public void DeleteCart(Long id, Long artId) {
-        Consumer findConsumer = kakaoRepository.findById(id).get();
+        User findConsumer = memberRepository.findById(id).get();
 
-        List<Cart> byConsumer = cartRepository.findByConsumer(findConsumer);
+        List<Cart> byConsumer = cartRepository.findByUser(findConsumer);
 
         if (artId != null) {
             Optional<Cart> findCart = byConsumer

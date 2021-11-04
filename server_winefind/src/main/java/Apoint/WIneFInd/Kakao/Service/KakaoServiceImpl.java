@@ -2,13 +2,29 @@ package Apoint.WIneFInd.Kakao.Service;
 
 
 import Apoint.WIneFInd.Kakao.Model.Consumer;
-import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
+import Apoint.WIneFInd.Kakao.Model.KakaoProfile;
+import Apoint.WIneFInd.Kakao.Model.OAuthToken;
+//import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
 
+import Apoint.WIneFInd.Member.Model.RoleType;
+import Apoint.WIneFInd.Member.Model.User;
+import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import Apoint.WIneFInd.Member.Service.MemberService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -23,22 +39,31 @@ import java.util.*;
 @Service
 public class KakaoServiceImpl implements KakaoService {
 
-    private final KakaoRepository kakaoRepository;
-    public final MemberService memberService;
+//    private final KakaoRepository kakaoRepository;
+    public final MemberRepository memberRepository;
 
-    public KakaoServiceImpl(KakaoRepository kakaoRepository, MemberService memberService) {
-        this.kakaoRepository = kakaoRepository;
-        this.memberService = memberService;
+//    @Autowired
+//    public KakaoServiceImpl(KakaoRepository kakaoRepository, MemberRepository memberRepository) {
+//        this.kakaoRepository = kakaoRepository;
+//        this.memberRepository = memberRepository;
+//    }
+
+
+    public KakaoServiceImpl(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
 
     @Override
-    public Consumer Create(String code, HttpServletResponse response) {
+    @Transactional
+    public User Create(String code) {
 
         // 1번 인증코드 요청 전달
         String accessToken = getAccessToken(code);
+
         if (accessToken == null) {
             throw new NullPointerException("NO access Token");
         }
+
         // 2번 인증코드로 토큰 전달
         HashMap<String, Object> userInfo = getUserInfo(accessToken);
         if (userInfo == null) {
@@ -47,181 +72,118 @@ public class KakaoServiceImpl implements KakaoService {
 
         System.out.println("login info : " + userInfo.toString());
 
-        String jwtEmail = (String) userInfo.get("email");
-        String jwtNickname = (String) userInfo.get("nickname");
 
-        String KakaoOAuth = memberService.CreateKaKao(jwtEmail, jwtNickname);
+        String email = (String) userInfo.get("email");
+        String username = (String) userInfo.get("username");
 
-        Cookie cookie = new Cookie("Kakao", KakaoOAuth);
-        response.addCookie(cookie);
-
-//        if (userInfo.get("email") != null) {
-//            session.setAttribute("userId", userInfo.get("email"));
-//            session.setAttribute("accessToken", accessToken);
+//        if(email != null) {
+//            email = String "geust";
 //        }
 
-        String email = userInfo.get("email").toString();
-        String nickname = userInfo.get("nickname").toString();
+        memberRepository.findByEmail(email).ifPresent(m -> {
+            throw new NoSuchElementException("같은 'Email' 이 이미 존재 합니다. : ");
+        });
 
-
-        for (Consumer i : FindByAll()) {
-            if (i.getEmail().equals(email)) {
-                throw new NullPointerException("동일한 아이디가 존재 합니다.");
-                // 쓰로우로 리턴 null 대신 널포인트로 던지는거 가능한지 확인
-//                return null;
-            }
-        }
 
         Date now = new Date();
-        Consumer consumer = new Consumer();
-        consumer = consumer.builder()
-                .nickname(nickname)
+        User user = User.builder()
                 .email(email)
+                .username(username)
+                .role(RoleType.KAKAO)
+                .password("0000")
+                .image("default Image")
                 .createdAt(now)
                 .updatedAt(now)
                 .build();
 
-//        consumer.setNickname(nickname);
-//        consumer.setCreatedAt(now);
-//        consumer.setEmail(email);
-//        consumer.setUpdatedAt(now);
-
-        return kakaoRepository.save(consumer);
+        return memberRepository.save(user);
     }
 
     @Override
+    @Transactional
     public String getAccessToken(String code) {
-        String accessToken = "";
-        String refreshToken = "";
+        String client_id = "c936006613666667da816aebf5f62b69";
+        String redirect_uri = "https://localhost:3000/kakao";
         String reqURL = "https://kauth.kakao.com/oauth/token";
+
+        RestTemplate getAccess = new RestTemplate();
+        // 카카오 양식에 맞춰 HttpHeader 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        MultiValueMap<String, String> multiValueMap = new LinkedMultiValueMap<>();
+        multiValueMap.add("grant_type", "authorization_code");
+        multiValueMap.add("client_id", client_id);
+        multiValueMap.add("redirect_uri", redirect_uri);
+        multiValueMap.add("code", code);
+
+        // HttpHeader HttpBody 담기
+        HttpEntity<MultiValueMap<String, String>> tokenRequest = new HttpEntity<>(multiValueMap, headers);
+
+        // Http POST 방식으로 요청하기
+        ResponseEntity<String> response = getAccess.exchange(reqURL, HttpMethod.POST, tokenRequest, String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        OAuthToken oAuthToken = null;
         try {
-            URL url = new URL(reqURL);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
-            StringBuilder sb = new StringBuilder();
-            sb.append("grant_type=authorization_code");
-            sb.append("&client_id=c936006613666667da816aebf5f62b69");
-            sb.append("&redirect_uri=https://localhost:3000/kakao");
-            sb.append("&code=" + code);
-
-            bw.write(sb.toString());
-            bw.flush();
-
-            int responseCode = conn.getResponseCode();
-            System.out.println("response code = " + responseCode);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-
-            String line = "";
-            String result = "";
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body=" + result);
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            accessToken = element.getAsJsonObject().get("access_token").getAsString();
-            refreshToken = element.getAsJsonObject().get("refresh_token").getAsString();
-
-            br.close();
-            bw.close();
-        } catch (Exception e) {
+            oAuthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        return accessToken;
+
+        System.out.println("카카오 엑세스 토큰 :" + oAuthToken.getAccess_token());
+
+        return oAuthToken.getAccess_token();
     }
 
-
     @Override
+    @Transactional
     public HashMap<String, Object> getUserInfo(String accessToken) {
         HashMap<String, Object> userInfo = new HashMap<String, Object>();
         String reqUrl = "https://kapi.kakao.com/v2/user/me";
+
+        System.out.println("userinfo 진입 했니??? ");
+
+        RestTemplate getUser = new RestTemplate();
+
+        // 카카오 양식에 맞춰 HttpHeader 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + accessToken);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        // HttpHeader HttpBody 담기
+        HttpEntity<MultiValueMap<String, String>> kakaoUser = new HttpEntity<>(headers);
+
+        // Http POST 방식으로 요청하기
+        ResponseEntity<String> response = getUser.exchange(reqUrl, HttpMethod.POST, kakaoUser, String.class);
+
+        System.out.println("======================================= ");
+        System.out.println("reponst got body " + response.getBody());
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        KakaoProfile kakaoProfile = null;
         try {
-            URL url = new URL(reqUrl);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-            int responseCode = conn.getResponseCode();
-            System.out.println("responseCode =" + responseCode);
+            System.out.println("1111======================================= ");
 
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            kakaoProfile = objectMapper.readValue(response.getBody(), KakaoProfile.class);
+            System.out.println("22222======================================= ");
 
-
-            String line = "";
-            String result = "";
-
-            while ((line = br.readLine()) != null) {
-                result += line;
-            }
-            System.out.println("response body =" + result);
-
-
-            JsonParser parser = new JsonParser();
-            JsonElement element = parser.parse(result);
-
-            JsonObject properties = element.getAsJsonObject().get("properties").getAsJsonObject();
-            JsonObject kakaoAccount = element.getAsJsonObject().get("kakao_account").getAsJsonObject();
-
-            String nickname = properties.getAsJsonObject().get("nickname").getAsString();
-            String email = kakaoAccount.getAsJsonObject().get("email").getAsString();
-
-            userInfo.put("nickname", nickname);
-            userInfo.put("email", email);
-
-
-        } catch (Exception e) {
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+
+        String email = kakaoProfile.getKakao_account().getEmail();
+        String username = kakaoProfile.getProperties().getNickname();
+
+        System.out.println(email);
+        System.out.println(username);
+
+        System.out.println("userinfo 끝맞쳤니???? ");
+
+        userInfo.put("email", email);
+        userInfo.put("username", username);
         return userInfo;
     }
 
-//    @Override
-//    public void kakaoLogout(String accessToken) {
-//        String reqURL = "http://kapi.kakao.com/v1/user/logout";
-//        try {
-//            URL url = new URL(reqURL);
-//            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//            conn.setRequestMethod("POST");
-//            conn.setRequestProperty("Authorization", "Bearer " + accessToken);
-//            int responseCode = conn.getResponseCode();
-//            System.out.println("responseCode = " + responseCode);
-//
-//            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-//
-//            String result = "";
-//            String line = "";
-//
-//            while ((line = br.readLine()) != null) {
-//                result += line;
-//            }
-//            System.out.println(result);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-    @Override
-    public List<Consumer> FindByAll() {
-        return kakaoRepository.findAll();
-    }
-
-    @Override
-    public Optional<Consumer> FindById(Long id) {
-        return kakaoRepository.findById(id);
-    }
-
-    @Override
-    public List<Consumer> FindByEmail(String email) {
-        return kakaoRepository.findByEmail(email);
-    }
-
-    @Override
-    public void Delete(Long id) {
-        kakaoRepository.deleteById(id);
-    }
 }

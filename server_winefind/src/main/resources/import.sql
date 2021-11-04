@@ -1,8 +1,8 @@
 --import later!
-INSERT INTO user (id, email, nickname, password, image, created_at, updated_at) VALUES (1, "MJ@codestates.com", "MJ", "0000", "default.img", now(), now());
-INSERT INTO user (id, email, nickname, password, image, created_at, updated_at) VALUES (2, "HJ@codestates.com", "HJ", "0000", "default.img", now(), now());
-INSERT INTO user (id, email, nickname, password, image, created_at, updated_at) VALUES (3, "SW@codestates.com", "SW", "0000", "default.img", now(), now());
-INSERT INTO user (id, email, nickname, password, image, created_at, updated_at) VALUES (4, "JH@codestates.com", "JH", "0000", "default.img", now(), now());
+INSERT INTO user (id, email, username, password, role, image, created_at, updated_at) VALUES (1, "MJ@codestates.com", "MJ", "0000", "ADMIN", "default.img", now(), now());
+INSERT INTO user (id, email, username, password, role, image, created_at, updated_at) VALUES (2, "HJ@codestates.com", "HJ", "0000", "ADMIN", "default.img", now(), now());
+INSERT INTO user (id, email, username, password, role, image, created_at, updated_at) VALUES (3, "SW@codestates.com", "SW", "0000", "ADMIN", "default.img", now(), now());
+INSERT INTO user (id, email, username, password, role, image, created_at, updated_at) VALUES (4, "JH@codestates.com", "JH", "0000", "ADMIN", "default.img", now(), now());
 
 INSERT INTO wine (id, wine_name, type, country, grape, vintage, sweet, acidity, body, tannic, image, comment, price) VALUES (1, "Sauvignon blanc", "white", "France", "Sauvignon Blanc", "1996", "0", "4", "3", "1", "https://images.vivino.com/thumbs/Kw8JvF37Qxysy-Gz_NCoNA_pb_600x600.png", "잘 익은 과실의 향이 넘치고 특히 체리와 붉은 열매류 과일의 특징이 뛰어나다. 입 안에서는 Powerful하며 우아한 Body 감과 은은한 힘이 오래 남는다. 아마로네와 유사하나 가격은 훨씬 저렴하며 품질이 뛰어난 아마로네의 동생격 와인으로 매우 Value가 뛰어난 와인이다.", "10000")
 INSERT INTO wine (id, wine_name, type, country, grape, vintage, sweet, acidity, body, tannic, image, comment, price) VALUES (2, "Lapola", "red", "South Korea", "Sauternes", "1958", "2", "1", "0", "4", "https://pds.joongang.co.kr/news/component/htmlphoto_mmdata/201808/24/a2c657f3-9abd-425e-999a-2bef2e88f160.jpg", "선명한 보라색을 띠며, 자두, 레드 커런트, 카시스, 허브 향이 피어 오른다. 입 안에서는 매끈하고 부드러운 타닌과 풍부한 과일 풍미가 입 안을 가득 메우는 레드와인이다.", "40000")
@@ -28,10 +28,6 @@ INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (10 ,"TEST10",
 INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (11 ,"TEST11", "TEST11 content", 2, 3);
 INSERT INTO article (id, title, comment, user_id, wine_id) VALUES (12 ,"TEST12", "TEST12 content", 3, 4);
 
-INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (1, "MJ@cos", "MJ", now(), now())
-INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (2, "HJ@cos", "HJ", now(), now())
-INSERT INTO consumer (id, email, nickname, created_at, updated_at) VALUES (3, "SW@cos", "SW", now(), now())
-
-INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (1,1,1)
-INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (2,4 ,1)
-INSERT INTO article_consumer_cart (id, article_id, consumer_id) VALUES (3,3,1)
+INSERT INTO user_article_cart (id, user_id, article_id) VALUES (1 ,1 ,1)
+INSERT INTO user_article_cart (id, user_id, article_id) VALUES (2 ,4 ,1)
+INSERT INTO user_article_cart (id, user_id, article_id) VALUES (3 ,3 ,1)

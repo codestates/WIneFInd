@@ -3,7 +3,8 @@ package Apoint.WIneFInd.Recommend.Service;
 import Apoint.WIneFInd.Cart.Domain.CartDTO;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Kakao.Model.Consumer;
-import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
+import Apoint.WIneFInd.Member.Model.User;
+import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import Apoint.WIneFInd.Recommend.Domain.RecommendDTO;
 import Apoint.WIneFInd.Recommend.Model.Recommend;
 import Apoint.WIneFInd.Recommend.Repository.RecommendRepository;
@@ -20,24 +21,23 @@ import java.util.Optional;
 public class RecommendServiceImpl implements RecommendService {
 
     private final RecommendRepository recommendRepository;
-    private final KakaoRepository kakaoRepository;
+    private final MemberRepository memberRepository;
     private final WineRepository wineRepository;
 
     @Autowired
-    public RecommendServiceImpl(RecommendRepository recommendRepository, KakaoRepository kakaoRepository, WineRepository wineRepository) {
+    public RecommendServiceImpl(RecommendRepository recommendRepository, MemberRepository memberRepository, WineRepository wineRepository) {
         this.recommendRepository = recommendRepository;
-        this.kakaoRepository = kakaoRepository;
+        this.memberRepository = memberRepository;
         this.wineRepository = wineRepository;
     }
-
 
     @Override
     public Recommend Save(RecommendDTO recommendDTO) {
 
-        Consumer consumer = kakaoRepository.findById(recommendDTO.getConsumerId()).get();
+        User consumer = memberRepository.findById(recommendDTO.getConsumerId()).get();
         Wine wine = wineRepository.findById(recommendDTO.getWineId()).get();
 
-        List<Recommend> byConsumer = recommendRepository.findByConsumer(consumer);
+        List<Recommend> byConsumer = recommendRepository.findByUser(consumer);
 
         Optional<Recommend> checkWine = byConsumer
                 .stream()
@@ -48,7 +48,7 @@ public class RecommendServiceImpl implements RecommendService {
 
         Recommend recommend = new Recommend();
         recommend = recommend.builder()
-                .consumer(consumer)
+//                .consumer(consumer)
                 .wine(wine)
                 .build();
 
@@ -59,9 +59,9 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     public List<Recommend> FindByConsumerId(Long id) {
 
-        Consumer consumer = kakaoRepository.findById(id).get();
+        User consumer = memberRepository.findById(id).get();
 
-        List<Recommend> consumerList = recommendRepository.findByConsumer(consumer);
+        List<Recommend> consumerList = recommendRepository.findByUser(consumer);
 
         if (consumerList.isEmpty()) throw new NoSuchElementException("다시 조회해주시길 바랍니다.");
 
@@ -71,9 +71,9 @@ public class RecommendServiceImpl implements RecommendService {
     @Override
     public void DeleteRecommend(Long id, Long wineId) {
 
-        Consumer consumer = kakaoRepository.findById(id).get();
+        User consumer = memberRepository.findById(id).get();
 
-        List<Recommend> consumerList = recommendRepository.findByConsumer(consumer);
+        List<Recommend> consumerList = recommendRepository.findByUser(consumer);
 
 
         if (wineId != null) {

@@ -33,11 +33,11 @@ public class Consumer {
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
 
-    @JsonBackReference
-    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
-    private List<Cart> cartList = new ArrayList<>();
-
-    @JsonBackReference
-    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommendList = new ArrayList<>();
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+//    private List<Cart> cartList = new ArrayList<>();
+//
+//    @JsonBackReference
+//    @OneToMany(mappedBy = "consumer", cascade = CascadeType.REMOVE)
+//    private List<Recommend> recommendList = new ArrayList<>();
 }
