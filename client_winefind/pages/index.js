@@ -2,8 +2,16 @@ import styles from '../styles/Home.module.css';
 import CardCompo from '../components/CardCompo';
 import IntroAni from '../components/IntroAni';
 import IndexTest from '../components/IndexTest';
+import { useEffect } from 'react';
 
 const Home = () => {
+  const goToTop = () => {
+    window.scrollTo(0, 80);
+  };
+  useEffect(() => {
+    goToTop();
+  }, []);
+
   return (
     // 사이트 소개 섹션
     <div className={styles.container}>

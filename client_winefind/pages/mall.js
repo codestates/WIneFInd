@@ -2,9 +2,10 @@ import styles from '../styles/Mall.module.css';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Article from '../components/Article';
+import FilterList from '../components/FilterList';
 import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button, Dropdown, Icon } from 'semantic-ui-react';
+import { Button, Label, Icon, Flag } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
 import CardCompo from '../components/CardCompo';
@@ -115,6 +116,7 @@ const Mall = ({ toggleModal }) => {
       .catch((e) => {
         console.log('error!:', e);
       });
+    window.scrollTo(0, 0);
   };
 
   const findWineWithText = () => {
@@ -159,7 +161,9 @@ const Mall = ({ toggleModal }) => {
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;
+    let erase_icon = e.target.outerHTML.split('"')[1];
     let new_list = list.filter((item) => item !== erase_target);
+    new_list = list.filter((item) => item !== erase_icon);
     setList(new_list);
   };
 
@@ -176,6 +180,11 @@ const Mall = ({ toggleModal }) => {
       });
   };
 
+  const getIcon = (a) => {
+    console.log('???', a);
+    return a;
+  };
+
   useEffect(() => {
     getArticlesPage();
     getArticles();
@@ -187,7 +196,7 @@ const Mall = ({ toggleModal }) => {
         <div className={styles.searchAndWineList_box}>
           <div className={styles.top_banner}>
             <img
-              style={{ width: '53rem', height: '170px' }}
+              style={{ width: '57rem', height: '170px' }}
               src='images/winebanner2.gif'
             />
           </div>
@@ -206,8 +215,15 @@ const Mall = ({ toggleModal }) => {
               }}
               src='images/search.png'
             />
-            <div className={styles.uploadButton}>
-              <Button onClick={goToUpload} animated>
+            <div>
+              <Button
+                style={{
+                  backgroundColor: 'white',
+                  border: '#cda581 solid 1px',
+                }}
+                onClick={goToUpload}
+                animated
+              >
                 <Button.Content style={{ width: '4.6rem' }} visible>
                   게시글 작성
                 </Button.Content>
@@ -221,7 +237,13 @@ const Mall = ({ toggleModal }) => {
                 전체 와인({totalArticles.length})
               </div>
               <form>
-                <select style={{ padding: '0.4rem' }}>
+                <select
+                  style={{
+                    padding: '0.4rem',
+                    border: '1px solid #cda581',
+                    borderRadius: '3px',
+                  }}
+                >
                   {/* onchange로 api 호출 */}
                   <option value='최신등록순'>최신등록순</option>
                   <option value='가격낮은순'>가격낮은순</option>
@@ -253,27 +275,17 @@ const Mall = ({ toggleModal }) => {
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
               <div>
-                <button onClick={getFilteredList}>필터 적용</button>
+                {/* <button onClick={getFilteredList}>필터 적용</button> */}
               </div>
-              <div>
-                <input type='reset' value='모두 삭제' onClick={eraseAll} />
+              <div className={styles.redo_box} onClick={eraseAll}>
+                <Icon name='redo' />
+                <input className={styles.redo} type='reset' value='초기화' />
               </div>
             </div>
-            <div>
+            <div className={styles.filter_container}>
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
-                    <button
-                      key={index}
-                      className={styles.totalfilter_button}
-                      onClick={eraseThis}
-                    >
-                      <label>
-                        {ele}
-                        <Icon name='close' className={styles.filter_icon}>
-                          {ele}
-                        </Icon>
-                      </label>
-                    </button>
+                    <FilterList ele={ele} index={index} eraseThis={eraseThis} />
                   ))
                 : null}
             </div>
@@ -317,8 +329,12 @@ const Mall = ({ toggleModal }) => {
             <div className={styles.filter_type}>
               {taste.map((ele, index) => (
                 <div key={index} className={styles.filter_taste}>
-                  <div>{ele}</div>
+                  <div>
+                    {ele.slice(0, 1).toUpperCase().concat(ele.slice(1))}
+                  </div>
+                  <br />
                   <input
+                    className={styles.taste_input}
                     type='range'
                     min='0'
                     max='4'
@@ -327,24 +343,43 @@ const Mall = ({ toggleModal }) => {
                     onClick={addToFilterCondition}
                     onInput={handleInputValue}
                   />
+                  <div className={styles.seperator}>
+                    <div>0</div>
+                    <div>1</div>
+                    <div>2</div>
+                    <div>3</div>
+                    <div>4</div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
           <div className={styles.filter_content}>
             <div className={styles.filter_top}>
-              <div className={styles.filter_title}>가격</div>
+              <div className={styles.filter_title}>가격(₩)</div>
             </div>
             <div className={styles.filter_price}>
-              <input
-                style={{ width: '300px' }}
-                type='range'
-                min='0'
-                max='1000000'
-                name='price'
-                onClick={addToFilterCondition}
-                onInput={handleInputValue}
-              />
+              <div style={{ display: 'flex' }}>
+                <input
+                  className={styles.price_box}
+                  type='number'
+                  step='10000'
+                  min='10000'
+                  defaultValue='10000'
+                />
+                <div style={{ width: '30px' }}>이상</div>
+              </div>
+              <br />
+              <div style={{ display: 'flex' }}>
+                <input
+                  className={styles.price_box}
+                  type='number'
+                  step='10000'
+                  min='10000'
+                  defaultValue='10000'
+                />
+                <div style={{ width: '30px' }}>이하</div>
+              </div>
             </div>
           </div>
         </div>

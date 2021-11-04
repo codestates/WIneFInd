@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import styles from '../../styles/detail.module.css';
-import { Card } from 'semantic-ui-react';
+import { Flag, Card, Icon } from 'semantic-ui-react';
+import { style } from 'dom-helpers';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();
@@ -92,43 +93,43 @@ const Details = ({ toggleModal }) => {
         toggleModal();
       });
   };
+  const goToTop = () => {
+    window.scrollTo(0, 120);
+  };
 
   useEffect(() => {
     if (id && id > 0) {
       getArticle();
     }
+    goToTop();
   }, [id]);
 
   return (
     <div className={styles.container}>
       <div className={styles.board_layout}>
-        <div className={styles.wineName_writer}>
-          <div className={styles.wineName}>
-            {article ? article.wine.wineName : ''}
+        <div className={styles.image_and_taste}>
+          <div>
+            {article ? (
+              <div
+                style={{ backgroundImage: `url(${article.wine.image})` }}
+                className={styles.wine_image}
+              ></div>
+            ) : (
+              ''
+            )}
           </div>
-          <button onClick={addOrDeleteWineList}>add to my wine list</button>
-        </div>
-        <div className={styles.board_content}>
           <div className={styles.board_image}>
-            <Card className={styles.card_height}>
-              {article ? (
-                <div
-                  style={{ backgroundImage: `url(${article.wine.image})` }}
-                  className={styles.wine_image}
-                ></div>
-              ) : (
-                ''
-              )}
-
+            <Card
+              style={{
+                width: '400px',
+                margin: '-15px 0px 3px 4.5px',
+                border: '1px #cda581 solid',
+              }}
+            >
               <Card.Content>
-                <Card.Header className={styles.card_head}>
-                  {article ? article.wine.wineName : ''}
-                </Card.Header>
-
                 <Card.Description>
                   <table className={styles.tasteStructure}>
                     <tbody>
-                      {/* =========light / bold================= */}
                       <tr className='tasteStructure_tasteCharacteristic'>
                         <td>
                           <div className='tasteStructure_property'>Light</div>
@@ -138,11 +139,11 @@ const Details = ({ toggleModal }) => {
                             <span
                               className={styles.indicatorBar_progress}
                               style={{
-                                width: '15%',
+                                width: '10%',
                                 left: article
-                                  ? `${article.wine.body * 21}%`
+                                  ? `${article.wine.body * 22.5}%`
                                   : '0%',
-                              }} // 85%가 가장 높은 것! 85% 이상 안 쓰기
+                              }}
                             ></span>
                           </div>
                         </td>
@@ -150,7 +151,7 @@ const Details = ({ toggleModal }) => {
                           <div className='tasteStructure_property'>Bold</div>
                         </td>
                       </tr>
-                      {/* =========Smooth / Tannic================= */}
+
                       <tr className='tasteStructure_tasteCharacteristic'>
                         <td>
                           <div className='tasteStructure_property'>Smooth</div>
@@ -160,9 +161,9 @@ const Details = ({ toggleModal }) => {
                             <span
                               className={styles.indicatorBar_progress}
                               style={{
-                                width: '15%',
+                                width: '10%',
                                 left: article
-                                  ? `${article.wine.tannic * 21}%`
+                                  ? `${article.wine.tannic * 22.5}%`
                                   : '0%',
                               }}
                             ></span>
@@ -172,7 +173,7 @@ const Details = ({ toggleModal }) => {
                           <div className='tasteStructure_property'>Tannic</div>
                         </td>
                       </tr>
-                      {/* =========Dry / Sweet================= */}
+
                       <tr className='tasteStructure_tasteCharacteristic'>
                         <td>
                           <div className='tasteStructure_property'>Dry</div>
@@ -182,9 +183,9 @@ const Details = ({ toggleModal }) => {
                             <span
                               className={styles.indicatorBar_progress}
                               style={{
-                                width: '15%',
+                                width: '10%',
                                 left: article
-                                  ? `${article.wine.sweet * 21}%`
+                                  ? `${article.wine.sweet * 22.5}%`
                                   : '0%',
                               }}
                             ></span>
@@ -194,7 +195,7 @@ const Details = ({ toggleModal }) => {
                           <div className='tasteStructure_property'>Sweet</div>
                         </td>
                       </tr>
-                      {/* =========Soft / Acidic================= */}
+
                       <tr className='tasteStructure_tasteCharacteristic'>
                         <td>
                           <div className='tasteStructure_property'>Soft</div>
@@ -204,9 +205,9 @@ const Details = ({ toggleModal }) => {
                             <span
                               className={styles.indicatorBar_progress}
                               style={{
-                                width: '15%',
+                                width: '10%',
                                 left: article
-                                  ? `${article.wine.acidity * 21}%`
+                                  ? `${article.wine.acidity * 22.5}%`
                                   : '0%',
                               }}
                             ></span>
@@ -220,40 +221,82 @@ const Details = ({ toggleModal }) => {
                   </table>
                 </Card.Description>
               </Card.Content>
-              <div style={{ textAlign: 'center' }}>
-                {article ? article.wine.price : ''} / 750ml
-              </div>
-              <br />
-              <button className='ui button' onClick={addToCart}>
-                장바구니에 담기
-              </button>
-              <br />
-              <button className='ui button' onClick={purchaseItem}>
-                구매하기
-              </button>
             </Card>
           </div>
-          <div className={styles.board_info}>
-            <div className={styles.title_article}>와인 상세 정보</div>
+        </div>
+
+        <div className={styles.board_content}>
+          <div className={styles.title_article}>
+            <div className={styles.country_box}>
+              {article ? article.wine.country : ''}&nbsp;&nbsp;| &nbsp;
+              {article
+                ? article.wine.type
+                    .slice(0, 1)
+                    .toUpperCase()
+                    .concat(article.wine.type.slice(1))
+                : ''}
+              &nbsp;&nbsp;|&nbsp;&nbsp;
+              {article ? article.wine.grape : ''}
+            </div>
+
+            <div className={styles.heart}>
+              {article ? article.wine.wineName : ''}
+              <img
+                src='/images/heart.png'
+                onClick={addOrDeleteWineList}
+                className={styles.heart_image}
+              />
+            </div>
+          </div>
+          <div style={{ display: 'flex', width: '100%' }}>
             <div className={styles.wine_info}>
-              <p>종류: {article ? article.wine.type : ''}</p>
-              <p>포도: {article ? article.wine.grape : ''}</p>
-              <p>국가: {article ? article.wine.country : ''}</p>
-              <p>빈티지: {article ? article.wine.vintage : ''}</p>
-              <p>가격: {article ? article.wine.price : ''}</p>
-              <p>코멘트: {article ? article.wine.comment : ''}</p>
-            </div>
-            <div className={styles.wineName_writer}>
-              <div className={styles.title_article}>
-                {article ? article.title : ''}
+              <div className={styles.wine_price}>
+                {article ? article.wine.price : ''}원
+                <div className={styles.vintage}>
+                  {' '}
+                  ({article ? article.wine.vintage : ''}, 750ml)
+                </div>
               </div>
-              <div className={styles.writer}>
-                Written by {article ? article.user.email : ''}
+              <div className={styles.wine_description}>
+                <div>&nbsp;{article ? article.wine.comment : ''}</div>
+              </div>
+              <div className={styles.article_box}>
+                <div
+                  style={{
+                    background: `url(${article ? article.user.image : ''})`,
+                  }}
+                  className={styles.user_image}
+                >
+                  img
+                </div>
+                <div>
+                  <div className={styles.article_title}>
+                    {article ? article.title : ''}
+                  </div>
+
+                  <div className={styles.article_description}>
+                    {article ? article.comment : ''}
+                  </div>
+                </div>
+              </div>
+              <div className={styles.buttons}>
+                <button
+                  style={{ width: '200px', height: '60px' }}
+                  className='ui button'
+                  onClick={addToCart}
+                >
+                  장바구니에 담기&nbsp; &nbsp;&nbsp;<Icon name='shop'></Icon>
+                </button>
+                <br />
+                <button
+                  style={{ width: '200px', height: '60px' }}
+                  className='ui button'
+                  onClick={purchaseItem}
+                >
+                  구매하기&nbsp; &nbsp;&nbsp; <Icon name='won'></Icon>
+                </button>
               </div>
             </div>
-            <p className={styles.comment_article}>
-              {article ? article.comment : ''}
-            </p>
           </div>
         </div>
       </div>
