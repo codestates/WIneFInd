@@ -2,7 +2,7 @@ package Apoint.WIneFInd.Member.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Cart.Model.Cart;
-import Apoint.WIneFInd.Recommend.Model.Recommend;
+import Apoint.WIneFInd.Recommended.Model.Recommended;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
@@ -12,10 +12,9 @@ import java.util.Date;
 import java.util.List;
 
 
-@Builder
 @Entity
-@Getter
-@Setter
+@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -54,5 +53,5 @@ public class User {
 
     @JsonBackReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommendList = new ArrayList<>();
+    private List<Recommended> recommendedList = new ArrayList<>();
 }

@@ -1,24 +1,20 @@
 package Apoint.WIneFInd.Member.Controller;
 
-import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import Apoint.WIneFInd.Member.Domain.LoginDTO;
 import Apoint.WIneFInd.Member.Domain.SignUpDTO;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Service.MemberService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NonUniqueResultException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -54,7 +50,7 @@ public class MemberController {
             }});
 
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(500).body("이미 가입된 회원 정보가 존재 합니다 \n" + e);
+            return ResponseEntity.status(500).body("해당 유저 를 ‘조회’ 할 수 없습니다. \n" + e);
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(500).body("회원가입 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
         } catch (NoSuchElementException e) {

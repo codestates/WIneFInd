@@ -1,6 +1,5 @@
-package Apoint.WIneFInd.Recommend.Model;
+package Apoint.WIneFInd.Recommended.Model;
 
-import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -10,12 +9,11 @@ import javax.persistence.*;
 
 @Entity
 @Builder
-@Getter
-@Setter
-@AllArgsConstructor
+@Getter @Setter
 @NoArgsConstructor
-@Table(name = "user_wine_recommend")
-public class Recommend {
+@AllArgsConstructor
+@Table(name = "user_wine_recommended")
+public class Recommended {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

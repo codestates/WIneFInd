@@ -5,14 +5,12 @@ import Apoint.WIneFInd.Article.Repository.ArticleRepository;
 import Apoint.WIneFInd.Cart.Domain.CartDTO;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Cart.Repository.CartRepository;
-import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Repository.MemberRepository;
-import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -33,11 +31,12 @@ public class CartServiceImpl implements CartService {
 
     // 장바구니 생성 메소드!
     @Override
+    @Transactional
     public Cart Save(CartDTO cartDTO) {
 
-        // 장바구니를 만들 때 "Consumer"와 "Article"을 등록해주기 위해서
+        // 장바구니를 만들 때 "Consumer"와 "Article"을 생성해주기 위해서
         // 파라미터로 받은 "articleId" & "consumerId" 입력받아서 해당 데이터를 찾기
-        User findConsumer = memberRepository.findById(cartDTO.getConsumerId()).get();
+        User findConsumer = memberRepository.findById(cartDTO.getUserId()).get();
         Article findArticle = articleRepository.findById(cartDTO.getArticleId()).get();
 
         // 장바구니에 이미 존재 하는지 안하는지를 체크
@@ -52,7 +51,7 @@ public class CartServiceImpl implements CartService {
                 .findAny();
 
 
-        if (!check.isEmpty()) throw new NonUniqueResultException("다른 'Article'을 선택해 주세요.  ");
+        if (!check.isEmpty()) throw new IllegalArgumentException("다른 'Article'을 선택해 주세요.  ");
 
 
         // 장바구니에 "Consumer"가 동일한 "Article"을 가지고 있지 않다면
@@ -71,7 +70,7 @@ public class CartServiceImpl implements CartService {
 
     // 장바구니에서 "Consumer"를 조회하는 메소드
     @Override
-    public List<Cart> FindByConsumerId(Long id) {
+    public List<Cart> FindByUserId(Long id) {
 
         // 입력받은 "Id"로 해당하는 "Consumer" 찾기
         User findConsumer = memberRepository.findById(id).get();
@@ -88,7 +87,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void DeleteCart(Long id, Long artId) {
+    public String DeleteCart(Long id, Long artId) {
         User findConsumer = memberRepository.findById(id).get();
 
         List<Cart> byConsumer = cartRepository.findByUser(findConsumer);
@@ -103,6 +102,7 @@ public class CartServiceImpl implements CartService {
         } else {
             cartRepository.deleteAll(byConsumer);
         }
+        return null;
     }
 
 }

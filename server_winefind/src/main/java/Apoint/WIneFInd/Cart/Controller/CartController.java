@@ -4,8 +4,6 @@ package Apoint.WIneFInd.Cart.Controller;
 import Apoint.WIneFInd.Cart.Domain.CartDTO;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Cart.Service.CartService;
-import Apoint.WIneFInd.Kakao.Model.Consumer;
-import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -27,19 +25,6 @@ public class CartController {
     @Autowired
     public CartController(CartService cartService) {
         this.cartService = cartService;
-    }
-
-    @GetMapping("cart")
-    public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
-
-        try {
-            List<Cart> carts = cartService.FindByConsumerId(id);
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Show MyCartItem", carts);
-            }});
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
-        }
     }
 
     @PostMapping("cart")
@@ -65,7 +50,22 @@ public class CartController {
         }
     }
 
-    @DeleteMapping("cart")
+    @GetMapping("cart")
+    public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
+
+        try {
+//            List<Cart> carts = cartService.FindByConsumerId(id);
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("Show MyCartItem", "carts");
+            }});
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
+        }
+    }
+
+
+
+        @DeleteMapping("cart")
     public ResponseEntity<?> DeleteCart(@RequestParam Long id, @RequestParam(required = false) Long artId) {
         cartService.DeleteCart(id, artId);
         return ResponseEntity.ok().body("Delete Success");

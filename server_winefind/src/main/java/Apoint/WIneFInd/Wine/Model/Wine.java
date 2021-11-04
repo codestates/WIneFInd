@@ -1,9 +1,8 @@
 package Apoint.WIneFInd.Wine.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
-import Apoint.WIneFInd.Recommend.Model.Recommend;
+import Apoint.WIneFInd.Recommended.Model.Recommended;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,8 +11,7 @@ import java.util.List;
 
 @Entity
 @Builder
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wine {
@@ -52,7 +50,7 @@ public class Wine {
 
     @JsonBackReference
     @OneToMany(mappedBy = "wine", cascade = CascadeType.REMOVE)
-    private List<Recommend> recommendList = new ArrayList<>();
+    private List<Recommended> recommendedList = new ArrayList<>();
 
 
 }

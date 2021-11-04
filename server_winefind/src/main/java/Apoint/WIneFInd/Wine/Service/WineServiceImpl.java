@@ -22,7 +22,7 @@ public class WineServiceImpl implements WineService {
         this.wineRepository = wineRepository;
     }
 
-    // 와인 정보 등록
+    // 와인 정보 생성
     @Override
     @Transactional
     public Wine Save(WineDTO wineDTO) {
@@ -65,7 +65,7 @@ public class WineServiceImpl implements WineService {
     @Transactional(readOnly = true)
     public Wine FindById(Long id) {
 
-        // 와인을 DB안에서 찾을시 없으면 에러 있으면 와인 리턴
+        // 와인을 DB 안에서 찾을시 없으면 에러 있으면 와인 리턴
         Wine wine = getWine(id);
 
         // 와인 리턴

@@ -1,7 +1,6 @@
 package Apoint.WIneFInd.Kakao.Service;
 
 
-import Apoint.WIneFInd.Kakao.Model.Consumer;
 import Apoint.WIneFInd.Kakao.Model.KakaoProfile;
 import Apoint.WIneFInd.Kakao.Model.OAuthToken;
 //import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
@@ -9,13 +8,8 @@ import Apoint.WIneFInd.Kakao.Model.OAuthToken;
 import Apoint.WIneFInd.Member.Model.RoleType;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Repository.MemberRepository;
-import Apoint.WIneFInd.Member.Service.MemberService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,14 +20,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.*;
 
 @Service

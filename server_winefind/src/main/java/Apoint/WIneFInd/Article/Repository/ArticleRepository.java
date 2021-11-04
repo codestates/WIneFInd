@@ -9,9 +9,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
-//asdf
 
-    List<Article> findByTitle(String title);
+    Optional<Article> findByTitle(String title);
 
-    Page<Article> findByTitleContainingOrCommentContaining(String text, String content, Pageable pageable);
+    Page<Article> findByTitleContainingOrContentContaining(String text, String content, Pageable pageable);
 }

@@ -27,12 +27,12 @@ public class WineController {
         this.wineService = wineService;
     }
 
-    // "Wine" 등록
+    // "Wine" 생성
     @PostMapping("wine")
     public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
 
         try {
-            // 입력받은 'wineDTO'로 와인 등록
+            // 입력받은 'wineDTO'로 와인 생성
             Wine wineSave = wineService.Save(wineDTO);
 
             return ResponseEntity.ok().body(new HashMap<>() {{

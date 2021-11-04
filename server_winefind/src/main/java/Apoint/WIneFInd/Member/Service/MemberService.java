@@ -14,7 +14,9 @@ public interface MemberService {
 
     // 저장
     public User Save(SignUpDTO signUpDTO);
-    // Email 찾기
+    // User Id 찾기
+    public User FindById(Long id);
+    // User Email 찾기
     public User FindByEmail(String email);
     // User 업데이트
     public User Update(SignUpDTO signUpDTO, Long id);

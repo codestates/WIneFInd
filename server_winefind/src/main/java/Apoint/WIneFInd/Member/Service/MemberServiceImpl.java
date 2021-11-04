@@ -60,8 +60,26 @@ public class MemberServiceImpl implements MemberService {
     private void validateEmail(SignUpDTO signUpDTO) {
         memberRepository.findByEmail(signUpDTO.getEmail())
                 .ifPresent(m -> {
-                    throw new NoSuchElementException("같은 'Email' 이 이미 존재 합니다. : " + signUpDTO.getEmail());
+                    throw new IllegalArgumentException("원하는 결과를 얻으시려면 email : "
+                            + signUpDTO.getEmail() + " 를 제외한 'email' 를 다시 입력해 주세요. ");
                 });
+    }
+
+    // "User_Id" 조회
+    @Override
+    @Transactional(readOnly = true)
+    public User FindById(Long id) {
+
+        // 유저를 DB 안에서 찾을시 없으면 에러 있으면 와인 리턴
+        User user = getUserId(id);
+
+        return user;
+    }
+
+    private User getUserId(Long id) {
+        return memberRepository.findById(id).orElseThrow(() -> {
+            throw new IllegalArgumentException("원하는 결과를 얻으시려면 id : " + id + " 를 제외한 'id' 를 다시 입력해 주세요. ");
+        });
     }
 
     // "User_Email" 조회
@@ -77,8 +95,9 @@ public class MemberServiceImpl implements MemberService {
     }
 
     private User getEmail(String email) {
-        return memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 'email' 을 찾을 수가 없습니다." + email));
+        return memberRepository.findByEmail(email).orElseThrow(() -> {
+            throw new IllegalArgumentException("원하는 결과를 얻으시려면 email : " + email + " 를 제외한 'email' 를 다시 입력해 주세요. ");
+        });
     }
 
 
@@ -121,12 +140,6 @@ public class MemberServiceImpl implements MemberService {
                 .image(updateUser.getImage())
                 .updatedAt(now)
                 .build();
-        return updateUser;
-    }
-
-    private User getUserId(Long id) {
-        User updateUser = memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당하는 'email' 을 찾을 수가 없습니다." + id));
         return updateUser;
     }
 
