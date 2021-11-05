@@ -10,10 +10,8 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NonUniqueResultException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RestController
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
@@ -63,12 +61,12 @@ public class RecommendedController {
     // 추천리스트의 개별 삭제  & 전체삭제
     @DeleteMapping("recommended/{userId}")
     public ResponseEntity<?> DeleteRecommended(@PathVariable Long userId,
-                                               @RequestParam(required = false) Long wineId) {
+                                               @RequestParam(required = false) Long articleId) {
 
         try {
             // wineId의 값이 없을면 userId 값에 해당하는 추천리스트 전체삭제
             // wineId의 값이 있으면 userId 추천 리스트의 wineId 삭제
-            String deleteRecommended = recommendedService.DeleteRecommended(userId, wineId);
+            String deleteRecommended = recommendedService.DeleteRecommended(userId, articleId);
             return ResponseEntity.ok().body(deleteRecommended);
         } catch (EmptyResultDataAccessException e) {
             return ResponseEntity.status(500).body("해당유저의 추천 리스트를 '삭제' 할 수 없습니다. \n" + e);

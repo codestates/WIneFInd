@@ -64,14 +64,25 @@ public class KakaoServiceImpl implements KakaoService {
 //            email = String "geust";
 //        }
 
-        // 카카오 로그인으로 회원가입을 위해 먼저 같은 이메일로 가입한적이 있는지
-        // 를 위한 유효성체크 통과하지 못하면 throw
-        memberRepository.findByEmail(email).ifPresent(m -> {
-            throw new IllegalArgumentException("원하는 결과를 얻으시려면 email : "
-                    + email + " 를 제외한 'email' 를 다시 입력해 주세요. ");
-        });
 
-        // 유효성 검사는 통과하면 유저 객체 안에 저장
+
+        // ifPresent 나 isPresent 로는 리턴이 안됨... 추후 조금더 알아보기
+//        memberRepository.findByEmail(email).ifPresent(m -> {
+//            return m;
+//            throw new IllegalArgumentException("원하는 결과를 얻으시려면 email : "
+//                    + email + " 를 제외한 'email' 를 다시 입력해 주세요. ");
+//        });
+
+        // 위에서 받아온 데이터를 기반으로 동일한 이메일이 있는지 DB 내에서 검색
+        Optional<User> getUserCheck = memberRepository.findByEmail(email);
+
+        // 카카오 로그인으로 회원가입을 위해 먼저 같은 이메일로 가입한적이 있는지 체크
+        // 이미 가입되어 있는 회원이면 로그인 진행 가입되어 있지 않으면 새로운 유저 생성
+        if(!getUserCheck.isEmpty()){
+            return getUserCheck.get();
+        }
+
+        // 유효성 검사 통과하면 유저 객체 안에 저장
         Date now = new Date();
         User user = User.builder()
                 .email(email)

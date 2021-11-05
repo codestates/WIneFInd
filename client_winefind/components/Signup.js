@@ -69,7 +69,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
           `${process.env.NEXT_PUBLIC_API_URL}/signup`,
           {
             email: signUpInfo.email,
-            nickname: signUpInfo.nickname,
+            username: signUpInfo.nickname,
             password: signUpInfo.password,
           },
           { withCredentials: true }

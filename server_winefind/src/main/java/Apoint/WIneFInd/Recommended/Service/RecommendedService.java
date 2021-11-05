@@ -11,5 +11,5 @@ public interface RecommendedService {
 
     public List<Recommended> FindByUserId(Long id);
 
-    public String DeleteRecommended(Long id, Long wineId);
+    public String DeleteRecommended(Long id, Long articleId);
 }

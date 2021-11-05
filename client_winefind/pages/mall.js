@@ -110,8 +110,8 @@ const Mall = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this page data:', res.data.content);
-        setArticles(res.data.content);
+        console.log('this page data:', res.data.articlesInfo.content);
+        setArticles(res.data.articlesInfo.content);
       })
       .catch((e) => {
         console.log('error!:', e);
