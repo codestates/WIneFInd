@@ -285,7 +285,7 @@ const Mall = ({ toggleModal }) => {
             <div className={styles.filter_container}>
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
-                    <FilterList ele={ele} index={index} eraseThis={eraseThis} />
+                    <FilterList ele={ele} key={index} eraseThis={eraseThis} />
                   ))
                 : null}
             </div>

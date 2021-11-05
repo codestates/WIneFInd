@@ -35,8 +35,14 @@ const IntroAni = () => {
         </div>
         <div className='text'>
           <div className={classNames(styles.logo_effect, styles.goToPosition)}>
-            <div className={classNames(styles.box, styles.fade_in_box)}>WI</div>
             <div
+              style={{ fontFamily: 'Playfair Display, serif' }}
+              className={classNames(styles.box, styles.fade_in_box)}
+            >
+              WI
+            </div>
+            <div
+              style={{ fontFamily: 'Playfair Display, serif' }}
               className={classNames(
                 styles.box,
                 styles.animated,
@@ -45,8 +51,14 @@ const IntroAni = () => {
             >
               NE&nbsp;&nbsp;
             </div>
-            <div className={classNames(styles.box, styles.fade_in_box)}>FI</div>
             <div
+              style={{ fontFamily: 'Playfair Display, serif' }}
+              className={classNames(styles.box, styles.fade_in_box)}
+            >
+              FI
+            </div>
+            <div
+              style={{ fontFamily: 'Playfair Display, serif' }}
               className={classNames(
                 styles.box,
                 styles.animated,

@@ -33,38 +33,15 @@ const Article = ({ articles }) => {
                 {article.wine.country}
               </div>
 
-              {/* <div>작성자 : {article.user.email}</div> */}
               <div className={styles.typeAndPrice}>
                 {article.wine.type === 'red' ? (
-                  <Label
-                    as='a'
-                    color='red'
-                    // style={{ backgroundColor: '#cda581' }}
-                  >
-                    Red
-                  </Label>
+                  <Label color='red'>Red</Label>
                 ) : article.wine.type === 'white' ? (
-                  <Label
-                    as='a'
-                    color='blue'
-                    // style={{ backgroundColor: '#cda581' }}
-                  >
-                    White
-                  </Label>
+                  <Label color='blue'>White</Label>
                 ) : article.wine.type === 'sparkling' ? (
-                  <Label
-                    as='a'
-                    color='yellow'
-                    // style={{ backgroundColor: '#cda581' }}
-                  >
-                    Sparkling
-                  </Label>
+                  <Label color='yellow'>Sparkling</Label>
                 ) : (
-                  <Label
-                    as='a'
-                    // color='pink'
-                    style={{ backgroundColor: 'rgb(248, 184, 195)' }}
-                  >
+                  <Label style={{ backgroundColor: 'rgb(248, 184, 195)' }}>
                     Rose
                   </Label>
                 )}
