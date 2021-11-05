@@ -61,7 +61,7 @@ public class RecommendedController {
 
 
     // 추천리스트의 개별 삭제  & 전체삭제
-    @DeleteMapping("recommended/{userId}/")
+    @DeleteMapping("recommended/{userId}")
     public ResponseEntity<?> DeleteRecommended(@PathVariable Long userId,
                                                @RequestParam(required = false) Long wineId) {
 
