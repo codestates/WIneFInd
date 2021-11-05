@@ -12,10 +12,10 @@ public interface WineService {
 
     public List<Wine> FindByAll();
 
-    public Optional<Wine> FindById(Long id);
+    public Wine FindById(Long id);
 
-    public Wine Update(Wine wine);
+    public Wine Update(WineDTO wineDTO, Long id);
 
-    public List<Wine> Delete(Long id);
+    public String Delete(Long id);
 }
 

@@ -17,6 +17,6 @@ public class WineDTO {
     private String body;
     private String tannic;
     private String image;
-    private String comment;
+    private String content;
     private String price;
 }

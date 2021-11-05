@@ -6,6 +6,8 @@ import Apoint.WIneFInd.Article.Service.ArticleService;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -20,7 +22,6 @@ import java.util.Optional;
 @CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 
-
     private final ArticleService articleService;
     private final WineService wineService;
 
@@ -30,63 +31,94 @@ public class ArticleController {
         this.wineService = wineService;
     }
 
-    @GetMapping("article")
+    // 게시글 작성
+    @PostMapping("article")
+    public ResponseEntity<?> CreateArticle(@RequestBody ArticleDTO articleDTO) {
 
+        try {
+            // 게시글 판매 글에서 와인 생성도 같이 할 수 있게 articleDTO 에 게시글 정보 담기
+            Wine createWine = wineService.Save(articleDTO.getWines().get(0));
+            Article createArticle = articleService.Save(articleDTO);
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("wineInfo", createWine);
+                put("articleInfo", createArticle);
+            }});
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("게시글을 ‘생성’ 할 수 없습니다. \n" + e);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("'articleDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
+        }
+    }
+
+    // 게시글 페이징으로 조회 하기
+    @GetMapping("article")
     public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5) Pageable pageable,
                                              @RequestParam(required = false) Long id,
                                              @RequestParam(required = false, defaultValue = "") String text) {
+        try {
+            // Id가 null 이 아니면 해당 Id에 해당하는 Article 페이지로 이동
+            if (id != null) {
+                Article article = articleService.FindById(id);
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("articleInfo", article);
+                }});
+            }
 
-        if (id != null) {
-            Optional<Article> article = articleService.FindById(id);
-            return ResponseEntity.ok().body(article);
+            // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
+            Page<Article> articles = articleService.FindByTitleContainingOrContentContaining(text, text, pageable);
+
+            // 게시글 리턴
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("articlesInfo", articles);
+            }});
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("게시글을 ‘조회’ 할 수 없습니다. \n" + e);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("해당 게시글을 '수정' 할 수 없습니다." +
+                    "title content 를 필수로 입력해 주세요\n" + e);
         }
-
-        Page<Article> articles = articleService.FindByTitleContainingOrCommentContaining(text, text, pageable);
-
-        return ResponseEntity.ok().body(articles);
     }
 
 
-    //reload
+    // 게시글 전체 조회 페이지와 페이징 처리 페이지를 구분하기 위해서 API를 나누어서 사용
+    // Page를 1번부터 설정으로 해도 안되서... 추후에 좀더 고민해보는걸로 일단은 나눠놓기
     @GetMapping("articles")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
+        // Id가 null 이 아니면 해당 Id에 해당하는 Article 로 이동
         if (id != null) {
-            Optional<Article> article = articleService.FindById(id);
+            Article article = articleService.FindById(id);
             return ResponseEntity.ok().body(article);
+            // Id가 null 이면 전체 조회
         } else {
             List<Article> articles = articleService.FindByAll();
             return ResponseEntity.ok().body(articles);
         }
     }
 
-    @PostMapping("article")
-    public ResponseEntity<?> CreateArticle(@RequestBody ArticleDTO articleDTO) {
-
+    // 게시글 수정 하기
+    @PutMapping("article/{id}")
+    public ResponseEntity<?> UpdateArticle(@RequestBody ArticleDTO articleDTO,
+                                           @PathVariable Long id) {
         try {
-            Wine save = wineService.Save(articleDTO.getWines().get(0));
-            Article saveTitle = articleService.Save(articleDTO);
+            // 입력받은 정보에서 title로 수정할 게시글을 찾은뒤에 수정
+            Article updateArticle = articleService.Update(articleDTO, id);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Wine", save);
-                put("data", saveTitle);
+                put("articleInfo", updateArticle);
             }});
-
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body(e);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("에러 발생!!! " + e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 게시글을 ‘수정’ 할 수 없습니다. \n" + e);
         }
     }
 
-    @PutMapping("article")
-    public ResponseEntity<?> UpdateArticle(@RequestBody Article article) {
-        articleService.Update(article);
-        return ResponseEntity.ok().body("update success");
-    }
-
+    // 게시글 삭제 하기
     @DeleteMapping("/article/{id}")
     public ResponseEntity<?> DeleteArticle(@PathVariable Long id) {
-        articleService.Delete(id);
-        return ResponseEntity.ok().body("delete success");
+        try {
+            String deleteArticle = articleService.Delete(id);
+            return ResponseEntity.ok().body(deleteArticle);
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(500).body("해당 게시글을 ‘삭제’ 할 수 없습니다. \n" + e);
+        }
     }
 
 }

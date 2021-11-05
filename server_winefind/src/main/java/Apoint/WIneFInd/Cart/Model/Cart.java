@@ -2,8 +2,7 @@ package Apoint.WIneFInd.Cart.Model;
 
 
 import Apoint.WIneFInd.Article.Model.Article;
-import Apoint.WIneFInd.Kakao.Model.Consumer;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import Apoint.WIneFInd.Member.Model.User;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -12,9 +11,9 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Getter @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "article_consumer_cart")
+@AllArgsConstructor
+@Table(name = "user_article_cart")
 public class Cart {
 
     @Id
@@ -23,12 +22,14 @@ public class Cart {
 
     @JsonManagedReference
     @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonManagedReference
+    @ManyToOne
     @JoinColumn(name = "article_id")
     private Article article;
 
 
-    @JsonManagedReference
-    @ManyToOne
-    @JoinColumn(name = "consumer_id")
-    private Consumer consumer;
+
 }

@@ -1,20 +1,20 @@
 package Apoint.WIneFInd.Member.Model;
 
 import Apoint.WIneFInd.Article.Model.Article;
+import Apoint.WIneFInd.Cart.Model.Cart;
+import Apoint.WIneFInd.Recommended.Model.Recommended;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Entity
-@Getter
-@Setter
+@Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -22,17 +22,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
-    private String nickname;
+    private String username;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
+    @Column
     private String image;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private RoleType role; // ROLE_USER, ROLE_ADMIN, ROLE_KAKAO
+
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date updatedAt;
@@ -41,4 +47,11 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Article> articleList;
 
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Cart> cartList = new ArrayList<>();
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Recommended> recommendedList = new ArrayList<>();
 }

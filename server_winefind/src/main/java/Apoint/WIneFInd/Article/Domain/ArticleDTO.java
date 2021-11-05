@@ -9,12 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 public class ArticleDTO {
-//asdf
 
     private Long userId;
     private Long wineId;
     private String title;
-    private String comment;
+    private String content;
     private List<WineDTO> wines;
-
 }

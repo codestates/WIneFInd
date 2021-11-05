@@ -6,16 +6,14 @@ import Apoint.WIneFInd.Wine.Model.Wine;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Builder
 @Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,17 +27,17 @@ public class Article {
     private String title;
 
     @Column(nullable = false)
-    private String comment;
+    private String content;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "user_id")
-
     private User user;
+
     @JsonManagedReference
     @ManyToOne
     @JoinColumn(name = "wine_id")
     private Wine wine;
-
 
     @JsonBackReference
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
