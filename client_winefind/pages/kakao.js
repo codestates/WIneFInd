@@ -1,6 +1,6 @@
 import axios from 'axios';
-import router, { withRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import router from 'next/router';
+import { useEffect } from 'react';
 
 const Kakao = () => {
   useEffect(() => {

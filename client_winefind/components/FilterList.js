@@ -35,7 +35,8 @@ const FilterList = ({ ele, key, eraseThis }) => {
             Rose
             <Icon value={ele} name='close' className={styles.filter_icon} />
           </Label>
-        ) : ele === 'France' ||
+        ) : // 국가별 국기 설정
+        ele === 'France' ||
           ele === 'Italy' ||
           ele === 'Australia' ||
           ele === 'Germany' ||

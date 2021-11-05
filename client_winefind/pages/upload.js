@@ -1,6 +1,6 @@
 import styles from '../styles/Upload.module.css';
 import { Card, Dropdown, Input, Button } from 'semantic-ui-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const Upload = () => {
   const [image, setImage] = useState(null);

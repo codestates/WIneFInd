@@ -1,7 +1,7 @@
 import styles from '../styles/Home.module.css';
-import CardCompo from '../components/CardCompo';
-import IntroAni from '../components/IntroAni';
-import IndexTest from '../components/IndexTest';
+import CardCompo from '../components/Landing/CardCompo';
+import IntroAni from '../components/Landing/IntroAni';
+import IndexTest from '../components/Landing/IndexTest';
 import { useEffect } from 'react';
 
 const Home = () => {

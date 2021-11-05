@@ -1,8 +1,8 @@
-import styles from '../styles/Top.module.css';
+import styles from '../../styles/Top.module.css';
 import { useRouter } from 'next/dist/client/router';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import LoginModal from './LoginModal';
+import LoginModal from '../Login/LoginModal';
 import classNames from 'classnames';
 import Link from 'next/link';
 

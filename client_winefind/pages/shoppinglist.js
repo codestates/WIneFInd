@@ -2,9 +2,9 @@ import Sidebar from '../components/Sidebar';
 import { useEffect, useState } from 'react';
 import styles from '../styles/Shoppinglist.module.css';
 import classNames from 'classnames';
-import OrderTotal from '../components/OrderTotal';
+import OrderTotal from '../components/Cart/OrderTotal';
 import axios from 'axios';
-import ArticleCart from '../components/ArticleCart';
+import ArticleCart from '../components/Cart/ArticleCart';
 
 //마이페이지
 const Shoppinglist = () => {

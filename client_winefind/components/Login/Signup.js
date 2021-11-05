@@ -1,13 +1,10 @@
-import styles from '../styles/Login.module.css';
+import styles from '../../styles/Login.module.css';
 import { Icon, Button } from 'semantic-ui-react';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import Input from '@material-ui/core/Input';
-import { Block } from '@material-ui/icons';
 
 const Signup = ({ toggleModal, changeLoginToSignup }) => {
   const [signUpInfo, setSignUpInfo] = useState({
