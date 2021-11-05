@@ -2,6 +2,7 @@ package Apoint.WIneFInd.Article.Model;
 
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Member.Model.User;
+import Apoint.WIneFInd.Recommended.Model.Recommended;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -42,4 +43,8 @@ public class Article {
     @JsonBackReference
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Cart> cartList;
+
+    @JsonBackReference
+    @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
+    private List<Recommended> recommendedList = new ArrayList<>();
 }

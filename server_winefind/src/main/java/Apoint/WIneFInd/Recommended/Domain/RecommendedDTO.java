@@ -8,5 +8,5 @@ import lombok.Setter;
 public class RecommendedDTO {
 
     private Long userId;
-    private Long wineId;
+    private Long articleId;
 }

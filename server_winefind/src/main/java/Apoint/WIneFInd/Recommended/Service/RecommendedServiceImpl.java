@@ -1,18 +1,17 @@
 package Apoint.WIneFInd.Recommended.Service;
 
+import Apoint.WIneFInd.Article.Model.Article;
+import Apoint.WIneFInd.Article.Service.ArticleService;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Service.MemberService;
 import Apoint.WIneFInd.Recommended.Domain.RecommendedDTO;
 import Apoint.WIneFInd.Recommended.Model.Recommended;
 import Apoint.WIneFInd.Recommended.Repository.RecommendedRepository;
-import Apoint.WIneFInd.Wine.Model.Wine;
-import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.NonUniqueResultException;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,13 +20,13 @@ public class RecommendedServiceImpl implements RecommendedService {
 
     private final RecommendedRepository recommendedRepository;
     private final MemberService memberService;
-    private final WineService wineService;
+    private final ArticleService articleService;
 
     @Autowired
-    public RecommendedServiceImpl(RecommendedRepository recommendedRepository, MemberService memberService, WineService wineService) {
+    public RecommendedServiceImpl(RecommendedRepository recommendedRepository, MemberService memberService, ArticleService articleService) {
         this.recommendedRepository = recommendedRepository;
         this.memberService = memberService;
-        this.wineService = wineService;
+        this.articleService = articleService;
     }
 
     // 추천 리스트 생성
@@ -35,29 +34,28 @@ public class RecommendedServiceImpl implements RecommendedService {
     @Transactional
     public Recommended Save(RecommendedDTO recommendedDTO) {
 
-        // 추천받는 받는 UserId와 추천 받을 WineId 를 입력 받아서
+        // 추천받는 받는 UserId와 추천 받을 ArticleId 를 입력 받아서
         // 각각에 해당하는 정보들을 조회하기
         User user = getByUser(recommendedDTO.getUserId());
-        Wine wine = wineService.FindById(recommendedDTO.getWineId());
+        Article article = articleService.FindById(recommendedDTO.getArticleId());
 
         // 조회한 유저 정보를 가지고 추천리스트 DB 안에 User 조회
         List<Recommended> byRecommendedUser = getByRecommendedUser(user);
 
         // 유저 추천 리스트 체크
-        // 입력 받은 유저의 체크 리스트안에 입력받은 와인 아이디가 있는지 없는지를 확인
-        Optional<Recommended> RecommendedUserCheck = validDuplicateCheck(recommendedDTO.getWineId(), byRecommendedUser);
-
+        // 입력 받은 유저의 체크 리스트안에 입력받은 게시글 아이디가 있는지 없는지를 확인
+        Optional<Recommended> RecommendedUserCheck = validDuplicateCheck(recommendedDTO.getArticleId(), byRecommendedUser);
         // 만약 userRecommendCheck 안에 값이 비어있지 않다면 throw 발생
-        // 비어 있다면 추천리스트에 와인 생성
+        // 비어 있다면 추천리스트에 게시글 생성
         if (!RecommendedUserCheck.isEmpty())
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 wineId : "
-                    + RecommendedUserCheck.get().getWine().getId() +
+                    + RecommendedUserCheck.get().getArticle().getId() +
                     " 를 제외한 'wineId' 를 다시 입력해 주세요. ");
 
         // 추천 리스트에 생성
         Recommended recommended = Recommended.builder()
                 .user(user)
-                .wine(wine)
+                .article(article)
                 .build();
 
         // 추천 리스트 저장
@@ -67,7 +65,7 @@ public class RecommendedServiceImpl implements RecommendedService {
     private Optional<Recommended> validDuplicateCheck(Long id, List<Recommended> byRecommendedUser) {
         Optional<Recommended> RecommendedUserCheck = byRecommendedUser
                 .stream()
-                .filter(u -> u.getWine().getId().equals(id))
+                .filter(u -> u.getArticle().getId().equals(id))
                 .findAny();
         return RecommendedUserCheck;
     }
@@ -103,23 +101,24 @@ public class RecommendedServiceImpl implements RecommendedService {
 
     // 추천 리스트 전체 삭제 & 개별 삭제
     @Override
-    public String DeleteRecommended(Long id, Long wineId) {
+    @Transactional
+    public String DeleteRecommended(Long id, Long articleId) {
 
         // 입력받은 id로 유저 정보를 가져오기
         User user = getByUser(id);
 
         // 가져온 유저 정보를 바탕으로 추천 리스트에 해당 유저가
-        // 가지고 있는 와인 리스트 가져오기
+        // 가지고 있는 게시글 리스트 가져오기
         List<Recommended> byRecommendedUser = getByRecommendedUser(user);
 
-        // WineId가 null 이 아니면 해당 추천받은 와인 하나만 삭제
-        // WineId가 null 이면 추천받은 와인 리스트 전체 삭제
+        // ArticleId가 null 이 아니면 해당 추천받은 게시글 하나만 삭제
+        // ArticleId가 null 이면 추천받은 게시글 리스트 전체 삭제
         try {
-            if (wineId != null) {
-                Optional<Recommended> recommended = validDuplicateCheck(wineId, byRecommendedUser);
+            if (articleId != null) {
+                Optional<Recommended> recommended = validDuplicateCheck(articleId, byRecommendedUser);
                 // recommended 유저정보 안에 추천리스트가 존재 하지 않다면 throw
                 recommended.orElseThrow(() -> {
-                    throw new IllegalArgumentException("원하는 결과를 얻으시려면 wineId : " + wineId + " 를 제외한 'wineId' 를 다시 입력해 주세요. ");
+                    throw new IllegalArgumentException("원하는 결과를 얻으시려면 articleId : " + articleId + " 를 제외한 'articleId' 를 다시 입력해 주세요. ");
                 });
                 recommendedRepository.deleteById(recommended.get().getId());
             } else {
