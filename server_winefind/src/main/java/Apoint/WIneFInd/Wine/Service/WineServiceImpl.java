@@ -4,6 +4,7 @@ import Apoint.WIneFInd.Wine.Domain.WineDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,7 +46,7 @@ public class WineServiceImpl implements WineService {
                 .body(wineDTO.getBody())
                 .tannic(wineDTO.getTannic())
                 .image(wineDTO.getImage())
-                .comment(wineDTO.getComment())
+                .content(wineDTO.getContent())
                 .price(wineDTO.getPrice())
                 .build();
         return createWine;
@@ -83,32 +84,29 @@ public class WineServiceImpl implements WineService {
     @Transactional
     public Wine Update(WineDTO wineDTO, Long id) {
 
-        // 입력받은 id로 와인 id 찾기
-        Wine updateWine = getWine(id);
+        try {
+            // 입력받은 id로 와인 id 찾기
+            Wine updateWine = getWine(id);
 
-        // 입력받은 와인 형식에 맞춰서 업데이트 매소드 실행
-        updateWine = getUpdateWine(wineDTO, updateWine);
+            updateWine.setWineName(wineDTO.getWineName());
+            updateWine.setType(wineDTO.getType());
+            updateWine.setCountry(wineDTO.getCountry());
+            updateWine.setGrape(wineDTO.getGrape());
+            updateWine.setVintage(wineDTO.getVintage());
+            updateWine.setSweet(wineDTO.getSweet());
+            updateWine.setAcidity(wineDTO.getAcidity());
+            updateWine.setBody(wineDTO.getBody());
+            updateWine.setTannic(wineDTO.getTannic());
+            updateWine.setImage(wineDTO.getImage());
+            updateWine.setContent(wineDTO.getContent());
+            updateWine.setSweet(wineDTO.getPrice());
+            // 입력받은 와인 형식에 맞춰서 업데이트 매소드 실행
 
-        // 업데이트 리턴
-        return updateWine;
-    }
-
-    private Wine getUpdateWine(WineDTO wineDTO, Wine updateWine) {
-        updateWine = updateWine.builder()
-                .wineName(wineDTO.getWineName())
-                .type(wineDTO.getType())
-                .country(wineDTO.getCountry())
-                .grape(wineDTO.getGrape())
-                .vintage(wineDTO.getVintage())
-                .sweet(wineDTO.getSweet())
-                .acidity(wineDTO.getAcidity())
-                .body(wineDTO.getBody())
-                .tannic(wineDTO.getTannic())
-                .image(wineDTO.getImage())
-                .comment(wineDTO.getComment())
-                .price(wineDTO.getPrice())
-                .build();
-        return updateWine;
+            // 업데이트 리턴
+            return updateWine;
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("WineDTO 양식에 맞춰 수정사항을 입력해 주세요. " + e);
+        }
     }
 
     // 와인 정보 삭제

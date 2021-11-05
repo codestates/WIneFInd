@@ -37,8 +37,8 @@ public class RecommendedController {
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userRecommend", getRecommended);
             }});
-        } catch (NonUniqueResultException e) {
-            return ResponseEntity.status(500).body("추천리스트에 와인을 ‘생성’ 할 수 없습니다. \n" + e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 추천리스트를 ‘생성’ 할 수 없습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
             return ResponseEntity.status(500).body("'RecommendedDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
         }
@@ -61,8 +61,8 @@ public class RecommendedController {
 
 
     // 추천리스트의 개별 삭제  & 전체삭제
-    @DeleteMapping("recommended")
-    public ResponseEntity<?> DeleteRecommended(@RequestParam Long userId,
+    @DeleteMapping("recommended/{userId}/")
+    public ResponseEntity<?> DeleteRecommended(@PathVariable Long userId,
                                                @RequestParam(required = false) Long wineId) {
 
         try {

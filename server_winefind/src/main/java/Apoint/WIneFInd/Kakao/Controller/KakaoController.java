@@ -26,11 +26,14 @@ public class KakaoController {
         this.memberService = memberService;
     }
 
+    // Client에서 카카오 인증들 통해서 받은 코드를 이 주소로 코드와 함깨 요청을 보내면 실행
     @GetMapping("kakao")
     public ResponseEntity<?> KakoLogIn(@RequestParam("code") String code, HttpServletResponse response) {
 
         try {
+            // 받아온 code를 작성한 양식에 맞춰서 카카오 유저 생성
             User kakaoUser = kakaoService.Create(code);
+            // 카카오 유저가 생성되면 해당 데이터로 JWT 토큰 생성
             Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(kakaoUser));
             response.addCookie(cookie);
 
@@ -40,7 +43,8 @@ public class KakaoController {
         } catch (NullPointerException e) {
             return ResponseEntity.status(500).body("데이터를 찾을 수 없습니다.\n" + e);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(500).body("중복 회원 입니다.\n" + e);
+            return ResponseEntity.status(500).body("해당 카카오 데이터 ‘조회’ 할 수 없습니다. \n" + e);
+
         }
     }
 

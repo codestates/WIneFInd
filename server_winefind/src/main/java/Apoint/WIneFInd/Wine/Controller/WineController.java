@@ -100,8 +100,11 @@ public class WineController {
             // 입력받은
             Wine updateWine = wineService.Update(wineDTO, id);
             return ResponseEntity.ok().body(updateWine);
-            } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. \n" + e);
+        } catch (DataIntegrityViolationException e){
+            return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. wineDTO 양식에 맞춰" +
+                    "다시 작성해 주세요 \n" + e);
         }
     }
 

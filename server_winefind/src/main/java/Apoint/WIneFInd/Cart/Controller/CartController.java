@@ -5,6 +5,7 @@ import Apoint.WIneFInd.Cart.Domain.CartDTO;
 import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Cart.Service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.ResponseEntity;
@@ -27,48 +28,55 @@ public class CartController {
         this.cartService = cartService;
     }
 
+    // 장바구니 생성
     @PostMapping("cart")
     public ResponseEntity<?> AddCartList(@RequestBody CartDTO cartDTO) {
 
         try {
-            Cart AddCart = cartService.Save(cartDTO);
+            // 입력받은 UserId와 ArticleId로 장바구니 생성 실패시 에러 처리
+            Cart createCart = cartService.Save(cartDTO);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("data", new HashMap<>() {{
-                    put("Add CartList", AddCart);
-                }});
+                put("cartInfo", createCart);
             }});
-
-        } catch (NonUniqueResultException e) {
-            return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 아이템을 장바구니에 '생성’ 할 수 없습니다. \n" + e);
         } catch (IncorrectResultSizeDataAccessException e) {
             return ResponseEntity.status(500).body("장바구니에 동일한 물품이 있습니다. \n" + e);
-
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(500).body("장바구니에 Consumer & Article 정보가 존재하지 않습니다. \n" + e);
+            return ResponseEntity.status(500).body("장바구니에 user & Article 정보가 존재하지 않습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
-            return ResponseEntity.status(500).body("Domain 양식에 맞지 않습니다 양식에 맞춰 다시보내주세요. \n" + e);
+            return ResponseEntity.status(500).body("'cartDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
         }
     }
 
+    // 장바구니 조회
     @GetMapping("cart")
     public ResponseEntity<?> FindCart(@RequestParam Long id) throws MissingServletRequestParameterException {
 
         try {
-//            List<Cart> carts = cartService.FindByConsumerId(id);
+            List<Cart> userCartItemList = cartService.FindByUserId(id);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("Show MyCartItem", "carts");
+                put("cartInfo", userCartItemList);
             }});
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(500).body("장바구니에 해당 'Consumer' 가 존재 하지 않습니다. \n" + e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 Article을 ‘조회’ 할 수 없습니다. \n" + e);
         }
     }
 
+    //장바구니 삭제
+    @DeleteMapping("cart/{id}/")
+    public ResponseEntity<?> DeleteCart(@PathVariable Long id, @RequestParam(required = false) Long articleId) {
+        // Id 값만들어오면 해당 유저의 장바구니 아이템 전체 삭제
+        // articleId 가 들어오면 선택한 아이템만 삭제
+        try {
+            String deleteCartItem = cartService.DeleteCart(id, articleId);
+            return ResponseEntity.ok().body(deleteCartItem);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 장바구니 아이템을 ‘삭제’ 할 수 없습니다. \n" + e);
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(500).body("해당 장바구니 아이템을 찾을 수가 없어 '삭제' 할 수 없습니다. \n" + e);
+        }
 
-
-        @DeleteMapping("cart")
-    public ResponseEntity<?> DeleteCart(@RequestParam Long id, @RequestParam(required = false) Long artId) {
-        cartService.DeleteCart(id, artId);
-        return ResponseEntity.ok().body("Delete Success");
     }
 
 }

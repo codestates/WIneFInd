@@ -50,7 +50,7 @@ public class RecommendedServiceImpl implements RecommendedService {
         // 만약 userRecommendCheck 안에 값이 비어있지 않다면 throw 발생
         // 비어 있다면 추천리스트에 와인 생성
         if (!RecommendedUserCheck.isEmpty())
-            throw new NonUniqueResultException("원하는 결과를 얻으시려면 wineId : "
+            throw new IllegalArgumentException("원하는 결과를 얻으시려면 wineId : "
                     + RecommendedUserCheck.get().getWine().getId() +
                     " 를 제외한 'wineId' 를 다시 입력해 주세요. ");
 
@@ -118,7 +118,7 @@ public class RecommendedServiceImpl implements RecommendedService {
             if (wineId != null) {
                 Optional<Recommended> recommended = validDuplicateCheck(wineId, byRecommendedUser);
                 // recommended 유저정보 안에 추천리스트가 존재 하지 않다면 throw
-                recommended.orElseThrow(()->{
+                recommended.orElseThrow(() -> {
                     throw new IllegalArgumentException("원하는 결과를 얻으시려면 wineId : " + wineId + " 를 제외한 'wineId' 를 다시 입력해 주세요. ");
                 });
                 recommendedRepository.deleteById(recommended.get().getId());

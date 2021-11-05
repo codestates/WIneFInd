@@ -37,7 +37,7 @@ public class ArticleController {
 
         try {
             // 게시글 판매 글에서 와인 생성도 같이 할 수 있게 articleDTO 에 게시글 정보 담기
-            Wine createWine = wineService.Save(articleDTO.getWines());
+            Wine createWine = wineService.Save(articleDTO.getWines().get(0));
             Article createArticle = articleService.Save(articleDTO);
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("wineInfo", createWine);
@@ -73,6 +73,9 @@ public class ArticleController {
             }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("게시글을 ‘조회’ 할 수 없습니다. \n" + e);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("해당 게시글을 '수정' 할 수 없습니다." +
+                    "title content 를 필수로 입력해 주세요\n" + e);
         }
     }
 

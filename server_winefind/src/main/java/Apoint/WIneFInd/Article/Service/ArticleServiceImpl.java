@@ -39,7 +39,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Article Save(ArticleDTO articleDTO) {
 
         // 같은 게시물의 제목 중복 체크
-        vliedvalidateTitle(articleDTO.getTitle());
+        validateTitle(articleDTO.getTitle());
 
         // articleDTO 에서 입력받은 값으로 유저정보와 와인정보를 가져오기
         User user = memberService.FindById(articleDTO.getUserId());
@@ -57,7 +57,7 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.save(article);
     }
 
-    private void vliedvalidateTitle(String title) {
+    private void validateTitle(String title) {
         articleRepository.findByTitle(title).ifPresent(t -> {
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 title : "
                     + title + " 를 제외한 'title' 를 다시 입력해 주세요. ");
@@ -111,16 +111,15 @@ public class ArticleServiceImpl implements ArticleService {
 
         // 입력받은 Id 로 해당 게시물 찾기 만약 게시물이 없을경우 throw
         // 입력받은 값으로 게시물 수정작성
-        Article updateArticle = getArticle(id).builder()
-                .title(articleDTO.getTitle())
-                .content(articleDTO.getContent())
-                .build();
+        Article updateArticle = getArticle(id);
+        updateArticle.setContent(articleDTO.getTitle());
+        updateArticle.setTitle(articleDTO.getContent());
 
         // 게시물 수정
         return updateArticle;
     }
 
-    private Article getArticle(String title) {
+    private Article getArticleTitle(String title) {
         return articleRepository.findByTitle(title).orElseThrow(() -> {
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 title : "
                     + title + " 를 제외한 'title' 를 다시 입력해 주세요. ");

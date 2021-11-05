@@ -40,7 +40,7 @@ public class Wine {
     @Column(nullable = false)
     private String image;
     @Column(nullable = false)
-    private String comment;
+    private String content;
     @Column(nullable = false)
     private String price;
 

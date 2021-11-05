@@ -11,6 +11,6 @@ public interface CartService {
 
     public List<Cart> FindByUserId(Long id);
 
-    public String DeleteCart(Long id, Long artId);
+    public String DeleteCart(Long id, Long articleId);
 
 }

@@ -14,5 +14,5 @@ public class ArticleDTO {
     private Long wineId;
     private String title;
     private String content;
-    private WineDTO wines;
+    private List<WineDTO> wines;
 }

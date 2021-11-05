@@ -61,24 +61,19 @@ public class MemberController {
     @PostMapping("login")
     public ResponseEntity<?> LogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
 
-//        try {
-        // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
-        User logInUser = memberService.LoginCheck(loginDTO);
-//        List<User> logInUser = memberService.LoginCheck(loginDTO);
-        Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
-        response.addCookie(cookie);
+        try {
+            // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
+            User logInUser = memberService.LoginCheck(loginDTO);
+            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
+            response.addCookie(cookie);
 
-        return ResponseEntity.ok().body(new HashMap<>() {{
-            put("userInfo", logInUser);
-            put("message", "로그인이 성공 하였습니다" + cookie);
-        }});
-
-
-//        } catch (NullPointerException e) {
-//            return ResponseEntity.badRequest().body("Null이 발생 했습니다. : " + e);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body("아이디 비밀번호 확인해봐! " + e);
-//        }
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("userInfo", logInUser);
+                put("message", "로그인이 성공 하였습니다" + cookie);
+            }});
+        } catch (NullPointerException e) {
+            return ResponseEntity.badRequest().body("null이 발생 했습니다. : " + e);
+        }
     }
 
     @GetMapping("logout")
@@ -166,6 +161,9 @@ public class MemberController {
             }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("아이디를 찾을 수가 없습니다.  \n" + e);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("해당 유저를 '수정' 할 수 없습니다 email, username, password 를" +
+                    "필수로 넣어주세요 \n" + e);
         }
     }
 

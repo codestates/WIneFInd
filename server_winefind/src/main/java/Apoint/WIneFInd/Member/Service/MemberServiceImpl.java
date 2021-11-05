@@ -126,23 +126,15 @@ public class MemberServiceImpl implements MemberService {
         User updateUser = getUserId(id);
         Date now = new Date();
 
-        updateUser = updateUser(signUpDTO, updateUser, now);
+        updateUser.setEmail(signUpDTO.getEmail());
+        updateUser.setPassword(signUpDTO.getPassword());
+        updateUser.setUsername(signUpDTO.getUsername());
+        updateUser.setImage(updateUser.getImage());
+        updateUser.setUpdatedAt(now);
 
         // "User" 저장
         return updateUser;
     }
-
-    private User updateUser(SignUpDTO signUpDTO, User updateUser, Date now) {
-        updateUser = updateUser.builder()
-                .email(signUpDTO.getEmail())
-                .password(signUpDTO.getPassword())
-                .username(signUpDTO.getUsername())
-                .image(updateUser.getImage())
-                .updatedAt(now)
-                .build();
-        return updateUser;
-    }
-
 
     @Override
     @Transactional
