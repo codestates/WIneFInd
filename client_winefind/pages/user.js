@@ -7,7 +7,7 @@ import { Card, Icon } from 'semantic-ui-react';
 import classNames from 'classnames';
 import Taste from '../components/Taste';
 //마이페이지 추천 받은 와인 페이지
-const User = ({ toggleModal }) => {
+const User = () => {
   const [isLogin, setIsLogin] = useState(false);
   const router = useRouter();
   const [wineList, setWineList] = useState([]);

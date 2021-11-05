@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 import styles from '../../styles/detail.module.css';
-import { Flag, Card, Icon } from 'semantic-ui-react';
-import { style } from 'dom-helpers';
+import { Card, Icon } from 'semantic-ui-react';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import styles from '../styles/User.module.css';
-import { Icon } from 'semantic-ui-react';
+
 const Taste = ({ wine }) => {
   return (
     <table className={styles.tasteStructure}>

@@ -1,4 +1,4 @@
-import styles from '../styles/Footer.module.css';
+import styles from '../../styles/Footer.module.css';
 import { Icon } from 'semantic-ui-react';
 const Footer = () => {
   const goToTop = () => {

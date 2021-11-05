@@ -1,6 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/dist/client/router';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/User.module.css';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
