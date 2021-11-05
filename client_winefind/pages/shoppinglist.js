@@ -56,12 +56,12 @@ const Shoppinglist = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        let id = res.data['카카오 정보'].id;
-        let url = `${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`;
+        let id = res.data.userInfo.id;
+        let url = `${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`;
         if (articleId === undefined) {
           //all delete
         } else {
-          url += `&artId=${articleId}`;
+          url += `?articleId=${articleId}`;
         }
         axios
           .delete(url, {
