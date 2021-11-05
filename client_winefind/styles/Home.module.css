@@ -34,7 +34,6 @@
 .title_text {
   /* border: 5px green solid; */
   /* display: flex; */
-  padding-top: 40px;
   height: 150px;
   animation: img_show 6s;
   font-size: 120px;
