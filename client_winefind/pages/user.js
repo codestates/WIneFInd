@@ -30,7 +30,7 @@ const User = ({ toggleModal }) => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log(res.data.userRecommended);
+            console.log('aa', res.data.userRecommended);
             setWineList(res.data.userRecommended);
           })
           .catch((e) => {
@@ -69,23 +69,25 @@ const User = ({ toggleModal }) => {
                   <div className={styles.cards} key={index}>
                     <div
                       className={styles.image_height}
-                      style={{ backgroundImage: `url(${wine.wine.image})` }}
+                      style={{
+                        backgroundImage: `url(${wine.article.wine.image})`,
+                      }}
                     ></div>
-                    <h3 className='text_color'>{wine.wine.wineName}</h3>
+                    <h3 className='text_color'>{wine.article.wine.wineName}</h3>
                     <span className='date'>
-                      {wine.wine.type
+                      {wine.article.wine.type
                         .slice(0, 1)
                         .toUpperCase()
-                        .concat(wine.wine.type.slice(1))}
+                        .concat(wine.article.wine.type.slice(1))}
                       &nbsp;|&nbsp;&nbsp;{' '}
-                      {wine.wine.country
+                      {wine.article.wine.country
                         .slice(0, 1)
                         .toUpperCase()
-                        .concat(wine.wine.country.slice(1))}
+                        .concat(wine.article.wine.country.slice(1))}
                     </span>
-                    <Taste wine={wine} />
+                    <Taste wine={wine.article} />
                     <button
-                      onClick={() => goToDescription(wine.id)}
+                      onClick={() => goToDescription(wine.article.id)}
                       className={styles.user_btn}
                     >
                       상품 보러 가기

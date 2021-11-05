@@ -74,7 +74,7 @@ const Details = ({ toggleModal }) => {
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/recommended`,
             {
-              wineId: article.wine.id,
+              articleId: article.id,
               userId: res.data.userInfo.id,
             },
             { withCredentials: true }
