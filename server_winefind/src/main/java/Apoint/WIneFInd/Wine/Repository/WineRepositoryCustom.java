@@ -1,17 +1,17 @@
 package Apoint.WIneFInd.Wine.Repository;
 
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 
 import java.util.List;
 
 public interface WineRepositoryCustom {
 
-//    List<Wine> findByWineFilter(List<String> typesList, List<String> countriesList, List<String> sweetnessList,
-//                                List<String> acidityList, List<String> bodyList, List<String> priceList);
 
-    List<Wine> findByWineFilter(List<String> typesList, List<String> countriesList, List<String> sweetnessList);
+    // 리스트가 아닐경우일수도?
+    Wine FindByWineFiltering(WineFilterDTO filterDTO);
 
-    List<Wine> findById(List<Long> longTypeList);
+//    Wine FindFilteringWine(List<Long> longTypeList);
 
 //    List<Wine> findByWineName(String winename, String type);
 
