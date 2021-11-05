@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Wine.Controller;
 
 import Apoint.WIneFInd.Wine.Domain.WineDTO;
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
@@ -44,27 +45,29 @@ public class WineController {
     }
 
     // 필터링이 List로 들어왔을 경우 처리하기
-    // WineFilter 로 받아서 처리 해보기 일단은 keep
-    @GetMapping("wines")
+    // WineFilterDTO 로 받아서 처리 해보려고 했는데...
+    // RequestBody 를 권장하지 않으니 일일이 받아야 하나...?
+    @GetMapping("wine/filter")
     Iterable<Wine> FindFilterWine(@RequestParam(required = false) List<String> typesList,
                                   @RequestParam(required = false) List<String> countriesList,
-                                  @RequestParam(required = false) List<String> sweetnessList
-//                       ,
-//                       @RequestParam(required = false) List<String> acidityList,
-//                       @RequestParam(required = false) List<String> bodyList,
-//                       @RequestParam(required = false) List<String> priceList
-    ) {
-        if (typesList != null
-//                && countriesList != null && sweetnessList != null && acidityList != null &&
-//                bodyList != null && priceList != null
-        ) {
-            return wineRepository.findByWineFilter(typesList, countriesList
-                    , sweetnessList
-//                    , acidityList, bodyList, priceList
-            );
-        } else {
-            return wineRepository.findAll();
-        }
+                                  @RequestParam(required = false) List<String> sweetnessLis,
+                                  @RequestParam(required = false) List<String> acidityList,
+                                  @RequestParam(required = false) List<String> bodyList,
+                                  @RequestParam(required = false) List<String> priceList) {
+
+        WineFilterDTO wineFilterDTO = WineFilterDTO.builder()
+                .typesList(typesList)
+                .countriesList(countriesList)
+                .sweetnessList(sweetnessLis)
+                .acidityList(acidityList)
+                .bodyList(bodyList)
+                .priceList(priceList)
+                .build();
+
+        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getTypesList().toString());
+        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getCountriesList().toString());
+
+        return null;
     }
 
 
@@ -102,7 +105,7 @@ public class WineController {
             return ResponseEntity.ok().body(updateWine);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. \n" + e);
-        } catch (DataIntegrityViolationException e){
+        } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. wineDTO 양식에 맞춰" +
                     "다시 작성해 주세요 \n" + e);
         }
