@@ -50,30 +50,42 @@ function Top({ toggleModal, modal }) {
       <div className={styles.nav_bar_container}>
         <div>
           <Link href='/'>
-            <a className={classNames('text', styles.nav_logo)}>WIne FInd</a>
+            <a className={classNames('text_color', styles.nav_logo)}>
+              WIne FInd
+            </a>
           </Link>
         </div>
         <div className={styles.nav_btns}>
           <Link href='/mall'>
-            <a className={classNames('text', 'text_font', styles.nav_btn)}>
+            <a
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
+            >
               와인 몰
             </a>
           </Link>
           <Link href='/test'>
-            <a className={classNames('text', 'text_font', styles.nav_btn)}>
+            <a
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
+            >
               와인 취향 테스트
             </a>
           </Link>
           {isLogin ? (
             <Link href='/user'>
-              <a className={classNames('text', 'text_font', styles.nav_btn)}>
+              <a
+                className={classNames(
+                  'text_color',
+                  'text_font',
+                  styles.nav_btn
+                )}
+              >
                 나만의 와인셀러
               </a>
             </Link>
           ) : (
             <a
               onClick={goToUserAndToggleLogin}
-              className={classNames('text', 'text_font', styles.nav_btn)}
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
             >
               나만의 와인셀러
             </a>
@@ -81,7 +93,7 @@ function Top({ toggleModal, modal }) {
 
           {isLogin ? (
             <a
-              className={classNames('text', 'text_font', styles.nav_btn)}
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
               onClick={handleLogout}
             >
               로그아웃

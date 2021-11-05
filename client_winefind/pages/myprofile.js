@@ -53,7 +53,7 @@ const Myprofile = () => {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         console.log('res:', res.data);
-        setUserInfo({ userName: res.data['카카오 정보'].nickname });
+        setUserInfo({ userName: res.data.userInfo.username });
       })
       .catch((e) => {
         console.log(e);

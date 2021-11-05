@@ -21,7 +21,7 @@ input {
   font-family: 'Playfair Display', serif;
 }
 
-.text {
+.text_color {
   color: transparent;
   background: linear-gradient(
     to top,

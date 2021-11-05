@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import styles from '../styles/User.module.css';
 import { Icon } from 'semantic-ui-react';
 import axios from 'axios';
-
+import classNames from 'classnames';
 //마이페이지 회원 탈퇴 페이지
 const Resign = () => {
   const router = useRouter();
@@ -18,34 +18,18 @@ const Resign = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        let id = 0;
-        if (res.data.message == '카카오 회원 로그인 되었습니다.') {
-          id = res.data['카카오 정보'].id;
-          axios
-            .delete(`${process.env.NEXT_PUBLIC_API_URL}/kakao/${id}`, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              console.log('done!:', res);
-              router.push('/index');
-            })
-            .catch((e) => {
-              console.log('err:', e);
-            });
-        } else {
-          id = res.data['유저 정보'].id;
-          axios
-            .delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              console.log('done!:', res);
-              router.push('/index');
-            })
-            .catch((e) => {
-              console.log('err:', e);
-            });
-        }
+        let id = res.data.userInfo.id;
+        axios
+          .delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log('done!:', res);
+            router.push('/index');
+          })
+          .catch((e) => {
+            console.log('err:', e);
+          });
       })
       .catch((e) => {
         console.log('not login:', e);
@@ -63,7 +47,7 @@ const Resign = () => {
             Warning!!
           </h2>{' '}
           <br />
-          <h2 className='logo text' style={{ fontWeight: 'bold' }}>
+          <h2 className='logo text_color' style={{ fontWeight: 'bold' }}>
             All of your INFORMATION will be DELETED!!
             <br /> You will NOT be able to RE-DO this Action.
           </h2>
@@ -94,12 +78,15 @@ const Resign = () => {
               >
                 Are you Sure you want to Delete this Account?
               </h2>
-              <img
-                style={{
-                  width: '120px',
-                }}
-                src='/images/logo.png'
-              />
+              <div
+                className={classNames(
+                  styles.logo_title,
+                  'text_color',
+                  'text_eng'
+                )}
+              >
+                WINE FIND
+              </div>
             </div>
             <div
               onClick={resignAccount}

@@ -19,8 +19,8 @@ const Details = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this article data:', res.data);
-        setArticle(() => res.data);
+        console.log('this article data:', res.data.articleInfo);
+        setArticle(() => res.data.articleInfo);
       })
       .catch((e) => {
         console.log('error!:', e);
@@ -31,12 +31,13 @@ const Details = ({ toggleModal }) => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
+        console.log('auth:', res);
         axios
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/cart`,
             {
               articleId: id,
-              consumerId: res.data['카카오 정보'].id,
+              userId: res.data.userInfo.id,
             },
             { withCredentials: true }
           )
@@ -47,7 +48,6 @@ const Details = ({ toggleModal }) => {
               router.push('/shoppinglist');
             }
           })
-
           .catch((e) => {
             alert('already on cart');
             console.log('Already on Cart!:articleId:', id);
@@ -72,10 +72,10 @@ const Details = ({ toggleModal }) => {
       .then((res) => {
         axios
           .post(
-            `${process.env.NEXT_PUBLIC_API_URL}/recommend`,
+            `${process.env.NEXT_PUBLIC_API_URL}/recommended`,
             {
               wineId: article.wine.id,
-              consumerId: res.data['카카오 정보'].id,
+              userId: res.data.userInfo.id,
             },
             { withCredentials: true }
           )
@@ -258,7 +258,7 @@ const Details = ({ toggleModal }) => {
                 </div>
               </div>
               <div className={styles.wine_description}>
-                <div>&nbsp;{article ? article.wine.comment : ''}</div>
+                <div>&nbsp;{article ? article.wine.content : ''}</div>
               </div>
               <div className={styles.article_box}>
                 <div
@@ -275,7 +275,7 @@ const Details = ({ toggleModal }) => {
                   </div>
 
                   <div className={styles.article_description}>
-                    {article ? article.comment : ''}
+                    {article ? article.content : ''}
                   </div>
                 </div>
               </div>
