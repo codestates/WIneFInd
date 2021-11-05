@@ -61,7 +61,7 @@
   height: 48px;
   border-radius: 24px;
   background-color: #efefef;
-  border: 2px solid #bb1e1f;
+  border: 2px solid #cda582;
   margin: 0px 5%;
 }
 
@@ -74,7 +74,7 @@
   height: 48px;
   border-radius: 24px;
   background-color: #efefef;
-  border: 2px solid #bb1e1f;
+  border: 2px solid #cda582;
   margin: 0px 5%;
 }
 .left_arrow {
@@ -111,11 +111,11 @@
   margin: 0px 12%;
   justify-content: space-between;
   margin-bottom: 9%;
-  color: burlywood;
+  color: rgb(0, 0, 0);
 }
 
 .stars_container {
-  border: 3px solid #bb1e1f;
+  border: 3px solid #cda582;
   border-radius: 5px;
   margin: 5% 15%;
   background-color: #efefef;
@@ -126,5 +126,5 @@
   display: flex;
   justify-content: center;
   margin: 5% 0px;
-  color: burlywood;
+  color: rgb(0, 0, 0);
 }

@@ -84,11 +84,18 @@ const Shoppinglist = () => {
   // 총합 구하는 함수
   const getTotalPrice = () => {
     let totalprice = 0;
+    let box = [];
+    let tool = '';
     if (checkedItems.length !== 0) {
       for (let i of checkedItems) {
-        totalprice += Number(
-          cartItems.filter((el) => el.id === i)[0].wine.price
-        );
+        // totalprice += Number(
+        box = cartItems.filter((el) => el.id === i)[0].wine.price.split(',');
+        for (let i of box) {
+          tool += i;
+        }
+        totalprice += Number(tool);
+        box = [];
+        tool = '';
       }
     }
     return totalprice;
