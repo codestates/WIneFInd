@@ -141,7 +141,7 @@ const Upload = () => {
     <div className={styles.container}>
       <div className={styles.board_layout}>
         <div className={styles.wineName_writer}>
-          <div className={styles.wineName}>게시글 업로드</div>
+          <div className={styles.wineName}>&nbsp;Upload Wine</div>
         </div>
         <div className={styles.board_content}>
           <div className={styles.board_info}>
@@ -149,10 +149,16 @@ const Upload = () => {
             <div className={styles.wine_info}>
               <div className={styles.wine_info_2}>
                 <div>Wine name</div>
-                <Input type='text' placeholder='Type wine name' />
+                <Input
+                  style={{ width: '400px', color: 'black' }}
+                  type='text'
+                  placeholder='Type wine name'
+                />
+                <br />
                 <br />
                 <div>Type</div>
                 <Dropdown
+                  style={{ width: '200px' }}
                   placeholder='Select Type'
                   fluid
                   selection
@@ -161,6 +167,7 @@ const Upload = () => {
                 <br />
                 <div>Country</div>
                 <Dropdown
+                  style={{ width: '400px' }}
                   placeholder='Select Country'
                   fluid
                   selection
@@ -168,25 +175,30 @@ const Upload = () => {
                 />
                 <br />
                 <div>Grape</div>
-                <Input placeholder='Type Grape' />
-
+                <Input style={{ width: '200px' }} placeholder='Type Grape' />
+                <br />
                 <br />
                 <div>Vintage</div>
                 <Input
+                  style={{ width: '200px' }}
                   type='number'
                   defaultValue='2020'
                   placeholder='Type vintage'
                 />
                 <br />
-                <div>Price(\)</div>
+                <br />
+                <div>Price(₩)</div>
                 <Input
+                  style={{ width: '200px' }}
                   type='number'
                   defaultValue='0'
                   placeholder='Type price'
                 />
                 <br />
+                <br />
                 <div>Comment</div>
                 <textarea
+                  style={{ width: '400px' }}
                   className={styles.textarea_wine}
                   placeholder='Comment about your wine'
                 ></textarea>

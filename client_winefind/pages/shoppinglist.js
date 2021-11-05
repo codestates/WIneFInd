@@ -20,17 +20,14 @@ const Shoppinglist = () => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
-        let id = res.data['카카오 정보'].id;
+        let id = res.data.userInfo.id;
         axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`, {
             withCredentials: true,
           })
           .then((res) => {
-            setCartItems(
-              res.data['Show MyCartItem'].map((ele) => {
-                return ele.article;
-              })
-            );
+            console.log('hi~,', res.data.cartInfo);
+            setCartItems(res.data.cartInfo.map((ele) => ele.article));
           })
           .catch((e) => {
             console.log('There is no Article:', e);

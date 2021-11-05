@@ -5,6 +5,7 @@ import styles from '../styles/User.module.css';
 import Sidebar from '../components/Sidebar';
 import { Card, Icon } from 'semantic-ui-react';
 import classNames from 'classnames';
+import Taste from '../components/Taste';
 //마이페이지 추천 받은 와인 페이지
 const User = ({ toggleModal }) => {
   const [isLogin, setIsLogin] = useState(false);
@@ -21,21 +22,20 @@ const User = ({ toggleModal }) => {
       .then((res) => {
         setIsLogin(() => true);
         console.log(res.data.message);
-        if (res.data.message === '카카오 회원 로그인 되었습니다.') {
-          console.log(res.data['카카오 정보'].id);
-          let id = res.data['카카오 정보'].id;
-          axios
-            .get(`${process.env.NEXT_PUBLIC_API_URL}/recommend?id=${id}`, {
-              withCredentials: true,
-            })
-            .then((res) => {
-              console.log(res.data['Show Recommend']);
-              setWineList(res.data['Show Recommend']);
-            })
-            .catch((e) => {
-              console.log('No wine List', e);
-            });
-        }
+
+        console.log(res.data.userInfo.id);
+        let id = res.data.userInfo.id;
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/recommended?id=${id}`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log(res.data.userRecommended);
+            setWineList(res.data.userRecommended);
+          })
+          .catch((e) => {
+            console.log('No wine List', e);
+          });
       })
       .catch((e) => {
         setIsLogin(false);
@@ -51,80 +51,6 @@ const User = ({ toggleModal }) => {
     // goToTop();
   }, []);
   // 와인 맛들을 정렬 한 것
-  let taste = (
-    <table className={styles.tasteStructure}>
-      <tbody>
-        {/* 여기서부턴 Light && Bold */}
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Light</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.indicatorBar_meter}>
-              <span
-                className={styles.indicatorBar_progress}
-                style={{ width: '15%', left: '60%' }} // left는 85% 가 max이다 85 안넘기 조심하기
-              ></span>
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Bold</div>
-          </td>
-        </tr>
-        {/* 여기서부턴 smooth && tannic */}
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Smooth</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.indicatorBar_meter}>
-              <span
-                className={styles.indicatorBar_progress}
-                style={{ width: '15%', left: '55%' }}
-              ></span>
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Tannic</div>
-          </td>
-        </tr>
-        {/* 여기서부턴 dry && sweet */}
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Dry</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.indicatorBar_meter}>
-              <span
-                className={styles.indicatorBar_progress}
-                style={{ width: '15%', left: '9.45708%' }}
-              ></span>
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Sweet</div>
-          </td>
-        </tr>
-        {/* 여기서부턴 soft && acidic */}
-        <tr className='tasteStructure_tasteCharacteristic'>
-          <td>
-            <div className='tasteStructure_property'>Soft</div>
-          </td>
-          <td className={styles.tasteStructure_progressBar}>
-            <div className={styles.indicatorBar_meter}>
-              <span
-                className={styles.indicatorBar_progress}
-                style={{ width: '15%', left: '64.4675%' }}
-              ></span>
-            </div>
-          </td>
-          <td>
-            <div className='tasteStructure_property'>Acidic</div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  );
 
   return (
     <>
@@ -133,38 +59,48 @@ const User = ({ toggleModal }) => {
           <Sidebar />
 
           <div className={styles.layout}>
-            <div
-              className={classNames('text', 'text_eng', styles.cellar_title)}
-            >
+            <div className={classNames('text_color', styles.cellar_title)}>
               My Wine Cellar
             </div>
             {console.log('WhAT???', wineList)}
             <div className={styles.card_box}>
-              {wineList
-                ? wineList.map((wine, index) => (
-                    <div className={styles.cards} key={index}>
-                      <div
-                        className={styles.image_height}
-                        style={{ backgroundImage: `url(${wine.wine.image})` }}
-                      ></div>
-
-                      <h3 className='text'>{wine.wine.wineName}</h3>
-
-                      <span className='date'>
-                        {wine.wine.type},{wine.wine.country}
-                      </span>
-
-                      {taste}
-
-                      <button
-                        onClick={() => goToDescription(wine.id)}
-                        className={styles.user_btn}
-                      >
-                        상품 보러 가기
-                      </button>
+              {wineList.length !== 0 ? (
+                wineList.map((wine, index) => (
+                  <div className={styles.cards} key={index}>
+                    <div
+                      className={styles.image_height}
+                      style={{ backgroundImage: `url(${wine.wine.image})` }}
+                    ></div>
+                    <h3 className='text_color'>{wine.wine.wineName}</h3>
+                    <span className='date'>
+                      {wine.wine.type
+                        .slice(0, 1)
+                        .toUpperCase()
+                        .concat(wine.wine.type.slice(1))}
+                      &nbsp;|&nbsp;&nbsp;{' '}
+                      {wine.wine.country
+                        .slice(0, 1)
+                        .toUpperCase()
+                        .concat(wine.wine.country.slice(1))}
+                    </span>
+                    <Taste wine={wine} />
+                    <button
+                      onClick={() => goToDescription(wine.id)}
+                      className={styles.user_btn}
+                    >
+                      상품 보러 가기
+                    </button>
+                  </div>
+                ))
+              ) : (
+                <div className={styles.no_item}>
+                  <div className={styles.no_item_text}>
+                    <div className='text_color'>
+                      와인 몰에서 내 와인 셀러를 추가하세요!
                     </div>
-                  ))
-                : ''}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;800&display=swap');
+
 .container {
   display: flex;
   justify-content: center;
@@ -8,24 +11,26 @@
 .board_layout {
   padding: 10px;
   display: flex;
-  width: 66%;
-  box-shadow: 0px 0px 1rem #cda581;
-  /* border: 15px solid #cda581; */
+  width: 80%;
+  font-family: 'Playfair Display', serif;
+  border: 2px solid #cda581;
   min-width: 1000px;
-  border-radius: 12px;
+  border-radius: 3px;
   background-color: white;
   margin: 100px;
   flex-wrap: wrap;
   flex-direction: column;
-  font-family: 'Jua', sans-serif;
 }
 .wineName_writer {
   display: flex;
   justify-content: space-between;
 }
 .wineName {
-  font-size: 25px;
-  margin: 25px;
+  font-size: 33px;
+  margin: 40px 25px 25px 30px;
+  height: 40px;
+  width: 94%;
+  border-bottom: 1px #cda581 solid;
 }
 .writer {
   align-self: flex-end;
@@ -36,12 +41,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 2px red solid;
+  /* width: 90%; */
+  /* border: 2px red solid; */
+  /* border-top: 1px #cda581 solid; */
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .board_info {
   display: flex;
   flex-direction: column;
-  width: 66%;
+  width: 90%;
   /* border: 2px red solid; */
 }
 
@@ -58,12 +66,13 @@
 .title_article {
   font-size: 20px;
   padding: 10px;
-  margin: 20px 20px 0px 20px;
+  margin: 20px 20px 0px 5px;
+  font-weight: bolder;
 }
 .wine_info {
-  margin: 20px;
+  /* margin: 20px; */
   padding: 40px;
-  border-radius: 20px;
+  border-radius: 3px;
   border: #cda581 1px solid;
   display: flex;
   justify-content: space-between;
