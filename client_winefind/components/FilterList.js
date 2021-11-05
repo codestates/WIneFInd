@@ -3,14 +3,15 @@ import styles from '../styles/Mall.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Label, Icon, Flag } from 'semantic-ui-react';
 
-const FilterList = ({ ele, index, eraseThis }) => {
+const FilterList = ({ ele, key, eraseThis }) => {
   return (
     <div style={{ width: '100px' }}>
       <button
-        key={index}
+        key={key}
         className={styles.totalfilter_button}
         onClick={eraseThis}
       >
+        {/* 와인 타입별 라벨 색깔 정의 */}
         {ele === 'red' ? (
           <Label className={styles.label_width} color='red'>
             Red
@@ -34,21 +35,14 @@ const FilterList = ({ ele, index, eraseThis }) => {
             Rose
             <Icon value={ele} name='close' className={styles.filter_icon} />
           </Label>
-        ) : ele === 'France' ? (
+        ) : ele === 'France' ||
+          ele === 'Italy' ||
+          ele === 'Australia' ||
+          ele === 'Germany' ||
+          ele === 'Argentina' ? (
           <div className={styles.country_border}>
             <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
-            FRA&nbsp;
-            <Icon
-              size='small'
-              value={ele}
-              name='close'
-              className={styles.filter_icon_red}
-            />
-          </div>
-        ) : ele === 'Italy' ? (
-          <div className={styles.country_border}>
-            <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
-            ITA&nbsp;
+            {ele.toUpperCase().slice(0, 3)}&nbsp;
             <Icon
               size='small'
               value={ele}
@@ -89,43 +83,10 @@ const FilterList = ({ ele, index, eraseThis }) => {
               className={styles.filter_icon_red}
             />
           </div>
-        ) : ele === 'Australia' ? (
-          <div className={styles.country_border}>
-            <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
-            AUS&nbsp;
-            <Icon
-              size='small'
-              value={ele}
-              name='close'
-              className={styles.filter_icon_red}
-            />
-          </div>
         ) : ele === 'Chile' ? (
           <div className={styles.country_border}>
             <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
             CHL&nbsp;
-            <Icon
-              size='small'
-              value={ele}
-              name='close'
-              className={styles.filter_icon_red}
-            />
-          </div>
-        ) : ele === 'Germany' ? (
-          <div className={styles.country_border}>
-            <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
-            GER&nbsp;
-            <Icon
-              size='small'
-              value={ele}
-              name='close'
-              className={styles.filter_icon_red}
-            />
-          </div>
-        ) : ele === 'Argentina' ? (
-          <div className={styles.country_border}>
-            <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
-            ARG&nbsp;
             <Icon
               size='small'
               value={ele}
