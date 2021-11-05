@@ -64,7 +64,7 @@ public class CartController {
     }
 
     //장바구니 삭제
-    @DeleteMapping("cart/{id}/")
+    @DeleteMapping("cart/{id}")
     public ResponseEntity<?> DeleteCart(@PathVariable Long id, @RequestParam(required = false) Long articleId) {
         // Id 값만들어오면 해당 유저의 장바구니 아이템 전체 삭제
         // articleId 가 들어오면 선택한 아이템만 삭제
