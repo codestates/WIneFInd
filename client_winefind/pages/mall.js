@@ -3,12 +3,11 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Article from '../components/Article';
 import FilterList from '../components/FilterList';
-import classNames from 'classnames';
 import 'bootstrap/dist/css/bootstrap.css';
-import { Button, Label, Icon, Flag } from 'semantic-ui-react';
+import { Button, Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
-import CardCompo from '../components/CardCompo';
+
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
   const [page, setPage] = useState(0);

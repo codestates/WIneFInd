@@ -1,9 +1,8 @@
-import { useRouter } from 'next/dist/client/router';
-import { Icon, Menu, Sticky } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 import styles from '../styles/User.module.css';
 import Link from 'next/link';
 
-export default function Sidebar({ handleIconClick, Myprofile }) {
+export default function Sidebar() {
   return (
     <Menu className={styles.side} icon='labeled' vertical='true'>
       {/* 내 와인 추천 페이지로 가기 */}

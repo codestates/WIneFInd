@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from '../styles/Article.module.css';
+import styles from '../../styles/Article.module.css';
 import router from 'next/router';
 export default function ArticleCart({
   item,
@@ -8,7 +8,6 @@ export default function ArticleCart({
   handleDelete,
 }) {
   const goToDescription = (ele) => {
-    // console.log(ele);
     router.push(`/mall/${ele}`);
   };
   return (

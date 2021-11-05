@@ -1,5 +1,5 @@
-import styles from '../styles/Login.module.css';
-import React, { useState, useEffect } from 'react';
+import styles from '../../styles/Login.module.css';
+import React, { useState } from 'react';
 import { Icon, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';

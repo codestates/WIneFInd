@@ -1,10 +1,9 @@
 import styles from '../styles/Article.module.css';
 import { Flag, Label } from 'semantic-ui-react';
 import router from 'next/router';
-import { style } from 'dom-helpers';
+
 const Article = ({ articles }) => {
   const goToDescription = (ele) => {
-    // console.log(ele);
     router.push(`/mall/${ele}`);
   };
 

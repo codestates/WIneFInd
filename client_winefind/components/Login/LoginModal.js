@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-import styles from '../styles/Login.module.css';
+import styles from '../../styles/Login.module.css';
 import classNames from 'classnames';
 import Login from './Login';
 import Signup from './Signup';
