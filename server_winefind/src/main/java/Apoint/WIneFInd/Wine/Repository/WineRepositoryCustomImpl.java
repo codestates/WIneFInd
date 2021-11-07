@@ -5,20 +5,12 @@ import Apoint.WIneFInd.Wine.Model.QWine;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.BooleanOperation;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static Apoint.WIneFInd.Wine.Model.QWine.*;
+import static Apoint.WIneFInd.Wine.Model.QWine.wine;
 
 public class WineRepositoryCustomImpl implements WineRepositoryCustom {
 
@@ -28,19 +20,6 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
     // Q와인을 전역으로 관리
 
 
-    /* winename 이랑 type 가 둘어왔을때 둘의 AND 연산은 가능 원본데이터 빼놓기
-    @Override
-    public List<Wine> findByWineName(String winename, String type) {
-        QWine qWine = QWine.wine;
-        JPAQuery<?> query = new JPAQuery<Void>(em);
-        List<Wine> wines = query.select(qWine)
-                .from(qWine)
-                .where(qWine.wineName.contains(winename),qWine.type.contains(type))
-                .fetch();
-        return wines;
-    }
-    */
-
     // wineFilterDTO 의 List Filtering 처리 ... 생각 정리해보자
     // 1. wineFilterDTO 의 getTypesList()로 White, Rose 가 들어올 경우 White 와 Rose 값 모두 찾기
     // 2. 여기서 추가로 GetCountriesList() 로 Korea, France 가 들어온다고 했을경우 똑같이 Korea, France 찾고
@@ -48,54 +27,83 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
     @Override
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
 
-        List<Wine> result = queryFactory.selectFrom(wine)
-                .where(whereClause(wineFilterDTO))
-//                .where(wine.type.contains("wh").or(wine.type.contains("re")).or(wine.type.eq("Final")))
-//                .where(wine.country.contains("ko").or(wine.country.contains("pt")))
+        System.out.println(wineFilterDTO.getCountriesList());
+
+        List<Wine> result = queryFactory.selectFrom(QWine.wine)
+                .where(whereType(wineFilterDTO))
+                .where(whereCountry(wineFilterDTO))
+                .where(whereSweet(wineFilterDTO))
+                .where(whereAcidity(wineFilterDTO))
+                .where(whereBody(wineFilterDTO))
+                .where(wherePrice(wineFilterDTO))
                 .fetch();
 
         return result;
 
     }
 
-//    private BooleanExpression typeEq(List<String> types) {
-//
-//        if (!types.isEmpty()) {
-//            for (String type : types) {
-//                wine.type.contains(type);
-//            }
-//        }
-//
-//        return null;
-//    }
-
-    private Predicate whereClause(WineFilterDTO wineFilterDTO) { // (3)
+    private Predicate whereType(WineFilterDTO wineFilterDTO) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if(!wineFilterDTO.getTypesList().isEmpty()){
-            for(String type: wineFilterDTO.getTypesList()){
+        if (!wineFilterDTO.getTypesList().isEmpty()) {
+            for (String type : wineFilterDTO.getTypesList()) {
                 booleanBuilder.or(wine.type.contains(type));
-            }
-        }
-        if(!wineFilterDTO.getCountriesList().isEmpty()){
-            for(String country: wineFilterDTO.getCountriesList()) {
-                booleanBuilder.or(wine.type.contains(country));
             }
         }
         return booleanBuilder;
     }
+
+    private Predicate whereCountry(WineFilterDTO wineFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!wineFilterDTO.getCountriesList().isEmpty()) {
+            for (String country : wineFilterDTO.getCountriesList()) {
+                booleanBuilder.or(wine.country.contains(country));
+            }
+        }
+        return booleanBuilder;
+    }
+
+    private Predicate whereSweet(WineFilterDTO wineFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!wineFilterDTO.getSweetnessList().isEmpty()) {
+            for (String sweet : wineFilterDTO.getSweetnessList()) {
+                booleanBuilder.or(wine.sweet.contains(sweet));
+            }
+        }
+        return booleanBuilder;
+    }
+    private Predicate whereAcidity(WineFilterDTO wineFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!wineFilterDTO.getAcidityList().isEmpty()) {
+            for (String acidity : wineFilterDTO.getAcidityList()) {
+                booleanBuilder.or(wine.acidity.contains(acidity));
+            }
+        }
+        return booleanBuilder;
+    }
+    private Predicate whereBody(WineFilterDTO wineFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!wineFilterDTO.getBodyList().isEmpty()) {
+            for (String body : wineFilterDTO.getBodyList()) {
+                booleanBuilder.or(wine.body.contains(body));
+            }
+        }
+        return booleanBuilder;
+    }
+
+    private Predicate wherePrice(WineFilterDTO wineFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!wineFilterDTO.getPriceList().isEmpty()) {
+            for (String price : wineFilterDTO.getPriceList()) {
+                booleanBuilder.or(wine.price.contains(price));
+            }
+        }
+        return booleanBuilder;
+    }
+
+
+
 }
 
-/*
 
-
-        Optional.ofNullable(queryParam.getName())
-                .ifPresent(name -> booleanBuilder.and(player.name.eq(name)));
-        Optional.ofNullable(queryParam.getAge())
-                .ifPresent(age -> booleanBuilder.and(player.age.lt(age)));*/
-
-//    private BooleanExpression typeEq(String type) {
-//        return type != null ? qWine.country.contains(type) : null;
-//    }
-//}
 
 
