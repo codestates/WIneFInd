@@ -39,6 +39,7 @@ public class KakaoController {
 
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("kakaoInfo", kakaoUser);
+
             }});
         } catch (NullPointerException e) {
             return ResponseEntity.status(500).body("데이터를 찾을 수 없습니다.\n" + e);
