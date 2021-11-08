@@ -45,6 +45,7 @@ public class Article {
     private List<Cart> cartList;
 
     @JsonBackReference
+    @Builder.Default
     @OneToMany(mappedBy = "article", cascade = CascadeType.REMOVE)
     private List<Recommended> recommendedList = new ArrayList<>();
 }
