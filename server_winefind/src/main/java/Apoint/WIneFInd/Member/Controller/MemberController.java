@@ -8,6 +8,7 @@ import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,14 +38,15 @@ public class MemberController {
         try {
             User signUpUser = memberService.Save(signUpDTO);
             // 쿠키생성 후 "winefind" 쿠키 생성
-            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(signUpUser));
+            String signupToken = memberService.CreateJWTToken(signUpUser);
             // "winefind" 쿠키 담기
             // 추가적으로 필요한 설정값 있을시 여기서 설정 ex) secure, samesite
-            response.addCookie(cookie);
+//            response.addCookie(cookie);
 
 
             // 응답 메시지 설정
             return ResponseEntity.ok().body(new HashMap<>() {{
+                put("token",signupToken);
                 put("userInfo", signUpUser);
                 put("message", "회원가입이 성공 하였습니다.");
             }});
@@ -63,13 +65,24 @@ public class MemberController {
 
         try {
             // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
+            System.out.println("1==================================");
             User logInUser = memberService.LoginCheck(loginDTO);
-            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
-            response.addCookie(cookie);
 
+            String token = memberService.CreateJWTToken(logInUser);
+//            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
+//            ResponseCookie cookie = ResponseCookie.from("winefind", memberService.CreateJWTToken(logInUser)) .domain("http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com") .sameSite("None") .secure(true) .path("/") .build();
+//            response.addHeader("Set-Cookie", cookie.toString());
+//            cookie.setSecure(false);
+//            response.addCookie(cookie);
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userInfo", logInUser);
-                put("message", "로그인이 성공 하였습니다" + cookie);
+                put("token",token);
+//                put("message", "로그인이 성공 하였습니다" + cookie);
             }});
         } catch (NullPointerException e) {
             return ResponseEntity.badRequest().body("null이 발생 했습니다. : " + e);
@@ -100,17 +113,16 @@ public class MemberController {
     }
 
     @GetMapping("auth")
-    public ResponseEntity<?> CheckAuth(HttpServletRequest request) {
+    public ResponseEntity<?> CheckAuth(@RequestParam String token) {
 
         // "winefind" 라는 쿠키를 체크
-        Cookie[] cookies = request.getCookies();
-        String cookieUser = "";
+//        Cookie[] cookies = request.getCookies();
+        String mytoken = "";
         try {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("winefind")) {
-                    cookieUser = cookie.getValue();
+                if (token != null) {
+                     mytoken = token;
                 }
-            }
+
         } catch (NullPointerException e) {
             return ResponseEntity.badRequest().body(new HashMap<>() {{
                 put("message", "인증을 할 수 없습니다.");
@@ -118,7 +130,8 @@ public class MemberController {
         }
 
 //        토큰 유효성 체크
-        Map<String, String> checkResult = memberService.CheckJWTToken(cookieUser);
+
+        Map<String, String> checkResult = memberService.CheckJWTToken(mytoken);
 
         if (checkResult.get("email") != null) {
             User getUser = memberService.FindByEmail(checkResult.get("email"));

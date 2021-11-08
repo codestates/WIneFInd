@@ -17,8 +17,12 @@ const Shoppinglist = () => {
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기 API
   const getArticles = () => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         let id = res.data.userInfo.id;
         axios
@@ -53,8 +57,12 @@ const Shoppinglist = () => {
   };
   // 지우기 기능 API
   const handleDelete = (articleId) => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         let id = res.data.userInfo.id;
         let url = `${process.env.NEXT_PUBLIC_API_URL}/cart/${id}`;
@@ -68,6 +76,10 @@ const Shoppinglist = () => {
             withCredentials: true,
           })
           .then((res) => {
+            //배포할때
+            // window.location.replace(
+            //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/shoppinglist.html'
+            // );
             window.location.reload();
           })
           .catch((e) => {

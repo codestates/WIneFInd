@@ -17,8 +17,12 @@ const User = () => {
   };
   //로그인 체크 하기
   const checkLogin = () => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         setIsLogin(() => true);
         console.log(res.data.message);

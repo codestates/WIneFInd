@@ -48,10 +48,12 @@ public class User {
     private List<Article> articleList;
 
     @JsonBackReference
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Cart> cartList = new ArrayList<>();
 
     @JsonBackReference
+    @Builder.Default
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Recommended> recommendedList = new ArrayList<>();
 }

@@ -27,8 +27,12 @@ const Details = ({ toggleModal }) => {
   };
 
   const addToCart = (func) => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log('auth:', res);
         axios
@@ -66,8 +70,12 @@ const Details = ({ toggleModal }) => {
   };
 
   const addOrDeleteWineList = () => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         axios
           .post(

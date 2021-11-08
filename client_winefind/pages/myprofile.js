@@ -49,8 +49,12 @@ const Myprofile = () => {
   }
   // 유저 정보 조회 API
   const getUserInfo = () => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log('res:', res.data);
         setUserInfo({ userName: res.data.userInfo.username });
