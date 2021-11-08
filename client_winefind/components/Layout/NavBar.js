@@ -11,8 +11,11 @@ function Top({ toggleModal, modal }) {
   const router = useRouter();
 
   const checkLogin = () => {
+    let token = localStorage.getItem('winefind');
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then(() => {
         setIsLogin(() => true);
       })
@@ -26,18 +29,21 @@ function Top({ toggleModal, modal }) {
   }, []);
 
   const handleLogout = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-        withCredentials: true,
-      })
-      .then(() => {
-        console.log('logout success');
-        router.push('/index');
-      })
-      .catch(() => {
-        console.log('logout failed');
-        router.push('/index');
-      });
+    localStorage.removeItem('winefind');
+    router.push('/');
+    window.location.reload();
+    // axios
+    //   .get(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
+    //     withCredentials: true,
+    //   })
+    //   .then(() => {
+    //     console.log('logout success');
+    //     router.push('/index');
+    //   })
+    //   .catch(() => {
+    //     console.log('logout failed');
+    //     router.push('/index');
+    //   });
   };
 
   const goToUserAndToggleLogin = () => {

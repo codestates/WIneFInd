@@ -15,8 +15,12 @@ const Resign = () => {
   };
   //회원 탈퇴 API
   const resignAccount = () => {
+    let token = localStorage.getItem('winefind');
+
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
       .then((res) => {
         let id = res.data.userInfo.id;
         axios
