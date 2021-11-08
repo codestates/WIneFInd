@@ -8,6 +8,7 @@ import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -65,8 +66,11 @@ public class MemberController {
             // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
             System.out.println("1==================================");
             User logInUser = memberService.LoginCheck(loginDTO);
-            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
-            response.addCookie(cookie);
+//            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
+            ResponseCookie cookie = ResponseCookie.from("winefind", memberService.CreateJWTToken(logInUser)) .domain("http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com") .sameSite("None") .secure(true) .path("/") .build();
+            response.addHeader("Set-Cookie", cookie.toString());
+
+//            response.addCookie(cookie);
             System.out.println("2==================================");
             System.out.println("2==================================");
             System.out.println("2==================================");
