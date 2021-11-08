@@ -48,26 +48,32 @@ public class WineController {
     // WineFilterDTO 로 받아서 처리 해보려고 했는데...
     // RequestBody 를 권장하지 않으니 일일이 받아야 하나...?
     @GetMapping("wine/filter")
-    Iterable<Wine> FindFilterWine(@RequestParam(required = false) List<String> typesList,
-                                  @RequestParam(required = false) List<String> countriesList,
-                                  @RequestParam(required = false) List<String> sweetnessLis,
-                                  @RequestParam(required = false) List<String> acidityList,
-                                  @RequestParam(required = false) List<String> bodyList,
-                                  @RequestParam(required = false) List<String> priceList) {
+    ResponseEntity<?> FindFilterWine(@RequestParam(required = false) List<String> typesList,
+                                     @RequestParam(required = false) List<String> countriesList,
+                                     @RequestParam(required = false) List<String> sweetnessList,
+                                     @RequestParam(required = false) List<String> acidityList,
+                                     @RequestParam(required = false) List<String> bodyList,
+                                     @RequestParam(required = false) List<String> priceList) {
 
         WineFilterDTO wineFilterDTO = WineFilterDTO.builder()
                 .typesList(typesList)
                 .countriesList(countriesList)
-                .sweetnessList(sweetnessLis)
+                .sweetnessList(sweetnessList)
                 .acidityList(acidityList)
                 .bodyList(bodyList)
                 .priceList(priceList)
                 .build();
 
-        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getTypesList().toString());
-        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getCountriesList().toString());
+//        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getTypesList().toString());
+//        System.out.println("wineFilterDTO 값 제대로 들어왔니??? " + wineFilterDTO.getCountriesList().toString());
+        try {
+            List<Wine> wines = wineService.FindByWineFiltering(wineFilterDTO);
+            return ResponseEntity.ok().body(wines);
 
-        return null;
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(500).body("필터링을 수행한 결과 아무값도 '조회’ 할 수 없습니다. \n" + e);
+        }
+
     }
 
 

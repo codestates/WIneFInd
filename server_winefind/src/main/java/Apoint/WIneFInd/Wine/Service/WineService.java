@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Wine.Service;
 
 import Apoint.WIneFInd.Wine.Domain.WineDTO;
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface WineService {
     public Wine Update(WineDTO wineDTO, Long id);
 
     public String Delete(Long id);
+
+    public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO);
 }
 

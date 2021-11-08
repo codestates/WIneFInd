@@ -9,7 +9,7 @@ public interface WineRepositoryCustom {
 
 
     // 리스트가 아닐경우일수도?
-    Wine FindByWineFiltering(WineFilterDTO filterDTO);
+    List<Wine> FindByWineFiltering(WineFilterDTO filterDTO);
 
 //    Wine FindFilteringWine(List<Long> longTypeList);
 
