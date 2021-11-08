@@ -63,10 +63,15 @@ public class MemberController {
 
         try {
             // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
+            System.out.println("1==================================");
             User logInUser = memberService.LoginCheck(loginDTO);
             Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
             response.addCookie(cookie);
-
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
+            System.out.println("2==================================");
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userInfo", logInUser);
                 put("message", "로그인이 성공 하였습니다" + cookie);

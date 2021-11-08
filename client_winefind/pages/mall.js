@@ -168,7 +168,7 @@ const Mall = ({ toggleModal }) => {
 
   const goToUpload = () => {
     axios
-      .get('https://localhost:4000/auth', { withCredentials: true })
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
       .then((res) => {
         console.log('logined');
         router.push('/upload');
@@ -188,6 +188,16 @@ const Mall = ({ toggleModal }) => {
     getArticlesPage();
     getArticles();
   }, [page]);
+  const test = () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth`, { withCredentials: true })
+      .then((res) => {
+        console.log('logined');
+      })
+      .catch((e) => {
+        console.log('not Logined');
+      });
+  };
 
   return (
     <div className={styles.mall_container}>
@@ -228,6 +238,7 @@ const Mall = ({ toggleModal }) => {
                 </Button.Content>
                 <Button.Content hidden>Upload</Button.Content>
               </Button>
+              <button onClick={test}>testButton</button>
             </div>
           </div>
           <div className={styles.mall_content_box}>
