@@ -30,13 +30,16 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
           },
           { withCredentials: true }
         )
-        .then(() => {
+        .then((res) => {
           toggleModal();
+          console.log('??? come?,', res.data.token);
+          localStorage.setItem('winefind', res.data.token);
           console.log('login success');
+          // localStorage.removeItem('winefind');
         })
-        // .then(() => {
-        //   window.location.reload();
-        // })
+        .then(() => {
+          window.location.reload();
+        })
         .catch(() => {
           console.log('login failed');
           setErrorMessage('아이디나 비밀번호를 확인해주세요');
