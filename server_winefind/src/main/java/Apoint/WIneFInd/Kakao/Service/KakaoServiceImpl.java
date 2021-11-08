@@ -105,7 +105,8 @@ public class KakaoServiceImpl implements KakaoService {
 
         // 카카오 reqURL, client_id, redirect_uri, 를 변수에 담아놓고 사용하기
         String reqURL = "https://kauth.kakao.com/oauth/token";
-        String redirect_uri = "https://localhost:3000/kakao";
+//        String redirect_uri = "http://localhost:3000/kakao";
+        String redirect_uri = "http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao";
 
         // 스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿사용
         // getAccessToken 에 맞춰서 사용
