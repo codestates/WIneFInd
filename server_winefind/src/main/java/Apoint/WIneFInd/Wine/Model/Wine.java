@@ -45,6 +45,7 @@ public class Wine {
     private String price;
 
     @JsonBackReference
+    @Builder.Default
     @OneToMany(mappedBy = "wine", cascade = CascadeType.REMOVE)
     private List<Article> articleList = new ArrayList<>();
 
