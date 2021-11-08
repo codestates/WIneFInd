@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Wine.Service;
 
 import Apoint.WIneFInd.Wine.Domain.WineDTO;
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,4 +125,13 @@ public class WineServiceImpl implements WineService {
             return "와인을 삭제하시려면 " + id + " 를 제외한 'Id' 를 다시 입력해 주세요 " + e;
         }
     }
+
+    @Override
+    @Transactional
+    public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
+
+        return wineRepository.FindByWineFiltering(wineFilterDTO);
+    }
+
+
 }

@@ -14,4 +14,9 @@ public interface KakaoService {
 
     public HashMap<String, Object> getUserInfo(String accessToken);
 
+    public String getLogout();
+
+    public String KaKaoPay();
+
+    public String KakaoaAprove(String pg_token);
 }

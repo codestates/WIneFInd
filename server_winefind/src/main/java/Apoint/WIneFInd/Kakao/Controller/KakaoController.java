@@ -28,7 +28,7 @@ public class KakaoController {
 
     // Client에서 카카오 인증들 통해서 받은 코드를 이 주소로 코드와 함깨 요청을 보내면 실행
     @GetMapping("kakao")
-    public ResponseEntity<?> KakoLogIn(@RequestParam("code") String code, HttpServletResponse response) {
+    public ResponseEntity<?> KaKaoLogIn(@RequestParam("code") String code, HttpServletResponse response) {
 
         try {
             // 받아온 code를 작성한 양식에 맞춰서 카카오 유저 생성
@@ -46,6 +46,47 @@ public class KakaoController {
             return ResponseEntity.status(500).body("해당 카카오 데이터 ‘조회’ 할 수 없습니다. \n" + e);
 
         }
+    }
+
+    @GetMapping("kakao/logout")
+    public ResponseEntity<?> KaKaoLogOut(@RequestParam String code) {
+
+        try {
+
+            Object kakaoLogout = kakaoService.getAccessToken(code);
+            return ResponseEntity.ok().body(kakaoLogout);
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(500).body("데이터를 찾을 수 없습니다.\n" + e);
+        }
+
+    }
+
+    @GetMapping("kakao/pay")
+    public String KakaoPay() {
+
+        String kaKaoPay = kakaoService.KaKaoPay();
+
+        return "PC 링크!"+ kaKaoPay;
+    }
+
+    @GetMapping("kakao/success")
+    public ResponseEntity KaKaoSuccess(String pg_token) {
+
+        String kakaoaAprove = kakaoService.KakaoaAprove(pg_token);
+
+        return ResponseEntity.ok().body(kakaoaAprove);
+    }
+
+    @GetMapping("kakao/cancel")
+    public String KaKaoCancel() {
+
+        return "카카오 결제 취소";
+    }
+
+    @GetMapping("kakao/fail")
+    public String KaKaoFail() {
+
+        return "카카오 결제 실패";
     }
 
 }

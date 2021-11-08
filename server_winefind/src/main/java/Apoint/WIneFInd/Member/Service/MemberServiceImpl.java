@@ -182,22 +182,11 @@ public class MemberServiceImpl implements MemberService {
             return new HashMap<>() {{
                 put("email", email);
                 put("username", username);
-                put("message", "토큰이 아직 살아있습니다.");
             }};
 
-        } catch (ExpiredJwtException e) {
-            return new HashMap<>() {{
-                put("email", null);
-                put("message", "토큰 시간이 만료 되었습니다.");
-            }};
-        } catch (JwtException e) {
-            return new HashMap<>() {{
-                put("email", null);
-                put("message", "토큰이 유효하지 않습니다.");
-            }};
         } catch (Exception e) {
             return new HashMap<>() {{
-                put("message", "에러가 났습니다!" + null);
+                put("message", "error!" + e);
             }};
         }
     }
