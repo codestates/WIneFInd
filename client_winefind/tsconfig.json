@@ -19,15 +19,15 @@
     "**/*.ts",
     "**/*.tsx",
     "https_cert.js",
-    "components/Top.js",
+    "components/Layout/Top.js",
     "pages/user.js",
     "pages/index.js",
     "pages/learning.js",
     "pages/test.js",
     "components/Footer.js",
     "pages/_app.js",
-    "components/Signup.js",
-    "components/Login.js",
+    "components/Login/Signup.js",
+    "components/Login/Login.js",
     "pages/inquiry.js"
   ],
   "exclude": ["node_modules"]
