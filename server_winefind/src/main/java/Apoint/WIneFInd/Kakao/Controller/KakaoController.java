@@ -29,7 +29,7 @@ public class KakaoController {
     // Client에서 카카오 인증들 통해서 받은 코드를 이 주소로 코드와 함깨 요청을 보내면 실행
     @GetMapping("kakao")
     public ResponseEntity<?> KaKaoLogIn(@RequestParam("code") String code, HttpServletResponse response) {
-
+        System.out.println("kakao==============================="+code);
         try {
             // 받아온 code를 작성한 양식에 맞춰서 카카오 유저 생성
             User kakaoUser = kakaoService.Create(code);

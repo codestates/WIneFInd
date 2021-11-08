@@ -191,21 +191,21 @@ const Mall = ({ toggleModal }) => {
     getArticlesPage();
     getArticles();
   }, [page]);
-  const test = () => {
-    let token = localStorage.getItem('winefind');
+  // const test = () => {
+  //   let token = localStorage.getItem('winefind');
 
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('what comes res:', res);
-        console.log('logined');
-      })
-      .catch((e) => {
-        console.log('not Logined');
-      });
-  };
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+  //       withCredentials: true,
+  //     })
+  //     .then((res) => {
+  //       console.log('what comes res:', res);
+  //       console.log('logined');
+  //     })
+  //     .catch((e) => {
+  //       console.log('not Logined');
+  //     });
+  // };
 
   return (
     <div className={styles.mall_container}>
@@ -246,7 +246,7 @@ const Mall = ({ toggleModal }) => {
                 </Button.Content>
                 <Button.Content hidden>Upload</Button.Content>
               </Button>
-              <button onClick={test}>testButton</button>
+              {/* <button onClick={test}>testButton</button> */}
             </div>
           </div>
           <div className={styles.mall_content_box}>
