@@ -34,10 +34,11 @@ public class KakaoController {
             // 받아온 code를 작성한 양식에 맞춰서 카카오 유저 생성
             User kakaoUser = kakaoService.Create(code);
             // 카카오 유저가 생성되면 해당 데이터로 JWT 토큰 생성
-            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(kakaoUser));
-            response.addCookie(cookie);
+            String kakaoToken = memberService.CreateJWTToken(kakaoUser);
+
 
             return ResponseEntity.ok().body(new HashMap<>() {{
+                put("token",kakaoToken);
                 put("kakaoInfo", kakaoUser);
 
             }});
