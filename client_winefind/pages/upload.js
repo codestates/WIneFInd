@@ -3,6 +3,7 @@ import { Card, Dropdown, Input, Button } from 'semantic-ui-react';
 import React, { useEffect, useState } from 'react';
 import AWS from 'aws-sdk';
 import axios from 'axios';
+import router from 'next/router';
 
 const Upload = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -50,7 +51,6 @@ const Upload = () => {
     } else {
       setValues({ ...values, [prop]: event.target.value });
     }
-    console.log('test======', values);
   };
 
   AWS.config.update({
@@ -65,7 +65,6 @@ const Upload = () => {
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
-    console.log('filename???,', file.name);
     if (e.target.files && e.target.files[0]) {
       setImage(file);
       setCreateObjectURL(URL.createObjectURL(file));
@@ -84,7 +83,7 @@ const Upload = () => {
 
     promise.then(
       function (data) {
-        alert('이미지 업로드에 성공했습니다.');
+        // alert('이미지 업로드에 성공했습니다.');
       },
       function (err) {
         return alert('오류가 발생했습니다: ', err.message);
@@ -94,7 +93,7 @@ const Upload = () => {
 
   const uploadArticle = () => {
     if (image == undefined) {
-      console.log('no image');
+      alert('이미지를 선택해 주세요');
     } else {
       let url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
         userInfo.id + '-wine-' + image.name
@@ -114,9 +113,9 @@ const Upload = () => {
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/article`,
             {
-              userId: '',
-              title: '',
-              content: '',
+              userId: userInfo.id,
+              title: values.title,
+              content: values.content,
               wines: [
                 {
                   wineName: values.wineName,
@@ -129,7 +128,7 @@ const Upload = () => {
                   body: values.body,
                   tannic: values.tannic,
                   image: url,
-                  content: values.country,
+                  content: values.wineContent,
                   price: values.price,
                 },
               ],
@@ -140,12 +139,14 @@ const Upload = () => {
           )
           .then((res) => {
             console.log('정보 수정이 완료되었습니다.');
+            //배포할때 고려해.
+            router.push('/mall');
           })
           .catch((e) => {
-            console.log('회원정보수정 실패!', e);
+            console.log('게시글 업로드 실패', e);
           });
       } else {
-        console.log('빈칸이 있습니다');
+        alert('빈칸이 있습니다');
       }
     }
   };

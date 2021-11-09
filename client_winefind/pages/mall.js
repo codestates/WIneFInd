@@ -13,6 +13,7 @@ const Mall = ({ toggleModal }) => {
   const [page, setPage] = useState(0);
   const [articles, setArticles] = useState([]);
   const [totalArticles, setTotalArticles] = useState([]);
+  const [searchText, setSearchText] = useState(null);
   //Article Get Api로 articles에 게시글 목록 넣기
   let types = ['red', 'white', 'rose', 'sparkling'];
   let countries = [
@@ -104,8 +105,12 @@ const Mall = ({ toggleModal }) => {
       });
   };
   const getArticlesPage = () => {
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`;
+    if (searchText !== null) {
+      url += `&text=${searchText}`;
+    }
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
+      .get(url, {
         withCredentials: true,
       })
       .then((res) => {
@@ -118,8 +123,8 @@ const Mall = ({ toggleModal }) => {
     window.scrollTo(0, 0);
   };
 
-  const findWineWithText = () => {
-    //입력받은 텍스트로 와인 찾기.
+  const handleSearchText = (e) => {
+    setSearchText(e.target.value);
   };
 
   const [list, setList] = useState([]);
@@ -136,22 +141,21 @@ const Mall = ({ toggleModal }) => {
         filterConditionList.countries.push(ele);
       }
     }
-
     setList(list.concat(Object.values(filterConditionList)).flat());
   };
 
   const handleInputValue = (e) => {
-    let key = e.target.name;
-    if (key === 'sweetness') {
-      filterConditionList[key][0] = 'sweetness' + e.target.value;
-    } else if (key === 'acidity') {
-      filterConditionList[key][0] = 'acidity' + e.target.value;
-    } else if (key === 'body') {
-      filterConditionList[key][0] = 'body' + e.target.value;
-    } else if (key === 'tannic') {
-      filterConditionList[key][0] = 'tannic' + e.target.value;
+    let keyType = e.target.name;
+    if (keyType === 'sweetness') {
+      filterConditionList[keyType][0] = 'sweetness' + e.target.value;
+    } else if (keyType === 'acidity') {
+      filterConditionList[keyType][0] = 'acidity' + e.target.value;
+    } else if (keyType === 'body') {
+      filterConditionList[keyType][0] = 'body' + e.target.value;
+    } else if (keyType === 'tannic') {
+      filterConditionList[keyType][0] = 'tannic' + e.target.value;
     } else {
-      filterConditionList[key][0] = e.target.value;
+      filterConditionList[keyType][0] = e.target.value;
     }
   };
 
@@ -182,30 +186,10 @@ const Mall = ({ toggleModal }) => {
       });
   };
 
-  const getIcon = (a) => {
-    console.log('???', a);
-    return a;
-  };
-
   useEffect(() => {
     getArticlesPage();
     getArticles();
   }, [page]);
-  // const test = () => {
-  //   let token = localStorage.getItem('winefind');
-
-  //   axios
-  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       console.log('what comes res:', res);
-  //       console.log('logined');
-  //     })
-  //     .catch((e) => {
-  //       console.log('not Logined');
-  //     });
-  // };
 
   return (
     <div className={styles.mall_container}>
@@ -222,6 +206,7 @@ const Mall = ({ toggleModal }) => {
               className={styles.search_bar}
               placeholder='Find Your Wine!'
               type='search'
+              onChange={handleSearchText}
             />
             <img
               style={{
@@ -230,6 +215,7 @@ const Mall = ({ toggleModal }) => {
                 position: 'relative',
                 right: '50px',
               }}
+              onClick={getArticlesPage}
               src='images/search.png'
             />
             <div>
@@ -301,6 +287,7 @@ const Mall = ({ toggleModal }) => {
               </div>
             </div>
             <div className={styles.filter_container}>
+              {console.log('this is filter list,', [...new Set(list)])}
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
                     <FilterList ele={ele} key={index} eraseThis={eraseThis} />
