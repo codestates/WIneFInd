@@ -3,7 +3,6 @@ package Apoint.WIneFInd.Wine.Controller;
 import Apoint.WIneFInd.Wine.Domain.WineDTO;
 import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
-import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,14 +12,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class WineController {
 
-    private WineRepository wineRepository;
     private final WineService wineService;
 
     @Autowired

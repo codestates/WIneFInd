@@ -11,7 +11,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    public Article Save(ArticleDTO articleDTO);
+    public Article Save(ArticleDTO articleDTO, Long id);
 
     public List<Article> FindByAll();
 

@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Kakao.Controller;
 
 
+import Apoint.WIneFInd.Kakao.Domain.KaKaoPayDTO;
 import Apoint.WIneFInd.Kakao.Service.KakaoService;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Service.MemberService;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class KakaoController {
 
     private final KakaoService kakaoService;
@@ -64,9 +65,9 @@ public class KakaoController {
     }
 
     @GetMapping("kakao/pay")
-    public String KakaoPay() {
+    public String KakaoPay(@RequestParam KaKaoPayDTO kaKaoPayDTO) {
 
-        String kaKaoPay = kakaoService.KaKaoPay();
+        String kaKaoPay = kakaoService.KaKaoPay(kaKaoPayDTO);
 
         return "PC 링크!"+ kaKaoPay;
     }

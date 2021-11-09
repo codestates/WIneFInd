@@ -235,18 +235,18 @@ public class KakaoServiceImpl implements KakaoService {
     }
 
     @Override
-    public String KaKaoPay() {
+    public String KaKaoPay(KaKaoPayDTO kaKaoPayDTO) {
 
         String reqUrl = "https://kapi.kakao.com/v1/payment/ready";
 
         kaKaoPay = KaKaoPay.builder()
                 .cid("TC0ONETIME")
-                .partner_order_id("1001")
-                .partner_user_id("stella")
-                .item_name("맥북 M1 최신형을 단돈100원에! 사기 아닙니다!")
-                .quantity("10")
-                .total_amount("100")
-                .tax_free_amount("0")
+                .partner_order_id(kaKaoPayDTO.getOrderId())
+                .partner_user_id(kaKaoPayDTO.getUserId())
+                .item_name(kaKaoPayDTO.getItemName())
+                .quantity(kaKaoPayDTO.getQuantity())
+                .total_amount(kaKaoPayDTO.getTotalAmount())
+                .tax_free_amount(kaKaoPayDTO.getTax())
                 .approval_url("https://localhost:4000/kakao/success")
                 .cancel_url("https://localhost:4000/kakao/cancel")
                 .fail_url("https://localhost:4000/kakao/fail")

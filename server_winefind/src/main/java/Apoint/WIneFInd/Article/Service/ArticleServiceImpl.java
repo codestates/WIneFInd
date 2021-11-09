@@ -38,14 +38,14 @@ public class ArticleServiceImpl implements ArticleService {
     // 게시글 생성
     @Override
     @Transactional
-    public Article Save(ArticleDTO articleDTO) {
+    public Article Save(ArticleDTO articleDTO, Long id) {
 
         // 같은 게시물의 제목 중복 체크
         validateTitle(articleDTO.getTitle());
 
         // articleDTO 에서 입력받은 값으로 유저정보와 와인정보를 가져오기
         User user = memberService.FindById(articleDTO.getUserId());
-        Wine wine = wineService.FindById(articleDTO.getWineId());
+        Wine wine = wineService.FindById(id);
 
         // 중복체크를 통과하면 게시글 저장
         Article article = Article.builder()
