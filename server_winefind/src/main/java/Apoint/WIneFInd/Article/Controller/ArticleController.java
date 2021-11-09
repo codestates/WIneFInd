@@ -84,28 +84,30 @@ public class ArticleController {
 
     // 게시글 전체 조회 페이지와 페이징 처리 페이지를 구분하기 위해서 API를 나누어서 사용
     // Page를 1번부터 설정으로 해도 안되서... 추후에 좀더 고민해보는걸로 일단은 나눠놓기
-    @GetMapping("article/filter")
+    @PostMapping("article/filter")
     public Page<Article> FindFilteringArticle(@PageableDefault(size = 5) Pageable pageable,
-//                                              @RequestBody ArticleFilterDTO articleFilterDTO
-                                              @RequestParam(required = false) List<String> typesList,
-                                              @RequestParam(required = false) List<String> countriesList,
-                                              @RequestParam(required = false) List<String> sweetnessList,
-                                              @RequestParam(required = false) List<String> acidityList,
-                                              @RequestParam(required = false) List<String> bodyList,
-                                              @RequestParam(required = false) List<String> priceList) {
+                                              @RequestBody ArticleFilterDTO articleFilterDTO
+//                                              @RequestParam(required = false) List<String> typesList,
+//                                              @RequestParam(required = false) List<String> countriesList,
+//                                              @RequestParam(required = false) List<String> sweetnessList,
+//                                              @RequestParam(required = false) List<String> acidityList,
+//                                              @RequestParam(required = false) List<String> bodyList,
+//                                              @RequestParam(required = false) List<String> priceList
+                                              ) {
 
+//
+//        ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
+//                .typesList(typesList)
+//                .countriesList(countriesList)
+//                .sweetnessList(sweetnessList)
+//                .acidityList(acidityList)
+//                .bodyList(bodyList)
+//                .priceList(priceList)
+//                .build();
 
-        ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
-                .typesList(typesList)
-                .countriesList(countriesList)
-                .sweetnessList(sweetnessList)
-                .acidityList(acidityList)
-                .bodyList(bodyList)
-                .priceList(priceList)
-                .build();
-
-        System.out.println("articleFilterDTO 들어왔니? " + articleFilterDTO.toString());
-        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().toString());
+//        System.out.println("articleFilterDTO 들어왔니? " + articleFilterDTO.toString());
+//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().toString());
+//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().get(0).toString());
 
         Page<Article> articles = articleService.FindByArticleFiltering(articleFilterDTO, pageable);
 
