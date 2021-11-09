@@ -1,12 +1,14 @@
 package Apoint.WIneFInd.Article.Service;
 
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
+import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Repository.ArticleRepository;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import Apoint.WIneFInd.Member.Service.MemberService;
 import Apoint.WIneFInd.Member.Service.MemberServiceImpl;
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
@@ -136,5 +138,13 @@ public class ArticleServiceImpl implements ArticleService {
         } catch (EmptyResultDataAccessException e) {
             return "와인을 삭제하시려면 " + id + " 를 제외한 'Id' 를 다시 입력해 주세요 " + e;
         }
+    }
+
+
+    @Override
+    @Transactional(readOnly = true)
+    public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable) {
+
+        return articleRepository.FindByArticleFiltering(articleFilterDTO, pageable);
     }
 }

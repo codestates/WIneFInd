@@ -29,6 +29,7 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
 
         System.out.println(wineFilterDTO.getCountriesList());
 
+
         List<Wine> result = queryFactory.selectFrom(QWine.wine)
                 .where(whereType(wineFilterDTO))
                 .where(whereCountry(wineFilterDTO))
@@ -41,6 +42,7 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
         return result;
 
     }
+
 
     private Predicate whereType(WineFilterDTO wineFilterDTO) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();

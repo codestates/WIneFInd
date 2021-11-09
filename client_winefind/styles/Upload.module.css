@@ -86,7 +86,7 @@
   flex-direction: column;
   margin: 20px;
   padding: 40px;
-  border-radius: 20px;
+  border-radius: 3px;
   border: #cda581 1px solid;
 }
 .cards {
@@ -110,7 +110,6 @@
 
 .card_height {
   max-width: 320px;
-  max-height: 470px;
 }
 
 .tasteStructure {
@@ -161,6 +160,21 @@
   width: auto;
   max-width: 300px;
   margin-bottom: 10px;
+}
+.img_box {
+  /* width: 300px; */
+  min-height: 300px;
+  max-height: 800px;
+  /* border: 2px goldenrod solid; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+  padding: 20px;
+  background-size: 100% auto;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-origin: content-box;
 }
 
 /* //////////////////////////////// */

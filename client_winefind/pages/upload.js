@@ -183,6 +183,8 @@ const Upload = () => {
                   style={{ width: '200px' }}
                   type='number'
                   defaultValue='2020'
+                  max='2020'
+                  min='1600'
                   placeholder='Type vintage'
                 />
                 <br />
@@ -192,6 +194,7 @@ const Upload = () => {
                   style={{ width: '200px' }}
                   type='number'
                   defaultValue='0'
+                  step='5000'
                   placeholder='Type price'
                 />
                 <br />
@@ -205,17 +208,33 @@ const Upload = () => {
               </div>
               <div className={styles.board_image}>
                 <Card className={styles.card_height}>
-                  <img src={createObjectURL} className={styles.keepimg} />
-                  <div>
-                    Upload Wine Image!
-                    <input type='file' onChange={uploadToClient} />
+                  <div
+                    className={styles.img_box}
+                    style={{ backgroundImage: `url(${createObjectURL})` }}
+                  >
+                    {createObjectURL ? '' : 'Upload Wine Image!'}
+                  </div>
+                  {/* <img src={createObjectURL} className={styles.keepimg} /> */}
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      margin: '10px',
+                    }}
+                  >
+                    <input
+                      style={{ width: '200px' }}
+                      type='file'
+                      onChange={uploadToClient}
+                    />
                   </div>
                   <Card.Content>
                     <Card.Header className={styles.card_head}>
                       Describe taste of the Wine!
                     </Card.Header>
-
-                    <Card.Description>{taste}</Card.Description>
+                    {taste}
                   </Card.Content>
                 </Card>
               </div>
