@@ -49,7 +49,7 @@ public class MemberServiceImpl implements MemberService {
                 .email(signUpDTO.getEmail())
                 .password(signUpDTO.getPassword())
                 .username(signUpDTO.getUsername())
-                .image(signUpDTO.getImage())
+                .image("https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/default_img.png")
                 .role(RoleType.USER)
                 .createdAt(now)
                 .updatedAt(now)
@@ -129,7 +129,7 @@ public class MemberServiceImpl implements MemberService {
         updateUser.setEmail(signUpDTO.getEmail());
         updateUser.setPassword(signUpDTO.getPassword());
         updateUser.setUsername(signUpDTO.getUsername());
-        updateUser.setImage(updateUser.getImage());
+        updateUser.setImage(signUpDTO.getImage());
         updateUser.setUpdatedAt(now);
 
         // "User" 저장

@@ -140,6 +140,7 @@ public class MemberController {
                     put("id", getUser.getId());
                     put("email", getUser.getEmail());
                     put("username", getUser.getUsername());
+                    put("image", getUser.getImage());
                 }});
                 if (getUser.getRole().equals("KAKAO")) {
                     put("message", "카카오 유저로 로그인 중입니다.");
