@@ -71,7 +71,7 @@
 }
 .heart_image {
   position: relative;
-  top: -10px;
+  top: -50px;
   width: 50px;
   height: 50px;
   cursor: pointer;
@@ -213,6 +213,16 @@
   .heart_image {
     right: 300px;
     top: 70px;
+  }
+}
+@media only screen and (max-width: 1411px) {
+  .image_and_taste {
+    width: 100%;
+    align-items: center;
+  }
+  .board_content {
+    width: 100%;
+    border-top: 1px solid lightgray;
   }
 }
 .buttons {

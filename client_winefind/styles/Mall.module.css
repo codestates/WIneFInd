@@ -5,6 +5,16 @@
   flex-direction: column;
   /* border: 2px green solid; */
 }
+.main_box {
+  display: flex;
+  /* min-width: 700px; */
+  width: 100%;
+  padding: 10px;
+  margin: 0 8rem;
+  background: white;
+  /* background: transparent;  */
+  /* opacity: 0.9; */
+}
 .searchAndWineList_box {
   display: flex;
   flex-direction: column;
@@ -41,16 +51,6 @@
   width: 50px;
 }
 
-.main_box {
-  display: flex;
-  /* min-width: 700px; */
-  width: 100%;
-  padding: 10px;
-  margin: 0 8rem;
-  background: white;
-  /* background: transparent;  */
-  /* opacity: 0.9; */
-}
 .uploadButton {
   background-color: red;
 }
