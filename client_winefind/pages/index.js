@@ -1,21 +1,18 @@
 import styles from '../styles/Home.module.css';
 import CardCompo from '../components/Landing/CardCompo';
-import IntroAni from '../components/Landing/IntroAni';
-import IndexTest from '../components/Landing/IndexTest';
-import { useEffect } from 'react';
+import Introduction from '../components/Landing/Introduction';
+import IndexInfo from '../components/Landing/IndexInfo';
+import IndexInfoTwo from '../components/Landing/IndexInfoTwo';
+import IndexInfoThree from '../components/Landing/IndexInfoThree';
 
 const Home = () => {
-  const goToTop = () => {
-    window.scrollTo(0, 80);
-  };
-  useEffect(() => {
-    goToTop();
-  }, []);
-
   return (
     // 사이트 소개 섹션
     <div className={styles.container}>
-      <IntroAni />
+      <div className={styles.intro_con}>
+        <Introduction />
+      </div>
+
       <div className={styles.learn_container}>
         {/* 가장 많이 검색 되는 와인들 섹션 */}
         <div className={styles.learn_head}>
@@ -23,9 +20,18 @@ const Home = () => {
         </div>
         <CardCompo />
       </div>
-      {/* 와인 취향 테스트 받으로 가기 섹션 */}
+      {/* 와인 취향 테스트 설명 섹션 */}
       <div className={styles.testing_container}>
-        <IndexTest />
+        <div className={styles.info_title}>추천 방식</div>
+        <IndexInfo />
+      </div>
+      <div className={styles.testing_container}>
+        <div className={styles.info_title}>와인 몰은 이렇게</div>
+        <IndexInfoTwo />
+      </div>
+      <div className={styles.testing_container}>
+        <div className={styles.info_title}>우리 사이트 소개</div>
+        <IndexInfoThree />
       </div>
     </div>
   );
