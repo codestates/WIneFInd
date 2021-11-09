@@ -52,7 +52,7 @@ const CardCompo = () => {
           loop={true}
           navigation
           autoplay={{
-            delay: 100000,
+            delay: 3000,
             disableOnInteraction: false,
           }}
           pagination={{ color: 'white', clickable: true }}
@@ -75,7 +75,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[0].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[0].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[0].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -83,7 +83,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -97,7 +96,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[1].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[1].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[1].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -105,7 +104,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -119,7 +117,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[2].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[2].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[2].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -127,7 +125,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -141,7 +138,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[3].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[3].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[3].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -149,7 +146,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -163,7 +159,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[4].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[4].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[4].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -171,7 +167,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -185,7 +180,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[5].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[5].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[5].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -193,7 +188,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -207,7 +201,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[6].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[6].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[6].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -215,7 +209,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -229,7 +222,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[7].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[7].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[7].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -237,7 +230,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -251,7 +243,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[8].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[8].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[8].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -259,7 +251,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -273,7 +264,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[9].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[9].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[9].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -281,7 +272,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
 
@@ -295,7 +285,7 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[10].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='logo text'>{articles[10].wine.wineName}</h2>
+                <h2 className='text_color'>{articles[10].wine.wineName}</h2>
               </div>
               <div
                 style={{
@@ -303,7 +293,6 @@ const CardCompo = () => {
                 }}
                 className={styles.image_height}
               ></div>
-              <img className={styles.bord} src='/images/border.png' />
             </div>
           </SwiperSlide>
         </Swiper>
