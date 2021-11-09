@@ -1,8 +1,10 @@
 package Apoint.WIneFInd.Article.Controller;
 
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
+import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Service.ArticleService;
+import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +84,36 @@ public class ArticleController {
 
     // 게시글 전체 조회 페이지와 페이징 처리 페이지를 구분하기 위해서 API를 나누어서 사용
     // Page를 1번부터 설정으로 해도 안되서... 추후에 좀더 고민해보는걸로 일단은 나눠놓기
+    @PostMapping("article/filter")
+    public Page<Article> FindFilteringArticle(@PageableDefault(size = 5) Pageable pageable,
+                                              @RequestBody ArticleFilterDTO articleFilterDTO
+//                                              @RequestParam(required = false) List<String> typesList,
+//                                              @RequestParam(required = false) List<String> countriesList,
+//                                              @RequestParam(required = false) List<String> sweetnessList,
+//                                              @RequestParam(required = false) List<String> acidityList,
+//                                              @RequestParam(required = false) List<String> bodyList,
+//                                              @RequestParam(required = false) List<String> priceList
+                                              ) {
+
+//
+//        ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
+//                .typesList(typesList)
+//                .countriesList(countriesList)
+//                .sweetnessList(sweetnessList)
+//                .acidityList(acidityList)
+//                .bodyList(bodyList)
+//                .priceList(priceList)
+//                .build();
+
+//        System.out.println("articleFilterDTO 들어왔니? " + articleFilterDTO.toString());
+//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().toString());
+//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().get(0).toString());
+
+        Page<Article> articles = articleService.FindByArticleFiltering(articleFilterDTO, pageable);
+
+        return articles;
+    }
+
     @GetMapping("articles")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
         // Id가 null 이 아니면 해당 Id에 해당하는 Article 로 이동
@@ -94,6 +126,7 @@ public class ArticleController {
             return ResponseEntity.ok().body(articles);
         }
     }
+
 
     // 게시글 수정 하기
     @PutMapping("article/{id}")

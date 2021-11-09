@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Wine.Service;
 
+import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Wine.Domain.WineDTO;
 import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
@@ -20,5 +21,6 @@ public interface WineService {
     public String Delete(Long id);
 
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO);
-}
+
+    }
 
