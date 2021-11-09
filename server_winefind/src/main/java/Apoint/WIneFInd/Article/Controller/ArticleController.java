@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class ArticleController {
 
     // 게시글 페이징으로 조회 하기
     @GetMapping("article")
-    public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5) Pageable pageable,
+    public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                                              @RequestParam(required = false) Long id,
                                              @RequestParam(required = false, defaultValue = "") String text) {
         try {
@@ -92,7 +93,7 @@ public class ArticleController {
 //                                              @RequestParam(required = false) List<String> acidityList,
 //                                              @RequestParam(required = false) List<String> bodyList,
 //                                              @RequestParam(required = false) List<String> priceList
-                                              ) {
+    ) {
 
 //
 //        ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
