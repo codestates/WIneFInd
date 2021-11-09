@@ -118,23 +118,37 @@ const Shoppinglist = () => {
     <div className={styles.mall_container}>
       <Sidebar />
       {/* 장바구니에 아이템들을 보기 */}
-      <div horizontal='true' className={styles.main_box}>
+      <div className={styles.main_box}>
         <div className={styles.mall_content_box}>
-          <div className={classNames(styles.text_big)}>장바구니</div>
-          <input
-            type='checkbox'
-            checked={checkedItems.length === cartItems.length ? true : false}
-            onChange={(e) => handleAllCheck(e.target.checked)}
-          ></input>
-          <label>전체선택</label>
-          <button onClick={() => handleDelete()}>전체삭제</button>
+          <div className={styles.text_and_allcheck}>
+            <div className={classNames(styles.text_big, 'text_eng')}>
+              My Cart
+            </div>
+
+            <div>
+              <input
+                type='checkbox'
+                checked={
+                  checkedItems.length === cartItems.length ? true : false
+                }
+                onChange={(e) => handleAllCheck(e.target.checked)}
+              ></input>
+              <label>&nbsp;&nbsp;전체선택</label>
+            </div>
+          </div>
 
           {!cartItems.length ? (
-            <div id='item-list-text' className={styles.no_cartItems}>
+            <div className={styles.no_cartItems}>
               장바구니에 아이템이 없습니다.
             </div>
           ) : (
-            <div id='cart-item-list'>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: '95%',
+              }}
+            >
               {cartItems.map((item, idx) => {
                 return (
                   <ArticleCart
@@ -146,9 +160,30 @@ const Shoppinglist = () => {
                   />
                 );
               })}
+              <button
+                style={{
+                  display: 'flex',
+                  alignSelf: 'flex-end',
+                  margin: '20px 50px',
+                  border: 0,
+                  outline: 0,
+                  backgroundColor: 'white',
+                  alignItems: 'center',
+                }}
+                onClick={() => handleDelete()}
+              >
+                전체 삭제&nbsp;&nbsp;
+                <img
+                  src='images/bin.png'
+                  style={{
+                    width: '20px',
+                  }}
+                />
+              </button>
             </div>
           )}
         </div>
+
         {/* 총합 아이템들 보여주기 */}
         <div className={styles.filter_box}>
           <div className={styles.filter_content}>
@@ -158,9 +193,10 @@ const Shoppinglist = () => {
                   <OrderTotal
                     total={() => getTotalPrice()}
                     totalQty={checkedItems.length}
+                    checkedItems={checkedItems}
                   />
                 ) : (
-                  <div style={{ fontFamily: 'Playfair Display, serif' }}>
+                  <div className={classNames('text_eng', styles.bill_cart)}>
                     Cart is Empty
                   </div>
                 )}
