@@ -11,7 +11,6 @@ import java.util.List;
 public class ArticleDTO {
 
     private Long userId;
-    private Long wineId;
     private String title;
     private String content;
     private List<WineDTO> wines;

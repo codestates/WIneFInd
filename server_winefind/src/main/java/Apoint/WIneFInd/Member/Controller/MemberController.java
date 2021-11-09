@@ -19,8 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 @RestController
+//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class MemberController {
 
     private final MemberService memberService;

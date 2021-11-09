@@ -24,18 +24,13 @@ public class WineServiceImpl implements WineService {
         this.wineRepository = wineRepository;
     }
 
+
     // 와인 정보 생성
     @Override
     @Transactional
     public Wine Save(WineDTO wineDTO) {
 
-        // 입력받은 와인 정보에 따라 와인 생성
-        Wine createWine = getCreateWine(wineDTO);
-
-        return wineRepository.save(createWine);
-    }
-
-    private Wine getCreateWine(WineDTO wineDTO) {
+        // 입력받은 WineDTO 에 따라 와인 생성
         Wine createWine = Wine.builder()
                 .wineName(wineDTO.getWineName())
                 .type(wineDTO.getType())
@@ -50,7 +45,8 @@ public class WineServiceImpl implements WineService {
                 .content(wineDTO.getContent())
                 .price(wineDTO.getPrice())
                 .build();
-        return createWine;
+
+        return wineRepository.save(createWine);
     }
 
 
@@ -111,10 +107,10 @@ public class WineServiceImpl implements WineService {
     }
 
     // 와인 정보 삭제
-    @Override
-    // 흠... no... for... 다해봤는데 왜 try catch로 안가지... 음...
+    // 흠... Transaction 옵션을 no... for... 다해봤는데 왜 try catch 로 안가지... 음...
     // 예외가 발생하면 아무것도 실행 안하고 그냥 롤백 하나? 에러 지정 못하나?
     // 내가 졌다... 아무것도 안되네 ㅁㅇㄹㅁㅇㄴㄹ
+    @Override
     @Transactional(noRollbackFor = EmptyResultDataAccessException.class)
     public String Delete(Long id) {
 
@@ -126,8 +122,9 @@ public class WineServiceImpl implements WineService {
         }
     }
 
+    // 와인 동적 필터링 구현
     @Override
-    @Transactional
+    @Transactional(readOnly = true)
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
 
         return wineRepository.FindByWineFiltering(wineFilterDTO);

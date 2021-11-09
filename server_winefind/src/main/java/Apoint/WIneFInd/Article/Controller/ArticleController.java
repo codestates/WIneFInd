@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -39,10 +39,9 @@ public class ArticleController {
 
         try {
             // 게시글 판매 글에서 와인 생성도 같이 할 수 있게 articleDTO 에 게시글 정보 담기
-            Wine createWine = wineService.Save(articleDTO.getWines().get(0));
-            Article createArticle = articleService.Save(articleDTO);
+            Long wineId = wineService.Save(articleDTO.getWines().get(0)).getId();
+            Article createArticle = articleService.Save(articleDTO, wineId);
             return ResponseEntity.ok().body(new HashMap<>() {{
-                put("wineInfo", createWine);
                 put("articleInfo", createArticle);
             }});
         } catch (IllegalArgumentException e) {

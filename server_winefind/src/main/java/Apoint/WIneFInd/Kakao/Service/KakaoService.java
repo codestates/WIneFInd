@@ -2,6 +2,7 @@ package Apoint.WIneFInd.Kakao.Service;
 
 
 
+import Apoint.WIneFInd.Kakao.Domain.KaKaoPayDTO;
 import Apoint.WIneFInd.Member.Model.User;
 
 import java.util.HashMap;
@@ -16,7 +17,7 @@ public interface KakaoService {
 
     public String getLogout();
 
-    public String KaKaoPay();
+    public String KaKaoPay(KaKaoPayDTO kaKaoPayDTO);
 
     public String KakaoaAprove(String pg_token);
 }

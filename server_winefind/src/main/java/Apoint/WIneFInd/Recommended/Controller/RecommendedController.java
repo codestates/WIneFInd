@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class RecommendedController {
 
     private final RecommendedService recommendedService;
