@@ -7,6 +7,7 @@ import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,22 +32,28 @@ public class WineServiceImpl implements WineService {
     public Wine Save(WineDTO wineDTO) {
 
         // 입력받은 WineDTO 에 따라 와인 생성
-        Wine createWine = Wine.builder()
-                .wineName(wineDTO.getWineName())
-                .type(wineDTO.getType())
-                .country(wineDTO.getCountry())
-                .grape(wineDTO.getGrape())
-                .vintage(wineDTO.getVintage())
-                .sweet(wineDTO.getSweet())
-                .acidity(wineDTO.getAcidity())
-                .body(wineDTO.getBody())
-                .tannic(wineDTO.getTannic())
-                .image(wineDTO.getImage())
-                .content(wineDTO.getContent())
-                .price(wineDTO.getPrice())
-                .build();
+        try {
+            Wine createWine = Wine.builder()
+                    .wineName(wineDTO.getWineName())
+                    .type(wineDTO.getType())
+                    .country(wineDTO.getCountry())
+                    .grape(wineDTO.getGrape())
+                    .vintage(wineDTO.getVintage())
+                    .sweet(wineDTO.getSweet())
+                    .acidity(wineDTO.getAcidity())
+                    .body(wineDTO.getBody())
+                    .tannic(wineDTO.getTannic())
+                    .image(wineDTO.getImage())
+                    .content(wineDTO.getContent())
+                    .price(wineDTO.getPrice())
+                    .build();
 
-        return wineRepository.save(createWine);
+            return wineRepository.save(createWine);
+
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("'WineDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
+        }
+
     }
 
 
@@ -127,7 +134,11 @@ public class WineServiceImpl implements WineService {
     @Transactional(readOnly = true)
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
 
-        return wineRepository.FindByWineFiltering(wineFilterDTO);
+        try {
+            return wineRepository.FindByWineFiltering(wineFilterDTO);
+        } catch (NullPointerException e) {
+            throw new NullPointerException("필터링을 수행한 결과 아무값도 '조회’ 할 수 없습니다. \n" + e);
+        }
     }
 
 
