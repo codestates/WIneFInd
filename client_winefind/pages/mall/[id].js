@@ -268,14 +268,15 @@ const Details = ({ toggleModal }) => {
                 <div>&nbsp;{article ? article.wine.content : ''}</div>
               </div>
               <div className={styles.article_box}>
+                {console.log('mydata', article ? article.user.image : '')}
                 <div
                   style={{
-                    background: `url(${article ? article.user.image : ''})`,
+                    backgroundImage: `url(${
+                      article ? article.user.image : ''
+                    })`,
                   }}
                   className={styles.user_image}
-                >
-                  img
-                </div>
+                ></div>
                 <div>
                   <div className={styles.article_title}>
                     {article ? article.title : ''}

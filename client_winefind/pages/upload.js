@@ -1,21 +1,155 @@
 import styles from '../styles/Upload.module.css';
 import { Card, Dropdown, Input, Button } from 'semantic-ui-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import AWS from 'aws-sdk';
+import axios from 'axios';
 
 const Upload = () => {
+  const [userInfo, setUserInfo] = useState(null);
+  const [values, setValues] = useState({
+    userId: '',
+    title: '',
+    content: '',
+    //밑에는 와인정보
+    wineName: '',
+    type: '',
+    country: '',
+    grape: '',
+    vintage: '2020',
+    sweet: '2',
+    acidity: '2',
+    body: '2',
+    tannic: '2',
+    image: '',
+    wineContent: '',
+    price: '',
+  });
+
+  const getUserInfo = () => {
+    let token = localStorage.getItem('winefind');
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('res:', res.data);
+        setUserInfo(res.data.userInfo);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
+
+  const handleChange = (prop) => (event) => {
+    if (prop === 'country' || prop === 'type') {
+      setValues({ ...values, [prop]: event.target.textContent });
+    } else {
+      setValues({ ...values, [prop]: event.target.value });
+    }
+    console.log('test======', values);
+  };
+
+  AWS.config.update({
+    region: 'ap-northeast-2', // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
+    credentials: new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: 'ap-northeast-2:2c0786f6-5e2d-4f84-a3bc-9bd78b8fd55e', // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
+    }),
+  });
+
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
-  const uploadToClient = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-      setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
+  const handleFileInput = (e) => {
+    const file = e.target.files[0];
+    console.log('filename???,', file.name);
+    if (e.target.files && e.target.files[0]) {
+      setImage(file);
+      setCreateObjectURL(URL.createObjectURL(file));
+    }
+
+    const upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: 'mywinefindimagebucket',
+        Key: userInfo.id + '-wine-' + file.name,
+        Body: file,
+      },
+    });
+    // 서버한테 이미지 주소를 보내주면 끝
+
+    const promise = upload.promise();
+
+    promise.then(
+      function (data) {
+        alert('이미지 업로드에 성공했습니다.');
+      },
+      function (err) {
+        return alert('오류가 발생했습니다: ', err.message);
+      }
+    );
+  };
+
+  const uploadArticle = () => {
+    if (image == undefined) {
+      console.log('no image');
+    } else {
+      let url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
+        userInfo.id + '-wine-' + image.name
+      }`;
+
+      if (
+        values.title !== '' &&
+        values.content !== '' &&
+        values.wineName !== '' &&
+        values.type !== '' &&
+        values.country !== '' &&
+        values.grape !== '' &&
+        values.wineContent !== '' &&
+        values.price !== ''
+      ) {
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_API_URL}/article`,
+            {
+              userId: '',
+              title: '',
+              content: '',
+              wines: [
+                {
+                  wineName: values.wineName,
+                  type: values.type,
+                  country: values.country,
+                  grape: values.grape,
+                  vintage: values.vintage,
+                  sweet: values.sweet,
+                  acidity: values.acidity,
+                  body: values.body,
+                  tannic: values.tannic,
+                  image: url,
+                  content: values.country,
+                  price: values.price,
+                },
+              ],
+            },
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log('정보 수정이 완료되었습니다.');
+          })
+          .catch((e) => {
+            console.log('회원정보수정 실패!', e);
+          });
+      } else {
+        console.log('빈칸이 있습니다');
+      }
     }
   };
-  const uploadArticle = () => {
-    console.log('axios post to server');
-  };
+
   const typeOptions = [
     {
       key: 'red',
@@ -66,6 +200,7 @@ const Upload = () => {
                 step='1'
                 type='range'
                 className={styles.taste_bar}
+                onChange={handleChange('body')}
               />
             </div>
           </td>
@@ -86,6 +221,7 @@ const Upload = () => {
                 step='1'
                 type='range'
                 className={styles.taste_bar}
+                onChange={handleChange('Tannic')}
               />
             </div>
           </td>
@@ -106,6 +242,7 @@ const Upload = () => {
                 step='1'
                 type='range'
                 className={styles.taste_bar}
+                onChange={handleChange('sweet')}
               />
             </div>
           </td>
@@ -126,6 +263,7 @@ const Upload = () => {
                 step='1'
                 type='range'
                 className={styles.taste_bar}
+                onChange={handleChange('acidity')}
               />
             </div>
           </td>
@@ -153,6 +291,7 @@ const Upload = () => {
                   style={{ width: '400px', color: 'black' }}
                   type='text'
                   placeholder='Type wine name'
+                  onChange={handleChange('wineName')}
                 />
                 <br />
                 <br />
@@ -160,6 +299,7 @@ const Upload = () => {
                 <Dropdown
                   style={{ width: '200px' }}
                   placeholder='Select Type'
+                  onChange={handleChange('type')}
                   fluid
                   selection
                   options={typeOptions}
@@ -169,19 +309,25 @@ const Upload = () => {
                 <Dropdown
                   style={{ width: '400px' }}
                   placeholder='Select Country'
+                  onChange={handleChange('country')}
                   fluid
                   selection
                   options={countryOptions}
                 />
                 <br />
                 <div>Grape</div>
-                <Input style={{ width: '200px' }} placeholder='Type Grape' />
+                <Input
+                  style={{ width: '200px' }}
+                  placeholder='Type Grape'
+                  onChange={handleChange('grape')}
+                />
                 <br />
                 <br />
                 <div>Vintage</div>
                 <Input
                   style={{ width: '200px' }}
                   type='number'
+                  onChange={handleChange('vintage')}
                   defaultValue='2020'
                   max='2020'
                   min='1600'
@@ -193,6 +339,7 @@ const Upload = () => {
                 <Input
                   style={{ width: '200px' }}
                   type='number'
+                  onChange={handleChange('price')}
                   defaultValue='0'
                   step='5000'
                   placeholder='Type price'
@@ -204,6 +351,7 @@ const Upload = () => {
                   style={{ width: '400px' }}
                   className={styles.textarea_wine}
                   placeholder='Comment about your wine'
+                  onChange={handleChange('wineContent')}
                 ></textarea>
               </div>
               <div className={styles.board_image}>
@@ -227,7 +375,7 @@ const Upload = () => {
                     <input
                       style={{ width: '200px' }}
                       type='file'
-                      onChange={uploadToClient}
+                      onChange={handleFileInput}
                     />
                   </div>
                   <Card.Content>
@@ -246,10 +394,12 @@ const Upload = () => {
                 type='text'
                 style={{ width: '300px' }}
                 placeholder='Title here!'
+                onChange={handleChange('title')}
               />
               <textarea
                 className={styles.textarea}
                 placeholder='Comment about your wine'
+                onChange={handleChange('content')}
               ></textarea>
             </div>
 
