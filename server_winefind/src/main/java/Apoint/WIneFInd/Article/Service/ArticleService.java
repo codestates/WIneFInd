@@ -25,6 +25,8 @@ public interface ArticleService {
 
     public String Delete(Long id);
 
+    Page<Article> FindByTotalSearch(String text, Pageable pageable);
+
     public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable);
 
 }

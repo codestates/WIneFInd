@@ -89,7 +89,7 @@ public class KakaoServiceImpl implements KakaoService {
                 .username(username)
                 .role(RoleType.KAKAO)
                 .password("0000")
-                .image("default Image")
+                .image("https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/default_img.png")
                 .createdAt(now)
                 .updatedAt(now)
                 .build();

@@ -22,10 +22,31 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
 
 
     @Override
-    public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable){
+    public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
+
+        List<Article> articleSearch = queryFactory.selectFrom(article)
+                .where(article.title.contains(text)
+                        .or(article.content.contains(text))
+                        .or(article.wine.wineName.contains(text))
+                        .or(article.wine.country.contains(text))
+                        .or(article.wine.type.contains(text)))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        int start = (int) pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > articleSearch.size() ? articleSearch.size() : (start + pageable.getPageSize());
+
+        return new PageImpl<>(articleSearch.subList(start, end), pageable, articleSearch.size());
+    }
+
+
+    // 카테고리 필터
+    @Override
+    public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable) {
         System.out.println(articleFilterDTO.getCountriesList());
 
-        List<Article> result = queryFactory.selectFrom(article)
+        List<Article> articleFilter = queryFactory.selectFrom(article)
                 .where(whereType(articleFilterDTO))
                 .where(whereCountry(articleFilterDTO))
                 .where(whereSweet(articleFilterDTO))
@@ -37,9 +58,9 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .fetch();
 
         int start = (int) pageable.getOffset();
-        int end = (start + pageable.getPageSize()) > result.size() ? result.size() : (start + pageable.getPageSize());
+        int end = (start + pageable.getPageSize()) > articleFilter.size() ? articleFilter.size() : (start + pageable.getPageSize());
 
-        return new PageImpl<>(result.subList(start,end),pageable, result.size());
+        return new PageImpl<>(articleFilter.subList(start, end), pageable, articleFilter.size());
     }
 
 
@@ -73,6 +94,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         }
         return booleanBuilder;
     }
+
     private Predicate whereAcidity(ArticleFilterDTO articleFilterDTO) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!articleFilterDTO.getAcidityList().isEmpty()) {
@@ -82,6 +104,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         }
         return booleanBuilder;
     }
+
     private Predicate whereBody(ArticleFilterDTO articleFilterDTO) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!articleFilterDTO.getBodyList().isEmpty()) {

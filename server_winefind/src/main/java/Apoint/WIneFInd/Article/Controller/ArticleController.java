@@ -65,9 +65,8 @@ public class ArticleController {
                     put("articleInfo", article);
                 }});
             }
-
             // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
-            Page<Article> articles = articleService.FindByTitleContainingOrContentContaining(text, text, pageable);
+            Page<Article> articles = articleService.FindByTotalSearch(text, pageable);
 
             // 게시글 리턴
             return ResponseEntity.ok().body(new HashMap<>() {{
