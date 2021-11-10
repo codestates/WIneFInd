@@ -109,9 +109,12 @@
 .nav_btn {
   font-size: 1rem;
   margin: 1.5rem;
+  padding-bottom: 3px;
+  border-bottom: 1px solid transparent;
+  transition: 0.3s;
 }
 .nav_btn:hover {
-  /* color: #cda581; */
+  border-bottom: 1px solid #cda581;
   cursor: pointer;
   background: linear-gradient(
     to bottom,

@@ -23,11 +23,11 @@ export default function Sidebar() {
           <Icon name='user' />내 정보
         </Menu.Item>
       </Link>
-      {/* 회원 탈퇴하러 가기 */}
-      <Link href='/resign'>
+      {/* 문의하기 */}
+      <Link href='/inquiry'>
         <Menu.Item>
-          <Icon name='user cancel' />
-          회원 탈퇴
+          <Icon name='question circle' />
+          문의하기
         </Menu.Item>
       </Link>
     </Menu>

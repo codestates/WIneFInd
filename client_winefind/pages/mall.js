@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
+import classNames from 'classnames';
 
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
@@ -192,7 +193,7 @@ const Mall = ({ toggleModal }) => {
   }, [page]);
 
   return (
-    <div className={styles.mall_container}>
+    <div className={classNames('text_font', styles.mall_container)}>
       <div className={styles.main_box}>
         <div className={styles.searchAndWineList_box}>
           <div className={styles.top_banner}>
@@ -223,6 +224,7 @@ const Mall = ({ toggleModal }) => {
                 style={{
                   backgroundColor: 'white',
                   border: '#cda581 solid 1px',
+                  height: '41px',
                 }}
                 onClick={goToUpload}
                 animated
