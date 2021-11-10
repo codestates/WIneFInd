@@ -259,7 +259,7 @@ public class KakaoServiceImpl implements KakaoService {
                 .tax_free_amount(kaKaoPayDTO.getTax())
                 .build();
 
-
+        kaKaoPayRepository.save(kaKaoPay);
 
         System.out.println("KakaoPay builder 됬니? " + kaKaoPay.getPartner_order_id());
 
@@ -276,10 +276,10 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("item_name", kaKaoPay.getItem_name());
         bodys.add("quantity", kaKaoPay.getQuantity());
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
-        bodys.add("tax_free_amount", "1000");
-        bodys.add("approval_url", "http://localhost:4000/kakao/success");
-        bodys.add("cancel_url", "http://localhost:4000/kakao/cancel");
-        bodys.add("fail_url", "http://localhost:4000/kakao/fail");
+        bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
+        bodys.add("approval_url", "http://localhost:3000/kakao/success");
+        bodys.add("cancel_url", "http://localhost:3000/kakao/cancel");
+        bodys.add("fail_url", "http://localhost:3000/kakao/fail");
 
 
         HttpEntity<MultiValueMap<String, String>> paymentRequest = new HttpEntity<>(bodys, headers);
@@ -327,7 +327,7 @@ public class KakaoServiceImpl implements KakaoService {
 
         kakaoAproveBody.add("cid", kakaoApprove.getCid());
         kakaoAproveBody.add("tid", kakaoApprove.getTid());
-        kakaoAproveBody.add("partner_order_id", orderId);
+        kakaoAproveBody.add("partner_order_id", kakaoApprove.getPartner_order_id());
         kakaoAproveBody.add("partner_user_id", kakaoApprove.getPartner_user_id());
         kakaoAproveBody.add("pg_token", pg_token);
 

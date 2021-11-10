@@ -69,7 +69,7 @@ public class KakaoController {
 
         String kaKaoPay = kakaoService.KaKaoPay(kaKaoPayDTO);
 
-        return "PC 링크!"+ kaKaoPay;
+        return kaKaoPay;
     }
 
     @GetMapping("kakao/success")
