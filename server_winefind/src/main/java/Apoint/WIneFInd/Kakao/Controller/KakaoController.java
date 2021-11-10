@@ -64,8 +64,8 @@ public class KakaoController {
 
     }
 
-    @GetMapping("kakao/pay")
-    public String KakaoPay(@RequestParam KaKaoPayDTO kaKaoPayDTO) {
+    @PostMapping("kakaopay")
+    public String KakaoPay(@RequestBody KaKaoPayDTO kaKaoPayDTO) {
 
         String kaKaoPay = kakaoService.KaKaoPay(kaKaoPayDTO);
 
@@ -73,7 +73,7 @@ public class KakaoController {
     }
 
     @GetMapping("kakao/success")
-    public ResponseEntity KaKaoSuccess(String pg_token) {
+    public ResponseEntity KaKaoSuccess(@RequestParam String pg_token) {
 
         String kakaoaAprove = kakaoService.KakaoaAprove(pg_token);
 

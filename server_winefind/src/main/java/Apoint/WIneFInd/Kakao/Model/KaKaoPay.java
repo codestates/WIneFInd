@@ -1,24 +1,34 @@
 package Apoint.WIneFInd.Kakao.Model;
 
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @Builder
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class KaKaoPay {
 
-    public String cid;
-    public String partner_order_id;
-    public String partner_user_id;
-    public String item_name;
-    public String quantity;
-    public String total_amount;
-    public String vat_amount;
-    public String tax_free_amount;
-    public String approval_url;
-    public String fail_url;
-    public String cancel_url;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    private String cid;
+    @Column
+    private String partner_user_id;
+    @Column
+    private String  partner_order_id;
+    @Column
+    private String item_name;
+    @Column
+    private String quantity;
+    @Column
+    private String total_amount;
+    @Column
+    private String tax_free_amount;
 }

@@ -5,6 +5,7 @@ import Apoint.WIneFInd.Kakao.Domain.KaKaoPayDTO;
 import Apoint.WIneFInd.Kakao.Model.*;
 //import Apoint.WIneFInd.Kakao.Repoistory.KakaoRepository;
 
+import Apoint.WIneFInd.Kakao.Repositroy.KaKaoPayRepository;
 import Apoint.WIneFInd.Member.Model.RoleType;
 import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Repository.MemberRepository;
@@ -26,18 +27,24 @@ import java.util.*;
 @Service
 public class KakaoServiceImpl implements KakaoService {
 
-    public final MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
+    private final KaKaoPayRepository kaKaoPayRepository;
     private static final String admin = "542d1e3eb38aa8f2ba0f0ad3980f3dc2";
     private static final String client_id = "c936006613666667da816aebf5f62b69";
+    private static final String cid = "TC0ONETIME";
+    public static String orderId;
 
     private KaKaoPayment kaKaoPayment;
     private OAuthToken oAuthToken;
     private KaKaoPay kaKaoPay;
 
     @Autowired
-    public KakaoServiceImpl(MemberRepository memberRepository) {
+    public KakaoServiceImpl(MemberRepository memberRepository, KaKaoPayRepository kaKaoPayRepository) {
         this.memberRepository = memberRepository;
+        this.kaKaoPayRepository = kaKaoPayRepository;
     }
+
+
 
     @Override
     @Transactional
@@ -235,22 +242,26 @@ public class KakaoServiceImpl implements KakaoService {
     }
 
     @Override
+    @Transactional
     public String KaKaoPay(KaKaoPayDTO kaKaoPayDTO) {
 
         String reqUrl = "https://kapi.kakao.com/v1/payment/ready";
 
+        System.out.println("orderId" + kaKaoPayDTO.getOrderId());
+
         kaKaoPay = KaKaoPay.builder()
-                .cid("TC0ONETIME")
-                .partner_order_id(kaKaoPayDTO.getOrderId())
+                .cid(cid)
                 .partner_user_id(kaKaoPayDTO.getUserId())
+                .partner_order_id(kaKaoPayDTO.getOrderId())
                 .item_name(kaKaoPayDTO.getItemName())
                 .quantity(kaKaoPayDTO.getQuantity())
                 .total_amount(kaKaoPayDTO.getTotalAmount())
                 .tax_free_amount(kaKaoPayDTO.getTax())
-                .approval_url("https://localhost:4000/kakao/success")
-                .cancel_url("https://localhost:4000/kakao/cancel")
-                .fail_url("https://localhost:4000/kakao/fail")
                 .build();
+
+
+
+        System.out.println("KakaoPay builder 됬니? " + kaKaoPay.getPartner_order_id());
 
         RestTemplate kakaoPayTemplate = new RestTemplate();
 
@@ -265,10 +276,10 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("item_name", kaKaoPay.getItem_name());
         bodys.add("quantity", kaKaoPay.getQuantity());
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
-        bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
-        bodys.add("approval_url", kaKaoPay.getApproval_url());
-        bodys.add("cancel_url", kaKaoPay.getCancel_url());
-        bodys.add("fail_url", kaKaoPay.getFail_url());
+        bodys.add("tax_free_amount", "1000");
+        bodys.add("approval_url", "http://localhost:4000/kakao/success");
+        bodys.add("cancel_url", "http://localhost:4000/kakao/cancel");
+        bodys.add("fail_url", "http://localhost:4000/kakao/fail");
 
 
         HttpEntity<MultiValueMap<String, String>> paymentRequest = new HttpEntity<>(bodys, headers);
@@ -288,20 +299,21 @@ public class KakaoServiceImpl implements KakaoService {
             e.printStackTrace();
         }
 
-        return kaKaoPayment.getNext_redirect_pc_url();
+        return "카카오 페이 결제가 실패 하였습니다.";
     }
 
     @Override
+    @Transactional
     public String KakaoaAprove(String pg_token) {
 
         String reqUrl = "https://kapi.kakao.com/v1/payment/approve";
 
         System.out.println("=======================================pg_token" + pg_token);
         KakaoApprove kakaoApprove = KakaoApprove.builder()
-                .cid("TC0ONETIME")
+                .cid(cid)
                 .tid(kaKaoPayment.getTid())
-                .partner_order_id(kaKaoPay.partner_order_id)
-                .partner_user_id(kaKaoPay.partner_user_id)
+                .partner_order_id(kaKaoPay.getPartner_order_id())
+                .partner_user_id(kaKaoPay.getPartner_user_id())
                 .build();
 
         RestTemplate kakaoaAproveTempl = new RestTemplate();
@@ -315,7 +327,7 @@ public class KakaoServiceImpl implements KakaoService {
 
         kakaoAproveBody.add("cid", kakaoApprove.getCid());
         kakaoAproveBody.add("tid", kakaoApprove.getTid());
-        kakaoAproveBody.add("partner_order_id", kakaoApprove.getPartner_order_id());
+        kakaoAproveBody.add("partner_order_id", orderId);
         kakaoAproveBody.add("partner_user_id", kakaoApprove.getPartner_user_id());
         kakaoAproveBody.add("pg_token", pg_token);
 

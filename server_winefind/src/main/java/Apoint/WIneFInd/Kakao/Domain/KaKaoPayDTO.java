@@ -4,9 +4,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+
 @Getter
 @Setter
-@Builder
 public class KaKaoPayDTO {
 
     public String orderId;
@@ -14,6 +16,6 @@ public class KaKaoPayDTO {
     public String itemName;
     public String quantity;
     public String totalAmount;
-    public String Tax;
+    public String tax;
 
 }
