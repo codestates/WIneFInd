@@ -131,7 +131,7 @@ public class ArticleController {
 //
         ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
                 .typesList(typesList)
-                .countriesList(countriesList
+                .countriesList(countriesList)
                 .sweetnessList(sweetnessList)
                 .acidityList(acidityList)
                 .bodyList(bodyList)
