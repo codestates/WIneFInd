@@ -285,7 +285,9 @@ const CardCompo = () => {
               onClick={() => goToDescription(articles[10].id)}
             >
               <div className={styles.card_head}>
-                <h2 className='text_color'>{articles[10].wine.wineName}</h2>
+                <h2 className='text_color'>
+                  {articles[10].wine.wineName.slice(0, 34)}
+                </h2>
               </div>
               <div
                 style={{

@@ -10,12 +10,12 @@ import ArticleCart from '../components/Cart/ArticleCart';
 const Shoppinglist = () => {
   const [cartItems, setCartItems] = useState([]);
 
+  const [userInfo, setUserInfo] = useState(null);
   //checked Items는 배열로 선택된 애들을 담아준다. 체크된 애들만 숫자로 배열에 담아준다.
-  const [checkedItems, setCheckedItems] = useState(
-    cartItems.map((el) => el.id)
-  );
+  const [checkedItems, setCheckedItems] = useState(cartItems);
   // 와인 몰에서 와인을 추가 했을시
   //Article Get Api로 articles에 게시글 목록 넣기 API
+
   const getArticles = () => {
     let token = localStorage.getItem('winefind');
 
@@ -25,6 +25,7 @@ const Shoppinglist = () => {
       })
       .then((res) => {
         let id = res.data.userInfo.id;
+        setUserInfo(res.data.userInfo);
         axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}/cart?id=${id}`, {
             withCredentials: true,
@@ -42,7 +43,7 @@ const Shoppinglist = () => {
   // 모든 아이템들을 체크 하기
   const handleAllCheck = (checked) => {
     if (checked) {
-      setCheckedItems(cartItems.map((el) => el.id));
+      setCheckedItems(cartItems);
     } else {
       setCheckedItems([]);
     }
@@ -50,9 +51,16 @@ const Shoppinglist = () => {
   // 각 아이템의 체크 기능 함수
   const handleCheckChange = (checked, id) => {
     if (checked) {
-      setCheckedItems([...checkedItems, id]);
+      setCheckedItems([
+        ...checkedItems,
+        ...cartItems.filter((el) => el.id === id),
+      ]);
     } else {
-      setCheckedItems(checkedItems.filter((el) => el !== id));
+      console.log(
+        '============??',
+        checkedItems.filter((el) => el.id !== id)
+      );
+      setCheckedItems(checkedItems.filter((el) => el.id !== id));
     }
   };
   // 지우기 기능 API
@@ -97,8 +105,7 @@ const Shoppinglist = () => {
     let tool = '';
     if (checkedItems.length !== 0) {
       for (let i of checkedItems) {
-        // totalprice += Number(
-        box = cartItems.filter((el) => el.id === i)[0].wine.price.split(',');
+        box = cartItems.filter((el) => el.id === i.id)[0].wine.price.split(',');
         for (let i of box) {
           tool += i;
         }
@@ -194,6 +201,7 @@ const Shoppinglist = () => {
                     total={() => getTotalPrice()}
                     totalQty={checkedItems.length}
                     checkedItems={checkedItems}
+                    userInfo={userInfo}
                   />
                 ) : (
                   <div className={classNames('text_eng', styles.bill_cart)}>
