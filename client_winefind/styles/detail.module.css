@@ -63,23 +63,27 @@
 }
 .heart {
   display: flex;
-  flex-wrap: wrap;
-  /* height: 150px; */
   justify-content: space-between;
-  width: 700px;
+  line-height: 40px;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+.wineName_heart {
+  width: 95%;
   /* border: 1px black solid; */
 }
 .heart_image {
   position: relative;
-  top: -50px;
-  width: 50px;
-  height: 50px;
+  /* left: 50px; */
+  width: 30px;
+  height: 30px;
   cursor: pointer;
 }
 
 .title_article {
   font-size: 40px;
   /* padding: 10px; */
+  width: 90%;
   margin: 0px 20px;
   /* border: 1px red solid; */
 }
@@ -88,13 +92,12 @@
   flex-direction: column;
   margin: 20px;
   border-radius: 3px;
-  /* border: 1px red solid; */
 
   font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .wine_price {
   display: flex;
-  margin: 25px 10px 10px 10px;
+  margin: 0px 10px 0px 10px;
   font-size: 32px;
   font-weight: bolder;
   color: rgb(178, 10, 43);
@@ -115,40 +118,40 @@
 }
 .wine_description {
   border: #cda581 1px solid;
-  margin: 31px 20px 7px 0;
+  margin: 31px 20px 7px 0px;
   padding: 20px;
   line-height: 2.5rem;
   font-size: 17px;
-  width: 700px;
+  width: 710px;
 }
 .article_box {
   display: flex;
   /* justify-content: center; */
   align-items: center;
   border: #cda581 1px solid;
-  margin: 7px 20px 7px 0;
+  margin: 7px 20px 7px 0px;
   padding: 20px;
-  line-height: 3.5rem;
+  line-height: 3rem;
   font-size: 17px;
+  width: 710px;
 }
 .article_description {
-  /* border: rgb(173, 21, 7) 1px solid; */
-  margin-left: 15px;
-  padding-left: 10px;
+  margin: 15px 15px 0px 5px;
+  /* padding-left: 10px; */
   font-size: 16px;
 }
 .article_title {
   width: 600px;
-  margin-left: 15px;
+  margin: 5px 0px 0px 15px;
   font-weight: 900;
-  padding-left: 10px;
+  /* padding-left: 10px; */
   font-size: 19px;
   /* border: rgb(173, 21, 7) 1px solid; */
-  border-bottom: 1px lightgray solid;
+  /* border-bottom: 1px lightgray solid; */
 }
 
 .user_image {
-  border: 1px black solid;
+  border: 1px solid #cda581;
   border-radius: 3px;
   width: 50px;
   height: 50px;
@@ -156,6 +159,11 @@
   background-position: center;
   background-repeat: no-repeat;
   background-origin: content-box;
+}
+.article_title_box {
+  display: flex;
+  border-bottom: 1px lightgray solid;
+  padding-bottom: 5px;
 }
 
 .tasteStructure {
@@ -214,10 +222,6 @@
   .article_title {
     width: 300px;
   }
-  .heart_image {
-    right: 300px;
-    top: 70px;
-  }
 }
 @media only screen and (max-width: 1411px) {
   .image_and_taste {
@@ -225,7 +229,10 @@
     align-items: center;
   }
   .board_content {
-    width: 100%;
+    display: flex;
+    justify-self: center;
+    /* width: 100%; */
+    /* border: 1px red solid; */
     border-top: 1px solid lightgray;
   }
 }

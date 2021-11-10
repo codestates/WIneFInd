@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 
 import styles from '../../styles/detail.module.css';
 import { Card, Icon } from 'semantic-ui-react';
+import { style } from 'dom-helpers';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();
@@ -247,14 +248,19 @@ const Details = ({ toggleModal }) => {
             </div>
 
             <div className={styles.heart}>
-              {article ? article.wine.wineName : ''}
-              <img
-                src='/images/heart.png'
-                onClick={addOrDeleteWineList}
-                className={styles.heart_image}
-              />
+              <div className={styles.wineName_heart}>
+                {article ? article.wine.wineName : ''}
+              </div>
+              <div>
+                <img
+                  src='/images/heart.png'
+                  onClick={addOrDeleteWineList}
+                  className={styles.heart_image}
+                />
+              </div>
             </div>
           </div>
+
           <div style={{ display: 'flex', width: '100%' }}>
             <div className={styles.wine_info}>
               <div className={styles.wine_price}>
@@ -268,18 +274,19 @@ const Details = ({ toggleModal }) => {
                 <div>&nbsp;{article ? article.wine.content : ''}</div>
               </div>
               <div className={styles.article_box}>
-                {console.log('mydata', article ? article.user.image : '')}
-                <div
-                  style={{
-                    backgroundImage: `url(${
-                      article ? article.user.image : ''
-                    })`,
-                  }}
-                  className={styles.user_image}
-                ></div>
                 <div>
-                  <div className={styles.article_title}>
-                    {article ? article.title : ''}
+                  <div className={styles.article_title_box}>
+                    <div
+                      style={{
+                        backgroundImage: `url(${
+                          article ? article.user.image : ''
+                        })`,
+                      }}
+                      className={styles.user_image}
+                    ></div>
+                    <div className={styles.article_title}>
+                      {article ? article.title : ''}
+                    </div>
                   </div>
 
                   <div className={styles.article_description}>
