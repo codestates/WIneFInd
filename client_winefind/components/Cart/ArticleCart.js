@@ -18,7 +18,10 @@ export default function ArticleCart({
         onChange={(e) => {
           handleCheckChange(e.target.checked, item.id);
         }}
-        checked={checkedItems.includes(item.id) ? true : false}
+        checked={
+          // [1,7 통째로]
+          checkedItems.map((el) => el.id).includes(item.id) ? true : false
+        }
       ></input>
       <div
         style={{
