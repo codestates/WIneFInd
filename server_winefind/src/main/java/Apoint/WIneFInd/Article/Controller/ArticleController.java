@@ -68,7 +68,9 @@ public class ArticleController {
         System.out.println("id : " + id);
         System.out.println("text : " + text);
         try {
-            if (text.isEmpty() && id == null) {
+            if (text.equals("") && id == null && typesList.equals("") && countriesList.equals("") && sweetnessList.equals("")
+                    && acidityList.equals("")&& bodyList.equals("")&& tannicList.equals("") && priceList.equals("") ){
+                System.out.println("1111111111111111========================================");
                 Page<Article> articles = articleService.FindByAllPage(pageable);
                 return ResponseEntity.ok().body(new HashMap<>() {{
                     put("articlesInfo", articles);
@@ -76,12 +78,14 @@ public class ArticleController {
             }
             // Id가 null 이 아니면 해당 Id에 해당하는 Article 페이지로 이동
             if (id != null) {
+                System.out.println("2222222222222222222========================================");
                 Article articles = articleService.FindById(id);
                 return ResponseEntity.ok().body(new HashMap<>() {{
                     put("articlesInfo", articles);
                 }});
             }
-            if (text != null) {
+            if (!text.equals("")) {
+                System.out.println("33333333333333333333=====================================");
                 // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
                 Page<Article> articles = articleService.FindByTotalSearch(text, pageable);
                 // 게시글 리턴
