@@ -16,6 +16,7 @@ public class ArticleFilterDTO {
     private List<String> sweetnessList;
     private List<String> acidityList;
     private List<String> bodyList;
+    private List<String> tannicList;
     private List<String> priceList;
 
 }

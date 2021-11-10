@@ -30,8 +30,6 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                         .or(article.wine.wineName.contains(text))
                         .or(article.wine.country.contains(text))
                         .or(article.wine.type.contains(text)))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
                 .fetch();
 
         int start = (int) pageable.getOffset();
@@ -52,9 +50,8 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .where(whereSweet(articleFilterDTO))
                 .where(whereAcidity(articleFilterDTO))
                 .where(whereBody(articleFilterDTO))
+                .where(whereTannic(articleFilterDTO))
                 .where(wherePrice(articleFilterDTO))
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
                 .fetch();
 
         int start = (int) pageable.getOffset();
@@ -110,6 +107,16 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         if (!articleFilterDTO.getBodyList().isEmpty()) {
             for (String body : articleFilterDTO.getBodyList()) {
                 booleanBuilder.or(article.wine.body.contains(body));
+            }
+        }
+        return booleanBuilder;
+    }
+
+    private Predicate whereTannic(ArticleFilterDTO articleFilterDTO) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!articleFilterDTO.getTannicList().isEmpty()) {
+            for (String tannic : articleFilterDTO.getTannicList()) {
+                booleanBuilder.or(article.wine.tannic.contains(tannic));
             }
         }
         return booleanBuilder;
