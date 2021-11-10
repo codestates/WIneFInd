@@ -13,7 +13,7 @@ const Mall = ({ toggleModal }) => {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [articles, setArticles] = useState([]);
-  const [totalArticles, setTotalArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(null);
   const [searchText, setSearchText] = useState(null);
   //Article Get Api로 articles에 게시글 목록 넣기
   let types = ['red', 'white', 'rose', 'sparkling'];
@@ -28,6 +28,7 @@ const Mall = ({ toggleModal }) => {
     'Germany',
     'Argentina',
     'Republic of South Africa',
+    'Hungary',
   ];
   let taste = ['acidity', 'sweetness', 'body', 'tannic'];
 
@@ -42,69 +43,61 @@ const Mall = ({ toggleModal }) => {
   };
   const handlePageChange = (page) => {
     setPage(page - 1);
-    console.log(page - 1);
+    console.log('asdasdasdasdasdasdasdas', page - 1);
   };
 
   const getFilteredList = () => {
-    let typeslist = [];
-    let countrieslist = [];
-    let sweetnesslist = [];
-    let aciditylist = [];
-    let bodylist = [];
-    let tanniclist = [];
-    let pricelist = [];
+    let typesList = '';
+    let countriesList = '';
+    let sweetnessList = '';
+    let acidityList = '';
+    let bodyList = '';
+    let tannicList = '';
+    let priceList = '';
 
-    for (let ele of list) {
+    for (let ele of [...new Set(list)]) {
       if (types.includes(ele)) {
-        typeslist.push(ele);
+        typesList += `${ele},`;
       } else if (countries.includes(ele)) {
-        countrieslist.push(ele);
+        countriesList += `${ele},`;
       } else if (ele.slice(0, 5) === 'sweet') {
-        sweetnesslist.push(ele);
+        sweetnessList += `${ele},`;
       } else if (ele.slice(0, 7) === 'acidity') {
-        aciditylist.push(ele);
+        acidityList += `${ele},`;
       } else if (ele.slice(0, 4) === 'body') {
-        bodylist.push(ele);
+        bodyList += `${ele},`;
       } else if (ele.slice(0, 6) === 'tannic') {
-        tanniclist.push(ele);
+        tannicList += `${ele},`;
       }
     }
-    const searchParam = {
-      typeslist: typeslist.join(','),
-      countrieslist: countrieslist.join(','),
-      sweetnesslist: sweetnesslist.join(','),
-      aciditylist: aciditylist.join(','),
-      bodylist: bodylist.join(','),
-      tanniclist: tanniclist.join(','),
-    };
+
+    function eraseComma(ele) {
+      if (ele[ele.length - 1] === ',') {
+        return ele.slice(0, ele.length - 1);
+      }
+      return ele;
+    }
+    typesList = eraseComma(typesList);
+    countriesList = eraseComma(countriesList);
+    sweetnessList = eraseComma(sweetnessList);
+    acidityList = eraseComma(acidityList);
+    bodyList = eraseComma(bodyList);
+    tannicList = eraseComma(tannicList);
+
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article/filter?typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
+    console.log('url=====================================', url);
     axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}/article`,
-        { params: searchParam },
-        { withCredentials: true }
-      )
+      .get(url, { withCredentials: true })
       .then((res) => {
         console.log('SUCCESS, NOW GET NEW DATA!!!');
         console.log('???:', res);
+        setArticles(res.data.content);
       })
       .catch((e) => {
         console.log('error!:', e);
       });
   };
 
-  const getArticles = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('all articles:', res.data);
-        setTotalArticles(res.data);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
   const getArticlesPage = () => {
     let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`;
     if (searchText !== null) {
@@ -115,7 +108,8 @@ const Mall = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this page data:', res.data.articlesInfo.content);
+        setTotalArticles(res.data.articlesInfo.totalElements);
+        // console.log('this page data:', res.data.articlesInfo.content);
         setArticles(res.data.articlesInfo.content);
       })
       .catch((e) => {
@@ -189,7 +183,6 @@ const Mall = ({ toggleModal }) => {
 
   useEffect(() => {
     getArticlesPage();
-    getArticles();
   }, [page]);
 
   return (
@@ -240,7 +233,8 @@ const Mall = ({ toggleModal }) => {
           <div className={styles.mall_content_box}>
             <div className={styles.text_and_sort}>
               <div className={styles.text_big}>
-                전체 와인({totalArticles.length})
+                {console.log('=========', articles)}
+                전체 와인({totalArticles})
               </div>
               <form>
                 <select
@@ -254,7 +248,7 @@ const Mall = ({ toggleModal }) => {
                   <option value='최신등록순'>최신등록순</option>
                   <option value='가격낮은순'>가격낮은순</option>
                   <option value='가격높은순'>가격높은순</option>
-                  <option value='평점순'>평점순</option>
+                  <option value='평점순'>평점순</option>
                 </select>
               </form>
             </div>
@@ -267,7 +261,7 @@ const Mall = ({ toggleModal }) => {
               <Pagination
                 activePage={page + 1}
                 itemsCountPerPage={5}
-                totalItemsCount={totalArticles.length}
+                totalItemsCount={totalArticles}
                 pageRangeDisplayed={5}
                 prevPageText={'‹'}
                 nextPageText={'›'}
@@ -282,6 +276,14 @@ const Mall = ({ toggleModal }) => {
               <div className={styles.filter_title}>필터</div>
               <div>
                 {/* <button onClick={getFilteredList}>필터 적용</button> */}
+              </div>
+              <div
+                className={styles.redo_box}
+                style={{ marginLeft: '100px' }}
+                onClick={getFilteredList}
+              >
+                <Icon name='filter' />
+                <input className={styles.redo} type='reset' value='필터 적용' />
               </div>
               <div className={styles.redo_box} onClick={eraseAll}>
                 <Icon name='redo' />
@@ -306,6 +308,7 @@ const Mall = ({ toggleModal }) => {
                 <button
                   key={index}
                   className={styles.filter_button}
+                  // onClick={addToFilterCondition}
                   onClick={addToFilterCondition}
                 >
                   {type}
