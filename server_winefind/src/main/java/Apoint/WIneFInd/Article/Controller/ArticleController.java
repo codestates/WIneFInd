@@ -71,7 +71,7 @@ public class ArticleController {
             if (id != null) {
                 Article article = articleService.FindById(id);
                 return ResponseEntity.ok().body(new HashMap<>() {{
-                    put("articleInfo", article);
+                    put("articlesInfo", article);
                 }});
             }
             // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
