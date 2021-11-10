@@ -281,7 +281,7 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
         bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
 //        bodys.add("approval_url", "http://localhost:3000/success");
-        bodys.add("approval_url", domain+"/success");
+        bodys.add("approval_url", domain+"/success.html");
 
         bodys.add("cancel_url", domain+"/kakao/cancel");
         bodys.add("fail_url", domain+"/kakao/fail");

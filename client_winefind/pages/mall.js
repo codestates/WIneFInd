@@ -82,8 +82,8 @@ const Mall = ({ toggleModal }) => {
     acidityList = eraseComma(acidityList);
     bodyList = eraseComma(bodyList);
     tannicList = eraseComma(tannicList);
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=&page=${page}`;
-
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}&typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', url);
     if (searchText !== null) {
       url += `&text=${searchText}`;
     }
@@ -98,9 +98,10 @@ const Mall = ({ toggleModal }) => {
       })
       .catch((e) => {
         console.log('error!:', e);
+        setPage(0);
       });
-    window.scrollTo(0, 0);
-    setPage(0);
+    // window.scrollTo(0, 0);
+    // console.log('??!?!?!?!?!?!?!?!!?!', page);
   };
 
   const handleSearchText = (e) => {
