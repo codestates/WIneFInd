@@ -56,7 +56,14 @@ public class ArticleController {
     @GetMapping("article")
     public ResponseEntity<?> FindArticlePage(@PageableDefault(size = 5, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                                              @RequestParam(required = false) Long id,
-                                             @RequestParam(required = false, defaultValue = "") String text) {
+                                             @RequestParam(required = false, defaultValue = "") String text,
+                                             @RequestParam(required = false) List<String> typesList,
+                                             @RequestParam(required = false) List<String> countriesList,
+                                             @RequestParam(required = false) List<String> sweetnessList,
+                                             @RequestParam(required = false) List<String> acidityList,
+                                             @RequestParam(required = false) List<String> bodyList,
+                                             @RequestParam(required = false) List<String> tannicList,
+                                             @RequestParam(required = false) List<String> priceList) {
 
         System.out.println("id : " + id);
         System.out.println("text : " + text);
@@ -69,18 +76,35 @@ public class ArticleController {
             }
             // Id가 null 이 아니면 해당 Id에 해당하는 Article 페이지로 이동
             if (id != null) {
-                Article article = articleService.FindById(id);
+                Article articles = articleService.FindById(id);
                 return ResponseEntity.ok().body(new HashMap<>() {{
-                    put("articlesInfo", article);
+                    put("articlesInfo", articles);
                 }});
             }
-            // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
-            Page<Article> articles = articleService.FindByTotalSearch(text, pageable);
+            if (text != null) {
+                // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
+                Page<Article> articles = articleService.FindByTotalSearch(text, pageable);
+                // 게시글 리턴
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("articlesInfo", articles);
+                }});
+            }
+            ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
+                    .typesList(typesList)
+                    .countriesList(countriesList)
+                    .sweetnessList(sweetnessList)
+                    .acidityList(acidityList)
+                    .bodyList(bodyList)
+                    .tannicList(tannicList)
+                    .priceList(priceList)
+                    .build();
 
-            // 게시글 리턴
+            Page<Article> articles = articleService.FindByArticleFiltering(articleFilterDTO, pageable);
+
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("articlesInfo", articles);
             }});
+
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("게시글을 ‘조회’ 할 수 없습니다. \n" + e);
         } catch (DataIntegrityViolationException e) {
