@@ -140,6 +140,10 @@ public class ArticleServiceImpl implements ArticleService {
         }
     }
 
+    @Override
+    public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
+        return articleRepository.FindByTotalSearch(text, pageable);
+    }
 
     @Override
     @Transactional(readOnly = true)

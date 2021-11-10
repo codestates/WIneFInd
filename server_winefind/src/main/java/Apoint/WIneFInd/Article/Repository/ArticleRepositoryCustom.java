@@ -7,5 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface ArticleRepositoryCustom {
 
+    Page<Article> FindByTotalSearch(String text, Pageable pageable);
+
     Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable);
 }
