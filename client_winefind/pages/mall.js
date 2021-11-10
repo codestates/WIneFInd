@@ -84,7 +84,7 @@ const Mall = ({ toggleModal }) => {
     bodyList = eraseComma(bodyList);
     tannicList = eraseComma(tannicList);
 
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/article/filter?typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article/filter?typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=&page=${page}`;
     console.log('url=====================================', url);
     axios
       .get(url, { withCredentials: true })
