@@ -44,7 +44,25 @@ const Footer = () => {
         <div className={styles.footer_rights}>
           Copyright ⓒ 2021. Apoint. All rights reserved.
         </div>
-        <div style={{ width: '400px' }}></div>
+        <div style={{ width: '300px', marginTop: '35px' }}>
+          <div>
+            <div>
+              <div style={{ color: 'black' }}>
+                김형준&nbsp; ryanromaris@naver.com
+              </div>
+            </div>
+            <div>
+              <div style={{ color: 'black' }}>
+                박민준&nbsp; unicusstella@gmail.com
+              </div>
+            </div>
+            <div>
+              <div style={{ color: 'black' }}>
+                한승우&nbsp; sehan95@gmail.com
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );

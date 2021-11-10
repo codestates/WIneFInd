@@ -22,8 +22,8 @@ export default function OrderTotal({
       .post(
         `${process.env.NEXT_PUBLIC_API_URL}/kakaopay`,
         {
-          orderId: orderId,
-          userId: UUID,
+          orderId: UUID,
+          userId: userInfo.id.toString(),
           itemName: name,
           quantity: totalQty.toString(),
           totalAmount: price.toString(),
@@ -44,6 +44,7 @@ export default function OrderTotal({
   return (
     // 총 합 알려주는 창
     <div style={{ marginTop: '30px' }}>
+      {console.log('UUID', typeof UUID)}
       <h2 className='text_eng'>Bill</h2>
       <div style={{ lineHeight: '40px' }}>
         <hr></hr>

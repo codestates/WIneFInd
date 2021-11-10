@@ -40,7 +40,8 @@ const FilterList = ({ ele, key, eraseThis }) => {
           ele === 'Italy' ||
           ele === 'Australia' ||
           ele === 'Germany' ||
-          ele === 'Argentina' ? (
+          ele === 'Argentina' ||
+          ele === 'Hungary' ? (
           <div className={styles.country_border}>
             <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
             {ele.toUpperCase().slice(0, 3)}&nbsp;
@@ -106,8 +107,8 @@ const FilterList = ({ ele, key, eraseThis }) => {
               className={styles.filter_icon_red}
             />
           </div>
-          // 맛 별 필터 설정
-        ) : ele.slice(0, 7) === 'acidity' ||
+        ) : // 맛 별 필터 설정
+        ele.slice(0, 7) === 'acidity' ||
           ele.slice(0, 9) === 'sweetness' ||
           ele.slice(0, 4) === 'body' ||
           ele.slice(0, 6) === 'tannic' ? (
