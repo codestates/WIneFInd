@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Article.Controller;
 
+import Apoint.WIneFInd.Article.Domain.ArticleAlgorithmDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
@@ -123,36 +124,13 @@ public class ArticleController {
 
     // 게시글 전체 조회 페이지와 페이징 처리 페이지를 구분하기 위해서 API를 나누어서 사용
     // Page를 1번부터 설정으로 해도 안되서... 추후에 좀더 고민해보는걸로 일단은 나눠놓기
-    @GetMapping("article/filter")
-    public Page<Article> FindFilteringArticle(@PageableDefault(size = 5) Pageable pageable,
-//                                              @RequestBody ArticleFilterDTO articleFilterDTO
-                                              @RequestParam(required = false) List<String> typesList,
-                                              @RequestParam(required = false) List<String> countriesList,
-                                              @RequestParam(required = false) List<String> sweetnessList,
-                                              @RequestParam(required = false) List<String> acidityList,
-                                              @RequestParam(required = false) List<String> bodyList,
-                                              @RequestParam(required = false) List<String> tannicList,
-                                              @RequestParam(required = false) List<String> priceList
-    ) {
+    @PostMapping("article/algo")
+    public ResponseEntity<?> ArticleAlgolithm(@RequestBody ArticleAlgorithmDTO articleAlgorithmDTO) {
 
-//
-        ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
-                .typesList(typesList)
-                .countriesList(countriesList)
-                .sweetnessList(sweetnessList)
-                .acidityList(acidityList)
-                .bodyList(bodyList)
-                .tannicList(tannicList)
-                .priceList(priceList)
-                .build();
 
-//        System.out.println("articleFilterDTO 들어왔니? " + articleFilterDTO.toString());
-//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().toString());
-//        System.out.println("articleFilterDTO type 들어왔니? " + articleFilterDTO.getTypesList().get(0).toString());
+        List<Article> articleAlgo = articleService.RecommendedArticle(articleAlgorithmDTO);
 
-        Page<Article> articles = articleService.FindByArticleFiltering(articleFilterDTO, pageable);
-
-        return articles;
+        return ResponseEntity.ok().body(articleAlgo);
     }
 
     @GetMapping("articles")

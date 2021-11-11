@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Article.Service;
 
+import Apoint.WIneFInd.Article.Domain.ArticleAlgorithmDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -38,7 +40,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     // 게시글 생성
     @Override
-    @Transactional
     public Article Save(ArticleDTO articleDTO, Long id) {
 
         // 같은 게시물의 제목 중복 체크
@@ -109,7 +110,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     // 게시물 수정
     @Override
-    @Transactional
     public Article Update(ArticleDTO articleDTO, Long id) {
 
         // 입력받은 Id 로 해당 게시물 찾기 만약 게시물이 없을경우 throw
@@ -131,7 +131,6 @@ public class ArticleServiceImpl implements ArticleService {
 
     // 게시물 삭제
     @Override
-    @Transactional
     public String Delete(Long id) {
         try {
             articleRepository.deleteById(id);
@@ -142,7 +141,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional
     public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
 
         try {
@@ -154,9 +152,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional
     public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable) {
 
         return articleRepository.FindByArticleFiltering(articleFilterDTO, pageable);
+    }
+
+    @Override
+    public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO) {
+
+        return articleRepository.RecommendedArticle(articleAlgorithmDTO);
     }
 }
