@@ -7,6 +7,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -22,7 +23,8 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
 
 
     @Override
-    public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
+    public PageImpl<Article> FindByTotalSearch(String text, Pageable pageable) {
+
 
         List<Article> articleSearch = queryFactory.selectFrom(article)
                 .where(article.title.contains(text)
@@ -30,6 +32,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                         .or(article.wine.wineName.contains(text))
                         .or(article.wine.country.contains(text))
                         .or(article.wine.type.contains(text)))
+                .orderBy(article.wine.id.desc())
                 .fetch();
 
         int start = (int) pageable.getOffset();
@@ -52,6 +55,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .where(whereBody(articleFilterDTO))
                 .where(whereTannic(articleFilterDTO))
                 .where(wherePrice(articleFilterDTO))
+                .orderBy(article.wine.id.desc())
                 .fetch();
 
         int start = (int) pageable.getOffset();

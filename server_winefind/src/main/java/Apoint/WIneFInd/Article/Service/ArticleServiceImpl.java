@@ -14,6 +14,7 @@ import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -143,7 +144,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     @Transactional
     public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
-        return articleRepository.FindByTotalSearch(text, pageable);
+
+        try {
+            return articleRepository.FindByTotalSearch(text, pageable);
+
+        } catch (InvalidDataAccessApiUsageException e) {
+            throw new InvalidDataAccessApiUsageException("Page 넘버가 총 아이템 갯수의 범위를 벗어 났습니다 ! " + e);
+        }
     }
 
     @Override
