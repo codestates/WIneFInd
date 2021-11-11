@@ -139,25 +139,27 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         System.out.println("1articleAlgoGrape :" + articleAlgorithmDTO.getGrape());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if (articleAlgorithmDTO.getGrape().equals("1")) {
+        if (articleAlgorithmDTO.getGrape().equals("2")) {
             // 대중적일때 저걸 포함안한 모든것
             booleanBuilder
-                    .or(article.wine.grape.notLike("Carbenet Sauvignon"))
-                    .or(article.wine.grape.notLike("Merlot"))
-                    .or(article.wine.grape.notLike("pinot noir"))
-                    .or(article.wine.grape.notLike("Sangiovese"))
-                    .or(article.wine.grape.notLike("Chardonnay"))
-                    .or(article.wine.grape.notLike("Sauvignon Blanc"));
-        } else {
-            // 대중적인거 1번이 아닐때 아래것만 포함한거
-            booleanBuilder
-                    .or(article.wine.grape.contains("Carbenet Sauvignon"))
+                    .or(article.wine.grape.contains("Cabernet Sauvignon"))
                     .or(article.wine.grape.contains("Merlot"))
                     .or(article.wine.grape.contains("pinot noir"))
                     .or(article.wine.grape.contains("Sangiovese"))
                     .or(article.wine.grape.contains("Chardonnay"))
-                    .or(article.wine.grape.contains("Sauvignon Blanc"))
-                    .or(article.wine.grape.contains("Nebbiolo"));
+                    .or(article.wine.grape.contains("Sauvignon Blanc"));
+
+
+        } else {
+            // 대중적인거 1번이 아닐때 아래것만 포함한거
+            booleanBuilder
+                    .and(article.wine.grape.notLike("Cabernet Sauvignon"))
+                    .and(article.wine.grape.notLike("Merlot"))
+                    .and(article.wine.grape.notLike("pinot noir"))
+                    .and(article.wine.grape.notLike("Sangiovese"))
+                    .and(article.wine.grape.notLike("Chardonnay"))
+                    .and(article.wine.grape.notLike("Sauvignon Blanc"));
+
         }
 
         System.out.println("2articleAlgoGrape :");
