@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -67,9 +68,11 @@ public class ArticleController {
 
         System.out.println("id : " + id);
         System.out.println("text : " + text);
+        System.out.println("typesList" + typesList);
         try {
-            if (text.equals("") && id == null && typesList.equals("") && countriesList.equals("") && sweetnessList.equals("")
-                    && acidityList.equals("")&& bodyList.equals("")&& tannicList.equals("") && priceList.equals("") ){
+            if (text.equals("") && id == null && typesList == null && countriesList == null && sweetnessList == null
+                    && acidityList == null && bodyList == null && tannicList == null && priceList == null
+            ) {
                 System.out.println("1111111111111111========================================");
                 Page<Article> articles = articleService.FindByAllPage(pageable);
                 return ResponseEntity.ok().body(new HashMap<>() {{
