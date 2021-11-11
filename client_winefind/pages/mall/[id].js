@@ -9,18 +9,20 @@ import { style } from 'dom-helpers';
 const Details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
-  const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
+
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?typesList=&countriesList=&sweetnessList=&acidityList=&bodyList=&priceList=&tannicList&id=${id}`;
+  // const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   const [article, setArticle] = useState(null);
 
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {
     axios
-      .get(API_url, {
+      .get(url, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this article data:', res.data.articleInfo);
-        setArticle(() => res.data.articleInfo);
+        console.log('this article data:', res.data.articlesInfo);
+        setArticle(() => res.data.articlesInfo);
       })
       .catch((e) => {
         console.log('error!:', e);

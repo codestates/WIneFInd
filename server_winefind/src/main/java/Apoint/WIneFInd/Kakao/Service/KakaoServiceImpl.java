@@ -12,6 +12,7 @@ import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,6 +44,8 @@ public class KakaoServiceImpl implements KakaoService {
         this.memberRepository = memberRepository;
         this.kaKaoPayRepository = kaKaoPayRepository;
     }
+    @Value("${config.domain}")
+    private String domain;
 
 
 
@@ -112,8 +115,8 @@ public class KakaoServiceImpl implements KakaoService {
 
         // 카카오 reqURL, client_id, redirect_uri, 를 변수에 담아놓고 사용하기
         String reqURL = "https://kauth.kakao.com/oauth/token";
-        String redirect_uri = "http://localhost:3000/kakao";
-//        String redirect_uri = "http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html";
+//        String redirect_uri = "http://localhost:3000/kakao";
+        String redirect_uri = "http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html";
 
         // 스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿사용
         // getAccessToken 에 맞춰서 사용
@@ -277,9 +280,11 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("quantity", kaKaoPay.getQuantity());
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
         bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
-        bodys.add("approval_url", "http://localhost:3000/kakao/success");
-        bodys.add("cancel_url", "http://localhost:3000/kakao/cancel");
-        bodys.add("fail_url", "http://localhost:3000/kakao/fail");
+//        bodys.add("approval_url", "http://localhost:3000/success");
+        bodys.add("approval_url", domain+"/success.html");
+
+        bodys.add("cancel_url", domain+"/kakao/cancel");
+        bodys.add("fail_url", domain+"/kakao/fail");
 
 
         HttpEntity<MultiValueMap<String, String>> paymentRequest = new HttpEntity<>(bodys, headers);

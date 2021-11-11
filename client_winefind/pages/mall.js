@@ -43,10 +43,9 @@ const Mall = ({ toggleModal }) => {
   };
   const handlePageChange = (page) => {
     setPage(page - 1);
-    console.log('asdasdasdasdasdasdasdas', page - 1);
   };
 
-  const getFilteredList = () => {
+  const getArticlesPage = () => {
     let typesList = '';
     let countriesList = '';
     let sweetnessList = '';
@@ -61,13 +60,13 @@ const Mall = ({ toggleModal }) => {
       } else if (countries.includes(ele)) {
         countriesList += `${ele},`;
       } else if (ele.slice(0, 5) === 'sweet') {
-        sweetnessList += `${ele},`;
+        sweetnessList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 7) === 'acidity') {
-        acidityList += `${ele},`;
+        acidityList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 4) === 'body') {
-        bodyList += `${ele},`;
+        bodyList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 6) === 'tannic') {
-        tannicList += `${ele},`;
+        tannicList += `${ele[ele.length - 1]},`;
       }
     }
 
@@ -83,23 +82,8 @@ const Mall = ({ toggleModal }) => {
     acidityList = eraseComma(acidityList);
     bodyList = eraseComma(bodyList);
     tannicList = eraseComma(tannicList);
-
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/article/filter?typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=&page=${page}`;
-    console.log('url=====================================', url);
-    axios
-      .get(url, { withCredentials: true })
-      .then((res) => {
-        console.log('SUCCESS, NOW GET NEW DATA!!!');
-        console.log('???:', res);
-        setArticles(res.data.content);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
-
-  const getArticlesPage = () => {
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}&typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', url);
     if (searchText !== null) {
       url += `&text=${searchText}`;
     }
@@ -114,8 +98,10 @@ const Mall = ({ toggleModal }) => {
       })
       .catch((e) => {
         console.log('error!:', e);
+        setPage(0);
       });
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
+    // console.log('??!?!?!?!?!?!?!?!!?!', page);
   };
 
   const handleSearchText = (e) => {
@@ -156,6 +142,7 @@ const Mall = ({ toggleModal }) => {
 
   const eraseAll = () => {
     setList([]);
+    window.location.reload();
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;
@@ -255,7 +242,16 @@ const Mall = ({ toggleModal }) => {
             {articles.length !== 0 ? (
               <Article articles={articles} />
             ) : (
-              <div>Loading Something</div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                찾으시는 와인이 없습니다.
+                <img src='images/loading.gif' style={{ width: '550px' }} />
+              </div>
             )}
             <div className={styles.page}>
               <Pagination
@@ -280,7 +276,7 @@ const Mall = ({ toggleModal }) => {
               <div
                 className={styles.redo_box}
                 style={{ marginLeft: '100px' }}
-                onClick={getFilteredList}
+                onClick={getArticlesPage}
               >
                 <Icon name='filter' />
                 <input className={styles.redo} type='reset' value='필터 적용' />
