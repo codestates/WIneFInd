@@ -66,6 +66,9 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     @Override
     public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO) {
 
+
+        System.out.println(articleAlgorithmDTO.getBody());
+
         List<Article> articleAlgo = queryFactory.selectFrom(article)
                 .where(articleAlgoBody(articleAlgorithmDTO))
                 .where(articleAlgoSweet(articleAlgorithmDTO))
@@ -113,6 +116,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         }
         System.out.println("2articleAlgoTannic :");
 
+        System.out.println("booleanBuilder : " + booleanBuilder);
         return booleanBuilder;
     }
 
@@ -127,14 +131,16 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         }
         System.out.println("2articleAlgoAcidity :");
 
+
         return booleanBuilder;
     }
 
     private Predicate articleAlgoGrape(ArticleAlgorithmDTO articleAlgorithmDTO) {
-        System.out.println("1articleAlgoGrape :");
+        System.out.println("1articleAlgoGrape :" + articleAlgorithmDTO.getGrape());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (articleAlgorithmDTO.getGrape().equals("1")) {
+            // 대중적일때 저걸 포함안한 모든것
             booleanBuilder
                     .or(article.wine.grape.notLike("Carbenet Sauvignon"))
                     .or(article.wine.grape.notLike("Merlot"))
@@ -143,21 +149,24 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                     .or(article.wine.grape.notLike("Chardonnay"))
                     .or(article.wine.grape.notLike("Sauvignon Blanc"));
         } else {
+            // 대중적인거 1번이 아닐때 아래것만 포함한거
             booleanBuilder
                     .or(article.wine.grape.contains("Carbenet Sauvignon"))
                     .or(article.wine.grape.contains("Merlot"))
                     .or(article.wine.grape.contains("pinot noir"))
                     .or(article.wine.grape.contains("Sangiovese"))
                     .or(article.wine.grape.contains("Chardonnay"))
-                    .or(article.wine.grape.contains("Sauvignon Blanc"));
+                    .or(article.wine.grape.contains("Sauvignon Blanc"))
+                    .or(article.wine.grape.contains("Nebbiolo"));
         }
-        System.out.println("1articleAlgoGrape :");
+
+        System.out.println("2articleAlgoGrape :");
 
         return booleanBuilder;
     }
 
     private Predicate articleAlgoText(ArticleAlgorithmDTO articleAlgorithmDTO) {
-        System.out.println("1articleAlgoAcidity :");
+        System.out.println("1articleAlgoText :");
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!articleAlgorithmDTO.getTaste().isEmpty()) {
@@ -166,7 +175,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         if(!articleAlgorithmDTO.getAroma().isEmpty()){
             booleanBuilder.or(article.wine.content.contains(articleAlgorithmDTO.getAroma()));
         }
-        System.out.println("2articleAlgoAcidity :");
+        System.out.println("2articleAlgoText :");
 
         return booleanBuilder;
     }
