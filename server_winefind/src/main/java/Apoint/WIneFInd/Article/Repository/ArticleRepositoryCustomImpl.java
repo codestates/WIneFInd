@@ -3,12 +3,10 @@ package Apoint.WIneFInd.Article.Repository;
 import Apoint.WIneFInd.Article.Domain.ArticleAlgorithmDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
-import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -73,7 +71,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .where(articleAlgoTannic(articleAlgorithmDTO))
                 .where(articleAlgoAcidity(articleAlgorithmDTO))
                 .where(articleAlgoGrape(articleAlgorithmDTO))
-                .where(article.wine.content.contains(articleAlgorithmDTO.getTaste()).or(article.wine.content.contains(articleAlgorithmDTO.getAroma())))
+                .where(articleAlgoText(articleAlgorithmDTO))
                 .fetch();
 
         return articleAlgo;
@@ -153,6 +151,21 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                     .or(article.wine.grape.contains("Sauvignon Blanc"));
         }
         System.out.println("1articleAlgoGrape :");
+
+        return booleanBuilder;
+    }
+
+    private Predicate articleAlgoText(ArticleAlgorithmDTO articleAlgorithmDTO) {
+        System.out.println("1articleAlgoAcidity :");
+
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        if (!articleAlgorithmDTO.getTaste().isEmpty()) {
+            booleanBuilder.or(article.wine.content.contains(articleAlgorithmDTO.getTaste()));
+        }
+        if(!articleAlgorithmDTO.getAroma().isEmpty()){
+            booleanBuilder.or(article.wine.content.contains(articleAlgorithmDTO.getAroma()));
+        }
+        System.out.println("2articleAlgoAcidity :");
 
         return booleanBuilder;
     }
