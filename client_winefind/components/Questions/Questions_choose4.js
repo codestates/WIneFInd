@@ -16,34 +16,19 @@ export default function Questions_choose3({
         <hr></hr>
         <div className={styles.stars_choose}>
           {/* 1-5 누르는 rating 와인잔들 */}
-          <button
-            onClick={() => next('레몬', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('레몬')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('베리', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('베리')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('꽃', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('꽃')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('오크', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('오크')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
         </div>

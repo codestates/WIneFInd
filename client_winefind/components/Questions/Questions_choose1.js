@@ -13,34 +13,19 @@ export default function Questions_choose1({ questionnum, next }) {
         <hr></hr>
         <div className={styles.stars_choose}>
           {/* 1-5 누르는 rating 와인잔들 */}
-          <button
-            onClick={() => next('5', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('5')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('4', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('4')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('3', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('3')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={() => next('2', questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('2')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
-          <button
-            onClick={(() => next('1'), questionnum)}
-            className={styles.winebtn}
-          >
+          <button onClick={() => next('1')} className={styles.winebtn}>
             <img src='/images/redw.png' />
           </button>
         </div>
