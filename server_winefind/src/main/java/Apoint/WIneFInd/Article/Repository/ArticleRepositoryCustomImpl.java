@@ -30,7 +30,8 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                         .or(article.content.contains(text))
                         .or(article.wine.wineName.contains(text))
                         .or(article.wine.country.contains(text))
-                        .or(article.wine.type.contains(text)))
+                        .or(article.wine.type.contains(text))
+                        .or(article.wine.content.contains(text)))
                 .orderBy(article.wine.id.desc())
                 .fetch();
 
