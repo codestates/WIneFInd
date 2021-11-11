@@ -12,6 +12,7 @@ import { useState } from 'react';
 import { Progress } from 'semantic-ui-react';
 import classNames from 'classnames';
 import Result from '../components/Result';
+import axios from 'axios';
 const Test = () => {
   const length = 8;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -23,28 +24,47 @@ const Test = () => {
   //결과를 axios 보내고
 
   //다음 슬라이드로 이동
-  let arr = Array.from({ length: 7 }, () => '');
+
   const next = (val) => {
     if (currentIndex < length - 1) {
       setCurrentIndex((prevState) => prevState + 1);
       setPercent(percent < 100 ? percent + 100 / length : 100);
     }
-    // console.log('this value came', val);
-
+    console.log('val??', val);
     setResult([...result, val]);
-
-    console.log('===========', result);
   };
   //전 슬라이드로 이동
-  const prev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevState) => prevState - 1);
-      setPercent(percent > 0 ? percent - 100 / length : 0);
-    }
-  };
+  // const prev = () => {
+  //   if (currentIndex > 0) {
+  //     setCurrentIndex((prevState) => prevState - 1);
+  //     setPercent(percent > 0 ? percent - 100 / length : 0);
+  //   }
+  // };
 
   const goToResult = () => {
     setFinishOrNot(true);
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_API_URL}/article/algo`,
+        {
+          body: result[0],
+          sweet: result[1],
+          taste: result[2],
+          tannic: result[3],
+          acidity: result[4],
+          grape: result[5],
+          aroma: result[6],
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log('?????????', res);
+      })
+      .catch((e) => {
+        console.log('e', e);
+      });
   };
 
   return (
