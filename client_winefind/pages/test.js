@@ -48,12 +48,12 @@ const Test = () => {
         `${process.env.NEXT_PUBLIC_API_URL}/article/algo`,
         {
           body: result[0],
-          sweet: result[1],
-          taste: result[2],
-          tannic: result[3],
-          acidity: result[4],
-          grape: result[5],
-          aroma: result[6],
+          // sweet: result[1],
+          // taste: result[2],
+          // tannic: result[3],
+          // acidity: result[4],
+          // grape: result[5],
+          // aroma: result[6],
         },
         {
           withCredentials: true,
