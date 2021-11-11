@@ -107,7 +107,9 @@ const Upload = () => {
         values.country !== '' &&
         values.grape !== '' &&
         values.wineContent !== '' &&
-        values.price !== ''
+        values.price !== '' &&
+        values.vintage > 0 &&
+        values.price > 0
       ) {
         axios
           .post(
@@ -146,7 +148,7 @@ const Upload = () => {
             console.log('게시글 업로드 실패', e);
           });
       } else {
-        alert('빈칸이 있습니다');
+        alert('유효한 값을 입력해주세요.');
       }
     }
   };
@@ -331,7 +333,7 @@ const Upload = () => {
                   onChange={handleChange('vintage')}
                   defaultValue='2020'
                   max='2020'
-                  min='1600'
+                  min='1000'
                   placeholder='Type vintage'
                 />
                 <br />
@@ -342,6 +344,7 @@ const Upload = () => {
                   type='number'
                   onChange={handleChange('price')}
                   defaultValue='0'
+                  min='10000'
                   step='5000'
                   placeholder='Type price'
                 />

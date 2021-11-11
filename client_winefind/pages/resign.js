@@ -30,10 +30,10 @@ const Resign = () => {
           .then((res) => {
             console.log('done!:', res);
             //배포할때
-            window.location.replace(
-              'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
-            );
-            // window.location.replace('http://localhost:3000');
+            // window.location.replace(
+            //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
+            // );
+            window.location.replace('http://localhost:3000');
           })
           .catch((e) => {
             console.log('err:', e);
