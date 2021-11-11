@@ -10,7 +10,7 @@ const Details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
 
-  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?typesList=&countriesList=&sweetnessList=&acidityList=&bodyList=&priceList=&tannicList&id=${id}`;
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   // const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   const [article, setArticle] = useState(null);
 

@@ -54,8 +54,7 @@ const User = () => {
     checkLogin();
     // goToTop();
   }, []);
-  // 와인 맛들을 정렬 한 것
-
+  // 와인 맛들을 정렬 한 것!!
   return (
     <>
       {isLogin ? (

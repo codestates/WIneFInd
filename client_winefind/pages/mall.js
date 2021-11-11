@@ -253,6 +253,7 @@ const Mall = ({ toggleModal }) => {
                 <img src='images/loading.gif' style={{ width: '550px' }} />
               </div>
             )}
+            <div style={{ marginTop: '10px' }}>- {page + 1} -</div>
             <div className={styles.page}>
               <Pagination
                 activePage={page + 1}
@@ -262,6 +263,7 @@ const Mall = ({ toggleModal }) => {
                 prevPageText={'‹'}
                 nextPageText={'›'}
                 onChange={handlePageChange}
+                // forcePage={page}
               />
             </div>
           </div>

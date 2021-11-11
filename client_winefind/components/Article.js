@@ -15,6 +15,7 @@ const Article = ({ articles }) => {
           onClick={() => goToDescription(article.id)}
           key={index}
         >
+          {console.log('')}
           <div className={styles.article_box}>
             <div
               style={{
