@@ -1,5 +1,6 @@
 package Apoint.WIneFInd.Article.Service;
 
+import Apoint.WIneFInd.Article.Domain.ArticleAlgorithmDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
@@ -28,5 +29,7 @@ public interface ArticleService {
     Page<Article> FindByTotalSearch(String text, Pageable pageable);
 
     public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable);
+
+    public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO);
 
 }
