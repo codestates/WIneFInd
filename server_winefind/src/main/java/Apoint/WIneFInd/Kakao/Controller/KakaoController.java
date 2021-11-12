@@ -34,6 +34,7 @@ public class KakaoController {
         try {
             // 받아온 code를 작성한 양식에 맞춰서 카카오 유저 생성
             User kakaoUser = kakaoService.Create(code);
+            System.out.println("kakaoService.Create(code); 실행 됬니?");
             // 카카오 유저가 생성되면 해당 데이터로 JWT 토큰 생성
             String kakaoToken = memberService.CreateJWTToken(kakaoUser);
 

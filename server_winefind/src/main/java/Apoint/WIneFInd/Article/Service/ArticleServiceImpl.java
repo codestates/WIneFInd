@@ -158,8 +158,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO) {
+    public List<Article> FindByRecommendedWineAlgo(ArticleAlgorithmDTO articleAlgorithmDTO) {
 
-        return articleRepository.RecommendedArticle(articleAlgorithmDTO);
+        return articleRepository.FindByRecommendedWineAlgo(articleAlgorithmDTO);
     }
 }

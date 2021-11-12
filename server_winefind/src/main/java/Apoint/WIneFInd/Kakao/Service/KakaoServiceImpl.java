@@ -30,10 +30,9 @@ public class KakaoServiceImpl implements KakaoService {
 
     private final MemberRepository memberRepository;
     private final KaKaoPayRepository kaKaoPayRepository;
-    private static final String admin = "542d1e3eb38aa8f2ba0f0ad3980f3dc2";
-    private static final String client_id = "c936006613666667da816aebf5f62b69";
+    private static final String admin = "926a12859fb51ae9c6a79c169f705054";
+    private static final String client_id = "6ab487b37d3f625148fed9baabb3e7a8";
     private static final String cid = "TC0ONETIME";
-    public static String orderId;
 
     private KaKaoPayment kaKaoPayment;
     private OAuthToken oAuthToken;
@@ -44,15 +43,18 @@ public class KakaoServiceImpl implements KakaoService {
         this.memberRepository = memberRepository;
         this.kaKaoPayRepository = kaKaoPayRepository;
     }
+
     @Value("${config.domain}")
     private String domain;
 
 
+    private int count = 0001;
 
     @Override
     @Transactional
     public User Create(String code) {
 
+        System.out.println("===================여기 까지 왔니???ㅁㄴ아러ㅣㅁㄴ아러ㅏ민ㄹ");
         // 1번 인증코드 요청 전달
         String accessToken = getAccessToken(code);
 
@@ -72,9 +74,6 @@ public class KakaoServiceImpl implements KakaoService {
         String email = (String) userInfo.get("email");
         String username = (String) userInfo.get("username");
 
-//        if(email != null) {
-//            email = String "geust";
-//        }
 
         // ifPresent 나 isPresent 로는 리턴이 안됨... 추후 조금더 알아보기
 //        memberRepository.findByEmail(email).ifPresent(m -> {
@@ -84,7 +83,12 @@ public class KakaoServiceImpl implements KakaoService {
 //        });
 
         // 위에서 받아온 데이터를 기반으로 동일한 이메일이 있는지 DB 내에서 검색
-        Optional<User> getUserCheck = memberRepository.findByEmail(email);
+        Optional<User> getUserCheck = memberRepository.findByUsername(username);
+
+        if (email == null) {
+            email = "Guest_KaKao_" + Integer.toString(count);
+            count++;
+        }
 
         // 카카오 로그인으로 회원가입을 위해 먼저 같은 이메일로 가입한적이 있는지 체크
         // 이미 가입되어 있는 회원이면 로그인 진행 가입되어 있지 않으면 새로운 유저 생성
@@ -113,10 +117,11 @@ public class KakaoServiceImpl implements KakaoService {
     @Transactional
     public String getAccessToken(String code) {
 
+        System.out.println("코드 까지 왔니?????????????????????????????????????");
         // 카카오 reqURL, client_id, redirect_uri, 를 변수에 담아놓고 사용하기
         String reqURL = "https://kauth.kakao.com/oauth/token";
-//        String redirect_uri = "http://localhost:3000/kakao";
-        String redirect_uri = "http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html";
+        String redirect_uri = "http://localhost:3000/kakao";
+//        String redirect_uri = "http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html";
 
         // 스프링에서 제공하는 http 통신에 유용하게 쓸 수 있는 템플릿사용
         // getAccessToken 에 맞춰서 사용
@@ -125,6 +130,8 @@ public class KakaoServiceImpl implements KakaoService {
         // 카카오에서 요구하는 양식에 맞춰서 HttpHeader 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        System.out.println("134번째 글 까지 왔니????????????????");
 
         // MultiValueMap 을 통하여 카카오에서 요구하는 데이터를 담을 HttpBody 작성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -139,6 +146,7 @@ public class KakaoServiceImpl implements KakaoService {
         // 요청보낼 주소와, POST 매소드, HttpHead HttpBody , 응답받을 형식 String 작성
         ResponseEntity<String> response = getAccess.exchange(reqURL, HttpMethod.POST, tokenRequest, String.class);
 
+        System.out.println("147번쨰 줄까지 왔니????????????????????");
         // 응답받은 데이터들을 파싱하기 위해서  Jackson 라이브러리의 ObjectMapper 사용
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -202,11 +210,11 @@ public class KakaoServiceImpl implements KakaoService {
         String email = kakaoProfile.getKakao_account().getEmail();
         String username = kakaoProfile.getProperties().getNickname();
 
+
         // 값이 잘 나오는지를 확인
         System.out.println(email);
         System.out.println(username);
 
-        System.out.println("userinfo 끝맞쳤니???? ");
 
         // userInfo 에 값을 저장후 리턴
         userInfo.put("email", email);
@@ -280,11 +288,11 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("quantity", kaKaoPay.getQuantity());
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
         bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
-//        bodys.add("approval_url", "http://localhost:3000/success");
-        bodys.add("approval_url", domain+"/success.html");
+//        bodys.add("approval_url", domain+"/success.html");
+        bodys.add("approval_url", domain + "/success");
 
-        bodys.add("cancel_url", domain+"/kakao/cancel");
-        bodys.add("fail_url", domain+"/kakao/fail");
+        bodys.add("cancel_url", domain + "/kakao/cancel");
+        bodys.add("fail_url", domain + "/kakao/fail");
 
 
         HttpEntity<MultiValueMap<String, String>> paymentRequest = new HttpEntity<>(bodys, headers);

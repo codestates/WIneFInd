@@ -14,7 +14,6 @@ import javax.persistence.Basic;
 @Configuration
 public class ImageConfig {
 
-
     @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
     @Value("${cloud.aws.credentials.secret-key}")
