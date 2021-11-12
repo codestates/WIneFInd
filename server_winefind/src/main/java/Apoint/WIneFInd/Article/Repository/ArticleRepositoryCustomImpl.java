@@ -139,18 +139,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         System.out.println("1articleAlgoGrape :" + articleAlgorithmDTO.getGrape());
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
-        if (articleAlgorithmDTO.getGrape().equals("2")) {
-            // 대중적일때 저걸 포함안한 모든것
-            booleanBuilder
-                    .or(article.wine.grape.contains("Cabernet Sauvignon"))
-                    .or(article.wine.grape.contains("Merlot"))
-                    .or(article.wine.grape.contains("pinot noir"))
-                    .or(article.wine.grape.contains("Sangiovese"))
-                    .or(article.wine.grape.contains("Chardonnay"))
-                    .or(article.wine.grape.contains("Sauvignon Blanc"));
-
-
-        } else {
+        if (!articleAlgorithmDTO.getGrape().equals("1")) {
             // 대중적인거 1번이 아닐때 아래것만 포함한거
             booleanBuilder
                     .and(article.wine.grape.notLike("Cabernet Sauvignon"))
@@ -159,7 +148,15 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                     .and(article.wine.grape.notLike("Sangiovese"))
                     .and(article.wine.grape.notLike("Chardonnay"))
                     .and(article.wine.grape.notLike("Sauvignon Blanc"));
-
+        } else {
+            // 대중적일때 저걸 포함안한 모든것
+            booleanBuilder
+                    .or(article.wine.grape.contains("Cabernet Sauvignon"))
+                    .or(article.wine.grape.contains("Merlot"))
+                    .or(article.wine.grape.contains("pinot noir"))
+                    .or(article.wine.grape.contains("Sangiovese"))
+                    .or(article.wine.grape.contains("Chardonnay"))
+                    .or(article.wine.grape.contains("Sauvignon Blanc"));
         }
 
         System.out.println("2articleAlgoGrape :");
@@ -174,7 +171,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         if (!articleAlgorithmDTO.getTaste().isEmpty()) {
             booleanBuilder.or(article.wine.content.contains(articleAlgorithmDTO.getTaste()));
         }
-        if(!articleAlgorithmDTO.getAroma().isEmpty()){
+        if (!articleAlgorithmDTO.getAroma().isEmpty()) {
             booleanBuilder.or(article.wine.content.contains(articleAlgorithmDTO.getAroma()));
         }
         System.out.println("2articleAlgoText :");
