@@ -19,7 +19,7 @@ const Footer = () => {
             <div>
               <div>
                 <a
-                  style={{ color: 'black' }}
+                  style={{ color: 'white' }}
                   href='https://github.com/Ryanromaris'
                 >
                   김형준 (Team Leader, Front-end Engineer)
@@ -27,14 +27,14 @@ const Footer = () => {
               </div>
               <div>
                 <a
-                  style={{ color: 'black' }}
+                  style={{ color: 'white' }}
                   href='https://github.com/UnicusStella'
                 >
                   박민준 (Back-end Engineer)
                 </a>
               </div>
               <div>
-                <a style={{ color: 'black' }} href='https://github.com/sehan95'>
+                <a style={{ color: 'white' }} href='https://github.com/sehan95'>
                   한승우 (Front-end Engineer)
                 </a>
               </div>
@@ -47,17 +47,17 @@ const Footer = () => {
         <div style={{ width: '300px', marginTop: '35px' }}>
           <div>
             <div>
-              <div style={{ color: 'black' }}>
+              <div style={{ color: 'white' }}>
                 김형준&nbsp; ryanromaris@naver.com
               </div>
             </div>
             <div>
-              <div style={{ color: 'black' }}>
+              <div style={{ color: 'white' }}>
                 박민준&nbsp; unicusstella@gmail.com
               </div>
             </div>
             <div>
-              <div style={{ color: 'black' }}>
+              <div style={{ color: 'white' }}>
                 한승우&nbsp; sehan95@gmail.com
               </div>
             </div>

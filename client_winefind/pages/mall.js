@@ -199,7 +199,7 @@ const Mall = ({ toggleModal }) => {
               onClick={getArticlesPage}
               src='images/search.png'
             />
-            <div>
+            {/* <div>
               <Button
                 style={{
                   backgroundColor: 'white',
@@ -214,8 +214,8 @@ const Mall = ({ toggleModal }) => {
                 </Button.Content>
                 <Button.Content hidden>Upload</Button.Content>
               </Button>
-              {/* <button onClick={test}>testButton</button> */}
-            </div>
+              
+            </div> */}
           </div>
           <div className={styles.mall_content_box}>
             <div className={styles.text_and_sort}>
@@ -223,7 +223,7 @@ const Mall = ({ toggleModal }) => {
                 {console.log('=========', articles)}
                 전체 와인({totalArticles})
               </div>
-              <form>
+              {/* <form>
                 <select
                   style={{
                     padding: '0.4rem',
@@ -231,13 +231,13 @@ const Mall = ({ toggleModal }) => {
                     borderRadius: '3px',
                   }}
                 >
-                  {/* onchange로 api 호출 */}
+                  onchange로 api 호출
                   <option value='최신등록순'>최신등록순</option>
                   <option value='가격낮은순'>가격낮은순</option>
                   <option value='가격높은순'>가격높은순</option>
                   <option value='평점순'>평점순</option>
                 </select>
-              </form>
+              </form> */}
             </div>
             {articles.length !== 0 ? (
               <Article articles={articles} />

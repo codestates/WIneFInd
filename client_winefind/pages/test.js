@@ -13,7 +13,7 @@ import { Progress } from 'semantic-ui-react';
 import classNames from 'classnames';
 import Result from '../components/Result';
 import axios from 'axios';
-const Test = () => {
+const Test = ({ toggleModal }) => {
   const length = 8;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [percent, setPercent] = useState(100 / length);
@@ -31,16 +31,8 @@ const Test = () => {
       setCurrentIndex((prevState) => prevState + 1);
       setPercent(percent < 100 ? percent + 100 / length : 100);
     }
-    console.log('val??', val);
     setResult([...result, val]);
   };
-  //전 슬라이드로 이동
-  // const prev = () => {
-  //   if (currentIndex > 0) {
-  //     setCurrentIndex((prevState) => prevState - 1);
-  //     setPercent(percent > 0 ? percent - 100 / length : 0);
-  //   }
-  // };
 
   const goToResult = () => {
     setFinishOrNot(true);
@@ -64,6 +56,34 @@ const Test = () => {
         console.log('?????????', res);
         setResultWine(res.data);
       })
+      .then(() => {
+        let token = localStorage.getItem('winefind');
+        axios
+          .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+            withCredentials: true,
+          })
+          .then((res) => {
+            console.log('loggined, add to favorite possible');
+            axios
+              .post(
+                `${process.env.NEXT_PUBLIC_API_URL}/recommended`,
+                {
+                  articleId: resultWine[0].wine.id,
+                  userId: res.data.userInfo.id,
+                },
+                { withCredentials: true }
+              )
+              .then((ele) => {
+                console.log('success add to favorite');
+              })
+              .catch((e) => {
+                console.log("can't add to favorite", e);
+              });
+          })
+          .catch((e) => {
+            console.log("not loggined, can't add");
+          });
+      })
       .catch((e) => {
         console.log('e', e);
       });
@@ -72,7 +92,11 @@ const Test = () => {
   return (
     <>
       {finishOrNot ? (
-        <Result resultWine={resultWine} result={result} />
+        <Result
+          toggleModal={toggleModal}
+          resultWine={resultWine}
+          result={result}
+        />
       ) : (
         <div className={styles.carousel_container}>
           <div className={styles.progress_container}>
@@ -129,7 +153,7 @@ const Test = () => {
                 </div>
                 <div className={styles.submit}>
                   <button className={styles.submit_btn} onClick={goToResult}>
-                    테스트 결과보기
+                    테스트 결과 보러가기!
                   </button>
                 </div>
               </div>
