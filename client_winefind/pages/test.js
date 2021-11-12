@@ -19,6 +19,7 @@ const Test = () => {
   const [percent, setPercent] = useState(100 / length);
   const [finishOrNot, setFinishOrNot] = useState(false);
   const [result, setResult] = useState([]);
+  const [resultWine, setResultWine] = useState([]);
   //결과를 보낼때, length가 7인지확인하고 axios 보낸다.
 
   //결과를 axios 보내고
@@ -61,6 +62,7 @@ const Test = () => {
       )
       .then((res) => {
         console.log('?????????', res);
+        setResultWine(res.data);
       })
       .catch((e) => {
         console.log('e', e);
@@ -70,7 +72,7 @@ const Test = () => {
   return (
     <>
       {finishOrNot ? (
-        <Result />
+        <Result resultWine={resultWine} result={result} />
       ) : (
         <div className={styles.carousel_container}>
           <div className={styles.progress_container}>
