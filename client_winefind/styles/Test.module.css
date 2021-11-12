@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
 .progress_container {
   display: flex;
   /* position: relative; */
@@ -215,6 +216,13 @@
 }
 .submit_btn {
   border: 1px solid #cda582;
-  padding: 10px 20px;
-  font-size: 1.4rem;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  padding: 100px;
+  font-size: 3rem;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/images/congrats.gif');
+}
+.submit_btn:hover {
 }

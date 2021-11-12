@@ -44,21 +44,7 @@ input {
 .mainpage_container {
   width: 100%;
   z-index: -100;
-  background-image: linear-gradient(
-    to right top,
-    #7f7271,
-    #6c6161,
-    #5a5151,
-    #484242,
-    #373333,
-    #2f2c2d,
-    #272527,
-    #201f20,
-    #1f1f20,
-    #1f1f1f,
-    #1e1e1f,
-    #1e1e1e
-  );
+  background-color: #232224;
 }
 
 .gototop {

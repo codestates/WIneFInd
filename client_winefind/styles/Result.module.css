@@ -6,8 +6,22 @@
   align-items: center;
   /* border: 5px purple solid; */
 }
-
+.result_message {
+  /* border: 1px yellow solid; */
+  /* border-bottom: #cda581 1px solid; */
+  /* width: 1000px; */
+  /* justify-content: center; */
+  /* align-self: center; */
+  /* width: 20%; */
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  font-size: 40px;
+  padding: 30px;
+  /* font-weight: bolder; */
+  margin: 10px 0px;
+}
 .board_layout {
+  animation: fadein 3s;
+  transition: 1s;
   padding: 10px;
   margin: 3rem 100px;
   display: flex;
@@ -15,8 +29,23 @@
   border: 1px solid #cda581;
   border-radius: 3px;
   background-color: white;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
+  align-items: center;
+  flex-direction: column;
   font-family: 'Playfair Display', serif;
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.result_box {
+  display: flex;
+  /* border: 2px red solid; */
+  flex-direction: row;
 }
 
 .wineName_writer {
@@ -47,6 +76,7 @@
   display: flex;
   /* justify-content: center; */
   padding-top: 50px;
+  margin-top: 30px;
   align-items: flex-start;
   flex-direction: column;
   /* border: 5px blue solid; */
@@ -92,7 +122,6 @@
   flex-direction: column;
   margin: 20px;
   border-radius: 3px;
-
   font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .wine_price {
@@ -120,7 +149,7 @@
   border: #cda581 1px solid;
   margin: 31px 20px 7px 0px;
   padding: 20px;
-  line-height: 2.5rem;
+  line-height: 3.5rem;
   font-size: 17px;
   width: 710px;
 }
@@ -128,17 +157,37 @@
   display: flex;
   /* justify-content: center; */
   align-items: center;
-  border: #cda581 1px solid;
-  margin: 7px 20px 7px 0px;
-  padding: 20px;
+  border-bottom: #cda581 1px solid;
+  width: 80%;
+  margin: 7px 20px 20px 0px;
+  padding: 0px 0px 10px 0px;
   line-height: 3rem;
-  font-size: 17px;
-  width: 710px;
+  /* width: 340px; */
+  /* justify-self: center; */
+  /* justify-content: center; */
+  text-align: center;
+}
+.gif {
+  /* width: 340px; */
+  /* margin-top: -10px; */
+  /* height: 250px; */
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  /* align-content: center; */
+  border: #cda581 1px solid;
+  /* background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/images/congrats.gif'); */
 }
 .article_description {
   /* margin: 15px 15px 0px 5px; */
   /* padding-left: 10px; */
-  font-size: 16px;
+  /* border: 1px red solid; */
+  width: 100%;
+  font-size: 20px;
+  font-family: 'IBM Plex Sans KR', sans-serif;
 }
 .article_title {
   width: 600px;
@@ -238,8 +287,18 @@
 }
 .buttons {
   display: flex;
-  margin-top: 35px;
+  /* flex-wrap: wrap; */
+  width: 98%;
+  margin-top: 75px;
   justify-content: space-evenly;
+  /* flex-direction: column; */
+  /* justify-self: center; */
+  /* justify-content: center; */
+  /* align-content: center; */
+  /* align-self: center; */
+  /* align-content: center; */
+  /* text-align: center; */
   /* border: 1px solid black; */
+
   /* height: 50px; */
 }

@@ -96,6 +96,26 @@ function Top({ toggleModal, modal }) {
               나만의 와인셀러
             </a>
           )}
+          {isLogin ? (
+            <Link href='/upload'>
+              <a
+                className={classNames(
+                  'text_color',
+                  'text_font',
+                  styles.nav_btn
+                )}
+              >
+                와인 판매하기
+              </a>
+            </Link>
+          ) : (
+            <a
+              onClick={toggleModal}
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
+            >
+              와인 판매하기
+            </a>
+          )}
 
           {isLogin ? (
             <a

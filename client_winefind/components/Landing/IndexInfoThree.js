@@ -7,9 +7,13 @@ const IndexInfoThree = () => {
       <div className={styles.info_container}>
         <div className={styles.testing_contain}>
           <p className={styles.testing_p}>
-            당신에게 잘 맞는 와인은 무엇일까요?
+            판매하시려는 와인의 정보를 입력하시고
             <br />
-            지금 바로 와인 취향 테스트를 해보세요!
+            사진을 업로드해주세요.
+            <br />
+            간편하게 와인을 판매할 수 있어요.
+            <br />
+            판매할 와인을 와인 몰에서 확인하세요!
           </p>
         </div>
         <div className={styles.testing_intro}>&nbsp; &nbsp;&nbsp;</div>

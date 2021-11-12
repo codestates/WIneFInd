@@ -11,10 +11,10 @@ const Introduction = () => {
             <h1 className={styles.intro_title}>Welcome to WINE FIND</h1>
             <div className={styles.intro_content}>
               <br />
-              여러분은 어떤 와인이 가장 맞을까요?
+              여러분에게 가장 잘 맞는 와인은 무엇일까요?
               <br />
               <br />
-              간단한 테스트를 통해 나만의 인생 와인을 추천 받아 보세요!
+              간단한 테스트를 통해 나만의 인생 와인을 추천 받아보세요!
               <br />
               <br />
               바로 시작해보세요!
