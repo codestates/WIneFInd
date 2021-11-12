@@ -7,18 +7,19 @@
 
 .main_box {
   display: flex;
-  flex-wrap: wrap;
-  width: 77%;
-  padding: 10px;
+  /* width: 77%; */
+
+  padding: 1rem;
   margin: 0 8rem;
   background: white;
+  border: goldenrod 3px solid;
 }
 .mall_content_box {
-  min-width: 70%;
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 14rem;
+  border: red 3px solid;
 }
 
 .filter_box {

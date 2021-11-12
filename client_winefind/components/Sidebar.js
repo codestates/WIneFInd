@@ -23,13 +23,6 @@ export default function Sidebar() {
           <Icon name='user' />내 정보
         </Menu.Item>
       </Link>
-      {/* 문의하기 */}
-      <Link href='/inquiry'>
-        <Menu.Item>
-          <Icon name='question circle' />
-          문의하기
-        </Menu.Item>
-      </Link>
     </Menu>
   );
 }

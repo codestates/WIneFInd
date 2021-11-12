@@ -8,7 +8,10 @@ const Introduction = () => {
         <div className={styles.separator}>&nbsp;&nbsp;&nbsp;&nbsp;</div>
         <div className={styles.content}>
           <div className={styles.intro_back}>
-            <h1 className={styles.intro_title}>Welcome to WINE FIND</h1>
+            <h1 className={styles.intro_title}>
+              Welcome to
+              <br /> WINE FIND
+            </h1>
             <div className={styles.intro_content}>
               <br />
               여러분에게 가장 잘 맞는 와인은 무엇일까요?

@@ -6,18 +6,18 @@ import styles from '../styles/Result.module.css';
 import { Card, Icon } from 'semantic-ui-react';
 import { style } from 'dom-helpers';
 
-const Result = ({ resultWine, result, toggleModal, setFinishOrNot }) => {
+const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
   const router = useRouter();
 
   const moreRecommendShow = () => {
     let token = localStorage.getItem('winefind');
-
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
         withCredentials: true,
       })
       .then((res) => {
         console.log('my user data:', res);
+        addToFavorite();
       })
       .catch((e) => {
         console.log('not loggined', e);
@@ -29,6 +29,7 @@ const Result = ({ resultWine, result, toggleModal, setFinishOrNot }) => {
     router.push(`/mall/${ele}`);
   };
   const retest = () => {
+    //배포할때
     window.location.replace('http://localhost:3000/test');
   };
 
@@ -244,7 +245,7 @@ const Result = ({ resultWine, result, toggleModal, setFinishOrNot }) => {
                       className='ui button'
                       onClick={moreRecommendShow}
                     >
-                      추천 결과 더보기&nbsp; &nbsp;&nbsp;
+                      내 와인에 담기&nbsp; &nbsp;&nbsp;
                     </button>
                     <br />
                     <button

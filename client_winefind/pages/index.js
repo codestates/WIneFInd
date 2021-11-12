@@ -24,7 +24,7 @@ const Home = () => {
         <IndexInfo />
       </div>
       <div className={styles.testing_container}>
-        <div style={{ marginLeft: '66%' }} className={styles.info_title}>
+        <div style={{ marginLeft: '65%' }} className={styles.info_title}>
           테스트 결과를 확인하세요
         </div>
         <IndexInfoTwo />

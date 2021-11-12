@@ -195,27 +195,11 @@ const Mall = ({ toggleModal }) => {
                 height: '20px',
                 position: 'relative',
                 right: '50px',
+                cursor: 'pointer',
               }}
               onClick={getArticlesPage}
               src='images/search.png'
             />
-            {/* <div>
-              <Button
-                style={{
-                  backgroundColor: 'white',
-                  border: '#cda581 solid 1px',
-                  height: '41px',
-                }}
-                onClick={goToUpload}
-                animated
-              >
-                <Button.Content style={{ width: '4.6rem' }} visible>
-                  게시글 작성
-                </Button.Content>
-                <Button.Content hidden>Upload</Button.Content>
-              </Button>
-              
-            </div> */}
           </div>
           <div className={styles.mall_content_box}>
             <div className={styles.text_and_sort}>
@@ -223,21 +207,6 @@ const Mall = ({ toggleModal }) => {
                 {console.log('=========', articles)}
                 전체 와인({totalArticles})
               </div>
-              {/* <form>
-                <select
-                  style={{
-                    padding: '0.4rem',
-                    border: '1px solid #cda581',
-                    borderRadius: '3px',
-                  }}
-                >
-                  onchange로 api 호출
-                  <option value='최신등록순'>최신등록순</option>
-                  <option value='가격낮은순'>가격낮은순</option>
-                  <option value='가격높은순'>가격높은순</option>
-                  <option value='평점순'>평점순</option>
-                </select>
-              </form> */}
             </div>
             {articles.length !== 0 ? (
               <Article articles={articles} />
@@ -272,14 +241,7 @@ const Mall = ({ toggleModal }) => {
           <div className={styles.filter_top_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
-              <div>
-                {/* <button onClick={getFilteredList}>필터 적용</button> */}
-              </div>
-              <div
-                className={styles.redo_box}
-                style={{ marginLeft: '100px' }}
-                onClick={getArticlesPage}
-              >
+              <div className={styles.redo_box} onClick={getArticlesPage}>
                 <Icon name='filter' />
                 <input className={styles.redo} type='reset' value='필터 적용' />
               </div>
@@ -362,7 +324,7 @@ const Mall = ({ toggleModal }) => {
               ))}
             </div>
           </div>
-          <div className={styles.filter_content}>
+          {/* <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>가격(₩)</div>
             </div>
@@ -389,7 +351,7 @@ const Mall = ({ toggleModal }) => {
                 <div style={{ width: '30px' }}>이하</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

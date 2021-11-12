@@ -13,6 +13,7 @@ import { Progress } from 'semantic-ui-react';
 import classNames from 'classnames';
 import Result from '../components/Result';
 import axios from 'axios';
+import router from 'next/router';
 const Test = ({ toggleModal }) => {
   const length = 8;
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -53,39 +54,44 @@ const Test = ({ toggleModal }) => {
         }
       )
       .then((res) => {
-        console.log('?????????', res);
         setResultWine(res.data);
-      })
-      .then(() => {
-        let token = localStorage.getItem('winefind');
-        axios
-          .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-            withCredentials: true,
-          })
-          .then((res) => {
-            console.log('loggined, add to favorite possible');
-            axios
-              .post(
-                `${process.env.NEXT_PUBLIC_API_URL}/recommended`,
-                {
-                  articleId: resultWine[0].wine.id,
-                  userId: res.data.userInfo.id,
-                },
-                { withCredentials: true }
-              )
-              .then((ele) => {
-                console.log('success add to favorite');
-              })
-              .catch((e) => {
-                console.log("can't add to favorite", e);
-              });
-          })
-          .catch((e) => {
-            console.log("not loggined, can't add");
-          });
       })
       .catch((e) => {
         console.log('e', e);
+      });
+  };
+
+  const addToFavorite = () => {
+    let token = localStorage.getItem('winefind');
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log('loggined, add to favorite possible');
+        console.log('asdasdasdasdasadsadsdsadsdasdsa', resultWine[0]);
+        for (let i of resultWine) {
+          axios
+            .post(
+              `${process.env.NEXT_PUBLIC_API_URL}/recommended`,
+              {
+                articleId: i.wine.id,
+                userId: res.data.userInfo.id,
+              },
+              { withCredentials: true }
+            )
+            .then((ele) => {
+              console.log('success add to favorite', ele);
+            })
+            .catch((e) => {
+              console.log("can't add to favorite", e);
+            });
+        }
+        router.push('/user');
+        window.location.replace('http://localhost:3000/user');
+      })
+      .catch((e) => {
+        console.log("not loggined, can't add");
       });
   };
 
@@ -96,6 +102,7 @@ const Test = ({ toggleModal }) => {
           toggleModal={toggleModal}
           resultWine={resultWine}
           result={result}
+          addToFavorite={addToFavorite}
         />
       ) : (
         <div className={styles.carousel_container}>
@@ -113,12 +120,6 @@ const Test = ({ toggleModal }) => {
             />
           </div>
           <div className={classNames('text_font', styles.carousel_wrapper)}>
-            {/* 전 슬라이드 화살표 */}
-            {/* {currentIndex > 0 && (
-              <button onClick={prev} className={styles.left_arrow}>
-                &lt;
-              </button>
-            )} */}
             <div className={styles.carousel_content_wrapper}>
               <div
                 className={styles.carousel_content}
@@ -149,6 +150,7 @@ const Test = ({ toggleModal }) => {
                     questionnum={7}
                     setFinishOrNot={setFinishOrNot}
                     setResult={setResult}
+                    addToFavorite={addToFavorite}
                   />
                 </div>
                 <div className={styles.submit}>

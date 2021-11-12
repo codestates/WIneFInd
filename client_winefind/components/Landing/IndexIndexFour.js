@@ -8,17 +8,8 @@ const IndexInfoFour = () => {
     // 와인 취향 테스트 받으로 가기 섹션
     <>
       <div className={styles.info_container}>
-        <div style={{ left: '50px' }} className={styles.testing_intro}>
-          &nbsp; &nbsp;&nbsp;
-        </div>
-        <div
-          style={{
-            position: 'relative',
-            left: '700px',
-            height: '400px',
-          }}
-          className={styles.testing_containtwo}
-        >
+        <div className={styles.testing_intro4}>&nbsp; &nbsp;&nbsp;</div>
+        <div className={styles.testing_containtwo}>
           <div className={styles.testing_p}>
             찾으시는 와인의 타입, 국가, 맛을 검색하세요
             <br />
@@ -29,11 +20,10 @@ const IndexInfoFour = () => {
             <br />
             지금 바로 시작하세요!
             <br />
-            <br />
             <Icon
-              style={{ marginLeft: '125px', cursor: 'pointer' }}
+              style={{ marginLeft: '40%', cursor: 'pointer' }}
               onClick={goToTop}
-              size='huge'
+              size='big'
               name='arrow circle up'
             />
           </div>

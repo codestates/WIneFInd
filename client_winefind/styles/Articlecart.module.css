@@ -1,8 +1,7 @@
 .article_box {
   display: flex;
-
   align-items: center;
-  flex-wrap: wrap;
+  /* border: 3px gold solid; */
   border-bottom: 1px rgba(98, 97, 97, 0.766) solid;
   width: 95%;
   justify-content: flex-start;
@@ -10,7 +9,7 @@
 
 .wine_image {
   width: 160px;
-  margin: 20px;
+  margin: 1.5rem;
   height: 160px;
   background-size: auto 100%;
   background-position: center;

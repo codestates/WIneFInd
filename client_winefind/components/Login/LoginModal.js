@@ -25,18 +25,18 @@ const LoginModal = ({ toggleModal, modal }) => {
         로그인
       </a>
       {modal && (
-        <div className={styles.modal}>
+        <div>
           <div onClick={toggleModal} className={styles.overlay}></div>
-          {isLoginOrSignup ? (
-            <Login
-              changeLoginToSignup={changeLoginToSignup}
-              toggleModal={toggleModal}
-            />
+          {/* {isLoginOrSignup ? ( */}
+          <Login
+            changeLoginToSignup={changeLoginToSignup}
+            toggleModal={toggleModal}
+          />
           ) : (
-            <Signup
-              changeLoginToSignup={changeLoginToSignup}
-              toggleModal={toggleModal}
-            />
+          <Signup
+            changeLoginToSignup={changeLoginToSignup}
+            toggleModal={toggleModal}
+          />
           )}
         </div>
       )}

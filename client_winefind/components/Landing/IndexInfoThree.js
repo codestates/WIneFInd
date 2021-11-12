@@ -16,7 +16,7 @@ const IndexInfoThree = () => {
             판매할 와인을 와인 몰에서 확인하세요!
           </p>
         </div>
-        <div className={styles.testing_intro}>&nbsp; &nbsp;&nbsp;</div>
+        <div className={styles.testing_intro3}>&nbsp; &nbsp;&nbsp;</div>
       </div>
     </>
   );
