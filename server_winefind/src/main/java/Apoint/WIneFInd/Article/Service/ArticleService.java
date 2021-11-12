@@ -30,6 +30,6 @@ public interface ArticleService {
 
     public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable);
 
-    public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO);
+    public List<Article> FindByRecommendedWineAlgo(ArticleAlgorithmDTO articleAlgorithmDTO);
 
 }

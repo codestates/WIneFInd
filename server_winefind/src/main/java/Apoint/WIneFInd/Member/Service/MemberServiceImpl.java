@@ -150,7 +150,6 @@ public class MemberServiceImpl implements MemberService {
 
     // "User" JWT 토큰 생성
     @Override
-    @Transactional
     public String CreateJWTToken(User user) {
 
         Date now = new Date();

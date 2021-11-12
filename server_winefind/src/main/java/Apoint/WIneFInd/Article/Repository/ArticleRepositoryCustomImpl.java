@@ -20,10 +20,9 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     @Autowired
     JPAQueryFactory queryFactory;
 
-
+    //
     @Override
     public PageImpl<Article> FindByTotalSearch(String text, Pageable pageable) {
-
 
         List<Article> articleSearch = queryFactory.selectFrom(article)
                 .where(article.title.contains(text)
@@ -64,7 +63,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     }
 
     @Override
-    public List<Article> RecommendedArticle(ArticleAlgorithmDTO articleAlgorithmDTO) {
+    public List<Article> FindByRecommendedWineAlgo(ArticleAlgorithmDTO articleAlgorithmDTO) {
 
 
         System.out.println(articleAlgorithmDTO.getBody());

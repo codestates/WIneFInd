@@ -128,7 +128,7 @@ public class ArticleController {
     public ResponseEntity<?> ArticleAlgolithm(@RequestBody ArticleAlgorithmDTO articleAlgorithmDTO) {
 
 
-        List<Article> articleAlgo = articleService.RecommendedArticle(articleAlgorithmDTO);
+        List<Article> articleAlgo = articleService.FindByRecommendedWineAlgo(articleAlgorithmDTO);
 
         return ResponseEntity.ok().body(articleAlgo);
     }
