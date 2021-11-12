@@ -9,4 +9,5 @@ public class RecommendedDTO {
 
     private Long userId;
     private Long articleId;
+
 }

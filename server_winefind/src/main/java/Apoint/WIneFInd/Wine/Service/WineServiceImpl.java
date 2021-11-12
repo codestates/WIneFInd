@@ -85,7 +85,6 @@ public class WineServiceImpl implements WineService {
 
     // 와인 정보 수정
     @Override
-    @Transactional
     public Wine Update(WineDTO wineDTO, Long id) {
 
         try {

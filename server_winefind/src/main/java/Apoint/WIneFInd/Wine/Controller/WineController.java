@@ -5,6 +5,8 @@ import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,11 +31,14 @@ public class WineController {
     @PostMapping("wine")
     public ResponseEntity<?> CreateWine(@RequestBody WineDTO wineDTO) {
 
-        // 입력받은 'wineDTO'로 와인 생성
-        Wine wineSave = wineService.Save(wineDTO);
+        try {
+            // 입력받은 'wineDTO'로 와인 생성
+            Wine wineSave = wineService.Save(wineDTO);
 
-        return ResponseEntity.ok().body(hashMap.put("wineInfo", wineSave));
-
+            return ResponseEntity.ok().body(hashMap.put("wineInfo", wineSave));
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("'WineDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
+        }
     }
 
 
@@ -56,10 +61,13 @@ public class WineController {
                 .bodyList(bodyList)
                 .priceList(priceList)
                 .build();
+        try {
+            List<Wine> wines = wineService.FindByWineFiltering(wineFilterDTO);
 
-        List<Wine> wines = wineService.FindByWineFiltering(wineFilterDTO);
-
-        return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
+            return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
+        } catch (NullPointerException e) {
+            return ResponseEntity.status(500).body("필터링을 수행한 결과 아무값도 '조회’ 할 수 없습니다. \n" + e);
+        }
     }
 
 
@@ -67,36 +75,50 @@ public class WineController {
     @GetMapping("wine")
     public ResponseEntity<?> FindWine(@RequestParam(required = false) Long id) {
 
+        try {
+            // Param 으로 값이 들어오면 Param 값으로 "Wine" 조회
+            if (id != null) {
+                Wine wine = wineService.FindById(id);
+                return ResponseEntity.ok().body(hashMap.put("wineInfo", wine));
+            }
 
-        // Param 으로 값이 들어오면 Param 값으로 "Wine" 조회
-        if (id != null) {
-            Wine wine = wineService.FindById(id);
-            return ResponseEntity.ok().body(hashMap.put("wineInfo", wine));
+            // Param 으로 값이 들어오지 않으면 "Wine" 전체 조회
+            List<Wine> wines = wineService.FindByAll();
+
+            return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 와인을 '조회' 할 수 없습니다. \n" + e);
         }
-
-        // Param 으로 값이 들어오지 않으면 "Wine" 전체 조회
-        List<Wine> wines = wineService.FindByAll();
-
-        return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
     }
 
     // 와인 수정
     @PutMapping("wine/{id}")
     public ResponseEntity<?> UpdateWine(@RequestBody WineDTO wineDTO, @PathVariable Long id) {
 
-        // 입력받은 Id로 와인 수정
-        Wine updateWine = wineService.Update(wineDTO, id);
+        try {
+            // 입력받은 Id로 와인 수정
+            Wine updateWine = wineService.Update(wineDTO, id);
 
-        return ResponseEntity.ok().body(hashMap.put("wineInfo", updateWine));
+            return ResponseEntity.ok().body(hashMap.put("wineInfo", updateWine));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. \n" + e);
+        } catch (DataIntegrityViolationException e) {
+            return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. wineDTO 양식에 맞춰" +
+                    "다시 작성해 주세요 \n" + e);
+        }
     }
 
     // 와인 삭제
     @DeleteMapping("wine/{id}")
     public ResponseEntity<?> DeleteWine(@PathVariable Long id) {
 
-        // 입력받은 Id로 와인 삭제
-        String deleteWine = wineService.Delete(id);
+        try {
+            // 입력받은 Id로 와인 삭제
+            String deleteWine = wineService.Delete(id);
 
-        return ResponseEntity.ok().body(deleteWine);
+            return ResponseEntity.ok().body(deleteWine);
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(500).body("해당 와인을 '삭제' 할 수 없습니다. \n" + e);
+        }
     }
 }
