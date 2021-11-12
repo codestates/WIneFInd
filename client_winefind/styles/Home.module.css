@@ -15,37 +15,21 @@
   flex-direction: column;
   justify-content: center;
   width: 100%;
-  height: 650px;
   margin-bottom: 5%;
-  /* margin-top: 2%; */
   /* border: 5px rgb(0, 128, 43) solid; */
-}
-
-.main {
-  padding: 5rem 0;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .intro_message {
   display: flex;
-  /* align-items: center; */
   flex-direction: column;
   /* border: 5px aqua solid; */
+  height: 700px;
   width: 100%;
   background: url('https://i.pinimg.com/originals/37/b8/c1/37b8c174aa10e05e209c4e82f46193cb.gif')
     no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
 }
-
-/* https://i.makeagif.com/media/7-06-2016/7VD29a.gif */
-/* https://i.pinimg.com/originals/37/b8/c1/37b8c174aa10e05e209c4e82f46193cb.gif */
-/* https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iUE4.fMqCRB0/v1/-999x-999.gif */
-/* https://images5.alphacoders.com/443/thumb-1920-443997.jpg */
 
 .separator {
   /* border: 5px rgb(212, 6, 231) solid; */
@@ -196,23 +180,6 @@
   font-size: 35px;
   height: 50px;
   color: white;
-  /* color: transparent;
-  background: linear-gradient(
-    to top,
-    #f6dcce,
-    #eecebb,
-    #e6c1a8,
-    #ddb496,
-    #d4a783,
-    #cea17a,
-    #c89a70,
-    #c29467,
-    #bf9165,
-    #bd8f62,
-    #ba8c60,
-    #b88a5e
-  );
-  -webkit-background-clip: text; */
 }
 
 .card_head {
@@ -263,57 +230,83 @@
   display: flex;
   flex-direction: column;
   /* align-items: center; */
-  height: 650px;
+  height: 80vh;
   width: 100%;
   margin: 3% 0px;
-  /* border: 5px red solid; */
+  /* border: 5px blue solid; */
   border-radius: 5px;
 }
 
 .info_container {
-  flex-direction: column;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
-  /* width: 100%; */
   height: 100%;
   /* border: 5px yellow solid; */
-  /* background-color: white; */
+  justify-content: center;
 }
 
 .info_title {
   display: flex;
   padding: 3%;
   font-family: 'IBM Plex Sans KR', sans-serif;
-  /* border: 5px solid greenyellow; */
   color: white;
   margin-left: 3%;
-  font-size: 30px;
-  width: 30%;
-  height: 7%;
+  /* height: 7%; */
+  font-size: 2.2rem;
 }
 
 .testing_intro {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  right: 50px;
-  background: url('https://i.pinimg.com/originals/37/b8/c1/37b8c174aa10e05e209c4e82f46193cb.gif')
-    no-repeat center center;
-  background-size: cover;
-  width: 700px;
-  border: 2px solid rgb(240, 228, 228);
-  height: 540px;
+  margin-right: 10%;
+  background: url('/images/testpage.gif') no-repeat center center;
+  background-size: contain;
+  width: 44%;
+  height: 70%;
+  border: 1px solid rgb(240, 228, 228);
+}
+.testing_intro2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5%;
+  background: url('/images/testpage2.gif') no-repeat center center;
+  background-size: contain;
+  width: 44%;
+  height: 70%;
+  border: 1px solid rgb(240, 228, 228);
+}
+.testing_intro3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10%;
+  background: url('/images/testpage3.gif') no-repeat center center;
+  background-size: contain;
+  width: 44%;
+  height: 70%;
+  border: 1px solid rgb(240, 228, 228);
+}
+.testing_intro4 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5%;
+  background: url('/images/testpage4.gif') no-repeat center center;
+  background-size: contain;
+  width: 44%;
+  height: 70%;
+  border: 1px solid rgb(240, 228, 228);
 }
 
 .testing_p {
-  font-size: 20px;
+  font-size: 1.5rem;
   font-weight: bold;
   font-family: 'IBM Plex Sans KR', sans-serif;
   color: white;
-  padding: 4% 6% 4% 6%;
   border-radius: 3px;
-  /* border: 5px solid white; */
   line-height: 3rem;
 }
 .whiteback {
@@ -333,8 +326,8 @@
   box-shadow: -15px 13px rgba(0, 128, 128, 0.594);
   /* background: rgba(19, 19, 19, 0.829); */
   /* border: 5px solid lightskyblue; */
-  width: 500px;
-  height: 80%;
+  width: 40%;
+  height: 60%;
   /* 겹치게 할때 여기 마진 레프트 */
   margin: 5% 5% 5% 8%;
 }
@@ -345,11 +338,11 @@
   align-items: center;
   background-color: #cda481ee;
   z-index: 10;
-  box-shadow: 15px 13px rgba(0, 128, 128, 0.594);
+  box-shadow: -15px 13px rgba(0, 128, 128, 0.594);
   /* background: rgba(19, 19, 19, 0.829); */
   /* border: 5px solid lightskyblue; */
-  width: 500px;
-  height: 80%;
+  width: 40%;
+  height: 60%;
   /* 겹치게 할때 여기 마진 레프트 */
   margin: 5% 5% 5% 8%;
 }
@@ -387,7 +380,7 @@
   justify-content: center;
   align-items: center;
   width: 50%;
-  border: 5px solid rgb(16, 197, 70);
+  /* border: 5px solid rgb(16, 197, 70); */
   background-size: contain;
   height: 100%;
 }

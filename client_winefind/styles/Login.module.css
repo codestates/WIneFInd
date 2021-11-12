@@ -21,11 +21,7 @@
   z-index: 10;
 }
 
-.overlay {
-}
 .modal_contents {
-  border: 1px solid #cda581;
-  box-shadow: 0px 0px 0.5rem #cda581;
   position: absolute;
   top: 450%;
   left: 50%;
