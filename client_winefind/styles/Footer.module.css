@@ -1,5 +1,6 @@
 .footer_container {
   display: flex;
+  width: 100%;
   justify-content: space-between;
   background-color: rgba(23, 23, 23, 0.581);
   padding: 25px 50px 20px 50px;

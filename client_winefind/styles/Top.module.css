@@ -4,6 +4,7 @@
 .nav_bar_container {
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
   padding: 0.3rem 1rem;
   padding: 0px 3rem;
   font-family: 'Playfair Display', serif;
@@ -89,7 +90,3 @@
     align-self: center;
   }
 }
-/* .shadow {
-  background: grey;
-  height: 50px;
-} */

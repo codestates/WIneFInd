@@ -112,8 +112,8 @@ const Test = ({ toggleModal }) => {
               percent={percent}
               style={{
                 width: '100%',
-                top: '5px',
-                height: '20px',
+
+                height: '2rem',
                 backgroundColor: '#2F2F2F',
               }}
               indicating

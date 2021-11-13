@@ -5,12 +5,8 @@ import { Button, Label, Icon, Flag } from 'semantic-ui-react';
 
 const FilterList = ({ ele, key, eraseThis }) => {
   return (
-    <div style={{ width: '100px' }}>
-      <button
-        key={key}
-        className={styles.totalfilter_button}
-        onClick={eraseThis}
-      >
+    <div onClick={eraseThis} style={{ width: '100px', zIndex: 1000 }}>
+      <button key={key} className={styles.totalfilter_button}>
         {/* 와인 타입별 라벨 색깔 정의 */}
         {ele === 'red' ? (
           <Label className={styles.label_width} color='red'>

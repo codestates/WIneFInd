@@ -5,6 +5,7 @@ const IndexInfo = () => {
     // 와인 취향 테스트 받으로 가기 섹션
     <>
       <div className={styles.info_container}>
+        <div className={styles.info_title}>와인 테스트를 해보세요</div>
         <div className={styles.testing_contain}>
           <div className={styles.testing_p}>
             당신에게 꼭 맞는 와인을 찾아드려요.

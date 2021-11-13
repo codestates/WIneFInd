@@ -4,7 +4,7 @@
   align-items: center;
   flex-direction: column;
   width: 100%;
-  border: 2px green solid;
+  /* border: 2px green solid; */
 }
 .main_box {
   display: flex;
@@ -68,8 +68,6 @@
   flex-direction: column;
   border-left: 0.1px grey dotted;
   /* border: 6px green solid; */
-
-  padding-right: 5rem;
 }
 .filter_top_content {
   min-height: 150px;

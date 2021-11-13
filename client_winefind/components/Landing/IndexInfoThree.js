@@ -5,6 +5,7 @@ const IndexInfoThree = () => {
     // 와인 취향 테스트 받으로 가기 섹션
     <>
       <div className={styles.info_container}>
+        <div className={styles.info_title}>와인을 판매하세요</div>
         <div className={styles.testing_contain}>
           <p className={styles.testing_p}>
             판매하시려는 와인의 정보를 입력하시고

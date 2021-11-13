@@ -1,19 +1,15 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
 import styles from '../../styles/detail.module.css';
 import { Card, Icon } from 'semantic-ui-react';
-import { style } from 'dom-helpers';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
-
-  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
-  // const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   const [article, setArticle] = useState(null);
 
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {
     axios
