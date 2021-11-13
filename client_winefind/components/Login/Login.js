@@ -37,6 +37,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         })
         .then(() => {
           window.location.reload();
+          alert('로그인 되었습니다!');
         })
         .catch(() => {
           console.log('login failed');

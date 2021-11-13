@@ -15,6 +15,7 @@ const Kakao = () => {
           console.log('what comes here?', res);
           console.log('kakao login success');
           window.location.replace('http://localhost:3000');
+          setTimeout(alert('카카오 로그인 되었습니다'), 3000);
           //배포할때
           // window.location.replace(
           //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
