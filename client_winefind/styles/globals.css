@@ -40,20 +40,22 @@ input {
   );
   -webkit-background-clip: text;
 }
-
+/* #232224 */
 .mainpage_container {
   width: 100%;
+  /* border: 3px aqua solid; */
   z-index: -100;
   background-color: #232224;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 1200px;
+  min-height: 100vh;
 }
 .guide_container {
   width: 1200px;
   min-width: 1200px;
+  background-color: #3b3b3b;
   /* border: 3px red solid; */
 }
 

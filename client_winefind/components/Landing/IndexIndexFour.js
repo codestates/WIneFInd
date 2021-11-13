@@ -8,6 +8,9 @@ const IndexInfoFour = () => {
     // 와인 취향 테스트 받으로 가기 섹션
     <>
       <div className={styles.info_container}>
+        <div style={{ marginLeft: '70%' }} className={styles.info_title}>
+          와인을 검색하세요
+        </div>
         <div className={styles.testing_intro4}>&nbsp; &nbsp;&nbsp;</div>
         <div className={styles.testing_containtwo}>
           <div className={styles.testing_p}>

@@ -17,29 +17,34 @@ export default function OrderTotal({
     }
     let price = total();
     let tax = total() * 0.1;
-
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/kakaopay`,
-        {
-          orderId: UUID,
-          userId: userInfo.id.toString(),
-          itemName: name,
-          quantity: totalQty.toString(),
-          totalAmount: price.toString(),
-          tax: tax.toString(),
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log(res.data);
-        window.location.href = `${res.data}`;
-        // setOrderId(orderId + 1);
-        console.log('orderID', orderId);
-      })
-      .catch((e) => {
-        console.log('error!', e);
-      });
+    console.log('price', typeof price);
+    if (price >= 1000000) {
+      alert('카카오페이 테스트 결제는 100만원을 초과할 수 없습니다.');
+    } else {
+      alert('카카오페이 테스트 결제를 진행합니다.');
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/kakaopay`,
+          {
+            orderId: UUID,
+            userId: userInfo.id.toString(),
+            itemName: name,
+            quantity: totalQty.toString(),
+            totalAmount: price.toString(),
+            tax: tax.toString(),
+          },
+          { withCredentials: true }
+        )
+        .then((res) => {
+          console.log(res.data);
+          window.location.href = `${res.data}`;
+          // setOrderId(orderId + 1);
+          console.log('orderID', orderId);
+        })
+        .catch((e) => {
+          console.log('error!', e);
+        });
+    }
   };
   return (
     // 총 합 알려주는 창

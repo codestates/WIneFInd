@@ -25,16 +25,12 @@ const User = () => {
       })
       .then((res) => {
         setIsLogin(() => true);
-        console.log(res.data.message);
-
-        console.log(res.data.userInfo.id);
         let id = res.data.userInfo.id;
         axios
           .get(`${process.env.NEXT_PUBLIC_API_URL}/recommended?id=${id}`, {
             withCredentials: true,
           })
           .then((res) => {
-            console.log('aa', res.data.userRecommended);
             setWineList(res.data.userRecommended);
           })
           .catch((e) => {
@@ -43,29 +39,23 @@ const User = () => {
       })
       .catch((e) => {
         setIsLogin(false);
-        console.log('isLogin', isLogin);
         console.log('error:', e);
       });
   };
-  const goToTop = () => {
-    window.scrollTo(0, 10);
-  };
+
   useEffect(() => {
     checkLogin();
-    // goToTop();
   }, []);
-  // 와인 맛들을 정렬 한 것!!
+
   return (
     <>
       {isLogin ? (
         <div className={classNames('text_eng', styles.container)}>
           <Sidebar />
-
           <div className={styles.layout}>
             <div className={classNames('text_color', styles.cellar_title)}>
               My Wine Cellar
             </div>
-            {console.log('WhAT???', wineList)}
             <div className={styles.card_box}>
               {wineList.length !== 0 ? (
                 wineList.map((wine, index) => (

@@ -22,9 +22,12 @@
 }
 
 .modal_contents {
-  position: absolute;
-  top: 450%;
+  position: fixed;
   left: 50%;
+  top: 50vh;
+  /* bottom: 50%; */
+  /* top: 450%; */
+  /* left: 50%; */
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: #f1f1f1;

@@ -9,19 +9,12 @@ import { Menu } from 'semantic-ui-react';
 //마이페이지  내 정보 수정 페이지
 const Myprofile = () => {
   const router = useRouter();
-  const [userInfo, setUserInfo] = useState({
-    userName: '',
-  });
+  const [userInfo, setUserInfo] = useState({});
   const [values, setValues] = useState({
     password: '',
     showPassword: false,
     username: '',
   });
-
-  // const [editInfo, setEditInfo] = useState({
-  //   username: '',
-  //   password: '',
-  // });
   const [image, setImage] = useState(null);
   const [createObjectURL, setCreateObjectURL] = useState(null);
 
@@ -54,27 +47,53 @@ const Myprofile = () => {
 
     promise.then(
       function (data) {
-        alert('이미지 업로드에 성공했습니다.');
+        console.log('이미지 업로드에 성공했습니다.');
       },
       function (err) {
-        return alert('오류가 발생했습니다: ', err.message);
+        return alert('다른 이미지를 선택해주세요: ', err.message);
       }
     );
   };
   const editUserInfo = () => {
-    let url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
-      userInfo.id + image.name
-    }`;
+    if (values.password === '' && values.username === '' && image === null) {
+      alert('변경 사항이 없어요');
+    } else {
+      let image_url;
+      let new_password;
+      let new_username;
 
-    if (values.password !== '' && values.username !== '') {
+      if (image === null) {
+        image_url = userInfo.image;
+        console.log('image null');
+      } else {
+        image_url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
+          userInfo.id + image.name
+        }`;
+      }
+      if (values.username === '') {
+        new_username = userInfo.username;
+        console.log('username is null');
+      } else {
+        console.log('there is username');
+        new_username = values.username;
+      }
+
+      if (values.password === '') {
+        alert('회원정보를 수정하시려면 비밀번호를 입력해주세요');
+      } else {
+        new_password = values.password;
+        alert('현재 입력하신 비밀번호로 수정됩니다');
+        console.log('password change');
+      }
+
       axios
         .put(
           `${process.env.NEXT_PUBLIC_API_URL}/user/${userInfo.id}`,
           {
             email: userInfo.email,
-            password: values.password,
-            username: values.username,
-            image: url,
+            password: new_password,
+            username: new_username,
+            image: image_url,
           },
           {
             withCredentials: true,
@@ -82,12 +101,11 @@ const Myprofile = () => {
         )
         .then((res) => {
           console.log('정보 수정이 완료되었습니다.');
+          alert('정보 수정이 완료되었습니다.');
         })
         .catch((e) => {
           console.log('회원정보수정 실패!', e);
         });
-    } else {
-      console.log('이름과 비밀번호 칸이 비어있습니다');
     }
   };
 
@@ -99,6 +117,7 @@ const Myprofile = () => {
   // 비밀번호 바꾸기
   const handleEditChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
+    console.log('vale:::', values);
   };
 
   // 유저 정보 조회 API
