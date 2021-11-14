@@ -18,17 +18,14 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
     JPAQueryFactory queryFactory;
 
 
-
-
-
     // 1. wineFilterDTO 의 getTypesList()로 White, Rose 가 들어올 경우 White 와 Rose 값 모두 찾기
-    // 2. 여기서 추가로 GetCountriesList() 로 Korea, France 가 들어온다고 했을경우 똑같이 Korea, France 찾고
-    // 위에서 얻은 값에서 서로 AND 연산 ...
+    // 2. 여기서 추가로 wineFilterDTO 의 getCountriesList() 로 Korea, France 가 들어온다고 했을경우 똑같이 Korea, France 찾고
+    // 각각 위에서 얻은 값으로 서로 AND 연산 ...
     @Override
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
 
-        // 적상적으로 출력 했는지 확인.
-        System.out.println("FindByWineFiltering() 실행");
+        // FindByWineFiltering 까지 들어왔는지 확인
+        System.out.println("FindByWineFiltering() Wine -> Repo -> WineRepoImpl p28");
 
         // 각 타입별로 or 채크 후 where 로 and 연산
         List<Wine> result = queryFactory.selectFrom(QWine.wine)
@@ -44,8 +41,8 @@ public class WineRepositoryCustomImpl implements WineRepositoryCustom {
 
     }
 
-    // where 부분이 List 로 들어왔을경우 동적으로 처리하기 위해서 메소드로
-    // for문을 사용해서 해결
+    // where 부분이 List 로 들어왔을경우 List안의 내용을 모두 수행하기 위해서
+    // for문을 사용하여 or 절로 묶어서 연결
     private Predicate whereType(WineFilterDTO wineFilterDTO) {
         BooleanBuilder booleanBuilder = new BooleanBuilder();
         if (!wineFilterDTO.getTypesList().isEmpty()) {

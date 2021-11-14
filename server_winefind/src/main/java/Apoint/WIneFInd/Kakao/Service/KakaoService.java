@@ -19,5 +19,5 @@ public interface KakaoService {
 
     public String KaKaoPay(KaKaoPayDTO kaKaoPayDTO);
 
-    public String KakaoaAprove(String pg_token);
+    public String KakaoAprove(String pg_token);
 }
