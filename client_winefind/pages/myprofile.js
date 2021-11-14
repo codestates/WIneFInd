@@ -60,7 +60,9 @@ const Myprofile = () => {
       values.username !== userInfo.username &&
       userInfo.email.slice(0, 11) === 'Guest_KaKao'
     ) {
-      alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
+      alert(
+        '카카오 로그인 유저는 유저이름을 바꿀 수 없습니다. 회원 정보를 수정하시려면 본인 성함을 적어주세요.'
+      );
     } else {
       let image_url;
       let new_password;
