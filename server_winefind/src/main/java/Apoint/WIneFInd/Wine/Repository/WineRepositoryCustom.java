@@ -8,12 +8,6 @@ import java.util.List;
 
 public interface WineRepositoryCustom {
 
-
-    // 리스트가 아닐경우일수도?
     List<Wine> FindByWineFiltering(WineFilterDTO filterDTO);
-
-//    Wine FindFilteringWine(List<Long> longTypeList);
-
-//    List<Wine> findByWineName(String winename, String type);
 
 }

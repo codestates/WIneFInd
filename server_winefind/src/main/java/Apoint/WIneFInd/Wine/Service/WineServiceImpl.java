@@ -16,6 +16,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class WineServiceImpl implements WineService {
 
     private final WineRepository wineRepository;
@@ -25,15 +26,13 @@ public class WineServiceImpl implements WineService {
         this.wineRepository = wineRepository;
     }
 
-
-    // 와인 정보 생성
+    // 와인 생성
     @Override
-    @Transactional
     public Wine Save(WineDTO wineDTO) {
 
         // 입력받은 WineDTO 에 따라 와인 생성
         try {
-            Wine createWine = Wine.builder()
+            Wine saveWine = Wine.builder()
                     .wineName(wineDTO.getWineName())
                     .type(wineDTO.getType())
                     .country(wineDTO.getCountry())
@@ -48,7 +47,7 @@ public class WineServiceImpl implements WineService {
                     .price(wineDTO.getPrice())
                     .build();
 
-            return wineRepository.save(createWine);
+            return wineRepository.save(saveWine);
 
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("'WineDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
@@ -56,8 +55,7 @@ public class WineServiceImpl implements WineService {
 
     }
 
-
-    // DB 안의 "Wine" 리스트 전체 조회
+    // 와인 전체 조회
     @Override
     @Transactional(readOnly = true)
     public List<Wine> FindByAll() {
@@ -65,7 +63,7 @@ public class WineServiceImpl implements WineService {
         return wineRepository.findAll();
     }
 
-    // 입력받은 "Id"로 DB 안의 "Wine" 조회
+    // 특정 Id에 해당하는 와인 조회
     @Override
     @Transactional(readOnly = true)
     public Wine FindById(Long id) {
@@ -83,7 +81,7 @@ public class WineServiceImpl implements WineService {
         });
     }
 
-    // 와인 정보 수정
+    // 와인 수정
     @Override
     public Wine Update(WineDTO wineDTO, Long id) {
 
@@ -103,26 +101,23 @@ public class WineServiceImpl implements WineService {
             updateWine.setImage(wineDTO.getImage());
             updateWine.setContent(wineDTO.getContent());
             updateWine.setSweet(wineDTO.getPrice());
-            // 입력받은 와인 형식에 맞춰서 업데이트 매소드 실행
 
-            // 업데이트 리턴
+            // 수정된 와인 리턴
             return updateWine;
+
         } catch (DataIntegrityViolationException e) {
             throw new DataIntegrityViolationException("WineDTO 양식에 맞춰 수정사항을 입력해 주세요. " + e);
         }
     }
 
     // 와인 정보 삭제
-    // 흠... Transaction 옵션을 no... for... 다해봤는데 왜 try catch 로 안가지... 음...
-    // 예외가 발생하면 아무것도 실행 안하고 그냥 롤백 하나? 에러 지정 못하나?
-    // 내가 졌다... 아무것도 안되네 ㅁㅇㄹㅁㅇㄴㄹ
-    @Override
     @Transactional(noRollbackFor = EmptyResultDataAccessException.class)
     public String Delete(Long id) {
 
         try {
             wineRepository.deleteById(id);
             return "'Wine' 정보가 성공적으로 '삭제' 처리 되었습니다.";
+            // Id 에 해당하는 와인이 존재하지 않을 경우
         } catch (EmptyResultDataAccessException e) {
             return "와인을 삭제하시려면 " + id + " 를 제외한 'Id' 를 다시 입력해 주세요 " + e;
         }
@@ -134,6 +129,7 @@ public class WineServiceImpl implements WineService {
     public List<Wine> FindByWineFiltering(WineFilterDTO wineFilterDTO) {
 
         try {
+            // 와인 wineFilterDTO 가 들어온 데이터에 맞춰서 필터링
             return wineRepository.FindByWineFiltering(wineFilterDTO);
         } catch (NullPointerException e) {
             throw new NullPointerException("필터링을 수행한 결과 아무값도 '조회’ 할 수 없습니다. \n" + e);

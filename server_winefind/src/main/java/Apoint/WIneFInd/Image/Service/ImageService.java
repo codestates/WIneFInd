@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,12 +19,14 @@ import java.io.IOException;
 
 @Slf4j
 @Service
+@Transactional
 public class ImageService {
 
-
+    // S3에서 정했던 bucketName값 application.properties 에서 가져오기
     @Value("${application.bucket.name}")
-    private  String bucketName;
+    private String bucketName;
 
+    // Config 에서 등록한 amazonS3 가져오기
     private final AmazonS3 amazonS3;
 
     @Autowired
@@ -33,28 +36,31 @@ public class ImageService {
 
     public String imageUploadFile(MultipartFile file) {
 
-        System.out.println("bucketName??? : " + bucketName);
+        System.out.println("imageUploadFile() 진입 Image -> Service -> p37");
+        System.out.println("S3 bucketName : " + bucketName);
 
+        // S3에 등록할 파일이름에 현재 시간_ 를 붙여서 고유한 이름만들기
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-//        String originalFilename = file.getOriginalFilename();
-        // 이미지 파일 Convert 부분!
-        File fileObj = convertMultipartFile(file);
-        System.out.println("convertMultipartFile() 실행 됬니?");
 
-        // 버킷에 이미지 올리는 부분!
+        // 이미지 파일을 byte로 Convert 하기
+        File fileObj = convertMultipartFile(file);
+
+        System.out.println("convertMultipartFile() Image -> Service -> p46");
+
+        // 양식에 맞춰서 정보를 입력하여 버킷에 이미지 올리기
         PutObjectResult putObjectResult = amazonS3.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
 
         System.out.println("amazonS3.putObject() 실행 됬니?" + putObjectResult.getContentMd5());
 
         fileObj.delete();
-        System.out.println("fileObj.delete() 까지 실행 됬니?");
 
-//        return putObjectResult.getContentMd5();
+        System.out.println("imageUploadFile() 아웃 Image -> Service -> p55");
 
         return "File upload : " + fileName;
     }
 
     public byte[] downloadFile(String fileName) {
+
         S3Object s3Object = amazonS3.getObject(bucketName, fileName);
         S3ObjectInputStream inputStream = s3Object.getObjectContent();
         try {
@@ -66,18 +72,19 @@ public class ImageService {
         return null;
     }
 
-    public File convertMultipartFile(MultipartFile file)  {
+    public File convertMultipartFile(MultipartFile file) {
         File convertFile = new File(file.getOriginalFilename());
-        try (FileOutputStream fos = new FileOutputStream(convertFile)){
+        try (FileOutputStream fos = new FileOutputStream(convertFile)) {
             fos.write(file.getBytes());
-        } catch (IOException e){
+        } catch (IOException e) {
             log.error("convert 가능한 파일이 없습니다. ", e);
         }
         return convertFile;
     }
 
-    public String deleteFile(String fileName){
-        amazonS3.deleteObject(bucketName,fileName);
+    // 이미지 파일 삭제하기
+    public String deleteFile(String fileName) {
+        amazonS3.deleteObject(bucketName, fileName);
         return fileName + " 삭제 되었습니다.";
     }
 }

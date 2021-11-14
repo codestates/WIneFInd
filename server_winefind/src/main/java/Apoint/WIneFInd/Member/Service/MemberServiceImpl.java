@@ -39,7 +39,7 @@ public class MemberServiceImpl implements MemberService {
 
             Date now = new Date();
 
-            // 유효성 검사가 통과하면 "User"정보 생성 role 은 기본적으로 "User"
+            // 유효성 검사가 통과하면 "User"정보 생성  role 은 기본적으로 "User"로 생성
             User user = User.builder()
                     .email(signUpDTO.getEmail())
                     .password(signUpDTO.getPassword())
@@ -88,7 +88,6 @@ public class MemberServiceImpl implements MemberService {
     public User FindByEmail(String email) {
 
         // DB 안에서 같은 이메일 찾아서 반환
-
         User byEmail = getEmail(email);
 
         return byEmail;

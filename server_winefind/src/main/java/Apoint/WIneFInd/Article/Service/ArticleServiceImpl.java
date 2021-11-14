@@ -6,14 +6,9 @@ import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Repository.ArticleRepository;
 import Apoint.WIneFInd.Member.Model.User;
-import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import Apoint.WIneFInd.Member.Service.MemberService;
-import Apoint.WIneFInd.Member.Service.MemberServiceImpl;
-import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
 import Apoint.WIneFInd.Wine.Model.Wine;
-import Apoint.WIneFInd.Wine.Repository.WineRepository;
 import Apoint.WIneFInd.Wine.Service.WineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
@@ -22,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -42,7 +36,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Article Save(ArticleDTO articleDTO, Long id) {
 
-        // 같은 게시물의 제목 중복 체크
+        // 같은 제목의 게시물의 제목 중복 체크
         validateTitle(articleDTO.getTitle());
 
         // articleDTO 에서 입력받은 값으로 유저정보와 와인정보를 가져오기
@@ -85,13 +79,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
-    @Override
-    @Transactional(readOnly = true) // Title 과 Content 중에 하나라도 포함된 게시물 찾기
-    public Page<Article> FindByTitleContainingOrContentContaining(String text, String content, Pageable pageable) {
-
-        return articleRepository.findByTitleContainingOrContentContaining(text, content, pageable);
-    }
-
     // Id를 입력 받아서 해당 아이디의 게시물 찾기
     @Override
     @Transactional(readOnly = true)
@@ -115,6 +102,8 @@ public class ArticleServiceImpl implements ArticleService {
         // 입력받은 Id 로 해당 게시물 찾기 만약 게시물이 없을경우 throw
         // 입력받은 값으로 게시물 수정작성
         Article updateArticle = getArticle(id);
+
+        // articleDTO 양식에 맞춰 게시글 정보 수정
         updateArticle.setContent(articleDTO.getTitle());
         updateArticle.setTitle(articleDTO.getContent());
 
@@ -132,7 +121,9 @@ public class ArticleServiceImpl implements ArticleService {
     // 게시물 삭제
     @Override
     public String Delete(Long id) {
+
         try {
+            // 입력받은 id에 해당하는 게시글 삭제
             articleRepository.deleteById(id);
             return "'Article' 정보가 성공적으로 '삭제' 처리 되었습니다.";
         } catch (EmptyResultDataAccessException e) {
@@ -144,6 +135,7 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<Article> FindByTotalSearch(String text, Pageable pageable) {
 
         try {
+            // 텍스트 에 포함된 내용으로 해당 게시글 찾기
             return articleRepository.FindByTotalSearch(text, pageable);
 
         } catch (InvalidDataAccessApiUsageException e) {
@@ -154,12 +146,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page<Article> FindByArticleFiltering(ArticleFilterDTO articleFilterDTO, Pageable pageable) {
 
+        // Client 의 카테고리 버튼을 통해 List로 들어오는 데이터들 필터링 처리
         return articleRepository.FindByArticleFiltering(articleFilterDTO, pageable);
     }
 
     @Override
     public List<Article> FindByRecommendedWineAlgo(ArticleAlgorithmDTO articleAlgorithmDTO) {
 
+        // 와인을 추천해 주기위한 알고리즘
         return articleRepository.FindByRecommendedWineAlgo(articleAlgorithmDTO);
     }
 }
