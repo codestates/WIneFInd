@@ -117,12 +117,10 @@ const Myprofile = () => {
   const handleEditChange = (prop) => (event) => {
     if (prop === 'username' && userInfo.email.slice(0, 11) === 'Guest_KaKao') {
       alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
+      setValues({ ...values, [prop]: userInfo.username });
     } else {
       setValues({ ...values, [prop]: event.target.value });
     }
-    // console.log('props:', prop);
-    // console.log('userInfo:', userInfo);
-    // setValues({ ...values, [prop]: event.target.value });
   };
 
   // 유저 정보 조회 API
