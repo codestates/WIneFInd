@@ -5,14 +5,11 @@ import Apoint.WIneFInd.Article.Domain.ArticleDTO;
 import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import Apoint.WIneFInd.Article.Service.ArticleService;
-import Apoint.WIneFInd.Wine.Domain.WineFilterDTO;
-import Apoint.WIneFInd.Wine.Model.Wine;
 import Apoint.WIneFInd.Wine.Service.WineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -21,10 +18,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -41,7 +36,8 @@ public class ArticleController {
     public ResponseEntity<?> CreateArticle(@RequestBody ArticleDTO articleDTO) {
 
         try {
-            // 게시글 판매 글에서 와인 생성도 같이 할 수 있게 articleDTO 에 게시글 정보 담기
+            // articleDTO wines를 통해서 먼저 와인에 대한 정보가 생성이 되고
+            // 나머지 정보와 wines 를 통해서 생성된 Id를 통해서 판매글 생성
             Long wineId = wineService.Save(articleDTO.getWines().get(0)).getId();
             Article createArticle = articleService.Save(articleDTO, wineId);
             return ResponseEntity.ok().body(new HashMap<>() {{
@@ -67,29 +63,25 @@ public class ArticleController {
                                              @RequestParam(required = false) List<String> tannicList,
                                              @RequestParam(required = false) List<String> priceList) {
 
-        System.out.println("id : " + id);
-        System.out.println("text : " + text);
-        System.out.println("typesList" + typesList);
         try {
+            // text가 기본값이 "" 이고 id가 null이며 List들이 null이면 전체 전체 리스트를 리턴
             if (text.equals("") && id == null && typesList == null && countriesList == null && sweetnessList == null
                     && acidityList == null && bodyList == null && tannicList == null && priceList == null
             ) {
-                System.out.println("1111111111111111========================================");
                 Page<Article> articles = articleService.FindByAllPage(pageable);
                 return ResponseEntity.ok().body(new HashMap<>() {{
                     put("articlesInfo", articles);
                 }});
             }
-            // Id가 null 이 아니면 해당 Id에 해당하는 Article 페이지로 이동
+            // Id가 null 이 아니면 해당 Id에 해당하는 Article 조회 및 리턴
             if (id != null) {
-                System.out.println("2222222222222222222========================================");
                 Article articles = articleService.FindById(id);
                 return ResponseEntity.ok().body(new HashMap<>() {{
                     put("articlesInfo", articles);
                 }});
             }
+            // text 의 값이 들어온다면 텍스트 정보와 일치하는 Article 조회 및 리턴
             if (!text.equals("")) {
-                System.out.println("33333333333333333333=====================================");
                 // text 값이 들어 올경우 text 값에 따라 필터링 된 title & content 게시물을 찾음
                 Page<Article> articles = articleService.FindByTotalSearch(text, pageable);
                 // 게시글 리턴
@@ -97,6 +89,9 @@ public class ArticleController {
                     put("articlesInfo", articles);
                 }});
             }
+
+            // 그밖에 Client에서 카테고리 선택시 List 형태로 보내오는 데이터를 처리하기 위해서 빌터패턴으로 저장
+            // articleFilterDTO 로 데이터를 내려보낼때 깔끔하게 내려보내고 싶어서 컨트롤러에서 빌터배턴으로 저장
             ArticleFilterDTO articleFilterDTO = ArticleFilterDTO.builder()
                     .typesList(typesList)
                     .countriesList(countriesList)
@@ -107,6 +102,7 @@ public class ArticleController {
                     .priceList(priceList)
                     .build();
 
+            // List들의 데이터들을 처리하기 위해 FindByArticleFiltering로 값 내려주기
             Page<Article> articles = articleService.FindByArticleFiltering(articleFilterDTO, pageable);
 
             return ResponseEntity.ok().body(new HashMap<>() {{
@@ -122,8 +118,8 @@ public class ArticleController {
     }
 
 
-    // 게시글 전체 조회 페이지와 페이징 처리 페이지를 구분하기 위해서 API를 나누어서 사용
-    // Page를 1번부터 설정으로 해도 안되서... 추후에 좀더 고민해보는걸로 일단은 나눠놓기
+
+    // 와인 추천 리스트 알고리즘
     @PostMapping("article/algo")
     public ResponseEntity<?> ArticleAlgolithm(@RequestBody ArticleAlgorithmDTO articleAlgorithmDTO) {
 
@@ -133,8 +129,10 @@ public class ArticleController {
         return ResponseEntity.ok().body(articleAlgo);
     }
 
+    // 사용되는곳 확인
     @GetMapping("articles")
     public ResponseEntity<?> FindArticle(@RequestParam(required = false) Long id) {
+
         // Id가 null 이 아니면 해당 Id에 해당하는 Article 로 이동
         if (id != null) {
             Article article = articleService.FindById(id);
@@ -152,7 +150,7 @@ public class ArticleController {
     public ResponseEntity<?> UpdateArticle(@RequestBody ArticleDTO articleDTO,
                                            @PathVariable Long id) {
         try {
-            // 입력받은 정보에서 title로 수정할 게시글을 찾은뒤에 수정
+            // 입력받은 정보에서 id로 수정할 게시글을 찾은뒤에 수정
             Article updateArticle = articleService.Update(articleDTO, id);
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("articleInfo", updateArticle);
@@ -165,7 +163,9 @@ public class ArticleController {
     // 게시글 삭제 하기
     @DeleteMapping("/article/{id}")
     public ResponseEntity<?> DeleteArticle(@PathVariable Long id) {
+
         try {
+            // 입력받은 Id에 해당하는 게시글 삭제 하기
             String deleteArticle = articleService.Delete(id);
             return ResponseEntity.ok().body(deleteArticle);
         } catch (EmptyResultDataAccessException e) {

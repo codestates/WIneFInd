@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RecommendedServiceImpl implements RecommendedService {
 
     private final RecommendedRepository recommendedRepository;
@@ -29,30 +30,30 @@ public class RecommendedServiceImpl implements RecommendedService {
         this.articleService = articleService;
     }
 
-    // 추천 리스트 생성
+    // 추천 리스트 생성 & 유효성 검사
     @Override
-    @Transactional
     public Recommended Save(RecommendedDTO recommendedDTO) {
 
         // 추천받는 받는 UserId와 추천 받을 ArticleId 를 입력 받아서
         // 각각에 해당하는 정보들을 조회하기
+        // 코드가 중복되면 매소드로 빼기... (근대 더 보기 복잡하지 않을까에 대해선 조금 의문)
         User user = getByUser(recommendedDTO.getUserId());
         Article article = articleService.FindById(recommendedDTO.getArticleId());
 
         // 조회한 유저 정보를 가지고 추천리스트 DB 안에 User 조회
         List<Recommended> byRecommendedUser = getByRecommendedUser(user);
 
-        // 유저 추천 리스트 체크
-        // 입력 받은 유저의 체크 리스트안에 입력받은 게시글 아이디가 있는지 없는지를 확인
+        // 유저 추천 리스트 중복 체크
+        // byRecommendedUser 의 추천리스트 에 이번에 들어오는 recommendedDTO.getArticleId()가 이미 존재 해 있는지를 중복 체크
         Optional<Recommended> RecommendedUserCheck = validDuplicateCheck(recommendedDTO.getArticleId(), byRecommendedUser);
-        // 만약 userRecommendCheck 안에 값이 비어있지 않다면 throw 발생
-        // 비어 있다면 추천리스트에 게시글 생성
+        // 만약 userRecommendCheck 안에 값이 비어있지 않다면 이미 같은 ArticleId가 추천 되어있으므로 throw 발생
+        // 값이 비어 있다면 추천리스트에 해당 ArticleId를 등록
         if (!RecommendedUserCheck.isEmpty())
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 wineId : "
                     + RecommendedUserCheck.get().getArticle().getId() +
                     " 를 제외한 'wineId' 를 다시 입력해 주세요. ");
 
-        // 추천 리스트에 생성
+        // 위의 유효성 검사를 통과할 시 추천 리스트에 해당 ArticleId를 생성
         Recommended recommended = Recommended.builder()
                 .user(user)
                 .article(article)
@@ -79,15 +80,15 @@ public class RecommendedServiceImpl implements RecommendedService {
     }
 
 
-    // 유저가 가지고 있는 추천리스트 목록 조회
+    // 추천리스트 조회
     @Override
     @Transactional(readOnly = true)
     public List<Recommended> FindByUserId(Long id) {
 
-        // 입력받은 아이디에 해당하는 유저 조회
+        // 추천리스트를 조회할 유저조회
         User user = getByUser(id);
 
-        // 추천리스트 DB 안에 입력받은 유저와 일치하는 정보 가져오기
+        // 추천리스트 DB 안에 입력받은 유저와 일치하는 유저정보 가져오기
         List<Recommended> userRecommendedList = getByRecommendedUser(user);
 
         // 만약 찾아온 유저의 추천리스트가 비어 있다면 throw 발생
@@ -95,33 +96,33 @@ public class RecommendedServiceImpl implements RecommendedService {
             throw new IllegalArgumentException(
                     "원하는 결과를 얻으시려면 id : " + id + " 를 제외한 'id' 를 다시 입력해 주세요. ");
 
-        // 비어 있지 않다면 저장
+        // 비어 있지 않다면 추천리스트 리턴
         return userRecommendedList;
     }
 
     // 추천 리스트 전체 삭제 & 개별 삭제
     @Override
-    @Transactional
     public String DeleteRecommended(Long id, Long articleId) {
 
-        // 입력받은 id로 유저 정보를 가져오기
+        // 추천리스트를 조회할 유저조회
         User user = getByUser(id);
 
-        // 가져온 유저 정보를 바탕으로 추천 리스트에 해당 유저가
-        // 가지고 있는 게시글 리스트 가져오기
+        // 추천리스트 DB 안에 입력받은 유저와 일치하는 유저정보 가져오기
         List<Recommended> byRecommendedUser = getByRecommendedUser(user);
 
-        // ArticleId가 null 이 아니면 해당 추천받은 게시글 하나만 삭제
-        // ArticleId가 null 이면 추천받은 게시글 리스트 전체 삭제
+
         try {
+            // 추천 리스트를 하나만 지우기 위해서 articleId가 Null 아니면 articleId 에 맞는 추천리스트 삭제
             if (articleId != null) {
                 Optional<Recommended> recommended = validDuplicateCheck(articleId, byRecommendedUser);
-                // recommended 유저정보 안에 추천리스트가 존재 하지 않다면 throw
+                // articleId 를 입력받았지만 추천리스트에 articleId와 일치하는 정보가 없을경우 err 발생!
                 recommended.orElseThrow(() -> {
                     throw new IllegalArgumentException("원하는 결과를 얻으시려면 articleId : " + articleId + " 를 제외한 'articleId' 를 다시 입력해 주세요. ");
                 });
+                // 입력받은 articleId와 일치하는 articleId가 있을경우 삭제
                 recommendedRepository.deleteById(recommended.get().getId());
             } else {
+                // ArticleId가 null 이면 유저의 추천리스트 전체 삭제
                 recommendedRepository.deleteAll(byRecommendedUser);
             }
             // 삭제 처리가 정상적으로 완료하면 String 문 출력

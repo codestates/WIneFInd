@@ -14,17 +14,19 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+
 public class RecommendedController {
 
     private final RecommendedService recommendedService;
+    private final HashMap hashMap;
 
     @Autowired
-    public RecommendedController(RecommendedService recommendedService) {
+    public RecommendedController(RecommendedService recommendedService, HashMap hashMap) {
         this.recommendedService = recommendedService;
+        this.hashMap = hashMap;
     }
 
-    // 유저 추천리스트에 와인 생성하기
+    // 추천리스트에 와인 생성하기
     @PostMapping("recommended")
     public ResponseEntity<?> CreateRecommend(@RequestBody RecommendedDTO recommendedDTO) {
 
@@ -32,9 +34,7 @@ public class RecommendedController {
             // recommendDTO 양식에 맞춰서 유저 리스트에 추천와인 생성 진행
             // 만약 예외가 발생하면 아래의 예외처리 실행
             Recommended getRecommended = recommendedService.Save(recommendedDTO);
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("userRecommend", getRecommended);
-            }});
+            return ResponseEntity.ok().body(hashMap.put("userRecommend", getRecommended));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 추천리스트를 ‘생성’ 할 수 없습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
@@ -42,15 +42,13 @@ public class RecommendedController {
         }
     }
 
-    // 유저가 가지고 있는 추천 리스트 목록 조회
+    // 추천 리스트 목록 조회
     @GetMapping("recommended")
     public ResponseEntity<?> FindRecommended(@RequestParam Long id) {
         try {
             // 입력받은 id 로 유저정보의 추천리스트를 조회 및 실패시 에러 처리
             List<Recommended> recommendeds = recommendedService.FindByUserId(id);
-            return ResponseEntity.ok().body(new HashMap<>() {{
-                put("userRecommended", recommendeds);
-            }});
+            return ResponseEntity.ok().body(hashMap.put("userRecommended", recommendeds));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 유저의 추천리스트 를 ‘조회’ 할 수 없습니다. \n" + e);
 
@@ -64,8 +62,8 @@ public class RecommendedController {
                                                @RequestParam(required = false) Long articleId) {
 
         try {
-            // wineId의 값이 없을면 userId 값에 해당하는 추천리스트 전체삭제
-            // wineId의 값이 있으면 userId 추천 리스트의 wineId 삭제
+            // articleId 값이 없을면 userId 해당하는 추천리스트 전체삭제
+            // articleId 값이 있으면 articleId 해당하는 추천와인 개별 삭제
             String deleteRecommended = recommendedService.DeleteRecommended(userId, articleId);
             return ResponseEntity.ok().body(deleteRecommended);
         } catch (EmptyResultDataAccessException e) {

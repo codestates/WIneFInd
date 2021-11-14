@@ -19,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Value("${config.domain}")
     private String domain;
 
+    // CORS 를 잡기위해 Config 에서 선언
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -29,6 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     }
 
+    // queryDSL 을 사용하기 위해서 EntityManager 넣어주기
     @Bean
     public JPAQueryFactory jpaQueryFactory(){
         return new JPAQueryFactory(em);

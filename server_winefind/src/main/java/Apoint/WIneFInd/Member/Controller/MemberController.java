@@ -7,21 +7,17 @@ import Apoint.WIneFInd.Member.Model.User;
 import Apoint.WIneFInd.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
-//@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
 public class MemberController {
 
     private final MemberService memberService;
@@ -35,14 +31,15 @@ public class MemberController {
 
     // 회원 가입
     @PostMapping("signup")
-    public ResponseEntity<?> SignUp(@RequestBody SignUpDTO signUpDTO, HttpServletResponse response) {
+    public ResponseEntity<?> SignUp(@RequestBody SignUpDTO signUpDTO) {
         try {
+
+            // signUpDTO 양식에 맞춰서 유저 정보 생성
             User signUpUser = memberService.Save(signUpDTO);
-            // 쿠키생성 후 "winefind" 쿠키 생성
+
+            // 생성된 유저정보를 기반으로 JWTToken 생성
             String signupToken = memberService.CreateJWTToken(signUpUser);
-            // "winefind" 쿠키 담기
-            // 추가적으로 필요한 설정값 있을시 여기서 설정 ex) secure, samesite
-            // response.addCookie(cookie);
+            ;
 
             // 응답 메시지 설정
             return ResponseEntity.ok().body(new HashMap<>() {{
@@ -50,7 +47,6 @@ public class MemberController {
                 put("userInfo", signUpUser);
                 put("message", "회원가입이 성공 하였습니다.");
             }});
-
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 유저 를 ‘조회’ 할 수 없습니다. \n" + e);
         } catch (DataIntegrityViolationException e) {
@@ -63,30 +59,24 @@ public class MemberController {
 
     // 로그인
     @PostMapping("login")
-    public ResponseEntity<?> LogIn(@RequestBody LoginDTO loginDTO, HttpServletResponse response) {
+    public ResponseEntity<?> LogIn(@RequestBody LoginDTO loginDTO) {
+
+        System.out.println("LogIn() 진입 Member -> Controller p63");
 
         try {
-            // 아이디와 비밀번호가 동일한지 체크 후에 쿠키 생성
-            System.out.println("Controller LogIn() 진입 p60");
+            // loginDTO 로 email과 password가 일치하면 유저정보 가져오기
             User logInUser = memberService.LoginCheck(loginDTO);
 
-            // LoginCheck로 로그인이 완료되면 JWTToken 만들기
+            // logInUser 로그인이 완료되면 logInUser에 해당하는 JWTToken 만들기
             String token = memberService.CreateJWTToken(logInUser);
-//            Cookie cookie = new Cookie("winefind", memberService.CreateJWTToken(logInUser));
-//            ResponseCookie cookie = ResponseCookie.from("winefind", memberService.CreateJWTToken(logInUser)) .domain("http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com") .sameSite("None") .secure(true) .path("/") .build();
-//            response.addHeader("Set-Cookie", cookie.toString());
-//            cookie.setSecure(false);
-//            response.addCookie(cookie);
 
-            System.out.println("===================================");
-            System.out.println("Controller LogIn() Token 아웃 p70");
+            System.out.println("String token = memberService.CreateJWTToken(logInUser) Member -> Controller p72");
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userInfo", logInUser);
                 put("token", token);
-//                put("message", "로그인이 성공 하였습니다" + cookie);
             }});
-        } catch (NullPointerException e) {
-            return ResponseEntity.badRequest().body("null이 발생 했습니다. : " + e);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(500).body("로그인이 실패 하였습니다. : \n" + e);
         }
     }
 
@@ -115,8 +105,6 @@ public class MemberController {
     @GetMapping("auth")
     public ResponseEntity<?> CheckAuth(@RequestParam String token) {
 
-        // "winefind" 라는 쿠키를 체크
-        // Cookie[] cookies = request.getCookies();
 
         // 입력받은 토큰이 우리가 만든 토큰인지 체크
         Map<String, String> checkResult = memberService.CheckJWTToken(token);
@@ -154,10 +142,12 @@ public class MemberController {
         return ResponseEntity.ok().body(user);
     }
 
+    // 유저 수정
     @PutMapping("user/{id}")
     public ResponseEntity<?> UpdateUser(@RequestBody SignUpDTO signUpDTO, @PathVariable Long id) {
 
         try {
+            // 수정할 유저 정보와 Id를 입력하여 유저정보 수정 진행
             User updateUser = memberService.Update(signUpDTO, id);
             return ResponseEntity.ok().body(new HashMap<>() {{
                 put("userInfo", updateUser);
@@ -170,6 +160,7 @@ public class MemberController {
         }
     }
 
+    // 유저 삭제
     @DeleteMapping("user/{id}")
     public ResponseEntity<?> DeleteUser(@PathVariable Long id, HttpServletResponse response) {
 

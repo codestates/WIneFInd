@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
@@ -30,30 +31,27 @@ public class CartServiceImpl implements CartService {
 
     // 장바구니 생성
     @Override
-    @Transactional
     public Cart Save(CartDTO cartDTO) {
 
-        // 장바구니를 만들 때 "User"와 "Article"을 생성해주기 위해서
-        // 파라미터로 받은 "articleId" & "userId" 입력받아서 해당 데이터를 찾기
+        // 장바구니를 만들 때 어떤 유저가(UserId) 어떤 판매글(ArticleId) 담을지를 알기위해서
+        // 파라미터로 입력받은 "articleId" & "userId" 로 각각해당하는 유저 판매글 가져오기
         User user = memberService.FindById(cartDTO.getUserId());
         Article article = articleService.FindById(cartDTO.getArticleId());
 
-        // 유저의 장바구니에 물품이 담겼는지와 유효성 체크를 확인하기 위해서 위에서 입력받은 유저객체로
-        // 장바구니 내에 유저 정보 찾기
+        // user 정보를 바탕으로 장바구니 리스트에서 user와 같은 장바구니 조회
         List<Cart> byUser = getByCartUser(user);
 
-        // byUser에 장바구니에 같은 상품이 담겼는지를 체크
+        // byUser 의 장바구니에 이미 동일한 상품이 담겼는지를 체크
         Optional<Cart> checkCartItemList = getCartValidCheck(cartDTO.getArticleId(), byUser);
 
-        // 만약 장바구니에 같은 상품이 존재하면 throw
+        // 만약 장바구니에 같은 상품이 존재하면 throw!
         if (!checkCartItemList.isEmpty())
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 articleId : "
                     + checkCartItemList.get().getArticle().getId() + " 를 제외한 'articleId' 를 다시 입력해 주세요. ");
 
-        // 장바구니에 "User"가 동일한 "Article"을 가지고 있지 않다면
-        // 장바구니에 정보를 저장합니다.\
-        Cart cart = new Cart();
-        cart = cart.builder()
+        // 장바구니에 동일한 상품이 존재하지 않다면
+        // 장바구니에 정보를 저장.
+        Cart cart = Cart.builder()
                 .user(user)
                 .article(article)
                 .build();
@@ -69,32 +67,31 @@ public class CartServiceImpl implements CartService {
         // 입력받은 "Id"로 해당하는 "user" 찾기
         User user = memberService.FindById(id);
 
-        // 장바구니에서 해당 "user"가 참조하는 모든 "Article"을 조회하기 위해서
-        // "finduser"를 입력받아 장바구니 에서 "user"조회
+        // 장바구니리스트에서 user와 일치하는 장바구니 조회
         List<Cart> userList = getByCartUser(user);
 
-        // 장바구니에 해당하는 "user"가 비어있으면 에러 발생!
+        // userList 의 장바구니가 비어 있다면 throw
         if (userList.isEmpty())
             throw new IllegalArgumentException("원하는 결과를 얻으시려면 id : "
                     + id + " 를 제외한 'id' 를 다시 입력해 주세요. ");
 
-        // "user"가 있으면 결과 출력
+        // userList 가 비어 있지 않다면 장바구니 리턴
         return userList;
     }
 
     // 장바구니 아이템 전체삭제 와 개별삭제 기능
     @Override
-    @Transactional
     public String DeleteCart(Long id, Long articleId) {
 
         // 입력받은 Id로 유저 정보 조회
         User user = memberService.FindById(id);
 
-        // 유저 정보로 장바구니 리스트 조회
+        // 장바구니 리스트에서 user 와 동일한 장바구니 찾기
         List<Cart> byCartUser = getByCartUser(user);
 
-        // articleId 과 유저 장바구니에 담긴 articleId 이 같으면 해당 상품 삭제
+        // articleId 의 값이 존재 한다면 articleId 에 해당하는 상품 삭제
         if (articleId != null) {
+
             // 입력받은 articleId 값과 유저 장바구니에 담긴 articleId 이 같은지를 체크
             Optional<Cart> getUserCartItem = getCartValidCheck(articleId, byCartUser);
             // 만약 장바구니에 해당 아이템이 없다면 에러 처리
