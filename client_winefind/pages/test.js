@@ -89,7 +89,7 @@ const Test = ({ toggleModal }) => {
         }
         router.push('/user');
         window.location.replace(
-          'https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/user.html'
+          'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/user.html'
         );
       })
       .catch((e) => {

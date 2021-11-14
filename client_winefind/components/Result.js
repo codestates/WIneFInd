@@ -32,7 +32,7 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
     //배포할때
     // window.location.replace('http://localhost:3000/test');
     window.location.replace(
-      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com//test.html'
+      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/test.html'
     );
   };
 
