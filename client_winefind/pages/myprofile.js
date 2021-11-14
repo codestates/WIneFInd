@@ -115,11 +115,14 @@ const Myprofile = () => {
 
   // 비밀번호 바꾸기
   const handleEditChange = (prop) => (event) => {
-    if (prop === 'username' && userInfo.role === 'KAKAO') {
-      alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
-    } else {
-      setValues({ ...values, [prop]: event.target.value });
-    }
+    // if (prop === 'username' && userInfo.role === 'KAKAO') {
+    //   alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
+    // } else {
+    //   setValues({ ...values, [prop]: event.target.value });
+    // }
+    console.log('props:', prop);
+    console.log('userInfo:', userInfo);
+    setValues({ ...values, [prop]: event.target.value });
   };
 
   // 유저 정보 조회 API
