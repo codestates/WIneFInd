@@ -61,7 +61,6 @@ const Shoppinglist = () => {
   // 지우기 기능 API
   const handleDelete = (articleId) => {
     let token = localStorage.getItem('winefind');
-
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
         withCredentials: true,
@@ -79,11 +78,11 @@ const Shoppinglist = () => {
             withCredentials: true,
           })
           .then((res) => {
-            //배포할때
-            // window.location.replace(
-            //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/shoppinglist.html'
-            // );
-            window.location.reload();
+            배포할때;
+            window.location.replace(
+              'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/shoppinglist.html'
+            );
+            // window.location.reload();
           })
           .catch((e) => {
             console.log('err:', e);

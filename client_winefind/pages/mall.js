@@ -152,7 +152,11 @@ const Mall = ({ toggleModal }) => {
 
   const eraseAll = () => {
     setList([]);
-    window.location.reload();
+    //배포할때
+    // window.location.reload()
+    window.location.replace(
+      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/mall.html'
+    );
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;

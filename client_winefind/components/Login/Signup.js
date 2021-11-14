@@ -67,8 +67,9 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
           },
           { withCredentials: true }
         )
-        .then(() => {
+        .then((res) => {
           console.log('signup Success!');
+          localStorage.setItem('winefind', res.data.token);
           window.location.reload();
           alert('회원가입 성공하였습니다. 바로 서비스를 이용하세요!');
         })
