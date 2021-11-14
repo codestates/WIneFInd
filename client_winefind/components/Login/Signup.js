@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const Signup = ({ toggleModal, changeLoginToSignup }) => {
+const Signup = ({ toggleModal, changeLoginToSignup, enterkey }) => {
   const [signUpInfo, setSignUpInfo] = useState({
     email: '',
     nickname: '',
@@ -154,7 +154,6 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
                   value={signUpInfo.checkPassword}
                   placeholder='Check Password'
                   onChange={handleInputValue('checkPassword')}
-                  onKeyUp={() => enterkey(createAccount)}
                 />
               </div>
             </div>
