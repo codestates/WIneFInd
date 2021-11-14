@@ -78,7 +78,7 @@ const Shoppinglist = () => {
             withCredentials: true,
           })
           .then((res) => {
-            배포할때;
+            // 배포할때;
             window.location.replace(
               'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/shoppinglist.html'
             );

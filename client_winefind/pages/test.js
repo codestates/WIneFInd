@@ -88,7 +88,9 @@ const Test = ({ toggleModal }) => {
             });
         }
         router.push('/user');
-        // window.location.replace('http://localhost:3000/user');
+        window.location.replace(
+          'https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/user.html'
+        );
       })
       .catch((e) => {
         console.log("not loggined, can't add");
