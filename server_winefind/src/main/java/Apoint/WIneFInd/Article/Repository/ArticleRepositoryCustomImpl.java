@@ -5,6 +5,7 @@ import Apoint.WIneFInd.Article.Domain.ArticleFilterDTO;
 import Apoint.WIneFInd.Article.Model.Article;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -50,13 +51,13 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         // articleFilterDTO 의 데이터들이 List로 들어오기 때문에 for문을 사용하기 위해서
         // where 절 안을 메소드로 선언
         List<Article> articleFilter = queryFactory.selectFrom(article)
-                .where(whereType(articleFilterDTO))
-                .where(whereCountry(articleFilterDTO))
-                .where(whereSweet(articleFilterDTO))
-                .where(whereAcidity(articleFilterDTO))
-                .where(whereBody(articleFilterDTO))
-                .where(whereTannic(articleFilterDTO))
-                .where(wherePrice(articleFilterDTO))
+                .where(whereList(articleFilterDTO.getTypesList(), article.wine.type))
+                .where(whereList(articleFilterDTO.getCountriesList(), article.wine.country))
+                .where(whereList(articleFilterDTO.getSweetnessList(), article.wine.sweet))
+                .where(whereList(articleFilterDTO.getAcidityList(), article.wine.acidity))
+                .where(whereList(articleFilterDTO.getBodyList(), article.wine.body))
+                .where(whereList(articleFilterDTO.getTannicList(), article.wine.tannic))
+                .where(whereList(articleFilterDTO.getPriceList(), article.wine.price))
                 .orderBy(article.wine.id.desc())
                 .fetch();
 
@@ -65,6 +66,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
 
         return new PageImpl<>(articleFilter.subList(start, end), pageable, articleFilter.size());
     }
+
 
     // 와인 추천에 사용되는 알고리즘
     @Override
@@ -82,6 +84,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         return articleAlgo;
 
     }
+
 
     private Predicate articleAlgoBody(ArticleAlgorithmDTO articleAlgorithmDTO) {
 
@@ -181,96 +184,110 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     }
 
 
-    private Predicate whereType(ArticleFilterDTO articleFilterDTO) {
+    public Predicate whereList(List<String> list, StringPath query) {
 
         BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        if (!articleFilterDTO.getTypesList().isEmpty()) {
-            for (String type : articleFilterDTO.getTypesList()) {
-                booleanBuilder.or(article.wine.type.contains(type));
+        // 입력받은 List가 비어있지 않다면 List의 size만큼 where절 생성
+        if (!list.isEmpty()) {
+            for (String i : list) {
+                booleanBuilder.or(query.contains(i));
             }
         }
-
+        // 비어있다면 Null 리턴
         return booleanBuilder;
     }
 
-    private Predicate whereCountry(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getCountriesList().isEmpty()) {
-            for (String country : articleFilterDTO.getCountriesList()) {
-                booleanBuilder.or(article.wine.country.contains(country));
-            }
-        }
-
-        return booleanBuilder;
-    }
-
-    private Predicate whereSweet(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getSweetnessList().isEmpty()) {
-            for (String sweet : articleFilterDTO.getSweetnessList()) {
-                booleanBuilder.or(article.wine.sweet.contains(sweet));
-            }
-        }
-
-        return booleanBuilder;
-    }
-
-    private Predicate whereAcidity(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getAcidityList().isEmpty()) {
-            for (String acidity : articleFilterDTO.getAcidityList()) {
-                booleanBuilder.or(article.wine.acidity.contains(acidity));
-            }
-        }
-
-        return booleanBuilder;
-    }
-
-    private Predicate whereBody(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getBodyList().isEmpty()) {
-            for (String body : articleFilterDTO.getBodyList()) {
-                booleanBuilder.or(article.wine.body.contains(body));
-            }
-        }
-
-        return booleanBuilder;
-    }
-
-    private Predicate whereTannic(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getTannicList().isEmpty()) {
-            for (String tannic : articleFilterDTO.getTannicList()) {
-                booleanBuilder.or(article.wine.tannic.contains(tannic));
-            }
-
-        }
-        return booleanBuilder;
-    }
-
-    private Predicate wherePrice(ArticleFilterDTO articleFilterDTO) {
-
-        BooleanBuilder booleanBuilder = new BooleanBuilder();
-
-        if (!articleFilterDTO.getPriceList().isEmpty()) {
-            for (String price : articleFilterDTO.getPriceList()) {
-                booleanBuilder.or(article.wine.price.goe(price));
-            }
-
-        }
-        return booleanBuilder;
-    }
+//    private Predicate whereType(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getTypesList().isEmpty()) {
+//            for (String type : articleFilterDTO.getTypesList()) {
+//                booleanBuilder.or(article.wine.type.contains(type));
+//            }
+//        }
+//
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate whereCountry(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getCountriesList().isEmpty()) {
+//            for (String country : articleFilterDTO.getCountriesList()) {
+//                booleanBuilder.or(article.wine.country.contains(country));
+//            }
+//        }
+//
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate whereSweet(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getSweetnessList().isEmpty()) {
+//            for (String sweet : articleFilterDTO.getSweetnessList()) {
+//                booleanBuilder.or(article.wine.sweet.contains(sweet));
+//            }
+//        }
+//
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate whereAcidity(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getAcidityList().isEmpty()) {
+//            for (String acidity : articleFilterDTO.getAcidityList()) {
+//                booleanBuilder.or(article.wine.acidity.contains(acidity));
+//            }
+//        }
+//
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate whereBody(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getBodyList().isEmpty()) {
+//            for (String body : articleFilterDTO.getBodyList()) {
+//                booleanBuilder.or(article.wine.body.contains(body));
+//            }
+//        }
+//
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate whereTannic(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getTannicList().isEmpty()) {
+//            for (String tannic : articleFilterDTO.getTannicList()) {
+//                booleanBuilder.or(article.wine.tannic.contains(tannic));
+//            }
+//
+//        }
+//        return booleanBuilder;
+//    }
+//
+//    private Predicate wherePrice(ArticleFilterDTO articleFilterDTO) {
+//
+//        BooleanBuilder booleanBuilder = new BooleanBuilder();
+//
+//        if (!articleFilterDTO.getPriceList().isEmpty()) {
+//            for (String price : articleFilterDTO.getPriceList()) {
+//                booleanBuilder.or(article.wine.price.goe(price));
+//            }
+//
+//        }
+//        return booleanBuilder;
+//    }
 
 
 }
