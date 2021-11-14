@@ -33,7 +33,7 @@ const Upload = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('res:', res.data);
+        // console.log('res:', res.data);
         setUserInfo(res.data.userInfo);
       })
       .catch((e) => {

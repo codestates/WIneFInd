@@ -52,7 +52,7 @@ const Mall = ({ toggleModal }) => {
     let acidityList = '';
     let bodyList = '';
     let tannicList = '';
-    let priceList = '';
+    // let priceList = '';
 
     for (let ele of [...new Set(list)]) {
       if (types.includes(ele)) {
@@ -83,7 +83,7 @@ const Mall = ({ toggleModal }) => {
     bodyList = eraseComma(bodyList);
     tannicList = eraseComma(tannicList);
     let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}&typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
-    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', url);
+
     if (searchText !== null) {
       url += `&text=${searchText}`;
     }
@@ -100,8 +100,6 @@ const Mall = ({ toggleModal }) => {
         console.log('error!:', e);
         setPage(0);
       });
-    // window.scrollTo(0, 0);
-    // console.log('??!?!?!?!?!?!?!?!!?!', page);
   };
 
   const handleSearchText = (e) => {
@@ -116,10 +114,22 @@ const Mall = ({ toggleModal }) => {
       if (!filterConditionList.types.includes(ele)) {
         filterConditionList.types.push(ele);
       }
-    }
-    if (countries.includes(ele)) {
+    } else if (countries.includes(ele)) {
       if (!filterConditionList.countries.includes(ele)) {
         filterConditionList.countries.push(ele);
+      }
+    } else {
+      let keyType = e.target.name;
+      if (keyType === 'sweetness') {
+        filterConditionList[keyType][0] = 'sweetness' + e.target.value;
+      } else if (keyType === 'acidity') {
+        filterConditionList[keyType][0] = 'acidity' + e.target.value;
+      } else if (keyType === 'body') {
+        filterConditionList[keyType][0] = 'body' + e.target.value;
+      } else if (keyType === 'tannic') {
+        filterConditionList[keyType][0] = 'tannic' + e.target.value;
+      } else {
+        filterConditionList[keyType][0] = e.target.value;
       }
     }
     setList(list.concat(Object.values(filterConditionList)).flat());
@@ -150,22 +160,6 @@ const Mall = ({ toggleModal }) => {
     let new_list = list.filter((item) => item !== erase_target);
     new_list = list.filter((item) => item !== erase_icon);
     setList(new_list);
-  };
-
-  const goToUpload = () => {
-    let token = localStorage.getItem('winefind');
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('logined');
-        router.push('/upload');
-      })
-      .catch((e) => {
-        console.log('not Logined');
-        toggleModal();
-      });
   };
 
   useEffect(() => {
@@ -251,7 +245,7 @@ const Mall = ({ toggleModal }) => {
               </div>
             </div>
             <div className={styles.filter_container}>
-              {console.log('this is filter list,', [...new Set(list)])}
+              {/* {console.log('this is filter list,', [...new Set(list)])} */}
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
                     <FilterList ele={ele} key={index} eraseThis={eraseThis} />
@@ -310,8 +304,8 @@ const Mall = ({ toggleModal }) => {
                     max='4'
                     step='1'
                     name={ele}
-                    onClick={addToFilterCondition}
-                    onInput={handleInputValue}
+                    onChange={addToFilterCondition}
+                    // onInput={handleInputValue}
                   />
                   <div className={styles.seperator}>
                     <div>0</div>

@@ -46,7 +46,6 @@ export default function ArticleCart({
         <div>{item.wine.grape}</div>
         <div>
           <Flag name={item.wine.country.toLowerCase()} />
-          {console.log('wine data:', item)}
           {item.wine.country}
         </div>
 

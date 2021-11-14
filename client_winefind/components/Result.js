@@ -16,7 +16,7 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('my user data:', res);
+        // console.log('my user data:', res);
         addToFavorite();
       })
       .catch((e) => {
@@ -41,7 +41,6 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
         </div>
         <div className={styles.article_box}>
           <div className={styles.article_description}>
-            {console.log('==================r', result)}
             당신은 도수가{' '}
             <span style={{ fontWeight: '1000', color: 'brown' }}>
               {result[0] === '1' ? '높고' : '낮고'}

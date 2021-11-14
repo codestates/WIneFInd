@@ -27,7 +27,6 @@ const Myprofile = () => {
 
   const handleFileInput = (e) => {
     const file = e.target.files[0];
-    console.log('filename???,', file.name);
     if (e.target.files && e.target.files[0]) {
       const i = e.target.files[0];
       setImage(i);
@@ -117,7 +116,6 @@ const Myprofile = () => {
   // 비밀번호 바꾸기
   const handleEditChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-    console.log('vale:::', values);
   };
 
   // 유저 정보 조회 API
@@ -128,7 +126,6 @@ const Myprofile = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('res:', res.data);
         setUserInfo(res.data.userInfo);
       })
       .catch((e) => {

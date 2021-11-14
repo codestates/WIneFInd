@@ -22,7 +22,6 @@ const CardCompo = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('all articles:', res.data);
         setArticles(res.data);
       })
       .catch((e) => {

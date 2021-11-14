@@ -69,7 +69,7 @@ const Test = ({ toggleModal }) => {
       })
       .then((res) => {
         console.log('loggined, add to favorite possible');
-        console.log('asdasdasdasdasadsadsdsadsdasdsa', resultWine[0]);
+
         for (let i of resultWine) {
           axios
             .post(
@@ -81,7 +81,7 @@ const Test = ({ toggleModal }) => {
               { withCredentials: true }
             )
             .then((ele) => {
-              console.log('success add to favorite', ele);
+              // console.log('success add to favorite', ele);
             })
             .catch((e) => {
               console.log("can't add to favorite", e);
