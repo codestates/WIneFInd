@@ -33,7 +33,7 @@ const Introduction = () => {
             </Link>
             <Link href='/test'>
               <button type='button' className={styles.btn_test}>
-                테스트 진행하기
+                취향 테스트하기
                 <i className='big arrow circle right icon' />
               </button>
             </Link>

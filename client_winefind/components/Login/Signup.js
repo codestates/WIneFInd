@@ -74,8 +74,8 @@ const Signup = ({ toggleModal, changeLoginToSignup, enterkey }) => {
           alert('회원가입 성공하였습니다. 바로 서비스를 이용하세요!');
         })
         .catch(() => {
+          alert('이미 존재하는 아이디입니다.');
           console.log('Signup failed!');
-          window.location.reload();
         });
     }
   };
