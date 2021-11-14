@@ -56,6 +56,11 @@ const Myprofile = () => {
   const editUserInfo = () => {
     if (values.password === '' && values.username === '' && image === null) {
       alert('변경 사항이 없어요');
+    } else if (
+      values.username !== userInfo.username &&
+      userInfo.email.slice(0, 11) === 'Guest_KaKao'
+    ) {
+      alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
     } else {
       let image_url;
       let new_password;
@@ -115,12 +120,7 @@ const Myprofile = () => {
 
   // 비밀번호 바꾸기
   const handleEditChange = (prop) => (event) => {
-    if (prop === 'username' && userInfo.email.slice(0, 11) === 'Guest_KaKao') {
-      alert('카카오 로그인 유저는 유저이름을 바꿀 수 없습니다.');
-      setValues({ ...values, [prop]: userInfo.username });
-    } else {
-      setValues({ ...values, [prop]: event.target.value });
-    }
+    setValues({ ...values, [prop]: event.target.value });
   };
 
   // 유저 정보 조회 API
