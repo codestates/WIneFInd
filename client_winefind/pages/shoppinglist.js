@@ -31,7 +31,6 @@ const Shoppinglist = () => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log('hi~,', res.data.cartInfo);
             setCartItems(res.data.cartInfo.map((ele) => ele.article));
           })
           .catch((e) => {
@@ -56,10 +55,6 @@ const Shoppinglist = () => {
         ...cartItems.filter((el) => el.id === id),
       ]);
     } else {
-      console.log(
-        '============??',
-        checkedItems.filter((el) => el.id !== id)
-      );
       setCheckedItems(checkedItems.filter((el) => el.id !== id));
     }
   };

@@ -36,10 +36,8 @@ export default function OrderTotal({
           { withCredentials: true }
         )
         .then((res) => {
-          console.log(res.data);
           window.location.href = `${res.data}`;
           // setOrderId(orderId + 1);
-          console.log('orderID', orderId);
         })
         .catch((e) => {
           console.log('error!', e);
@@ -49,7 +47,6 @@ export default function OrderTotal({
   return (
     // 총 합 알려주는 창
     <div style={{ marginTop: '30px' }}>
-      {console.log('UUID', typeof UUID)}
       <h2 className='text_eng'>Bill</h2>
       <div style={{ lineHeight: '40px' }}>
         <hr></hr>

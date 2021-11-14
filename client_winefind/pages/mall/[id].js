@@ -17,7 +17,7 @@ const Details = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this article data:', res.data.articlesInfo);
+        // console.log('this article data:', res.data.articlesInfo);
         setArticle(() => res.data.articlesInfo);
       })
       .catch((e) => {
@@ -33,7 +33,7 @@ const Details = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('auth:', res);
+        // console.log('auth:', res);
         axios
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/cart`,
@@ -45,14 +45,12 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to cart success');
-            alert('add to cart Success');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
           })
           .catch((e) => {
-            alert('already on cart');
-            console.log('Already on Cart!:articleId:', id);
+            // console.log('Already on Cart!:articleId:', id);
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
@@ -87,11 +85,11 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to recommend success');
-            alert('success to recommend');
+            alert('내 와인셀러에 추가했어요.');
           })
           .catch((e) => {
             console.log('already in !');
-            alert('already recommended');
+            alert('이미 내 와인셀러에 있어요.');
           });
       })
       .catch((e) => {

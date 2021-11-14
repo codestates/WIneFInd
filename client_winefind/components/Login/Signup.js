@@ -27,20 +27,16 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
     if (signUpInfo.email !== '') {
       if (regExp_Email.test(signUpInfo.email) === false) {
         setIsEmailOk(false);
-        console.log('false');
       } else {
         setIsEmailOk(true);
-        console.log('true');
       }
     }
 
     if (signUpInfo.password !== '') {
       if (regExp_Password.test(signUpInfo.password) === false) {
         setIsPasswordOk(false);
-        console.log('false');
       } else {
         setIsPasswordOk(true);
-        console.log('true');
       }
     }
   };

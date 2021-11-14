@@ -12,7 +12,7 @@ const Kakao = () => {
         })
         .then((res) => {
           localStorage.setItem('winefind', res.data.token);
-          console.log('what comes here?', res);
+
           console.log('kakao login success');
           window.location.replace('http://localhost:3000');
           setTimeout(alert('카카오 로그인 되었습니다'), 3000);

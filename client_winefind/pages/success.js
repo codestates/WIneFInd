@@ -18,7 +18,6 @@ const Success = () => {
         }
       )
       .then((res) => {
-        console.log('aaa', res);
         setBillData(res.data);
       })
       .catch((e) => {

@@ -32,18 +32,6 @@ function Top({ toggleModal, modal }) {
     localStorage.removeItem('winefind');
     router.push('/');
     window.location.reload();
-    // axios
-    //   .get(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-    //     withCredentials: true,
-    //   })
-    //   .then(() => {
-    //     console.log('logout success');
-    //     router.push('/index');
-    //   })
-    //   .catch(() => {
-    //     console.log('logout failed');
-    //     router.push('/index');
-    //   });
   };
 
   const goToUserAndToggleLogin = () => {
