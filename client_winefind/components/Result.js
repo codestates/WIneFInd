@@ -247,7 +247,7 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
                       className='ui button'
                       onClick={moreRecommendShow}
                     >
-                      내 와인에 담기&nbsp; &nbsp;&nbsp;
+                      내 셀러에 담기&nbsp; &nbsp;&nbsp;
                     </button>
                     <br />
                     <button

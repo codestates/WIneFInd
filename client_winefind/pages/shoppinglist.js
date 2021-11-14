@@ -32,6 +32,7 @@ const Shoppinglist = () => {
           })
           .then((res) => {
             setCartItems(res.data.cartInfo.map((ele) => ele.article));
+            setCheckedItems(res.data.cartInfo.map((ele) => ele.article));
           })
           .catch((e) => {
             console.log('There is no Article:', e);

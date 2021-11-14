@@ -4,7 +4,7 @@ import { Icon, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 
-const Login = ({ changeLoginToSignup, toggleModal }) => {
+const Login = ({ changeLoginToSignup, toggleModal, enterkey }) => {
   const [logInInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -69,6 +69,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   onChange={handleLoginInputValue('email')}
                   value={logInInfo.email}
                   styles={{ width: '10rem' }}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
               <div className={styles.form}>
@@ -78,6 +79,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   placeholder='Password'
                   onChange={handleLoginInputValue('password')}
                   value={logInInfo.password}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
             </div>

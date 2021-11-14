@@ -154,6 +154,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
                   value={signUpInfo.checkPassword}
                   placeholder='Check Password'
                   onChange={handleInputValue('checkPassword')}
+                  onKeyUp={() => enterkey(createAccount)}
                 />
               </div>
             </div>
