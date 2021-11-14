@@ -45,12 +45,14 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to cart success');
+            alert('장바구니 추가되었어요');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
           })
           .catch((e) => {
             // console.log('Already on Cart!:articleId:', id);
+            alert('장바구니에 이미 있어요!');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
