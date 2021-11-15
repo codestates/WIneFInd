@@ -9,11 +9,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
-        <body>
-          <Main />
-          <NextScript />
-        </body>
+        <Head>
+          <title>Wine Find</title>
+          <meta charSet='utf-8'></meta>
+          <body>
+            <Main />
+            <NextScript />
+          </body>
+        </Head>
       </Html>
     );
   }
