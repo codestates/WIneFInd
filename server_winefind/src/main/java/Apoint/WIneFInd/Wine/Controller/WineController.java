@@ -82,16 +82,16 @@ public class WineController {
             // id 값이 존재 한다면 Id값에 해당하는 와인 조회
             if (id != null) {
                 Wine wine = wineService.FindById(id);
+
                 return ResponseEntity.ok().body(new HashMap<>() {{
                     put("wineInfo", wine);
                 }});
-
-                // id 값이 존재 하지 않는다면 해당 와인 전체 조회
-                List<Wine> wines = wineService.FindByAll();
-                return ResponseEntity.ok().body(new HashMap<>() {{
-                    put("wineInfo", wines);
-                }});
             }
+            // id 값이 존재 하지 않는다면 해당 와인 전체 조회
+            List<Wine> wines = wineService.FindByAll();
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("wineInfo", wines);
+            }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 와인을 '조회' 할 수 없습니다. \n" + e);
         }
