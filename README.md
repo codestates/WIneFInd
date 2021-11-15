@@ -31,20 +31,26 @@
 
 ![](https://img.shields.io/badge/BACK-Kakao-FFDC00?style=for-the-badge&logo=Kakao)
 ![](https://img.shields.io/badge/BACK-Amazon-FE9900?style=for-the-badge&logo=Amazon)
-  
-![image](https://user-images.githubusercontent.com/85718995/137320396-f2f7e2c5-fcfa-49c1-9fb6-5b2f62b7c3e3.png)
+
+### Architecture Diagram
+<hr>
+
+![image](https://camo.githubusercontent.com/6d2d4450d5f6f111f809961361571f2d7aec0dfb9bcb07f2ece1b72bcd257eb6/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3839343735303831323838393239373033322f3930393732333438393631333739353335382f756e646566696e65642e706e67)
 
 ## :sushi: CREATORS
 
 |Name|Role|GitHub|
 |------|---|---|
-|김형준| :sunglasses: Back-End|[<img src="https://img.shields.io/badge/GitHub-ryanromaris-2992C9?style=for-the-badge&logo=CSS3/">](https://github.com/ryanromaris)|
+|김형준| 😲 Front-End|[<img src="https://img.shields.io/badge/GitHub-ryanromaris-2992C9?style=for-the-badge&logo=CSS3/">](https://github.com/ryanromaris)|
 |박민준| :sunglasses: Back-End|[<img src="https://img.shields.io/badge/GitHub-unicusstella-2992C9?style=for-the-badge&logo=CSS3/">](https://github.com/unicusstella)|
 |한승우| :nerd_face: Front-End|[<img src="https://img.shields.io/badge/GitHub-sehan95-2992C9?style=for-the-badge&logo=CSS3/">](https://github.com/sehan95)|
 
-## :hammer: ARCHITECTURE 
+## :hammer: Flow Chart
 
 ### Client's Roadmap Flowchart
-![image](https://user-images.githubusercontent.com/85821497/137328228-cb6b0245-cb01-4658-8b15-89240c1c34ab.jpg)
+![image](https://camo.githubusercontent.com/693ea01e48bfe739dcfe14cf3322c9dafeadf2fb791eec2dca4354cc47e905fa/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3839343735303831323838393239373033322f3930393637393432323732353034323230362f77696e6566696e642e6a7067)
+
+### Server's Roadmap Flowchart
+![image](https://camo.githubusercontent.com/c6dd6419be3b2cb89858de65039765fed73f9c4e7cb7521b3f4d94a94fd18050/68747470733a2f2f63646e2e646973636f72646170702e636f6d2f6174746163686d656e74732f3839343735303831323838393239373033322f3930393733333430313833363237333636342f466c6f7763686172745f312e6a7067)
 
 
