@@ -11,8 +11,7 @@ import java.util.List;
 public class ArticleDTO {
 
     private Long userId;
-    private Long wineId;
     private String title;
     private String content;
-    private List<WineDTO> wines;
+    private List<WineDTO> wines; // 판매글을 만들때 와인도 함깨 만들기 위해서
 }

@@ -40,25 +40,23 @@ input {
   );
   -webkit-background-clip: text;
 }
-
+/* #232224 */
 .mainpage_container {
   width: 100%;
+  /* border: 3px aqua solid; */
   z-index: -100;
-  background-image: linear-gradient(
-    to right top,
-    #7f7271,
-    #6c6161,
-    #5a5151,
-    #484242,
-    #373333,
-    #2f2c2d,
-    #272527,
-    #201f20,
-    #1f1f20,
-    #1f1f1f,
-    #1e1e1f,
-    #1e1e1e
-  );
+  background-color: #232224;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.guide_container {
+  width: 1200px;
+  min-width: 1200px;
+  background-color: #3b3b3b;
+  /* border: 3px red solid; */
 }
 
 .gototop {

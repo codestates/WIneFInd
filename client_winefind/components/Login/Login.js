@@ -4,7 +4,7 @@ import { Icon, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 
-const Login = ({ changeLoginToSignup, toggleModal }) => {
+const Login = ({ changeLoginToSignup, toggleModal, enterkey }) => {
   const [logInInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -32,13 +32,12 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
         )
         .then((res) => {
           toggleModal();
-          console.log('??? come?,', res.data.token);
           localStorage.setItem('winefind', res.data.token);
           console.log('login success');
-          // localStorage.removeItem('winefind');
         })
         .then(() => {
           window.location.reload();
+          alert('로그인 되었습니다!');
         })
         .catch(() => {
           console.log('login failed');
@@ -49,12 +48,10 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
 
   const kakaoLogin = () => {
     router.push(
-      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao&response_type=code'
       //배포할때:
-
-      'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html&response_type=code'
+      'https://kauth.kakao.com/oauth/authorize?client_id=6ab487b37d3f625148fed9baabb3e7a8&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html&response_type=code'
       // 개발할때:
-      // 'https://kauth.kakao.com/oauth/authorize?client_id=c936006613666667da816aebf5f62b69&redirect_uri=http://localhost:3000/kakao&response_type=code'
+      // 'https://kauth.kakao.com/oauth/authorize?client_id=6ab487b37d3f625148fed9baabb3e7a8&redirect_uri=http://localhost:3000/kakao&response_type=code'
     );
   };
   return (
@@ -72,6 +69,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   onChange={handleLoginInputValue('email')}
                   value={logInInfo.email}
                   styles={{ width: '10rem' }}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
               <div className={styles.form}>
@@ -81,6 +79,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   placeholder='Password'
                   onChange={handleLoginInputValue('password')}
                   value={logInInfo.password}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
             </div>

@@ -1,0 +1,50 @@
+.article_box {
+  display: flex;
+  align-items: center;
+  /* border: 3px gold solid; */
+  border-bottom: 1px rgba(98, 97, 97, 0.766) solid;
+  width: 95%;
+  justify-content: flex-start;
+}
+
+.wine_image {
+  width: 160px;
+  margin: 1.5rem;
+  height: 160px;
+  background-size: auto 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  border: 1px solid #cda581;
+  cursor: pointer;
+}
+.wine_info {
+  margin: 0.5rem;
+  line-height: 2rem;
+}
+.article_findmore {
+  margin: 10px;
+}
+.wineName {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  width: 300px;
+}
+.typeAndPrice {
+  display: flex;
+}
+.minus_btn {
+  position: relative;
+  bottom: -30px;
+  border: 0;
+  outline: 0;
+  background-color: white;
+  opacity: 0;
+  transition: 0.4s;
+  z-index: 1000;
+  /* margin: 20px; */
+  padding: 0px 50px;
+}
+.minus_btn:hover {
+  opacity: 1;
+}

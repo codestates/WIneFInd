@@ -28,8 +28,11 @@ const Resign = () => {
             withCredentials: true,
           })
           .then((res) => {
-            console.log('done!:', res);
-            router.push('/index');
+            //배포할때
+            window.location.replace(
+              'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
+            );
+            // window.location.replace('http://localhost:3000');
           })
           .catch((e) => {
             console.log('err:', e);
@@ -52,11 +55,11 @@ const Resign = () => {
           </h2>{' '}
           <br />
           <h2 className='logo text_color' style={{ fontWeight: 'bold' }}>
-            All of your INFORMATION will be DELETED!!
-            <br /> You will NOT be able to RE-DO this Action.
+            모든 정보가 삭제됩니다.
+            <br /> 삭제 후 되돌릴 수 없습니다.
           </h2>
           <button onClick={toggleModal} className={styles.btn}>
-            Resign from App
+            탈퇴하기
           </button>
         </div>
       </div>
@@ -80,7 +83,7 @@ const Resign = () => {
                   color: 'red',
                 }}
               >
-                Are you Sure you want to Delete this Account?
+                정말로 탈퇴하시겠습니까?
               </h2>
               <div
                 className={classNames(

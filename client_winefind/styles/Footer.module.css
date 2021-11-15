@@ -1,10 +1,20 @@
 .footer_container {
   display: flex;
-  justify-content: space-evenly;
-  background-color: grey;
-  padding: 35px 50px 50px 50px;
+  width: 100%;
+  justify-content: space-between;
+  background-color: rgba(23, 23, 23, 0.581);
+  padding: 25px 50px 20px 50px;
   align-items: center;
+  color: white;
 }
-.footer_contactus {
-  padding: 100px;
+.contactus {
+  margin: 0px 50px;
+}
+.git {
+  display: flex;
+  text-decoration: none;
+}
+
+.footer_rights {
+  align-self: flex-end;
 }

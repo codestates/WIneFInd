@@ -63,10 +63,10 @@
   min-height: 500px;
 }
 .cards {
-  height: 550px;
+  height: 570px;
   width: 220px;
   background-color: white;
-  margin: 40px 50px 50px 50px;
+  margin: 40px 15px 50px 15px;
   border: 1px solid #cda581;
 }
 
@@ -107,7 +107,7 @@
   font-size: 30px;
   color: #fff;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   width: 100%;
   height: 600px;
@@ -201,6 +201,7 @@
   width: 100%;
   height: 50px;
   color: #b88a5e;
+  padding: 0px 20px;
 }
 
 .image_container {
@@ -218,8 +219,6 @@
   -webkit-border-radius: 90%;
   -moz-border-radius: 75%;
   box-shadow: 0 0 0 2px #eee;
-  background: url('https://www.eatthis.com/wp-content/uploads/sites/4/2020/01/red-wine-glass-bottle.jpg?quality=82&strip=all')
-    center center no-repeat;
   background-size: cover;
   margin: auto;
   margin-top: 80px;
@@ -274,7 +273,8 @@
 
 .btn {
   display: inline-block;
-  background: transparent;
+  background: black;
+  opacity: 0.9;
   text-transform: uppercase;
   font-weight: bolder;
   font-style: normal;
@@ -284,26 +284,31 @@
   border-radius: 5px;
   padding: 18px 50px 20px;
   transition: all 0.7s ease-out;
-  background: linear-gradient(
-    270deg,
-    #cda581,
-    rgba(146, 111, 52, 0.8),
-    rgba(34, 34, 34, 0),
-    rgba(34, 34, 34, 0)
-  );
   background-position: 1% 50%;
   background-size: 300% 300%;
   text-decoration: none;
   margin: 0.5rem;
 }
-
-.btn:hover {
-  color: #fff;
-  border: 5px solid rgba(223, 190, 106, 0);
-  color: white;
-  background-position: 99% 50%;
+.btn_resign {
+  position: relative;
+  left: 35%;
+  top: 20%;
+  display: inline-block;
+  background: transparent;
+  opacity: 0.9;
+  font-weight: bolder;
+  font-style: normal;
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: #cda581;
+  border-radius: 5px;
+  padding: 10px 20px;
+  transition: all 0.7s ease-out;
+  background-position: 1% 50%;
+  background-size: 200% 200%;
+  text-decoration: none;
+  margin: 0.5rem;
 }
-
 /* ===========탈퇴 css ================ */
 
 .resign_container {
@@ -354,7 +359,7 @@
   line-height: 1.4;
   background: #f1f1f1;
   /* background: rgb(190, 184, 184); */
-  padding: 14px 28px;
+  padding: 5rem;
   border-radius: 3px;
   max-width: 600px;
   min-width: 300px;
@@ -370,9 +375,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-top: 80px;
-  width: 1100px;
+  width: 90%;
   height: 600px;
   border-radius: 3px;
   border: 2px #cda581 solid;

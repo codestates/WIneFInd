@@ -1,65 +1,44 @@
-#order-summary-container {
-  padding: 0.7rem 1.4rem;
-  flex: 0 1 350px;
-  height: 200px;
-  float: right;
-  border: solid rgb(238, 238, 238) 0.2rem;
-  font-size: 1.5rem;
-  font-weight: 800;
-  margin: 1rem;
-}
-
-#order-summary-container:hover {
-  background-color: rgba(247, 247, 247, 0.836);
-  box-shadow: 3px 3px 3px #3f00c71a;
-}
-
-#order-summary {
-  position: relative;
-  text-align: start;
-  font-weight: normal;
-  font-size: 1.2rem;
-}
-
-#order-summary-container > h4 {
-  padding: 1rem;
-  margin-top: 0rem;
-}
-
-.order-summary-text {
-  float: right;
-}
-
 .mall_container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  border: 2px green solid;
+  flex-direction: column;
 }
 
 .main_box {
   display: flex;
-  width: 66%;
-  border: 5px solid #e4a065;
-  border-radius: 15px;
+  /* width: 77%; */
+
+  /* padding: 1rem; */
+  /* margin: 0rem 8rem; */
   background: white;
-  align-content: space-between;
+  border: 1px #cda581 solid;
+  /* border: goldenrod 3px solid; */
 }
 .mall_content_box {
-  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 14rem;
+  /* border: red 3px solid; */
 }
 
 .filter_box {
   display: flex;
-  width: 70%;
   justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   border-left: 0.1px black dotted;
+}
+.text_and_allcheck {
+  height: 100px;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  width: 95%;
+  margin: 0px 15px 15px 15px;
+  border-bottom: 2px solid grey;
+  justify-content: space-between;
 }
 
 .filter_content {
@@ -104,15 +83,9 @@
 .bottom_border {
   border-bottom: 1px black solid;
 }
+
 .text_big {
-  font-size: 25px;
-  height: 150px;
-  display: flex;
-  /* border: 3px yellow solid; */
-  align-items: center;
-  width: 95%;
-  margin: 15px;
-  border-bottom: 2px solid black;
+  font-size: 2rem;
 }
 
 .shoppinglist_btn {
@@ -150,5 +123,24 @@
 }
 .no_cartItems {
   height: 20rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'Playfair Display', serif;
+  min-width: 700px;
+}
+.bill_cart {
+}
+.kakaopay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 180px;
+  height: 50px;
+  font-size: 16px;
+  background-color: #ffdf00;
+  padding: 7px;
+  margin: 5px;
+  border-radius: 3px;
+  cursor: pointer;
 }

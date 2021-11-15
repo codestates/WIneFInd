@@ -31,19 +31,8 @@ function Top({ toggleModal, modal }) {
   const handleLogout = () => {
     localStorage.removeItem('winefind');
     router.push('/');
+    alert('로그아웃 되었습니다');
     window.location.reload();
-    // axios
-    //   .get(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
-    //     withCredentials: true,
-    //   })
-    //   .then(() => {
-    //     console.log('logout success');
-    //     router.push('/index');
-    //   })
-    //   .catch(() => {
-    //     console.log('logout failed');
-    //     router.push('/index');
-    //   });
   };
 
   const goToUserAndToggleLogin = () => {
@@ -94,6 +83,26 @@ function Top({ toggleModal, modal }) {
               className={classNames('text_color', 'text_font', styles.nav_btn)}
             >
               나만의 와인셀러
+            </a>
+          )}
+          {isLogin ? (
+            <Link href='/upload'>
+              <a
+                className={classNames(
+                  'text_color',
+                  'text_font',
+                  styles.nav_btn
+                )}
+              >
+                와인 판매하기
+              </a>
+            </Link>
+          ) : (
+            <a
+              onClick={toggleModal}
+              className={classNames('text_color', 'text_font', styles.nav_btn)}
+            >
+              와인 판매하기
             </a>
           )}
 

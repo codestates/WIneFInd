@@ -25,12 +25,6 @@
   background-origin: content-box;
   border: 1px solid #cda581;
 }
-/* .wine_image {
-  width: 250px;
-  margin: 20px;
-  padding: 15px;
-  height: 250px;
-} */
 .wine_info {
   margin: 0.5rem;
   line-height: 2rem;
@@ -42,6 +36,8 @@
 .wineName {
   font-size: 2rem;
   margin-bottom: 1rem;
+  /* border: 1px rebeccapurple solid; */
+  width: 400px;
 }
 .typeAndPrice {
   display: flex;

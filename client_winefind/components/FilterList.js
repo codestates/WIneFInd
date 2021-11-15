@@ -5,12 +5,8 @@ import { Button, Label, Icon, Flag } from 'semantic-ui-react';
 
 const FilterList = ({ ele, key, eraseThis }) => {
   return (
-    <div style={{ width: '100px' }}>
-      <button
-        key={key}
-        className={styles.totalfilter_button}
-        onClick={eraseThis}
-      >
+    <div onClick={eraseThis} style={{ width: '100px', zIndex: 1000 }}>
+      <button key={key} className={styles.totalfilter_button}>
         {/* 와인 타입별 라벨 색깔 정의 */}
         {ele === 'red' ? (
           <Label className={styles.label_width} color='red'>
@@ -40,7 +36,8 @@ const FilterList = ({ ele, key, eraseThis }) => {
           ele === 'Italy' ||
           ele === 'Australia' ||
           ele === 'Germany' ||
-          ele === 'Argentina' ? (
+          ele === 'Argentina' ||
+          ele === 'Hungary' ? (
           <div className={styles.country_border}>
             <Flag style={{ marginTop: '2px' }} name={ele.toLowerCase()} />
             {ele.toUpperCase().slice(0, 3)}&nbsp;
@@ -106,7 +103,8 @@ const FilterList = ({ ele, key, eraseThis }) => {
               className={styles.filter_icon_red}
             />
           </div>
-        ) : ele.slice(0, 7) === 'acidity' ||
+        ) : // 맛 별 필터 설정
+        ele.slice(0, 7) === 'acidity' ||
           ele.slice(0, 9) === 'sweetness' ||
           ele.slice(0, 4) === 'body' ||
           ele.slice(0, 6) === 'tannic' ? (

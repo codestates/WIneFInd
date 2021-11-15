@@ -1,25 +1,24 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-
 import styles from '../../styles/detail.module.css';
 import { Card, Icon } from 'semantic-ui-react';
 
 const Details = ({ toggleModal }) => {
   const router = useRouter();
   const { id } = router.query;
-  const API_url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   const [article, setArticle] = useState(null);
 
+  let url = `${process.env.NEXT_PUBLIC_API_URL}/article?id=${id}`;
   //해당 게시물 정보를 id로 서버에 요청
   const getArticle = () => {
     axios
-      .get(API_url, {
+      .get(url, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('this article data:', res.data.articleInfo);
-        setArticle(() => res.data.articleInfo);
+        // console.log('this article data:', res.data.articlesInfo);
+        setArticle(() => res.data.articlesInfo);
       })
       .catch((e) => {
         console.log('error!:', e);
@@ -34,7 +33,7 @@ const Details = ({ toggleModal }) => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('auth:', res);
+        // console.log('auth:', res);
         axios
           .post(
             `${process.env.NEXT_PUBLIC_API_URL}/cart`,
@@ -46,14 +45,14 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to cart success');
-            alert('add to cart Success');
+            alert('장바구니 추가되었어요');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
           })
           .catch((e) => {
-            alert('already on cart');
-            console.log('Already on Cart!:articleId:', id);
+            // console.log('Already on Cart!:articleId:', id);
+            alert('장바구니에 이미 있어요!');
             if (func === 'goToShoppingList') {
               router.push('/shoppinglist');
             }
@@ -88,11 +87,11 @@ const Details = ({ toggleModal }) => {
           )
           .then(() => {
             console.log('add to recommend success');
-            alert('success to recommend');
+            alert('내 와인셀러에 추가했어요.');
           })
           .catch((e) => {
             console.log('already in !');
-            alert('already recommended');
+            alert('이미 내 와인셀러에 있어요.');
           });
       })
       .catch((e) => {
@@ -247,14 +246,19 @@ const Details = ({ toggleModal }) => {
             </div>
 
             <div className={styles.heart}>
-              {article ? article.wine.wineName : ''}
-              <img
-                src='/images/heart.png'
-                onClick={addOrDeleteWineList}
-                className={styles.heart_image}
-              />
+              <div className={styles.wineName_heart}>
+                {article ? article.wine.wineName : ''}
+              </div>
+              <div>
+                <img
+                  src='/images/heart.png'
+                  onClick={addOrDeleteWineList}
+                  className={styles.heart_image}
+                />
+              </div>
             </div>
           </div>
+
           <div style={{ display: 'flex', width: '100%' }}>
             <div className={styles.wine_info}>
               <div className={styles.wine_price}>
@@ -268,17 +272,19 @@ const Details = ({ toggleModal }) => {
                 <div>&nbsp;{article ? article.wine.content : ''}</div>
               </div>
               <div className={styles.article_box}>
-                <div
-                  style={{
-                    background: `url(${article ? article.user.image : ''})`,
-                  }}
-                  className={styles.user_image}
-                >
-                  img
-                </div>
                 <div>
-                  <div className={styles.article_title}>
-                    {article ? article.title : ''}
+                  <div className={styles.article_title_box}>
+                    <div
+                      style={{
+                        backgroundImage: `url(${
+                          article ? article.user.image : ''
+                        })`,
+                      }}
+                      className={styles.user_image}
+                    ></div>
+                    <div className={styles.article_title}>
+                      {article ? article.title : ''}
+                    </div>
                   </div>
 
                   <div className={styles.article_description}>

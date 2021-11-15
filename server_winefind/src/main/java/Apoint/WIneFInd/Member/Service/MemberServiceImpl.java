@@ -8,7 +8,9 @@ import Apoint.WIneFInd.Member.Repository.MemberRepository;
 import io.jsonwebtoken.*;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import java.time.Duration;
 import java.util.*;
 
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService {
 
     private final static String SIGN_KEY = "apoinkey";
@@ -28,39 +31,36 @@ public class MemberServiceImpl implements MemberService {
 
     // "User" 회원 가입
     @Override
-    @Transactional
     public User Save(SignUpDTO signUpDTO) {
 
-        // "User" DB 에서 같은 "Email"이 존재 하는지 체크
-        validateEmail(signUpDTO);
+        try {
+            // "User" DB 에서 같은 "Email"이 존재 하는지 체크
+            validateEmail(signUpDTO);
 
-        Date now = new Date();
+            Date now = new Date();
 
-        // 유효성 검사가 통과하면 "User"정보 생성 role 은 기본적으로 "User"
-        User user = createUser(signUpDTO, now);
+            // 유효성 검사가 통과하면 "User"정보 생성  role 은 기본적으로 "User"로 생성
+            User user = User.builder()
+                    .email(signUpDTO.getEmail())
+                    .password(signUpDTO.getPassword())
+                    .username(signUpDTO.getUsername())
+                    .image("https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/default_img.png")
+                    .role(RoleType.USER)
+                    .createdAt(now)
+                    .updatedAt(now)
+                    .build();
 
-
-        // 저장
-        return memberRepository.save(user);
-    }
-
-    private User createUser(SignUpDTO signUpDTO, Date now) {
-        User user = User.builder()
-                .email(signUpDTO.getEmail())
-                .password(signUpDTO.getPassword())
-                .username(signUpDTO.getUsername())
-                .image(signUpDTO.getImage())
-                .role(RoleType.USER)
-                .createdAt(now)
-                .updatedAt(now)
-                .build();
-        return user;
+            // 저장
+            return memberRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityViolationException("회원가입 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
+        }
     }
 
     private void validateEmail(SignUpDTO signUpDTO) {
         memberRepository.findByEmail(signUpDTO.getEmail())
                 .ifPresent(m -> {
-                    throw new IllegalArgumentException("원하는 결과를 얻으시려면 email : "
+                    throw new IllegalArgumentException("중복 회원 입니다 원하는 결과를 얻으시려면 email : "
                             + signUpDTO.getEmail() + " 를 제외한 'email' 를 다시 입력해 주세요. ");
                 });
     }
@@ -88,7 +88,6 @@ public class MemberServiceImpl implements MemberService {
     public User FindByEmail(String email) {
 
         // DB 안에서 같은 이메일 찾아서 반환
-
         User byEmail = getEmail(email);
 
         return byEmail;
@@ -111,7 +110,7 @@ public class MemberServiceImpl implements MemberService {
 
         // 로그인 정보로 입벽받은 "Email"과 "Password"가 일치하는지 확인하고 맞지 않으면 Error 맞으면 리턴
         if (!(chckUser.getEmail().equals(loginDTO.getEmail()) && chckUser.getPassword().equals(loginDTO.getPassword()))) {
-            throw new IllegalArgumentException("'Email' 과 'Password' 가 맞지 않습니다.");
+            throw new IllegalArgumentException("'Email' 과 'Password' 가 맞지 않습니다 .");
         }
         // "Email"과 "Password"를 체크한 후에 동일하면 "Email" 실패하면 "Error"를 반환합니다.
         return chckUser;
@@ -119,7 +118,6 @@ public class MemberServiceImpl implements MemberService {
 
     // "User" 정보 수정
     @Override
-    @Transactional
     public User Update(SignUpDTO signUpDTO, Long id) {
 
         // "User" DB 에서 입력받은 "User"와 같은 "User"조회
@@ -129,7 +127,7 @@ public class MemberServiceImpl implements MemberService {
         updateUser.setEmail(signUpDTO.getEmail());
         updateUser.setPassword(signUpDTO.getPassword());
         updateUser.setUsername(signUpDTO.getUsername());
-        updateUser.setImage(updateUser.getImage());
+        updateUser.setImage(signUpDTO.getImage());
         updateUser.setUpdatedAt(now);
 
         // "User" 저장
@@ -137,7 +135,6 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    @Transactional
     public String Delete(Long id) {
 
         // "User" DB 에서 입력받은 id와 동일한 "User" 정보 삭제
@@ -152,7 +149,6 @@ public class MemberServiceImpl implements MemberService {
 
     // "User" JWT 토큰 생성
     @Override
-    @Transactional
     public String CreateJWTToken(User user) {
 
         Date now = new Date();
@@ -179,15 +175,15 @@ public class MemberServiceImpl implements MemberService {
 
             String email = (String) claims.get("email");
             String username = (String) claims.get("username");
+
+            // return new 방식으로 하면 Controller 에서 put 을 안해도 되나? 나중에 실험해보기
             return new HashMap<>() {{
                 put("email", email);
                 put("username", username);
             }};
 
-        } catch (Exception e) {
-            return new HashMap<>() {{
-                put("message", "error!" + e);
-            }};
+        } catch (NullPointerException e) {
+            throw new NullPointerException("token 값으로 Null 값이 들어왔습니다 다시 보내주세요 " + e);
         }
     }
 }

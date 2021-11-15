@@ -1,6 +1,7 @@
 import React from 'react';
-import styles from '../../styles/Article.module.css';
+import styles from '../../styles/Articlecart.module.css';
 import router from 'next/router';
+import { Flag, Label } from 'semantic-ui-react';
 export default function ArticleCart({
   item,
   checkedItems,
@@ -11,38 +12,67 @@ export default function ArticleCart({
     router.push(`/mall/${ele}`);
   };
   return (
-    <li className='cart-item-body'>
-      <div className={styles.article_container}>
-        <div className={styles.article_box}>
-          <img className={styles.wine_image} src={item.wine.image} />
-          <div className={styles.wine_info}>
-            <input
-              type='checkbox'
-              className='cart-item-checkbox'
-              onChange={(e) => {
-                handleCheckChange(e.target.checked, item.id);
-              }}
-              checked={checkedItems.includes(item.id) ? true : false}
-            ></input>
-            <div>와인명 : {item.wine.wineName}</div>
-            <div>종류 : {item.wine.type}</div>
-            <div>국가 :{item.wine.country}</div>
-            <div>가격 : {item.wine.price}</div>
-            <div>작성자 : {item.user.email}</div>
-            <button onClick={() => goToDescription(item.id)}>
-              자세히 보기
-            </button>
-            <button
-              className='cart-item-delete'
-              onClick={() => {
-                handleDelete(item.id);
-              }}
-            >
-              삭제
-            </button>
+    <div className={styles.article_box}>
+      <input
+        type='checkbox'
+        onChange={(e) => {
+          handleCheckChange(e.target.checked, item.id);
+        }}
+        checked={
+          // [1,7 통째로]
+          checkedItems.map((el) => el.id).includes(item.id) ? true : false
+        }
+      ></input>
+      <div
+        style={{
+          padding: '10px',
+          backgroundImage: `url(${item.wine.image})`,
+        }}
+        className={styles.wine_image}
+        onClick={() => goToDescription(item.id)}
+      ></div>
+      <div className={styles.wine_info}>
+        <div style={{ display: 'flex' }}>
+          <div className={styles.wineName}>{item.wine.wineName}</div>
+          <button
+            className={styles.minus_btn}
+            onClick={() => {
+              handleDelete(item.id);
+            }}
+          >
+            <img style={{ width: '20px' }} src='images/minus.png' />
+          </button>
+        </div>
+        <div>{item.wine.grape}</div>
+        <div>
+          <Flag name={item.wine.country.toLowerCase()} />
+          {item.wine.country}
+        </div>
+
+        <div className={styles.typeAndPrice}>
+          {item.wine.type === 'red' ? (
+            <Label color='red'>Red</Label>
+          ) : item.wine.type === 'white' ? (
+            <Label color='blue'>White</Label>
+          ) : item.wine.type === 'sparkling' ? (
+            <Label color='yellow'>Sparkling</Label>
+          ) : (
+            <Label style={{ backgroundColor: 'rgb(248, 184, 195)' }}>
+              Rose
+            </Label>
+          )}
+          <div
+            style={{
+              marginLeft: '1rem',
+              marginRight: '1rem',
+              fontSize: '1.2rem',
+              zIndex: '1000',
+            }}
+          >
+            {item.wine.price}원 ({item.wine.vintage},750ml)
           </div>
         </div>
       </div>
-    </li>
+    </div>
   );
 }

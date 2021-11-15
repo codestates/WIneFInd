@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Recommended.Controller;
 
 
+import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Recommended.Domain.RecommendedDTO;
 import Apoint.WIneFInd.Recommended.Model.Recommended;
 import Apoint.WIneFInd.Recommended.Service.RecommendedService;
@@ -14,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "${config.domain}", allowedHeaders = "*", allowCredentials = "true")
+
 public class RecommendedController {
 
     private final RecommendedService recommendedService;
@@ -24,10 +25,9 @@ public class RecommendedController {
         this.recommendedService = recommendedService;
     }
 
-    // 유저 추천리스트에 와인 생성하기
+    // 추천리스트에 와인 생성하기
     @PostMapping("recommended")
     public ResponseEntity<?> CreateRecommend(@RequestBody RecommendedDTO recommendedDTO) {
-
         try {
             // recommendDTO 양식에 맞춰서 유저 리스트에 추천와인 생성 진행
             // 만약 예외가 발생하면 아래의 예외처리 실행
@@ -42,7 +42,7 @@ public class RecommendedController {
         }
     }
 
-    // 유저가 가지고 있는 추천 리스트 목록 조회
+    // 추천 리스트 목록 조회
     @GetMapping("recommended")
     public ResponseEntity<?> FindRecommended(@RequestParam Long id) {
         try {
@@ -64,8 +64,8 @@ public class RecommendedController {
                                                @RequestParam(required = false) Long articleId) {
 
         try {
-            // wineId의 값이 없을면 userId 값에 해당하는 추천리스트 전체삭제
-            // wineId의 값이 있으면 userId 추천 리스트의 wineId 삭제
+            // articleId 값이 없을면 userId 해당하는 추천리스트 전체삭제
+            // articleId 값이 있으면 articleId 해당하는 추천와인 개별 삭제
             String deleteRecommended = recommendedService.DeleteRecommended(userId, articleId);
             return ResponseEntity.ok().body(deleteRecommended);
         } catch (EmptyResultDataAccessException e) {

@@ -28,7 +28,6 @@ const Article = ({ articles }) => {
               <div>{article.wine.grape}</div>
               <div>
                 <Flag name={article.wine.country.toLowerCase()} />
-                {console.log('wine data:', article)}
                 {article.wine.country}
               </div>
 

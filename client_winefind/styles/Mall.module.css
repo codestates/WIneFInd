@@ -3,13 +3,25 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  width: 100%;
   /* border: 2px green solid; */
+}
+.main_box {
+  display: flex;
+  /* min-width: 700px; */
+  width: 100%;
+  padding: 10px;
+  margin: 0 8rem;
+  background: white;
+  /* border: 2px blue solid; */
+  /* background: transparent;  */
+  /* opacity: 0.9; */
 }
 .searchAndWineList_box {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0px 5rem;
+  /* border: 5px aqua solid; */
 }
 .top_banner {
   margin: 15px 10px 0px 20px;
@@ -20,7 +32,6 @@
   display: flex;
   align-items: center;
   margin: 40px 0px 0px 0px;
-  width: 97%;
   justify-content: center;
 }
 .search_bar {
@@ -41,19 +52,6 @@
   width: 50px;
 }
 
-.main_box {
-  display: flex;
-  /* min-width: 700px; */
-  width: 100%;
-  padding: 10px;
-  margin: 0 8rem;
-  background: white;
-  /* background: transparent;  */
-  /* opacity: 0.9; */
-}
-.uploadButton {
-  background-color: red;
-}
 .mall_content_box {
   width: 100%;
   display: flex;
@@ -70,7 +68,6 @@
   flex-direction: column;
   border-left: 0.1px grey dotted;
   /* border: 6px green solid; */
-  padding-right: 5rem;
 }
 .filter_top_content {
   min-height: 150px;
@@ -216,8 +213,8 @@
 .page {
   display: flex;
   justify-content: center;
-  margin-top: 15px;
-  padding: 20px;
+  /* margin-top: 15px; */
+  padding: 10px 20px 20px 20px;
 }
 .page > ul > li {
   display: inline-block;

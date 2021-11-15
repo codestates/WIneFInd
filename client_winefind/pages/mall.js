@@ -7,12 +7,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Button, Icon } from 'semantic-ui-react';
 import { useRouter } from 'next/router';
 import Pagination from 'react-js-pagination';
+import classNames from 'classnames';
 
 const Mall = ({ toggleModal }) => {
   const router = useRouter();
   const [page, setPage] = useState(0);
   const [articles, setArticles] = useState([]);
-  const [totalArticles, setTotalArticles] = useState([]);
+  const [totalArticles, setTotalArticles] = useState(null);
+  const [searchText, setSearchText] = useState(null);
   //Article Get Api로 articles에 게시글 목록 넣기
   let types = ['red', 'white', 'rose', 'sparkling'];
   let countries = [
@@ -26,6 +28,7 @@ const Mall = ({ toggleModal }) => {
     'Germany',
     'Argentina',
     'Republic of South Africa',
+    'Hungary',
   ];
   let taste = ['acidity', 'sweetness', 'body', 'tannic'];
 
@@ -40,86 +43,67 @@ const Mall = ({ toggleModal }) => {
   };
   const handlePageChange = (page) => {
     setPage(page - 1);
-    console.log(page - 1);
   };
 
-  const getFilteredList = () => {
-    let typeslist = [];
-    let countrieslist = [];
-    let sweetnesslist = [];
-    let aciditylist = [];
-    let bodylist = [];
-    let tanniclist = [];
-    let pricelist = [];
+  const getArticlesPage = () => {
+    let typesList = '';
+    let countriesList = '';
+    let sweetnessList = '';
+    let acidityList = '';
+    let bodyList = '';
+    let tannicList = '';
+    // let priceList = '';
 
-    for (let ele of list) {
+    for (let ele of [...new Set(list)]) {
       if (types.includes(ele)) {
-        typeslist.push(ele);
+        typesList += `${ele},`;
       } else if (countries.includes(ele)) {
-        countrieslist.push(ele);
+        countriesList += `${ele},`;
       } else if (ele.slice(0, 5) === 'sweet') {
-        sweetnesslist.push(ele);
+        sweetnessList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 7) === 'acidity') {
-        aciditylist.push(ele);
+        acidityList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 4) === 'body') {
-        bodylist.push(ele);
+        bodyList += `${ele[ele.length - 1]},`;
       } else if (ele.slice(0, 6) === 'tannic') {
-        tanniclist.push(ele);
+        tannicList += `${ele[ele.length - 1]},`;
       }
     }
-    const searchParam = {
-      typeslist: typeslist.join(','),
-      countrieslist: countrieslist.join(','),
-      sweetnesslist: sweetnesslist.join(','),
-      aciditylist: aciditylist.join(','),
-      bodylist: bodylist.join(','),
-      tanniclist: tanniclist.join(','),
-    };
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_API_URL}/article`,
-        { params: searchParam },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log('SUCCESS, NOW GET NEW DATA!!!');
-        console.log('???:', res);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
 
-  const getArticles = () => {
+    function eraseComma(ele) {
+      if (ele[ele.length - 1] === ',') {
+        return ele.slice(0, ele.length - 1);
+      }
+      return ele;
+    }
+    typesList = eraseComma(typesList);
+    countriesList = eraseComma(countriesList);
+    sweetnessList = eraseComma(sweetnessList);
+    acidityList = eraseComma(acidityList);
+    bodyList = eraseComma(bodyList);
+    tannicList = eraseComma(tannicList);
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}&typesList=${typesList}&countriesList=${countriesList}&sweetnessList=${sweetnessList}&acidityList=${acidityList}&bodyList=${bodyList}&tannicList=${tannicList}&priceList=`;
+
+    if (searchText !== null) {
+      url += `&text=${searchText}`;
+    }
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/articles`, {
+      .get(url, {
         withCredentials: true,
       })
       .then((res) => {
-        console.log('all articles:', res.data);
-        setTotalArticles(res.data);
-      })
-      .catch((e) => {
-        console.log('error!:', e);
-      });
-  };
-  const getArticlesPage = () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/article?page=${page}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('this page data:', res.data.articlesInfo.content);
+        setTotalArticles(res.data.articlesInfo.totalElements);
+        // console.log('this page data:', res.data.articlesInfo.content);
         setArticles(res.data.articlesInfo.content);
       })
       .catch((e) => {
         console.log('error!:', e);
+        setPage(0);
       });
-    window.scrollTo(0, 0);
   };
 
-  const findWineWithText = () => {
-    //입력받은 텍스트로 와인 찾기.
+  const handleSearchText = (e) => {
+    setSearchText(e.target.value);
   };
 
   const [list, setList] = useState([]);
@@ -130,33 +114,50 @@ const Mall = ({ toggleModal }) => {
       if (!filterConditionList.types.includes(ele)) {
         filterConditionList.types.push(ele);
       }
-    }
-    if (countries.includes(ele)) {
+    } else if (countries.includes(ele)) {
       if (!filterConditionList.countries.includes(ele)) {
         filterConditionList.countries.push(ele);
       }
+    } else {
+      let keyType = e.target.name;
+      if (keyType === 'sweetness') {
+        filterConditionList[keyType][0] = 'sweetness' + e.target.value;
+      } else if (keyType === 'acidity') {
+        filterConditionList[keyType][0] = 'acidity' + e.target.value;
+      } else if (keyType === 'body') {
+        filterConditionList[keyType][0] = 'body' + e.target.value;
+      } else if (keyType === 'tannic') {
+        filterConditionList[keyType][0] = 'tannic' + e.target.value;
+      } else {
+        filterConditionList[keyType][0] = e.target.value;
+      }
     }
-
     setList(list.concat(Object.values(filterConditionList)).flat());
   };
 
   const handleInputValue = (e) => {
-    let key = e.target.name;
-    if (key === 'sweetness') {
-      filterConditionList[key][0] = 'sweetness' + e.target.value;
-    } else if (key === 'acidity') {
-      filterConditionList[key][0] = 'acidity' + e.target.value;
-    } else if (key === 'body') {
-      filterConditionList[key][0] = 'body' + e.target.value;
-    } else if (key === 'tannic') {
-      filterConditionList[key][0] = 'tannic' + e.target.value;
+    let keyType = e.target.name;
+    if (keyType === 'sweetness') {
+      filterConditionList[keyType][0] = 'sweetness' + e.target.value;
+    } else if (keyType === 'acidity') {
+      filterConditionList[keyType][0] = 'acidity' + e.target.value;
+    } else if (keyType === 'body') {
+      filterConditionList[keyType][0] = 'body' + e.target.value;
+    } else if (keyType === 'tannic') {
+      filterConditionList[keyType][0] = 'tannic' + e.target.value;
     } else {
-      filterConditionList[key][0] = e.target.value;
+      filterConditionList[keyType][0] = e.target.value;
     }
   };
 
   const eraseAll = () => {
     setList([]);
+    //배포할때
+    // window.location.reload()
+    window.location.replace(
+      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/mall.html'
+    );
+    // window.location.reload();
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;
@@ -166,49 +167,12 @@ const Mall = ({ toggleModal }) => {
     setList(new_list);
   };
 
-  const goToUpload = () => {
-    let token = localStorage.getItem('winefind');
-    axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        console.log('logined');
-        router.push('/upload');
-      })
-      .catch((e) => {
-        console.log('not Logined');
-        toggleModal();
-      });
-  };
-
-  const getIcon = (a) => {
-    console.log('???', a);
-    return a;
-  };
-
   useEffect(() => {
     getArticlesPage();
-    getArticles();
   }, [page]);
-  // const test = () => {
-  //   let token = localStorage.getItem('winefind');
-
-  //   axios
-  //     .get(`${process.env.NEXT_PUBLIC_API_URL}/auth?token=${token}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       console.log('what comes res:', res);
-  //       console.log('logined');
-  //     })
-  //     .catch((e) => {
-  //       console.log('not Logined');
-  //     });
-  // };
 
   return (
-    <div className={styles.mall_container}>
+    <div className={classNames('text_font', styles.mall_container)}>
       <div className={styles.main_box}>
         <div className={styles.searchAndWineList_box}>
           <div className={styles.top_banner}>
@@ -222,6 +186,7 @@ const Mall = ({ toggleModal }) => {
               className={styles.search_bar}
               placeholder='Find Your Wine!'
               type='search'
+              onChange={handleSearchText}
             />
             <img
               style={{
@@ -229,61 +194,44 @@ const Mall = ({ toggleModal }) => {
                 height: '20px',
                 position: 'relative',
                 right: '50px',
+                cursor: 'pointer',
               }}
+              onClick={getArticlesPage}
               src='images/search.png'
             />
-            <div>
-              <Button
-                style={{
-                  backgroundColor: 'white',
-                  border: '#cda581 solid 1px',
-                }}
-                onClick={goToUpload}
-                animated
-              >
-                <Button.Content style={{ width: '4.6rem' }} visible>
-                  게시글 작성
-                </Button.Content>
-                <Button.Content hidden>Upload</Button.Content>
-              </Button>
-              {/* <button onClick={test}>testButton</button> */}
-            </div>
           </div>
           <div className={styles.mall_content_box}>
             <div className={styles.text_and_sort}>
               <div className={styles.text_big}>
-                전체 와인({totalArticles.length})
+                {console.log('=========', articles)}
+                전체 와인({totalArticles})
               </div>
-              <form>
-                <select
-                  style={{
-                    padding: '0.4rem',
-                    border: '1px solid #cda581',
-                    borderRadius: '3px',
-                  }}
-                >
-                  {/* onchange로 api 호출 */}
-                  <option value='최신등록순'>최신등록순</option>
-                  <option value='가격낮은순'>가격낮은순</option>
-                  <option value='가격높은순'>가격높은순</option>
-                  <option value='평점순'>평점순</option>
-                </select>
-              </form>
             </div>
             {articles.length !== 0 ? (
               <Article articles={articles} />
             ) : (
-              <div>Loading Something</div>
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
+              >
+                찾으시는 와인이 없습니다.
+                <img src='images/loading.gif' style={{ width: '550px' }} />
+              </div>
             )}
+            <div style={{ marginTop: '10px' }}>- {page + 1} -</div>
             <div className={styles.page}>
               <Pagination
                 activePage={page + 1}
                 itemsCountPerPage={5}
-                totalItemsCount={totalArticles.length}
+                totalItemsCount={totalArticles}
                 pageRangeDisplayed={5}
                 prevPageText={'‹'}
                 nextPageText={'›'}
                 onChange={handlePageChange}
+                // forcePage={page}
               />
             </div>
           </div>
@@ -292,8 +240,9 @@ const Mall = ({ toggleModal }) => {
           <div className={styles.filter_top_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>필터</div>
-              <div>
-                {/* <button onClick={getFilteredList}>필터 적용</button> */}
+              <div className={styles.redo_box} onClick={getArticlesPage}>
+                <Icon name='filter' />
+                <input className={styles.redo} type='reset' value='필터 적용' />
               </div>
               <div className={styles.redo_box} onClick={eraseAll}>
                 <Icon name='redo' />
@@ -301,6 +250,7 @@ const Mall = ({ toggleModal }) => {
               </div>
             </div>
             <div className={styles.filter_container}>
+              {/* {console.log('this is filter list,', [...new Set(list)])} */}
               {list !== undefined
                 ? [...new Set(list)].map((ele, index) => (
                     <FilterList ele={ele} key={index} eraseThis={eraseThis} />
@@ -317,6 +267,7 @@ const Mall = ({ toggleModal }) => {
                 <button
                   key={index}
                   className={styles.filter_button}
+                  // onClick={addToFilterCondition}
                   onClick={addToFilterCondition}
                 >
                   {type}
@@ -358,8 +309,8 @@ const Mall = ({ toggleModal }) => {
                     max='4'
                     step='1'
                     name={ele}
-                    onClick={addToFilterCondition}
-                    onInput={handleInputValue}
+                    onChange={addToFilterCondition}
+                    // onInput={handleInputValue}
                   />
                   <div className={styles.seperator}>
                     <div>0</div>
@@ -372,7 +323,7 @@ const Mall = ({ toggleModal }) => {
               ))}
             </div>
           </div>
-          <div className={styles.filter_content}>
+          {/* <div className={styles.filter_content}>
             <div className={styles.filter_top}>
               <div className={styles.filter_title}>가격(₩)</div>
             </div>
@@ -399,7 +350,7 @@ const Mall = ({ toggleModal }) => {
                 <div style={{ width: '30px' }}>이하</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

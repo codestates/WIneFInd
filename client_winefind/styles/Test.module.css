@@ -1,9 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&family=Jua&display=swap');
 .progress_container {
   display: flex;
-  /* position: relative; */
   width: 100%;
-  /* border: 2px solid white; */
-  height: 28px;
+  /* border: 2px solid teal; */
+  height: 2rem;
   background-color: #2f2f2f;
 }
 
@@ -12,18 +12,17 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   background: url('https://c1.wallpaperflare.com/preview/350/209/129/botti-ceiling-lights-cellar.jpg')
     no-repeat center center;
   background-size: 100%;
   flex-direction: column;
+  /* border: 4px blue solid; */
 }
 
 .carousel_wrapper {
   display: flex;
-  width: 66%;
-  position: relative;
-  max-height: 600px;
+  width: 90%;
+  height: 700px;
 }
 
 .carousel_content_wrapper {
@@ -34,6 +33,8 @@
 
 .carousel_content {
   display: flex;
+
+  margin-left: -7%;
   width: 100%;
   height: 100%;
   transition: all 250ms linear;
@@ -87,44 +88,144 @@
 
 .questions {
   height: 500px;
+  /* justify-content: center; */
+  /* justify-self: center; */
 }
 
 .stars {
   display: flex;
   flex-wrap: wrap;
   margin: 10px 10%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-top: 50px;
+  /* border: 1px red solid; */
 }
-
 .winebtn {
   border: none;
 }
 
-.winebtn :hover {
+.winebtn:hover {
   transform: rotate(25deg);
-  filter: contrast(300%);
+  transition: 0.3s;
+}
+
+.winebtn_image {
+  border: none;
+}
+
+.winebtn_image :hover {
+  transform: scale(1.1);
+  transition: 0.5s;
+}
+.first_image {
+  background: url('/images/soju.png') no-repeat center center;
+  background-size: auto 95%;
+  width: 250px;
+  height: 250px;
+  margin-top: 20px;
+}
+.second_image {
+  background: url('/images/fruitsoju.png') no-repeat center center;
+  background-size: auto 112%;
+  width: 250px;
+  height: 250px;
+}
+.third_image {
+  background: url('/images/coke.png') no-repeat center center;
+  background-size: auto 100%;
+  width: 250px;
+  height: 250px;
+}
+.fourth_image {
+  background: url('/images/trevi.png') no-repeat center center;
+  background-size: auto 100%;
+  width: 250px;
+  height: 250px;
+}
+.fifth_image {
+  background: url('/images/choco.png') no-repeat center center;
+  background-size: auto 95%;
+  width: 250px;
+  height: 250px;
+}
+.sixth_image {
+  background: url('/images/ttalgi.png') no-repeat center center;
+  background-size: auto 130%;
+  width: 250px;
+  height: 250px;
 }
 
 .ratetext {
   display: flex;
-  margin: 0px 12%;
+  margin: 30px 20%;
   justify-content: space-between;
   margin-bottom: 9%;
   color: rgb(0, 0, 0);
+  font-size: 24px;
 }
 
 .stars_container {
   border: 3px solid #cda582;
   border-radius: 5px;
   margin: 5% 15%;
+  width: 900px;
+  height: 550px;
   background-color: #efefef;
-  height: fit-content;
 }
 
 .question_container {
   display: flex;
   justify-content: center;
-  margin: 5% 0px;
+  /* border: red 1px solid; */
+  margin: 5%;
   color: rgb(0, 0, 0);
+  font-size: 1rem;
+}
+.stars_choose_container {
+  border: 3px solid #cda582;
+  border-radius: 5px;
+  margin: 5% 15%;
+  width: 900px;
+  height: 550px;
+  background-color: #efefef;
+}
+.stars_choose {
+  display: flex;
+  flex-wrap: wrap;
+  /* margin: 130px 10%; */
+  justify-content: space-between;
+  align-items: center;
+  margin: 130px 100px 0px 100px;
+  /* border: 1px red solid; */
+}
+.ratetext_choose {
+  display: flex;
+  margin: 30px 11%;
+  justify-content: space-between;
+  margin-bottom: 9%;
+  color: rgb(0, 0, 0);
+  font-size: 24px;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 100px;
+  margin-bottom: 60px;
+  width: 100%;
+  /* height: 200px; */
+  /* border: 1px solid #cda582; */
+}
+.submit_btn {
+  border: 1px solid #cda582;
+  font-family: 'IBM Plex Sans KR', sans-serif;
+  padding: 100px;
+  font-size: 3rem;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url('/images/congrats.gif');
+}
+.submit_btn:hover {
 }
