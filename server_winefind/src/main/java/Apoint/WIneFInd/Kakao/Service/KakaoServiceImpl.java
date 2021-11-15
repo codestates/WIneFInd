@@ -350,6 +350,8 @@ public class KakaoServiceImpl implements KakaoService {
         // 위에서 작성한 RestTemplate로 데이터 보내고 받기
         ResponseEntity<String> response = kakaoaAproveTempl.exchange(reqUrl, HttpMethod.POST, kakaoaAproveReq, String.class);
 
+        System.out.println("response.getBody() = " + response.getBody());
+
         // 응답받은 데이터 리턴
         return response.getBody();
     }
