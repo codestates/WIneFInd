@@ -86,10 +86,11 @@ const Test = ({ toggleModal }) => {
               console.log("can't add to favorite", e);
             });
         }
+        router.push('/user');
         window.location.replace(
-          'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/test.html'
+          'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/user.html'
         );
-        // router.push('/user');
+
         // window.location.replace(
         //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/user.html'
         // );

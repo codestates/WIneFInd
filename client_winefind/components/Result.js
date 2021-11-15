@@ -71,207 +71,228 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
             을 좋아하시는 군요!
           </div>
         </div>
-        <div className={styles.result_box}>
-          <div className={styles.image_and_taste}>
-            <div>
-              {resultWine.length !== 0 ? (
-                <div
-                  style={{
-                    backgroundImage: `url(${resultWine[0].wine.image})`,
-                  }}
-                  className={styles.wine_image}
-                ></div>
-              ) : (
-                ''
-              )}
-            </div>
-            <div className={styles.board_image}>
-              <Card
-                style={{
-                  width: '400px',
-                  margin: '-15px 0px 3px 4.5px',
-                  border: '1px #cda581 solid',
-                }}
-              >
-                <Card.Content>
-                  <Card.Description>
-                    <table className={styles.tasteStructure}>
-                      <tbody>
-                        <tr className='tasteStructure_tasteCharacteristic'>
-                          <td>
-                            <div className='tasteStructure_property'>Light</div>
-                          </td>
-                          <td className={styles.tasteStructure_progressBar}>
-                            <div className={styles.indicatorBar_meter}>
-                              <span
-                                className={styles.indicatorBar_progress}
-                                style={{
-                                  width: '10%',
-                                  left:
-                                    resultWine.length !== 0
-                                      ? `${resultWine[0].wine.body * 22.5}%`
-                                      : '0%',
-                                }}
-                              ></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className='tasteStructure_property'>Bold</div>
-                          </td>
-                        </tr>
-
-                        <tr className='tasteStructure_tasteCharacteristic'>
-                          <td>
-                            <div className='tasteStructure_property'>
-                              Smooth
-                            </div>
-                          </td>
-                          <td className={styles.tasteStructure_progressBar}>
-                            <div className={styles.indicatorBar_meter}>
-                              <span
-                                className={styles.indicatorBar_progress}
-                                style={{
-                                  width: '10%',
-                                  left:
-                                    resultWine.length !== 0
-                                      ? `${resultWine[0].wine.tannic * 22.5}%`
-                                      : '0%',
-                                }}
-                              ></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className='tasteStructure_property'>
-                              Tannic
-                            </div>
-                          </td>
-                        </tr>
-
-                        <tr className='tasteStructure_tasteCharacteristic'>
-                          <td>
-                            <div className='tasteStructure_property'>Dry</div>
-                          </td>
-                          <td className={styles.tasteStructure_progressBar}>
-                            <div className={styles.indicatorBar_meter}>
-                              <span
-                                className={styles.indicatorBar_progress}
-                                style={{
-                                  width: '10%',
-                                  left:
-                                    resultWine.length !== 0
-                                      ? `${resultWine[0].wine.sweet * 22.5}%`
-                                      : '0%',
-                                }}
-                              ></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className='tasteStructure_property'>Sweet</div>
-                          </td>
-                        </tr>
-
-                        <tr className='tasteStructure_tasteCharacteristic'>
-                          <td>
-                            <div className='tasteStructure_property'>Soft</div>
-                          </td>
-                          <td className={styles.tasteStructure_progressBar}>
-                            <div className={styles.indicatorBar_meter}>
-                              <span
-                                className={styles.indicatorBar_progress}
-                                style={{
-                                  width: '10%',
-                                  left:
-                                    resultWine.length !== 0
-                                      ? `${resultWine[0].wine.acidity * 22.5}%`
-                                      : '0%',
-                                }}
-                              ></span>
-                            </div>
-                          </td>
-                          <td>
-                            <div className='tasteStructure_property'>
-                              Acidic
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </Card.Description>
-                </Card.Content>
-              </Card>
-            </div>
+        {resultWine.length === 0 ? (
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            {' '}
+            해당하는 와인을 찾지 못했어요{' '}
           </div>
-
-          <div className={styles.board_content}>
-            <div className={styles.title_article}>
-              <div className={styles.country_box}>
-                {resultWine.length !== 0 ? resultWine[0].wine.country : ''}
-                &nbsp;&nbsp;| &nbsp;
-                {resultWine.length !== 0
-                  ? resultWine[0].wine.type
-                      .slice(0, 1)
-                      .toUpperCase()
-                      .concat(resultWine[0].wine.type.slice(1))
-                  : ''}
-                &nbsp;&nbsp;|&nbsp;&nbsp;
-                {resultWine.length !== 0 ? resultWine[0].wine.grape : ''}
+        ) : (
+          <div className={styles.result_box}>
+            <div className={styles.image_and_taste}>
+              <div>
+                {resultWine.length !== 0 ? (
+                  <div
+                    style={{
+                      backgroundImage: `url(${resultWine[0].wine.image})`,
+                    }}
+                    className={styles.wine_image}
+                  ></div>
+                ) : (
+                  ''
+                )}
               </div>
+              <div className={styles.board_image}>
+                <Card
+                  style={{
+                    width: '400px',
+                    margin: '-15px 0px 3px 4.5px',
+                    border: '1px #cda581 solid',
+                  }}
+                >
+                  <Card.Content>
+                    <Card.Description>
+                      <table className={styles.tasteStructure}>
+                        <tbody>
+                          <tr className='tasteStructure_tasteCharacteristic'>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Light
+                              </div>
+                            </td>
+                            <td className={styles.tasteStructure_progressBar}>
+                              <div className={styles.indicatorBar_meter}>
+                                <span
+                                  className={styles.indicatorBar_progress}
+                                  style={{
+                                    width: '10%',
+                                    left:
+                                      resultWine.length !== 0
+                                        ? `${resultWine[0].wine.body * 22.5}%`
+                                        : '0%',
+                                  }}
+                                ></span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Bold
+                              </div>
+                            </td>
+                          </tr>
 
-              <div className={styles.heart}>
-                <div className={styles.wineName_heart}>
-                  {resultWine.length !== 0 ? resultWine[0].wine.wineName : ''}
-                </div>
+                          <tr className='tasteStructure_tasteCharacteristic'>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Smooth
+                              </div>
+                            </td>
+                            <td className={styles.tasteStructure_progressBar}>
+                              <div className={styles.indicatorBar_meter}>
+                                <span
+                                  className={styles.indicatorBar_progress}
+                                  style={{
+                                    width: '10%',
+                                    left:
+                                      resultWine.length !== 0
+                                        ? `${resultWine[0].wine.tannic * 22.5}%`
+                                        : '0%',
+                                  }}
+                                ></span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Tannic
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr className='tasteStructure_tasteCharacteristic'>
+                            <td>
+                              <div className='tasteStructure_property'>Dry</div>
+                            </td>
+                            <td className={styles.tasteStructure_progressBar}>
+                              <div className={styles.indicatorBar_meter}>
+                                <span
+                                  className={styles.indicatorBar_progress}
+                                  style={{
+                                    width: '10%',
+                                    left:
+                                      resultWine.length !== 0
+                                        ? `${resultWine[0].wine.sweet * 22.5}%`
+                                        : '0%',
+                                  }}
+                                ></span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Sweet
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr className='tasteStructure_tasteCharacteristic'>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Soft
+                              </div>
+                            </td>
+                            <td className={styles.tasteStructure_progressBar}>
+                              <div className={styles.indicatorBar_meter}>
+                                <span
+                                  className={styles.indicatorBar_progress}
+                                  style={{
+                                    width: '10%',
+                                    left:
+                                      resultWine.length !== 0
+                                        ? `${
+                                            resultWine[0].wine.acidity * 22.5
+                                          }%`
+                                        : '0%',
+                                  }}
+                                ></span>
+                              </div>
+                            </td>
+                            <td>
+                              <div className='tasteStructure_property'>
+                                Acidic
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </Card.Description>
+                  </Card.Content>
+                </Card>
               </div>
             </div>
 
-            <div style={{ display: 'flex', width: '100%' }}>
-              <div className={styles.wine_info}>
-                <div className={styles.wine_price}>
-                  {resultWine.length !== 0 ? resultWine[0].wine.price : ''}원
-                  <div className={styles.vintage}>
-                    {' '}
-                    ({resultWine.length !== 0 ? resultWine[0].wine.vintage : ''}
-                    , 750ml)
+            <div className={styles.board_content}>
+              <div className={styles.title_article}>
+                <div className={styles.country_box}>
+                  {resultWine.length !== 0 ? resultWine[0].wine.country : ''}
+                  &nbsp;&nbsp;| &nbsp;
+                  {resultWine.length !== 0
+                    ? resultWine[0].wine.type
+                        .slice(0, 1)
+                        .toUpperCase()
+                        .concat(resultWine[0].wine.type.slice(1))
+                    : ''}
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
+                  {resultWine.length !== 0 ? resultWine[0].wine.grape : ''}
+                </div>
+
+                <div className={styles.heart}>
+                  <div className={styles.wineName_heart}>
+                    {resultWine.length !== 0 ? resultWine[0].wine.wineName : ''}
                   </div>
                 </div>
-                <div className={styles.wine_description}>
-                  <div>
-                    &nbsp;
-                    {resultWine.length !== 0 ? resultWine[0].wine.content : ''}
+              </div>
+
+              <div style={{ display: 'flex', width: '100%' }}>
+                <div className={styles.wine_info}>
+                  <div className={styles.wine_price}>
+                    {resultWine.length !== 0 ? resultWine[0].wine.price : ''}원
+                    <div className={styles.vintage}>
+                      {' '}
+                      (
+                      {resultWine.length !== 0
+                        ? resultWine[0].wine.vintage
+                        : ''}
+                      , 750ml)
+                    </div>
                   </div>
-                </div>
-                <div style={{ display: 'flex' }}>
-                  <div className={styles.buttons}>
-                    <button
-                      style={{ width: '200px', height: '60px' }}
-                      className='ui button'
-                      onClick={moreRecommendShow}
-                    >
-                      내 셀러에 담기&nbsp; &nbsp;&nbsp;
-                    </button>
-                    <br />
-                    <button
-                      style={{ width: '200px', height: '60px' }}
-                      className='ui button'
-                      onClick={() =>
-                        goToDescription(
-                          resultWine.length !== 0 ? resultWine[0].wine.id : ''
-                        )
-                      }
-                    >
-                      와인 몰에서 보기&nbsp; &nbsp;&nbsp;{' '}
-                    </button>
-                    <br />
-                    <button
-                      style={{ width: '200px', height: '60px' }}
-                      className='ui button'
-                      onClick={retest}
-                    >
-                      테스트 다시하기&nbsp; &nbsp;&nbsp;{' '}
-                    </button>
+                  <div className={styles.wine_description}>
+                    <div>
+                      &nbsp;
+                      {resultWine.length !== 0
+                        ? resultWine[0].wine.content
+                        : ''}
+                    </div>
                   </div>
-                </div>
-                {/* <div className={styles.buttons}>
+                  <div style={{ display: 'flex' }}>
+                    <div className={styles.buttons}>
+                      <button
+                        style={{ width: '200px', height: '60px' }}
+                        className='ui button'
+                        onClick={moreRecommendShow}
+                      >
+                        내 셀러에 담기&nbsp; &nbsp;&nbsp;
+                      </button>
+                      <br />
+                      <button
+                        style={{ width: '200px', height: '60px' }}
+                        className='ui button'
+                        onClick={() =>
+                          goToDescription(
+                            resultWine.length !== 0 ? resultWine[0].wine.id : ''
+                          )
+                        }
+                      >
+                        와인 몰에서 보기&nbsp; &nbsp;&nbsp;{' '}
+                      </button>
+                      <br />
+                      <button
+                        style={{ width: '200px', height: '60px' }}
+                        className='ui button'
+                        onClick={retest}
+                      >
+                        테스트 다시하기&nbsp; &nbsp;&nbsp;{' '}
+                      </button>
+                    </div>
+                  </div>
+                  {/* <div className={styles.buttons}>
                   <button
                     style={{ width: '200px', height: '60px' }}
                     className='ui button'
@@ -288,10 +309,11 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
                     구매하기&nbsp; &nbsp;&nbsp; <Icon name='won'></Icon>
                   </button>
                 </div> */}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
