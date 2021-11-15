@@ -154,9 +154,10 @@ const Mall = ({ toggleModal }) => {
     setList([]);
     //배포할때
     // window.location.reload()
-    window.location.replace(
-      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/mall.html'
-    );
+    // window.location.replace(
+    //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/mall.html'
+    // );
+    window.location.reload();
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;
