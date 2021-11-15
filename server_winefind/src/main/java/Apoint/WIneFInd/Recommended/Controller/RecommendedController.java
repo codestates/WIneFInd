@@ -1,6 +1,7 @@
 package Apoint.WIneFInd.Recommended.Controller;
 
 
+import Apoint.WIneFInd.Cart.Model.Cart;
 import Apoint.WIneFInd.Recommended.Domain.RecommendedDTO;
 import Apoint.WIneFInd.Recommended.Model.Recommended;
 import Apoint.WIneFInd.Recommended.Service.RecommendedService;
@@ -18,23 +19,22 @@ import java.util.List;
 public class RecommendedController {
 
     private final RecommendedService recommendedService;
-    private final HashMap hashMap;
 
     @Autowired
-    public RecommendedController(RecommendedService recommendedService, HashMap hashMap) {
+    public RecommendedController(RecommendedService recommendedService) {
         this.recommendedService = recommendedService;
-        this.hashMap = hashMap;
     }
 
     // 추천리스트에 와인 생성하기
     @PostMapping("recommended")
     public ResponseEntity<?> CreateRecommend(@RequestBody RecommendedDTO recommendedDTO) {
-
         try {
             // recommendDTO 양식에 맞춰서 유저 리스트에 추천와인 생성 진행
             // 만약 예외가 발생하면 아래의 예외처리 실행
             Recommended getRecommended = recommendedService.Save(recommendedDTO);
-            return ResponseEntity.ok().body(hashMap.put("userRecommend", getRecommended));
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("userRecommend", getRecommended);
+            }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 추천리스트를 ‘생성’ 할 수 없습니다. \n" + e);
         } catch (InvalidDataAccessApiUsageException e) {
@@ -48,7 +48,9 @@ public class RecommendedController {
         try {
             // 입력받은 id 로 유저정보의 추천리스트를 조회 및 실패시 에러 처리
             List<Recommended> recommendeds = recommendedService.FindByUserId(id);
-            return ResponseEntity.ok().body(hashMap.put("userRecommended", recommendeds));
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("userRecommended", recommendeds);
+            }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 유저의 추천리스트 를 ‘조회’ 할 수 없습니다. \n" + e);
 

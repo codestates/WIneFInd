@@ -17,12 +17,10 @@ import java.util.List;
 public class WineController {
 
     private final WineService wineService;
-    private final HashMap hashMap;
 
     @Autowired
-    public WineController(WineService wineService, HashMap hashMap) {
+    public WineController(WineService wineService) {
         this.wineService = wineService;
-        this.hashMap = hashMap;
     }
 
     // 와인 생성
@@ -33,7 +31,9 @@ public class WineController {
             // 입력받은 'wineDTO'로 와인 생성
             Wine wineSave = wineService.Save(wineDTO);
 
-            return ResponseEntity.ok().body(hashMap.put("wineInfo", wineSave));
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("wineInfo", wineSave);
+            }});
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(500).body("'WineDTO' 양식에 맞춰서 다시 기입해 주시기 바랍니다. : " + e);
         }
@@ -65,7 +65,9 @@ public class WineController {
             // 입력받은 정보로 와인 필터링
             List<Wine> wines = wineService.FindByWineFiltering(wineFilterDTO);
 
-            return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("wineInfo", wines);
+            }});
         } catch (NullPointerException e) {
             return ResponseEntity.status(500).body("필터링을 수행한 결과 아무값도 '조회’ 할 수 없습니다. \n" + e);
         }
@@ -80,12 +82,16 @@ public class WineController {
             // id 값이 존재 한다면 Id값에 해당하는 와인 조회
             if (id != null) {
                 Wine wine = wineService.FindById(id);
-                return ResponseEntity.ok().body(hashMap.put("wineInfo", wine));
-            }
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("wineInfo", wine);
+                }});
 
-            // id 값이 존재 하지 않는다면 해당 와인 전체 조회
-            List<Wine> wines = wineService.FindByAll();
-            return ResponseEntity.ok().body(hashMap.put("wineInfo", wines));
+                // id 값이 존재 하지 않는다면 해당 와인 전체 조회
+                List<Wine> wines = wineService.FindByAll();
+                return ResponseEntity.ok().body(new HashMap<>() {{
+                    put("wineInfo", wines);
+                }});
+            }
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 와인을 '조회' 할 수 없습니다. \n" + e);
         }
@@ -99,7 +105,9 @@ public class WineController {
             // 입력받은 Id로 와인 수정
             Wine updateWine = wineService.Update(wineDTO, id);
 
-            return ResponseEntity.ok().body(hashMap.put("wineInfo", updateWine));
+            return ResponseEntity.ok().body(new HashMap<>() {{
+                put("wineInfo", updateWine);
+            }});
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(500).body("해당 와인을 '수정' 할 수 없습니다. \n" + e);
         } catch (DataIntegrityViolationException e) {
