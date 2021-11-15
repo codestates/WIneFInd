@@ -11,3 +11,7 @@ public class RecommendedDTO {
     private Long articleId;
 
 }
+
+
+
+
