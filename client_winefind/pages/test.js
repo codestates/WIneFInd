@@ -1,5 +1,4 @@
 import styles from '../styles/Test.module.css';
-import Questions from '../components/Questions';
 import Questions_image1 from '../components/Questions/Questions_image1';
 import Questions_image2 from '../components/Questions/Questions_image2';
 import Questions_image3 from '../components/Questions/Questions_image3';
