@@ -81,8 +81,9 @@ const Shoppinglist = () => {
           .then((res) => {
             // 배포할때;
             window.location.replace(
-              'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/shoppinglist.html'
+              `${process.env.NEXT_PUBLIC_CLIENT_URL}/shoppinglist.html`
             );
+            //개발할때
             // window.location.reload();
           })
           .catch((e) => {

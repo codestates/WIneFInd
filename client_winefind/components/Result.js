@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 
 import styles from '../styles/Result.module.css';
 import { Card, Icon } from 'semantic-ui-react';
-import { style } from 'dom-helpers';
 
 const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
   const router = useRouter();
@@ -29,11 +28,8 @@ const Result = ({ resultWine, result, toggleModal, addToFavorite }) => {
     router.push(`/mall/${ele}`);
   };
   const retest = () => {
-    //배포할때
-    // window.location.replace('http://localhost:3000/test');
-    window.location.replace(
-      'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/test.html'
-    );
+    //배포할때 / 개발할때 html 빼기
+    window.location.replace(`${process.env.NEXT_PUBLIC_CLIENT_URL}/test.html`);
   };
 
   return (

@@ -95,7 +95,7 @@ const Upload = () => {
     if (image == undefined) {
       alert('이미지를 선택해 주세요');
     } else {
-      let url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
+      let url = `${process.env.IMAGE_BUCKET}/${
         userInfo.id + '-wine-' + image.name
       }`;
 
@@ -141,7 +141,6 @@ const Upload = () => {
           )
           .then((res) => {
             console.log('정보 수정이 완료되었습니다.');
-            //배포할때 고려해.
             router.push('/mall');
           })
           .catch((e) => {
