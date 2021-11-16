@@ -14,21 +14,13 @@ const Kakao = () => {
           localStorage.setItem('winefind', res.data.token);
 
           console.log('kakao login success');
-          // window.location.replace('http://localhost:3000');
-          // 배포할때;
-          window.location.replace(
-            'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
-          );
+          //배포할때 / 개발할때 html 빼기 (여긴 됨)
+          window.location.replace(`${process.env.NEXT_PUBLIC_CLIENT_URL}`);
           setTimeout(alert('카카오 로그인 되었습니다'), 3000);
         })
         .catch((e) => {
           console.log('get kakao api failed:', e);
-          // window.location.replace('http://localhost:3000');
-
-          // 배포할때
-          window.location.replace(
-            'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com'
-          );
+          window.location.replace(`${process.env.NEXT_PUBLIC_CLIENT_URL}`);
         });
     }
   }, []);

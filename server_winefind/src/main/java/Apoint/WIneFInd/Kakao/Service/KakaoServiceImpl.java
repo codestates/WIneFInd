@@ -15,6 +15,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
@@ -31,8 +32,9 @@ public class KakaoServiceImpl implements KakaoService {
 
     private final MemberRepository memberRepository;
     private final KaKaoPayRepository kaKaoPayRepository;
-    private static final String admin = "926a12859fb51ae9c6a79c169f705054";
-    private static final String client_id = "6ab487b37d3f625148fed9baabb3e7a8";
+    private final PasswordEncoder passwordEncoder;
+
+
     private static final String cid = "TC0ONETIME";
 
     private KaKaoPayment kaKaoPayment;
@@ -40,11 +42,16 @@ public class KakaoServiceImpl implements KakaoService {
     private KaKaoPay kaKaoPay;
 
     @Autowired
-    public KakaoServiceImpl(MemberRepository memberRepository, KaKaoPayRepository kaKaoPayRepository) {
+    public KakaoServiceImpl(MemberRepository memberRepository, KaKaoPayRepository kaKaoPayRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
         this.kaKaoPayRepository = kaKaoPayRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    @Value("${KaKao.client_id}")
+    private String client_id;
+    @Value("${KaKao.admin_id}")
+    private String admin;
     @Value("${config.domain}")
     private String domain;
 
@@ -88,13 +95,14 @@ public class KakaoServiceImpl implements KakaoService {
             count++;
         }
 
+        String encodePass = passwordEncoder.encode("0000");
         // 유효성 검사 통과하면 유저 객체 안에 저장
         Date now = new Date();
         User user = User.builder()
                 .email(email)
                 .username(username)
                 .role(RoleType.KAKAO)
-                .password("0000")
+                .password(encodePass)
                 .image("https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/default_img.png")
                 .createdAt(now)
                 .updatedAt(now)
@@ -279,7 +287,6 @@ public class KakaoServiceImpl implements KakaoService {
         bodys.add("quantity", kaKaoPay.getQuantity());
         bodys.add("total_amount", kaKaoPay.getTotal_amount());
         bodys.add("tax_free_amount", kaKaoPay.getTax_free_amount());
-        //배포
         bodys.add("approval_url", domain+"/success.html");
 //        bodys.add("approval_url", domain + "/success");
 
@@ -350,6 +357,8 @@ public class KakaoServiceImpl implements KakaoService {
 
         // 위에서 작성한 RestTemplate로 데이터 보내고 받기
         ResponseEntity<String> response = kakaoaAproveTempl.exchange(reqUrl, HttpMethod.POST, kakaoaAproveReq, String.class);
+
+        System.out.println("response.getBody() = " + response.getBody());
 
         // 응답받은 데이터 리턴
         return response.getBody();

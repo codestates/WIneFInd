@@ -87,13 +87,10 @@ const Test = ({ toggleModal }) => {
             });
         }
         router.push('/user');
+        //배포할때 개발할때 .html 빼기.
         window.location.replace(
-          'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/user.html'
+          `${process.env.NEXT_PUBLIC_CLIENT_URL}/user.html`
         );
-
-        // window.location.replace(
-        //   'http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/user.html'
-        // );
       })
       .catch((e) => {
         console.log("not loggined, can't add");

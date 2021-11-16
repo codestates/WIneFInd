@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,11 +24,14 @@ public class MemberServiceImpl implements MemberService {
 
     private final static String SIGN_KEY = "apoinkey";
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MemberServiceImpl(MemberRepository memberRepository) {
+    public MemberServiceImpl(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     // "User" 회원 가입
     @Override
@@ -40,9 +44,13 @@ public class MemberServiceImpl implements MemberService {
             Date now = new Date();
 
             // 유효성 검사가 통과하면 "User"정보 생성  role 은 기본적으로 "User"로 생성
+            // 비밀번호는 Bcrypt를 이용한 단방향 암호로 저장
+            String encodePass = passwordEncoder.encode(signUpDTO.getPassword());
+            String defaultPass = passwordEncoder.encode("0000");
+            System.out.println("defaultPass = " + defaultPass);
             User user = User.builder()
                     .email(signUpDTO.getEmail())
-                    .password(signUpDTO.getPassword())
+                    .password(encodePass)
                     .username(signUpDTO.getUsername())
                     .image("https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/default_img.png")
                     .role(RoleType.USER)
@@ -108,12 +116,28 @@ public class MemberServiceImpl implements MemberService {
         // 유저 DB 안에 "Email"과 "Password"를 찾아 옵니다.
         User chckUser = getEmail(loginDTO.getEmail());
 
-        // 로그인 정보로 입벽받은 "Email"과 "Password"가 일치하는지 확인하고 맞지 않으면 Error 맞으면 리턴
-        if (!(chckUser.getEmail().equals(loginDTO.getEmail()) && chckUser.getPassword().equals(loginDTO.getPassword()))) {
-            throw new IllegalArgumentException("'Email' 과 'Password' 가 맞지 않습니다 .");
+        // 로그인 정보로 입벽받은 "Email" 이 존재하는지 판별
+        if (chckUser.getEmail() == null) {
+            throw new IllegalArgumentException("해당 'Email' 이 존재 하지 않습니다.");
         }
+
+        // 관리자 일경우엔 바로 로그인
+        if (chckUser.getPassword().equals("0000")) {
+            return chckUser;
+        }
+
+        // 기존의 해쉬값으로 저장된 비밀번호와 loginDTO 로 들어온 비밀번호를 비교하여 true false 판별
+        boolean check = passwordEncoder.matches(loginDTO.getPassword(), chckUser.getPassword());
         // "Email"과 "Password"를 체크한 후에 동일하면 "Email" 실패하면 "Error"를 반환합니다.
-        return chckUser;
+
+        // 비밀번호가 일치하면 유저를 리턴하고 틀렸다면 에러 발생
+        if (check) {
+            return chckUser;
+        } else {
+            throw new IllegalArgumentException("비밀번호가 틀렸습니다 다시 입력해 주십시오.");
+        }
+
+
     }
 
     // "User" 정보 수정
