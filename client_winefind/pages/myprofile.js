@@ -21,7 +21,7 @@ const Myprofile = () => {
   AWS.config.update({
     region: 'ap-northeast-2', // 버킷이 존재하는 리전을 문자열로 입력합니다. (Ex. "ap-northeast-2")
     credentials: new AWS.CognitoIdentityCredentials({
-      IdentityPoolId: process.env.IdentityPoolId, // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
+      IdentityPoolId: 'ap-northeast-2:2c0786f6-5e2d-4f84-a3bc-9bd78b8fd55e', // cognito 인증 풀에서 받아온 키를 문자열로 입력합니다. (Ex. "ap-northeast-2...")
     }),
   });
 
@@ -72,7 +72,9 @@ const Myprofile = () => {
         image_url = userInfo.image;
         console.log('image null');
       } else {
-        image_url = `${process.env.IMAGE_BUCKET}/${userInfo.id + image.name}`;
+        image_url = `https://mywinefindimagebucket.s3.ap-northeast-2.amazonaws.com/${
+          userInfo.id + image.name
+        }`;
       }
       if (values.username === '') {
         new_username = userInfo.username;
