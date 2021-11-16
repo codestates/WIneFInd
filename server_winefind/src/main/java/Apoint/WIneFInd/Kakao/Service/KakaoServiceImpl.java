@@ -34,8 +34,7 @@ public class KakaoServiceImpl implements KakaoService {
     private final KaKaoPayRepository kaKaoPayRepository;
     private final PasswordEncoder passwordEncoder;
 
-    private static final String admin = "926a12859fb51ae9c6a79c169f705054";
-    private static final String client_id = "6ab487b37d3f625148fed9baabb3e7a8";
+
     private static final String cid = "TC0ONETIME";
 
     private KaKaoPayment kaKaoPayment;
@@ -49,6 +48,10 @@ public class KakaoServiceImpl implements KakaoService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Value("${KaKao.client_id}")
+    private String client_id;
+    @Value("${KaKao.admin_id}")
+    private String admin;
     @Value("${config.domain}")
     private String domain;
 
