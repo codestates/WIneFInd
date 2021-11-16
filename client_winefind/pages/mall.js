@@ -152,7 +152,10 @@ const Mall = ({ toggleModal }) => {
 
   const eraseAll = () => {
     setList([]);
-    window.location.reload();
+    //배포할때
+    window.location.replace(`${process.env.NEXT_PUBLIC_CLIENT_URL}/mall.html`);
+    //개발할때
+    // window.location.reload();
   };
   const eraseThis = (e) => {
     let erase_target = e.target.innerText;

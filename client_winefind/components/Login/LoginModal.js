@@ -14,6 +14,11 @@ const LoginModal = ({ toggleModal, modal }) => {
       setIsLoginOrSignup(() => true);
     }
   };
+  function enterkey(func) {
+    if (window.event.keyCode == 13) {
+      func();
+    }
+  }
   return (
     <>
       <a
@@ -31,11 +36,13 @@ const LoginModal = ({ toggleModal, modal }) => {
             <Login
               changeLoginToSignup={changeLoginToSignup}
               toggleModal={toggleModal}
+              enterkey={enterkey}
             />
           ) : (
             <Signup
               changeLoginToSignup={changeLoginToSignup}
               toggleModal={toggleModal}
+              enterkey={enterkey}
             />
           )}
         </div>

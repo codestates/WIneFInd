@@ -31,6 +31,7 @@ function Top({ toggleModal, modal }) {
   const handleLogout = () => {
     localStorage.removeItem('winefind');
     router.push('/');
+    alert('로그아웃 되었습니다');
     window.location.reload();
   };
 

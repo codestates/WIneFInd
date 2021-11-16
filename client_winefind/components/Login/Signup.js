@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-const Signup = ({ toggleModal, changeLoginToSignup }) => {
+const Signup = ({ toggleModal, changeLoginToSignup, enterkey }) => {
   const [signUpInfo, setSignUpInfo] = useState({
     email: '',
     nickname: '',
@@ -67,14 +67,15 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
           },
           { withCredentials: true }
         )
-        .then(() => {
+        .then((res) => {
           console.log('signup Success!');
+          localStorage.setItem('winefind', res.data.token);
           window.location.reload();
           alert('회원가입 성공하였습니다. 바로 서비스를 이용하세요!');
         })
         .catch(() => {
+          alert('이미 존재하는 아이디입니다.');
           console.log('Signup failed!');
-          window.location.reload();
         });
     }
   };
@@ -153,6 +154,7 @@ const Signup = ({ toggleModal, changeLoginToSignup }) => {
                   value={signUpInfo.checkPassword}
                   placeholder='Check Password'
                   onChange={handleInputValue('checkPassword')}
+                  onKeyUp={() => enterkey(createAccount)}
                 />
               </div>
             </div>

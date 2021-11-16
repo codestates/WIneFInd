@@ -4,7 +4,7 @@ import { Icon, Button } from 'semantic-ui-react';
 import axios from 'axios';
 import { useRouter } from 'next/dist/client/router';
 
-const Login = ({ changeLoginToSignup, toggleModal }) => {
+const Login = ({ changeLoginToSignup, toggleModal, enterkey }) => {
   const [logInInfo, setLoginInfo] = useState({
     email: '',
     password: '',
@@ -48,10 +48,8 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
 
   const kakaoLogin = () => {
     router.push(
-      //배포할때:
-      // 'https://kauth.kakao.com/oauth/authorize?client_id=6ab487b37d3f625148fed9baabb3e7a8&redirect_uri=http://mywinefindbucket.s3-website.ap-northeast-2.amazonaws.com/kakao.html&response_type=code'
-      // 개발할때:
-      'https://kauth.kakao.com/oauth/authorize?client_id=6ab487b37d3f625148fed9baabb3e7a8&redirect_uri=http://localhost:3000/kakao&response_type=code'
+      //배포할때 / 개발할때 html 빼기
+      `https://kauth.kakao.com/oauth/authorize?client_id=6ab487b37d3f625148fed9baabb3e7a8&redirect_uri=${process.env.NEXT_PUBLIC_CLIENT_URL}/kakao.html&response_type=code`
     );
   };
   return (
@@ -69,6 +67,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   onChange={handleLoginInputValue('email')}
                   value={logInInfo.email}
                   styles={{ width: '10rem' }}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
               <div className={styles.form}>
@@ -78,6 +77,7 @@ const Login = ({ changeLoginToSignup, toggleModal }) => {
                   placeholder='Password'
                   onChange={handleLoginInputValue('password')}
                   value={logInInfo.password}
+                  onKeyUp={() => enterkey(handleLogin)}
                 />
               </div>
             </div>

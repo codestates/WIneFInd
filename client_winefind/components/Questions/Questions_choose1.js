@@ -34,7 +34,7 @@ export default function Questions_choose1({ questionnum, next }) {
             <h1>네! 좋아해요</h1>
           </div>
           <div>
-            <h1>별로에요</h1>
+            <h1>별로예요</h1>
           </div>
         </div>
       </div>

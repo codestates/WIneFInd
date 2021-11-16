@@ -1,5 +1,4 @@
 import styles from '../styles/Test.module.css';
-import Questions from '../components/Questions';
 import Questions_image1 from '../components/Questions/Questions_image1';
 import Questions_image2 from '../components/Questions/Questions_image2';
 import Questions_image3 from '../components/Questions/Questions_image3';
@@ -88,7 +87,10 @@ const Test = ({ toggleModal }) => {
             });
         }
         router.push('/user');
-        window.location.replace('http://localhost:3000/user');
+        //배포할때 개발할때 .html 빼기.
+        window.location.replace(
+          `${process.env.NEXT_PUBLIC_CLIENT_URL}/user.html`
+        );
       })
       .catch((e) => {
         console.log("not loggined, can't add");
